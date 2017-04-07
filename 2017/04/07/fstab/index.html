@@ -11,17 +11,17 @@
   
   
   
-  <meta name="description" content="##fstab文件格式 下面是/etc/fatab文件的一个示例行： fs_spec     fs_file fs_type     fs_options  fs_dump    fs_pass /dev/hda1   /       ext2        defaults    1          1      fs_spec - 该字段定义希望加载的文件系统所在的设备或远程文件系统，对于一">
+  <meta name="description" content="fstab文件格式下面是/etc/fatab文件的一个示例行： fs_spec     fs_file fs_type     fs_options  fs_dump    fs_pass /dev/hda1   /       ext2        defaults    1          1      fs_spec - 该字段定义希望加载的文件系统所在的设备或远程文件系统，对于一般的本">
 <meta name="keywords" content="Android fstab">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android fstab介绍">
 <meta property="og:url" content="http://yoursite.com/2017/04/07/fstab/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
-<meta property="og:description" content="##fstab文件格式 下面是/etc/fatab文件的一个示例行： fs_spec     fs_file fs_type     fs_options  fs_dump    fs_pass /dev/hda1   /       ext2        defaults    1          1      fs_spec - 该字段定义希望加载的文件系统所在的设备或远程文件系统，对于一">
-<meta property="og:updated_time" content="2017-04-07T10:05:32.215Z">
+<meta property="og:description" content="fstab文件格式下面是/etc/fatab文件的一个示例行： fs_spec     fs_file fs_type     fs_options  fs_dump    fs_pass /dev/hda1   /       ext2        defaults    1          1      fs_spec - 该字段定义希望加载的文件系统所在的设备或远程文件系统，对于一般的本">
+<meta property="og:updated_time" content="2017-04-07T10:24:23.259Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android fstab介绍">
-<meta name="twitter:description" content="##fstab文件格式 下面是/etc/fatab文件的一个示例行： fs_spec     fs_file fs_type     fs_options  fs_dump    fs_pass /dev/hda1   /       ext2        defaults    1          1      fs_spec - 该字段定义希望加载的文件系统所在的设备或远程文件系统，对于一">
+<meta name="twitter:description" content="fstab文件格式下面是/etc/fatab文件的一个示例行： fs_spec     fs_file fs_type     fs_options  fs_dump    fs_pass /dev/hda1   /       ext2        defaults    1          1      fs_spec - 该字段定义希望加载的文件系统所在的设备或远程文件系统，对于一般的本">
   
     <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
   
@@ -175,8 +175,7 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>##fstab文件格式</p>
-<pre><code>下面是/etc/fatab文件的一个示例行：
+        <h2 id="fstab文件格式"><a href="#fstab文件格式" class="headerlink" title="fstab文件格式"></a>fstab文件格式</h2><pre><code>下面是/etc/fatab文件的一个示例行：
 fs_spec     fs_file fs_type     fs_options  fs_dump    fs_pass
 /dev/hda1   /       ext2        defaults    1          1    
 
@@ -189,9 +188,28 @@ fs_type - 定义了该设备上的文件系统，一般常见的文件类型为e
           式)、NTFS、iso9600等。
 fs_options - 指定加载该设备的文件系统是需要使用的特定参数选项，多个参数是由逗号分隔开来。对于大多数系统使用&quot;defaults&quot;
              就可以满足需要。其他常见的选项包括：
-</code></pre><p>###选项含义:<br>    ro      以只读模式加载该文件系统<br>    sync    不对该设备的写操作进行缓冲处理，这可以防止在非正常关机时情况下破坏文件系统，但是却降低了计算机速度<br>    user    允许普通用户加载该文件系统<br>    quota   强制在该文件系统上进行磁盘定额限制<br>    noauto  不再使用mount －a命令（例如系统启动时）加载该文件系统<br>    fs_dump 该选项被”dump”命令使用来检查一个文件系统应该以多快频率进行转储，若不需要转储就设置该字段为0<br>    fs_pass 该字段被fsck命令用来决定在启动时需要被扫描的文件系统的顺序，根文件系统”/“对应该字段的值应该为1，<br>            其他文件系统应该为2。若该文件系统无需在启动时扫描则设置该字段为0</p>
-<p>##ubuntu上实例：<br>    <file system="">                             <mount point="">   <type>  <options>      <dump>  <pass><br>    / was on /dev/sda1 during installation<br>    UUID=757fbb2f-6ee4-4a05-ad2e-0c16b3edc982 /               ext4    errors=remount-ro 0     1<br>    /home was on /dev/sda6 during installation<br>    UUID=a018cd99-6608-43fc-adea-319a5f04fb29 /home           ext4    defaults        0       2<br>    /opt was on /dev/sda7 during installation<br>    UUID=0351ac71-4e1d-4194-8d7f-4d9e873e5830 /opt            ext4    defaults        0       2<br>    /work was on /dev/sda8 during installation<br>    UUID=3f49c9cc-c9cc-48c5-aa8e-058a1d1ec7ad /work           ext4    defaults        0       2<br>    /work2 was on /dev/sda9 during installation<br>    UUID=e2f54160-fb2d-4517-af54-13393f80ef5f /work2          ext4    defaults        0       2<br>    swap was on /dev/sda5 during installation<br>    UUID=d15cbce2-bff1-4241-9c3c-6811f4a1d67d none            swap    sw              0       0</pass></dump></options></type></mount></file></p>
-
+</code></pre><h3 id="选项含义"><a href="#选项含义" class="headerlink" title="选项含义:"></a>选项含义:</h3><pre><code>ro      以只读模式加载该文件系统
+sync    不对该设备的写操作进行缓冲处理，这可以防止在非正常关机时情况下破坏文件系统，但是却降低了计算机速度
+user    允许普通用户加载该文件系统
+quota   强制在该文件系统上进行磁盘定额限制
+noauto  不再使用mount －a命令（例如系统启动时）加载该文件系统
+fs_dump 该选项被&quot;dump&quot;命令使用来检查一个文件系统应该以多快频率进行转储，若不需要转储就设置该字段为0
+fs_pass 该字段被fsck命令用来决定在启动时需要被扫描的文件系统的顺序，根文件系统&quot;/&quot;对应该字段的值应该为1，
+        其他文件系统应该为2。若该文件系统无需在启动时扫描则设置该字段为0
+</code></pre><h3 id="ubuntu上实例"><a href="#ubuntu上实例" class="headerlink" title="ubuntu上实例:"></a>ubuntu上实例:</h3><pre><code>&lt;file system&gt;                             &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;      &lt;dump&gt;  &lt;pass&gt;
+/ was on /dev/sda1 during installation
+UUID=757fbb2f-6ee4-4a05-ad2e-0c16b3edc982 /               ext4    errors=remount-ro 0     1
+/home was on /dev/sda6 during installation
+UUID=a018cd99-6608-43fc-adea-319a5f04fb29 /home           ext4    defaults        0       2
+/opt was on /dev/sda7 during installation
+UUID=0351ac71-4e1d-4194-8d7f-4d9e873e5830 /opt            ext4    defaults        0       2
+/work was on /dev/sda8 during installation
+UUID=3f49c9cc-c9cc-48c5-aa8e-058a1d1ec7ad /work           ext4    defaults        0       2
+/work2 was on /dev/sda9 during installation
+UUID=e2f54160-fb2d-4517-af54-13393f80ef5f /work2          ext4    defaults        0       2
+swap was on /dev/sda5 during installation
+UUID=d15cbce2-bff1-4241-9c3c-6811f4a1d67d none            swap    sw              0       0
+</code></pre>
       
     </div>
     <footer class="article-footer">
@@ -246,7 +264,7 @@ fs_options - 指定加载该设备的文件系统是需要使用的特定参数�
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="artnav">无</ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#fstab文件格式"><span class="nav-number">1.</span> <span class="nav-text">fstab文件格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选项含义"><span class="nav-number">1.1.</span> <span class="nav-text">选项含义:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ubuntu上实例"><span class="nav-number">1.2.</span> <span class="nav-text">ubuntu上实例:</span></a></li></ol></li></ol>
     
     </div>
   </aside>
