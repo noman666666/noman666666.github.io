@@ -3,18 +3,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>进无止境&#39;s 博客</title>
+  <title>hexo入手 | 进无止境&#39;s 博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="网页 博客" />
   
   
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="进无止境's 博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  
+  <meta name="description" content="1. 安装nodejs从官网下载对应平台binary 包，安装（linux直接将bin lib目录的文件cp到usr/local对应目录下，Window直接点击安装） 2. 安装hexonpm install hexo-cli -g 3. 新建bloghexo init blog cd blog npm install hexo server 3. 解决一个warningnpm install -">
+<meta name="keywords" content="网页 博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo入手">
+<meta property="og:url" content="http://yoursite.com/2017/04/07/Hexo入手/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
+<meta property="og:description" content="1. 安装nodejs从官网下载对应平台binary 包，安装（linux直接将bin lib目录的文件cp到usr/local对应目录下，Window直接点击安装） 2. 安装hexonpm install hexo-cli -g 3. 新建bloghexo init blog cd blog npm install hexo server 3. 解决一个warningnpm install -">
+<meta property="og:updated_time" content="2017-04-07T10:02:35.221Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="进无止境's 博客">
+<meta name="twitter:title" content="Hexo入手">
+<meta name="twitter:description" content="1. 安装nodejs从官网下载对应平台binary 包，安装（linux直接将bin lib目录的文件cp到usr/local对应目录下，Window直接点击安装） 2. 安装hexonpm install hexo-cli -g 3. 新建bloghexo init blog cd blog npm install hexo server 3. 解决一个warningnpm install -">
   
     <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
   
@@ -39,9 +46,11 @@
   <link rel="stylesheet" href="/css/bootstrap.css" >
 
   
-    <link rel="stylesheet" href="/css/home.css" >
+    <link rel="stylesheet" href="/css/dialog.css">
   
 
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
   
 
   
@@ -50,129 +59,107 @@
 
 
 
-  <body>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
 
 
-  
-    <header id="header">
-
-  
-    <div id="intrologo" class="intro-logo" style="background-position:center; background-repeat:no-repeat; background-image: url(); background-size: auto 100%;">
-    <script>
-        var imgUrls = "css/images/home-bg.jpg,css/images/sample.jpg,http://t.cn/RMbvEza".split(",");
-        var random = Math.floor((Math.random() * imgUrls.length ));
-        if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
-          document.getElementById("intrologo").style.backgroundImage='url(' + imgUrls[random] + ')';
-        } else {
-          document.getElementById("intrologo").style.backgroundImage='url(/' + imgUrls[random] + ')';
-        }
-    </script>
-  
-
-    <canvas width="100%" height="100%"></canvas>
-    <script>
-      var c = document.getElementsByTagName('canvas')[0],
-          x = c.getContext('2d'),
-          w = window.innerWidth,
-          h = window.innerHeight,
-          pr = window.devicePixelRatio || 1,
-          f = 90,
-          q,
-          m = Math,
-          r = 0,
-          u = m.PI*2,
-          v = m.cos,
-          z = m.random
-      c.width = w*pr
-      c.height = h*pr
-      x.scale(pr, pr)
-      x.globalAlpha = 0.6
-
-      
-    </script>
-    
-
-    
-      <div id="homelogo" class="homelogo" style="background: rgba(255,255,255,1);"> 
-    
-
-        
-          <div class="homelogoback"  style="border: 1px solid #404040;" >
-            <h1><a href="#content" id="logo">进无止境&#39;s 博客</a></h1>
-            <h3></h3>
-            <h5>Jim</h5>
-            <!-- <p><a href="https://github.com/iTimeTraveler" target="_blank">Github</a></p> -->
-          </div>
-        
-    
-    </div>
-  </div>
-
-  <!-- 自适应主页背景大图 -->
-  
-    <script>
-        var img = new Image();
-        var intrologodiv = document.getElementById("intrologo");
-        img.src = intrologodiv.style.backgroundImage.replace('url(','').replace(')','').replace(/\"/gi, "");
-        img.onload=function(){
-          if (img.width / img.height <= document.body.clientWidth / document.body.clientHeight) {
-            intrologodiv.style.backgroundSize = "100% auto";
-          } else {
-            intrologodiv.style.backgroundSize = "auto 100%";
-          }
-        };
-    </script>
- 
-
- <!-- home_logo_image居中 -->
- 
-    <script>
-        var homelogodiv = document.getElementById("homelogo");
-        if (document.all.homelogo.offsetWidth > document.body.clientWidth) {
-          homelogodiv.style.width = document.body.clientWidth + "px";
-          homelogodiv.style.marginLeft = document.body.clientWidth * -0.5 + "px";
-        } else {
-          homelogodiv.style.width = homelogodiv.clientWidth  + "px";
-          homelogodiv.style.marginLeft = (homelogodiv.clientWidth)  * -0.5 + "px";
-        }
-    </script>
-  
-
-  <div class="intro-navigate">
-      <p class="navigater-list">
-        
-          <a id="beautifont" class="main-nav-link" href="/">首页</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/archives">归档</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/categories">分类</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/tags">标签</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/about">关于</a>
-        
-      </p>
-  </div>
-
-</header>
   
   <div id="container">
     <div id="wrap">
       
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;">
-  
-    <article id="post-Hexo入手"  class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-Hexo入手" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
       <header class="article-header">
         
   
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/07/Hexo入手/">Hexo入手</a>
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Hexo入手
     </h1>
   
 
@@ -208,80 +195,67 @@ deploy:
     </div>
     <footer class="article-footer">
       
+        
+	<div id="comment">
+	
+	<!-- 多说评论框 start -->
+	 <div class="ds-thread" data-thread-key="/2017/04/07/Hexo入手/" data-title="Hexo入手" data-url="http://yoursite.com/2017/04/07/Hexo入手/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"iTimeTraveler"};
+	  (function() {
+	    var ds = document.createElement('script');
+	    ds.type = 'text/javascript';ds.async = true;
+	    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	    ds.charset = 'UTF-8';
+	    (document.getElementsByTagName('head')[0] 
+	     || document.getElementsByTagName('body')[0]).appendChild(ds);
+	  })();
+	  </script>
+	<!-- 多说公共JS代码 end -->
+	
+	</div>
+
+
+      
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网页-博客/">网页 博客</a></li></ul>
 
     </footer>
   </div>
   
-</article>
-
-<!-- Table of Contents -->
-
+    
+<nav id="article-nav">
   
-    <article id="post-fstab"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2017/04/07/fstab/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
         
+          Android fstab介绍
+        
+      </div>
+    </a>
   
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/07/fstab/">Android fstab介绍</a>
-    </h1>
   
+</nav>
 
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/04/07/fstab/" class="article-date">
-	  <time datetime="2017-04-07T08:01:57.000Z" itemprop="datePublished">2017-04-07</time>
-	</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>##fstab文件格式</p>
-<pre><code>下面是/etc/fatab文件的一个示例行：
-fs_spec     fs_file fs_type     fs_options  fs_dump    fs_pass
-/dev/hda1   /       ext2        defaults    1          1    
-
-fs_spec - 该字段定义希望加载的文件系统所在的设备或远程文件系统，对于一般的本地块设备情况来说：IDE设备一般描述为
-          /dev/hdaXN，X是IDE设备通道 (a, b, or c)，N代表分区号；SCSI设备一描述为/dev/sdaXN。对于NFS情况，格式一般为:
-         例 如：`knuth.aeb.nl:/&apos;。对于procfs，使用`proc&apos;来定义。
-fs_file - 该字段描述希望的文件系统加载的目录点，对于swap设备，该字段为none；对于加载目录名包含空格的情况，用40来
-          表示空格。
-fs_type - 定义了该设备上的文件系统，一般常见的文件类型为ext2 (linux设备的常用文件类型)、vfat(Windows系统的fat32格
-          式)、NTFS、iso9600等。
-fs_options - 指定加载该设备的文件系统是需要使用的特定参数选项，多个参数是由逗号分隔开来。对于大多数系统使用&quot;defaults&quot;
-             就可以满足需要。其他常见的选项包括：
-</code></pre><p>###选项含义:<br>    ro      以只读模式加载该文件系统<br>    sync    不对该设备的写操作进行缓冲处理，这可以防止在非正常关机时情况下破坏文件系统，但是却降低了计算机速度<br>    user    允许普通用户加载该文件系统<br>    quota   强制在该文件系统上进行磁盘定额限制<br>    noauto  不再使用mount －a命令（例如系统启动时）加载该文件系统<br>    fs_dump 该选项被”dump”命令使用来检查一个文件系统应该以多快频率进行转储，若不需要转储就设置该字段为0<br>    fs_pass 该字段被fsck命令用来决定在启动时需要被扫描的文件系统的顺序，根文件系统”/“对应该字段的值应该为1，<br>            其他文件系统应该为2。若该文件系统无需在启动时扫描则设置该字段为0</p>
-<p>##ubuntu上实例：<br>    <file system="">                             <mount point="">   <type>  <options>      <dump>  <pass><br>    / was on /dev/sda1 during installation<br>    UUID=757fbb2f-6ee4-4a05-ad2e-0c16b3edc982 /               ext4    errors=remount-ro 0     1<br>    /home was on /dev/sda6 during installation<br>    UUID=a018cd99-6608-43fc-adea-319a5f04fb29 /home           ext4    defaults        0       2<br>    /opt was on /dev/sda7 during installation<br>    UUID=0351ac71-4e1d-4194-8d7f-4d9e873e5830 /opt            ext4    defaults        0       2<br>    /work was on /dev/sda8 during installation<br>    UUID=3f49c9cc-c9cc-48c5-aa8e-058a1d1ec7ad /work           ext4    defaults        0       2<br>    /work2 was on /dev/sda9 during installation<br>    UUID=e2f54160-fb2d-4517-af54-13393f80ef5f /work2          ext4    defaults        0       2<br>    swap was on /dev/sda5 during installation<br>    UUID=d15cbce2-bff1-4241-9c3c-6811f4a1d67d none            swap    sw              0       0</pass></dump></options></type></mount></file></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-fstab/">Android fstab</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
 
 <!-- Table of Contents -->
 
-  
-
-
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-安装nodejs"><span class="nav-number">1.</span> <span class="nav-text">1. 安装nodejs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-安装hexo"><span class="nav-number">2.</span> <span class="nav-text">2. 安装hexo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-新建blog"><span class="nav-number">3.</span> <span class="nav-text">3. 新建blog</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-解决一个warning"><span class="nav-number">4.</span> <span class="nav-text">3. 解决一个warning</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-配置-config-yml"><span class="nav-number">5.</span> <span class="nav-text">4. 配置_config.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-部署"><span class="nav-number">6.</span> <span class="nav-text">5. 部署</span></a></li></ol>
+    
+    </div>
+  </aside>
 </section>
         
       </div>
-      
-        <div align="center" style="margin-top: 30px;"><hr class="hr" style="margin:0px; height:3px;"></div>
       
       <footer id="footer">
   
@@ -382,9 +356,9 @@ fs_options - 指定加载该设备的文件系统是需要使用的特定参数�
 <script src="/js/bootstrap.js"></script>
 
 
-  <script src="/js/home.js"></script>
 
 
+  <script src="/js/dialog.js"></script>
 
 
 
