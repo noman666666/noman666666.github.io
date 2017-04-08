@@ -15,10 +15,10 @@
 <meta name="keywords" content="Android,fstab">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android fstab介绍">
-<meta property="og:url" content="http://yoursite.com/2017/04/07/fstab/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/04/07/Android_fstab/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
 <meta property="og:description" content="fstab文件格式下面是/etc/fatab文件的一个示例行： fs_spec     fs_file fs_type     fs_options  fs_dump    fs_pass /dev/hda1   /       ext2        defaults    1          1      fs_spec - 该字段定义希望加载的文件系统所在的设备或远程文件系统，对于一般的本">
-<meta property="og:updated_time" content="2017-04-08T06:29:04.498Z">
+<meta property="og:updated_time" content="2017-04-08T06:46:39.861Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android fstab介绍">
 <meta name="twitter:description" content="fstab文件格式下面是/etc/fatab文件的一个示例行： fs_spec     fs_file fs_type     fs_options  fs_dump    fs_pass /dev/hda1   /       ext2        defaults    1          1      fs_spec - 该字段定义希望加载的文件系统所在的设备或远程文件系统，对于一般的本">
@@ -147,7 +147,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-fstab" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-Android_fstab" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -163,7 +163,7 @@
     
     <div class="article-meta">
       
-	<a href="/2017/04/07/fstab/" class="article-date">
+	<a href="/2017/04/07/Android_fstab/" class="article-date">
 	  <time datetime="2017-04-07T08:01:57.000Z" itemprop="datePublished">2017-04-07</time>
 	</a>
 
@@ -184,14 +184,16 @@ fs_type - 定义了该设备上的文件系统，一般常见的文件类型为e
           式)、NTFS、iso9600等。
 fs_options - 指定加载该设备的文件系统是需要使用的特定参数选项，多个参数是由逗号分隔开来。对于大多数系统使用&quot;defaults&quot;
              就可以满足需要。其他常见的选项包括：
-</code></pre><h3 id="选项含义"><a href="#选项含义" class="headerlink" title="选项含义:"></a>选项含义:</h3><pre><code>ro      以只读模式加载该文件系统
-sync    不对该设备的写操作进行缓冲处理，这可以防止在非正常关机时情况下破坏文件系统，但是却降低了计算机速度
-user    允许普通用户加载该文件系统
-quota   强制在该文件系统上进行磁盘定额限制
-noauto  不再使用mount －a命令（例如系统启动时）加载该文件系统
-fs_dump 该选项被&quot;dump&quot;命令使用来检查一个文件系统应该以多快频率进行转储，若不需要转储就设置该字段为0
-fs_pass 该字段被fsck命令用来决定在启动时需要被扫描的文件系统的顺序，根文件系统&quot;/&quot;对应该字段的值应该为1，
-        其他文件系统应该为2。若该文件系统无需在启动时扫描则设置该字段为0
+
+            选项含义:
+            ro      以只读模式加载该文件系统
+            sync    不对该设备的写操作进行缓冲处理，这可以防止在非正常关机时情况下破坏文件系统，但是却降低了计算机速度
+            user    允许普通用户加载该文件系统
+            quota   强制在该文件系统上进行磁盘定额限制
+            noauto  不再使用mount －a命令（例如系统启动时）加载该文件系统
+            fs_dump 该选项被&quot;dump&quot;命令使用来检查一个文件系统应该以多快频率进行转储，若不需要转储就设置该字段为0
+            fs_pass 该字段被fsck命令用来决定在启动时需要被扫描的文件系统的顺序，根文件系统&quot;/&quot;对应该字段的值应该为1，
+                    其他文件系统应该为2。若该文件系统无需在启动时扫描则设置该字段为0
 </code></pre><h2 id="ubuntu上实例"><a href="#ubuntu上实例" class="headerlink" title="ubuntu上实例:"></a>ubuntu上实例:</h2><pre><code>&lt;file system&gt;                             &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;      &lt;dump&gt;  &lt;pass&gt;
 / was on /dev/sda1 during installation
 UUID=757fbb2f-6ee4-4a05-ad2e-0c16b3edc982 /               ext4    errors=remount-ro 0     1
@@ -214,7 +216,7 @@ UUID=d15cbce2-bff1-4241-9c3c-6811f4a1d67d none            swap    sw            
 	<div id="comment">
 	
 	<!-- 多说评论框 start -->
-	 <div class="ds-thread" data-thread-key="/2017/04/07/fstab/" data-title="Android fstab介绍" data-url="http://yoursite.com/2017/04/07/fstab/"></div>
+	 <div class="ds-thread" data-thread-key="/2017/04/07/Android_fstab/" data-title="Android fstab介绍" data-url="http://yoursite.com/2017/04/07/Android_fstab/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -260,7 +262,7 @@ UUID=d15cbce2-bff1-4241-9c3c-6811f4a1d67d none            swap    sw            
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#fstab文件格式"><span class="nav-number">1.</span> <span class="nav-text">fstab文件格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选项含义"><span class="nav-number">1.1.</span> <span class="nav-text">选项含义:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ubuntu上实例"><span class="nav-number">2.</span> <span class="nav-text">ubuntu上实例:</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#fstab文件格式"><span class="nav-number">1.</span> <span class="nav-text">fstab文件格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ubuntu上实例"><span class="nav-number">2.</span> <span class="nav-text">ubuntu上实例:</span></a></li></ol>
     
     </div>
   </aside>
