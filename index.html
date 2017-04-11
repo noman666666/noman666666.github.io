@@ -212,7 +212,8 @@ CMDLINE: console=ttyS2 androidboot.baseband=N/A androidboot.selinux=permissive a
 0x00200000@0x002BC000(userdata),    //1024MB        2424MB
 0x00020000@0x004BC000(radical_update), //64MB       2488MB
          -@0x004DC000(user)            //1024+212MB = 1236MB   
-</code></pre>
+</code></pre><p>#####注：<br>    1.分区的大小要以4MB对齐！<br>    2.分区总大小不能超过flash的总长度</p>
+
       
     </div>
     <footer class="article-footer">
