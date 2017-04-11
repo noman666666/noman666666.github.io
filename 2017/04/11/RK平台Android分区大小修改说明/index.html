@@ -3,18 +3,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>归档: 2017/4 | 进无止境&#39;s 博客</title>
+  <title>rk平台android分区大小修改说明 | 进无止境&#39;s 博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="分区RK" />
   
   
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="进无止境's 博客">
-<meta property="og:url" content="http://yoursite.com/archives/2017/04/index.html">
+  
+  <meta name="description" content="不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中 ######如下是板子的parameter文件:    FIRMWARE_VER: 5.1.0    MACHINE_MODEL: Geekbox    MACHINE_ID: 007">
+<meta name="keywords" content="分区,RK">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RK平台Android分区大小修改说明">
+<meta property="og:url" content="http://yoursite.com/2017/04/11/RK平台Android分区大小修改说明/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
+<meta property="og:description" content="不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中 ######如下是板子的parameter文件:    FIRMWARE_VER: 5.1.0    MACHINE_MODEL: Geekbox    MACHINE_ID: 007">
+<meta property="og:updated_time" content="2017-04-11T00:57:29.914Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="进无止境's 博客">
+<meta name="twitter:title" content="RK平台Android分区大小修改说明">
+<meta name="twitter:description" content="不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中 ######如下是板子的parameter文件:    FIRMWARE_VER: 5.1.0    MACHINE_MODEL: Geekbox    MACHINE_ID: 007">
   
     <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
   
@@ -47,14 +54,12 @@
   
 
   
-    <link rel="stylesheet" href="/css/archive.css" >
-  
 
 </head>
 
 
 
-  <body>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
 
 
   
@@ -77,7 +82,7 @@
             
               <a class="brand" style="
                  margin-top: 0px;"  
-                 >
+                href="#" data-toggle="modal" data-target="#myModal" >
                   <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
               </a>
             
@@ -142,155 +147,122 @@
             
       <div id="content" class="outer">
         
-          <section id="main">
-  <div class="archives-tags-wrap"><blockquote><span>嗯，目前共计3篇文章</span></blockquote>
+          <section id="main" style="float:none;"><article id="post-RK平台Android分区大小修改说明" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      RK平台Android分区大小修改说明
+    </h1>
+  
 
-
-<!-- 分页显示 -->
-
-	
-	
-		
-		
-		  
-		  
-		  <section class="archives-wrap">
-		    <div class="archive-year-wrap">
-		      <h1><a href="/archives/2017" class="archive-year">2017</a></h1>
-		    </div>
-		    <div class="archives">
-		
-		<article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
+      </header>
+    
+    <div class="article-meta">
       
-	<a href="/2017/04/11/RK平台Android分区大小修改说明/" class="archive-article-date">
+	<a href="/2017/04/11/RK平台Android分区大小修改说明/" class="article-date">
 	  <time datetime="2017-04-11T01:01:57.000Z" itemprop="datePublished">2017-04-11</time>
 	</a>
 
       
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="archive-article-title" href="/2017/04/11/RK平台Android分区大小修改说明/">RK平台Android分区大小修改说明</a>
-    </h1>
-  
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中</p>
+<p>######如下是板子的parameter文件:<br>    FIRMWARE_VER: 5.1.0<br>    MACHINE_MODEL: Geekbox<br>    MACHINE_ID: 007<br>    MANUFACTURER: RK3368<br>    MAGIC: 0x5041524B<br>    ATAG: 0x00200800<br>    MACHINE: 3368<br>    CHECK_MASK: 0x80<br>    PWR_HLD: 0,0,A,0,1</p>
+<pre><code>#KERNEL_IMG: 0x00280000
+#FDT_NAME: rk-kernel.dtb
+#RECOVER_KEY: 1,1,0,20,0
+#in section; per section 512(0x200) bytes
+CMDLINE: console=ttyS2 androidboot.baseband=N/A androidboot.selinux=permissive androidboot.hardware=rk30board androidboot.console=ttyS2 init=/init mtdparts=rk29xxnand:0x00002000@0x00002000(uboot),0x00002000@0x00004000(trust),0x00002000@0x00006000(misc),0x00008000@0x00008000(resource),0x00008000@0x00010000(kernel),0x00010000@0x00018000(boot),0x00010000@0x00028000(recovery),0x00038000@0x00038000(backup),0x00040000@0x00070000(cache),0x00002000@0x000B0000(kpanic),0x00200000@0x000B2000(system),0x00008000@0x002B2000(metadata),0x00002000@0x002BA000(baseparamer),0x00400000@0x002BC000(userdata),0x00020000@0x006BC000(radical_update),-@0x006DC000(user)
+</code></pre><p>分区信息在mtdparts=rk29xxnand:字段后面部分，所以我们修改这部分内容就可以了</p>
+<p>######这部分信息格式介绍 如：<br>    0x00002000@0x00002000(uboot)<br>    分区的sector数，每个sector=512Bytes，所以分区大小计算为=0x00002000*512Bytes=4MB<br>               分区起始地址<br>                          分区名</p>
+<p>上述mtdparts=rk29xxnand:字段中所有分区都是连续的，当前分区起始地址+当前分区size和下个分区起始地址都是连续的，所以当修改了其中某个分区后，在它后面的分区的地址都要顺序往前或往后。</p>
+<p>######以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子：<br>    修改前:<br>    0x00002000@0x00002000(uboot),   //4MB               8MB<br>    0x00002000@0x00004000(trust),   //4MB               12MB<br>    0x00002000@0x00006000(misc),    //4MB               16MB<br>    0x00008000@0x00008000(resource),//16MB              32MB<br>    0x00008000@0x00010000(kernel),  //16MB              48<br>    0x00010000@0x00018000(boot),    //32MB              80<br>    0x00010000@0x00028000(recovery),//32MB              112<br>    0x00038000@0x00038000(backup),  //112MB             224<br>    0x00040000@0x00070000(cache),   //128MB             352<br>    0x00002000@0x000B0000(kpanic),  //4MB               356<br>    0x00200000@0x000B2000(system),  //1024MB            1380<br>    0x00008000@0x002B2000(metadata),//16MB              1396<br>    0x00002000@0x002BA000(baseparamer), //4MB           1400MB<br>    0x00400000@0x002BC000(userdata),    //2048MB        3448<br>    0x00020000@0x006BC000(radical_update), //64MB       3512<br>             -@0x006DC000(user)            //212        </p>
+<pre><code>修改后:
+0x00002000@0x00002000(uboot),   //4MB               8MB
+0x00002000@0x00004000(trust),   //4MB               12MB
+0x00002000@0x00006000(misc),    //4MB               16MB
+0x00008000@0x00008000(resource),//16MB              32MB
+0x00008000@0x00010000(kernel),  //16MB              48
+0x00010000@0x00018000(boot),    //32MB              80
+0x00010000@0x00028000(recovery),//32MB              112
+0x00038000@0x00038000(backup),  //112MB             224
+0x00040000@0x00070000(cache),   //128MB             352
+0x00002000@0x000B0000(kpanic),  //4MB               356
+0x00200000@0x000B2000(system),  //1024MB            1380
+0x00008000@0x002B2000(metadata),//16MB              1396
+0x00002000@0x002BA000(baseparamer), //4MB           1400MB
+0x00200000@0x002BC000(userdata),    //1024MB        2424MB
+0x00020000@0x004BC000(radical_update), //64MB       2488MB
+         -@0x004DC000(user)            //1024+212MB = 1236MB   
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+        
+	<div id="comment">
+	
+	<!-- 多说评论框 start -->
+	 <div class="ds-thread" data-thread-key="/2017/04/11/RK平台Android分区大小修改说明/" data-title="RK平台Android分区大小修改说明" data-url="http://yoursite.com/2017/04/11/RK平台Android分区大小修改说明/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"iTimeTraveler"};
+	  (function() {
+	    var ds = document.createElement('script');
+	    ds.type = 'text/javascript';ds.async = true;
+	    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	    ds.charset = 'UTF-8';
+	    (document.getElementsByTagName('head')[0] 
+	     || document.getElementsByTagName('body')[0]).appendChild(ds);
+	  })();
+	  </script>
+	<!-- 多说公共JS代码 end -->
+	
+	</div>
 
-    </header>
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RK/">RK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分区/">分区</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/07/Hexo入手/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Hexo入手
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
 </article>
-	
-		
-		
-		<article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-	<a href="/2017/04/07/Hexo入手/" class="archive-article-date">
-	  <time datetime="2017-04-07T10:01:57.000Z" itemprop="datePublished">2017-04-07</time>
-	</a>
 
-      
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="archive-article-title" href="/2017/04/07/Hexo入手/">Hexo入手</a>
-    </h1>
-  
+<!-- Table of Contents -->
 
-    </header>
-  </div>
-</article>
-	
-		
-		
-		<article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-	<a href="/2017/04/07/Android_fstab/" class="archive-article-date">
-	  <time datetime="2017-04-07T08:01:57.000Z" itemprop="datePublished">2017-04-07</time>
-	</a>
-
-      
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="archive-article-title" href="/2017/04/07/Android_fstab/">Android fstab介绍</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-	
-	
-		</div></section>
-	
-
-	<!-- 页数指示器 -->
-	
-
-
-
-
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="artnav">无</ol>
+    
+    </div>
+  </aside>
 </section>
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RK/">RK</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fstab/">fstab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分区/">分区</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网页博客/">网页博客</a><span class="tag-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/RK/" style="font-size: 10px;">RK</a> <a href="/tags/fstab/" style="font-size: 10px;">fstab</a> <a href="/tags/分区/" style="font-size: 10px;">分区</a> <a href="/tags/网页博客/" style="font-size: 10px;">网页博客</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">3</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2017/04/11/RK平台Android分区大小修改说明/">RK平台Android分区大小修改说明</a>
-          </li>
-        
-          <li>
-            <a href="/2017/04/07/Hexo入手/">Hexo入手</a>
-          </li>
-        
-          <li>
-            <a href="/2017/04/07/Android_fstab/">Android fstab介绍</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
         
       </div>
       
@@ -390,6 +362,8 @@
 
 
 
+
+  <script src="/js/dialog.js"></script>
 
 
 

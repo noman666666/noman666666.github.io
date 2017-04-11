@@ -160,6 +160,74 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-RK平台Android分区大小修改说明"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/11/RK平台Android分区大小修改说明/">RK平台Android分区大小修改说明</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/11/RK平台Android分区大小修改说明/" class="article-date">
+	  <time datetime="2017-04-11T01:01:57.000Z" itemprop="datePublished">2017-04-11</time>
+	</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中</p>
+<p>######如下是板子的parameter文件:<br>    FIRMWARE_VER: 5.1.0<br>    MACHINE_MODEL: Geekbox<br>    MACHINE_ID: 007<br>    MANUFACTURER: RK3368<br>    MAGIC: 0x5041524B<br>    ATAG: 0x00200800<br>    MACHINE: 3368<br>    CHECK_MASK: 0x80<br>    PWR_HLD: 0,0,A,0,1</p>
+<pre><code>#KERNEL_IMG: 0x00280000
+#FDT_NAME: rk-kernel.dtb
+#RECOVER_KEY: 1,1,0,20,0
+#in section; per section 512(0x200) bytes
+CMDLINE: console=ttyS2 androidboot.baseband=N/A androidboot.selinux=permissive androidboot.hardware=rk30board androidboot.console=ttyS2 init=/init mtdparts=rk29xxnand:0x00002000@0x00002000(uboot),0x00002000@0x00004000(trust),0x00002000@0x00006000(misc),0x00008000@0x00008000(resource),0x00008000@0x00010000(kernel),0x00010000@0x00018000(boot),0x00010000@0x00028000(recovery),0x00038000@0x00038000(backup),0x00040000@0x00070000(cache),0x00002000@0x000B0000(kpanic),0x00200000@0x000B2000(system),0x00008000@0x002B2000(metadata),0x00002000@0x002BA000(baseparamer),0x00400000@0x002BC000(userdata),0x00020000@0x006BC000(radical_update),-@0x006DC000(user)
+</code></pre><p>分区信息在mtdparts=rk29xxnand:字段后面部分，所以我们修改这部分内容就可以了</p>
+<p>######这部分信息格式介绍 如：<br>    0x00002000@0x00002000(uboot)<br>    分区的sector数，每个sector=512Bytes，所以分区大小计算为=0x00002000*512Bytes=4MB<br>               分区起始地址<br>                          分区名</p>
+<p>上述mtdparts=rk29xxnand:字段中所有分区都是连续的，当前分区起始地址+当前分区size和下个分区起始地址都是连续的，所以当修改了其中某个分区后，在它后面的分区的地址都要顺序往前或往后。</p>
+<p>######以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子：<br>    修改前:<br>    0x00002000@0x00002000(uboot),   //4MB               8MB<br>    0x00002000@0x00004000(trust),   //4MB               12MB<br>    0x00002000@0x00006000(misc),    //4MB               16MB<br>    0x00008000@0x00008000(resource),//16MB              32MB<br>    0x00008000@0x00010000(kernel),  //16MB              48<br>    0x00010000@0x00018000(boot),    //32MB              80<br>    0x00010000@0x00028000(recovery),//32MB              112<br>    0x00038000@0x00038000(backup),  //112MB             224<br>    0x00040000@0x00070000(cache),   //128MB             352<br>    0x00002000@0x000B0000(kpanic),  //4MB               356<br>    0x00200000@0x000B2000(system),  //1024MB            1380<br>    0x00008000@0x002B2000(metadata),//16MB              1396<br>    0x00002000@0x002BA000(baseparamer), //4MB           1400MB<br>    0x00400000@0x002BC000(userdata),    //2048MB        3448<br>    0x00020000@0x006BC000(radical_update), //64MB       3512<br>             -@0x006DC000(user)            //212        </p>
+<pre><code>修改后:
+0x00002000@0x00002000(uboot),   //4MB               8MB
+0x00002000@0x00004000(trust),   //4MB               12MB
+0x00002000@0x00006000(misc),    //4MB               16MB
+0x00008000@0x00008000(resource),//16MB              32MB
+0x00008000@0x00010000(kernel),  //16MB              48
+0x00010000@0x00018000(boot),    //32MB              80
+0x00010000@0x00028000(recovery),//32MB              112
+0x00038000@0x00038000(backup),  //112MB             224
+0x00040000@0x00070000(cache),   //128MB             352
+0x00002000@0x000B0000(kpanic),  //4MB               356
+0x00200000@0x000B2000(system),  //1024MB            1380
+0x00008000@0x002B2000(metadata),//16MB              1396
+0x00002000@0x002BA000(baseparamer), //4MB           1400MB
+0x00200000@0x002BC000(userdata),    //1024MB        2424MB
+0x00020000@0x004BC000(radical_update), //64MB       2488MB
+         -@0x004DC000(user)            //1024+212MB = 1236MB   
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RK/">RK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分区/">分区</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Hexo入手"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
