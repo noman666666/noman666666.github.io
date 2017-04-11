@@ -160,6 +160,103 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Android 编译系统——system.img userdata.img recovery.img 目标编译过程"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/11/Android 编译系统——system.img userdata.img recovery.img 目标编译过程/">Android 编译系统——system.img userdata.img recovery.img 目标编译过程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/11/Android 编译系统——system.img userdata.img recovery.img 目标编译过程/" class="article-date">
+	  <time datetime="2017-04-11T09:35:57.000Z" itemprop="datePublished">2017-04-11</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="ramdisk-img-system-img-userdata-img-recovery-img-介绍"><a href="#ramdisk-img-system-img-userdata-img-recovery-img-介绍" class="headerlink" title="ramdisk.img system.img userdata.img recovery.img 介绍"></a>ramdisk.img system.img userdata.img recovery.img 介绍</h2><pre><code>ramdisk.img 是Android编译出来的root目录打包成的镜像, 用file命令查看显示ramdisk.img: gzip compressed data, from Unix
+</code></pre><h2 id="ramdisk-img-system-img-userdata-img-recovery-img-目标编译过程"><a href="#ramdisk-img-system-img-userdata-img-recovery-img-目标编译过程" class="headerlink" title="ramdisk.img system.img userdata.img recovery.img 目标编译过程"></a>ramdisk.img system.img userdata.img recovery.img 目标编译过程</h2><pre><code>---main.mk中---
+默认目标，即目标all
+.PHONY: droid
+DEFAULT_GOAL := droid
+$(DEFAULT_GOAL):             //root目标droid
+
+droid: droidcore dist_files  //1级目标，droidcore
+
+droidcore: files \             //2级目标，files systemimage ...
+    systemimage \
+    $(INSTALLED_BOOTIMAGE_TARGET) \
+    $(INSTALLED_RECOVERYIMAGE_TARGET) \
+    $(INSTALLED_USERDATAIMAGE_TARGET) \
+    $(INSTALLED_CACHEIMAGE_TARGET) \
+    $(INSTALLED_VENDORIMAGE_TARGET) \
+    $(INSTALLED_FILES_FILE)
+
+---Makefile中---
+INSTALLED_SYSTEMIMAGE := $(PRODUCT_OUT)/system.img
+BUILT_SYSTEMIMAGE := $(systemimage_intermediates)/system.img
+FULL_SYSTEMIMAGE_DEPS := $(INTERNAL_SYSTEMIMAGE_FILES) $(INTERNAL_USERIMAGES_DEPS)
+INSTALLED_FILES_FILE := $(PRODUCT_OUT)/installed-files.txt
+
+
+systemimage: $(INSTALLED_SYSTEMIMAGE)        //3级目标 ./system.img
+
+$(INSTALLED_SYSTEMIMAGE): $(BUILT_SYSTEMIMAGE) $(RECOVERY_FROM_BOOT_PATCH) | $(ACP)    //4级目标  _./system.img
+
+$(BUILT_SYSTEMIMAGE): $(FULL_SYSTEMIMAGE_DEPS) $(INSTALLED_FILES_FILE)                 //5级目标  
+    $(call build-systemimage-target,$@)
+
+
+BUILT_USERDATAIMAGE_TARGET := $(PRODUCT_OUT)/userdata.img
+INSTALLED_USERDATAIMAGE_TARGET := $(BUILT_USERDATAIMAGE_TARGET)
+INTERNAL_USERDATAIMAGE_FILES := \                                                      //4级目标
+    $(filter $(TARGET_OUT_DATA)/%,$(ALL_DEFAULT_INSTALLED_MODULES))
+
+$(INSTALLED_USERDATAIMAGE_TARGET): $(INTERNAL_USERIMAGES_DEPS) \                       //3级目标
+                               $(INTERNAL_USERDATAIMAGE_FILES)
+    $(build-userdataimage-target)
+
+define build-userdataimage-target  //做userdata.img分区build操作
+  $(call pretty,&quot;Target userdata fs image: $(INSTALLED_USERDATAIMAGE_TARGET)&quot;)
+  @mkdir -p $(TARGET_OUT_DATA)
+  @mkdir -p $(userdataimage_intermediates) &amp;&amp; rm -rf $(userdataimage_intermediates)/userdata_image_info.txt
+  $(call generate-userimage-prop-dictionary, $(userdataimage_intermediates)/userdata_image_info.txt, skip_fsck=true)
+  $(hide) PATH=$(foreach p,$(INTERNAL_USERIMAGES_BINARY_PATHS),$(p):)$$PATH \
+      ./build/tools/releasetools/build_image.py \
+      $(TARGET_OUT_DATA) $(userdataimage_intermediates)/userdata_image_info.txt $(INSTALLED_USERDATAIMAGE_TARGET)
+  $(hide) $(call assert-max-image-size,$(INSTALLED_USERDATAIMAGE_TARGET),$(BOARD_USERDATAIMAGE_PARTITION_SIZE))
+endef
+
+
+注 userdata.img 会依赖skip_userdata.img := 这个变量以及嵌套依赖BoardConfig.mk 中的BOARD_USERDATAIMAGE_PARTITION_SIZE和TARGET_USERIMAGES_USE_EXT4的值
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/image/">image</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译/">编译</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-RK平台Android分区大小修改说明"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -214,7 +311,60 @@ CMDLINE: console=ttyS2 androidboot.baseband=N/A androidboot.selinux=permissive a
          -@0x004DC000(user)            //1024+212MB = 1236MB   
 </code></pre><p>#####注：<br>    1.分区的大小要以4MB对齐！<br>    2.分区总大小不能超过flash的总长度</p>
 <p>#####修改parameter后效果：<br>    shell@rk3368_32:/ # df<br>    Filesystem               Size     Used     Free   Blksize<br>    /dev                   495.2M    36.0K   495.2M   4096<br>    /sys/fs/cgroup         495.2M    12.0K   495.2M   4096<br>    /mnt/asec              495.2M     0.0K   495.2M   4096<br>    /mnt/obb               495.2M     0.0K   495.2M   4096<br>    /system               1004.2M   403.0M   601.2M   4096<br>    /cache                 122.0M   140.0K   121.8M   4096<br>    /metadata               11.7M    40.0K    11.7M   4096<br>    /data                  991.9M    87.5M   904.4M   4096<br>    /mnt/shell/emulated    991.9M    87.5M   904.4M   4096<br>    /mnt/internal_sd         1.2G   136.0K     1.2G   8192<br>    /mnt/secure/asec         1.2G   136.0K     1.2G   8192</p>
+<p>###一般Android平台分区修改<br>    eMMC 分区信息</p>
+<pre><code># cat /proc/partitions                                       
+major      minor  #blocks  name
+ 254        0     520912   zram0
+ 179        0   15267840   mmcblk0
+ 179        1       4096   mmcblk0p1
+ 179        2       4096   mmcblk0p2
+ 179        3       4096   mmcblk0p3
+ 179        4      16384   mmcblk0p4
+ 179        5      16384   mmcblk0p5
+ 179        6      32768   mmcblk0p6
+ 179        7      32768   mmcblk0p7
+ 179        8     114688   mmcblk0p8
+ 179        9     131072   mmcblk0p9
+ 179       10       4096   mmcblk0p10
+ 179       11    1048576   mmcblk0p11
+ 179       12      16384   mmcblk0p12
+ 179       13       4096   mmcblk0p13
+ 179       14    2097152   mmcblk0p14
+ 179       15      65536   mmcblk0p15
+ 179       16   11667456   mmcblk0p16
+mmcblk0即emmc的容量（单位kb）
 
+#ls /dev/block/platform/ff0f0000.rksdmmc/by-name/* -l 
+lrwxrwxrwx root     root    2013-01-21 08:50 uboot            -&gt; /dev/block/mmcblk0p1
+lrwxrwxrwx root     root    2013-01-21 08:50 trust            -&gt; /dev/block/mmcblk0p2
+lrwxrwxrwx root     root    2013-01-21 08:50 misc             -&gt; /dev/block/mmcblk0p3
+lrwxrwxrwx root     root    2013-01-21 08:50 resource         -&gt; /dev/block/mmcblk0p4
+lrwxrwxrwx root     root    2013-01-21 08:50 kernel           -&gt; /dev/block/mmcblk0p5
+lrwxrwxrwx root     root    2013-01-21 08:50 boot             -&gt; /dev/block/mmcblk0p6
+lrwxrwxrwx root     root    2013-01-21 08:50 recovery         -&gt; /dev/block/mmcblk0p7
+lrwxrwxrwx root     root    2013-01-21 08:50 backup           -&gt; /dev/block/mmcblk0p8
+lrwxrwxrwx root     root    2013-01-21 08:50 cache            -&gt; /dev/block/mmcblk0p9
+lrwxrwxrwx root     root    2013-01-21 08:50 kpanic           -&gt; /dev/block/mmcblk0p10
+lrwxrwxrwx root     root    2013-01-21 08:50 system           -&gt; /dev/block/mmcblk0p11
+lrwxrwxrwx root     root    2013-01-21 08:50 metadata         -&gt; /dev/block/mmcblk0p12
+lrwxrwxrwx root     root    2013-01-21 08:50 baseparamer      -&gt; /dev/block/mmcblk0p13
+lrwxrwxrwx root     root    2013-01-21 08:50 userdata         -&gt; /dev/block/mmcblk0p14
+lrwxrwxrwx root     root    2013-01-21 08:50 radical_update   -&gt; /dev/block/mmcblk0p15
+lrwxrwxrwx root     root    2013-01-21 08:50 user             -&gt; /dev/block/mmcblk0p16
+
+
+即userdata 分区 大小为2097152*1024KB = 2147483648B
+
+BoardConfig.mk 中修改指定变量即可：
+BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16793600
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2147483648
+BOARD_OEMIMAGE_PARTITION_SIZE := 67108864
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 25253773312 ---&gt; 2147483648B
+BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_FLASH_BLOCK_SIZE := 131072
+</code></pre>
       
     </div>
     <footer class="article-footer">
