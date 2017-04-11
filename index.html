@@ -213,6 +213,7 @@ CMDLINE: console=ttyS2 androidboot.baseband=N/A androidboot.selinux=permissive a
 0x00020000@0x004BC000(radical_update), //64MB       2488MB
          -@0x004DC000(user)            //1024+212MB = 1236MB   
 </code></pre><p>#####注：<br>    1.分区的大小要以4MB对齐！<br>    2.分区总大小不能超过flash的总长度</p>
+<p>#####修改parameter后效果：<br>    shell@rk3368_32:/ # df<br>    Filesystem               Size     Used     Free   Blksize<br>    /dev                   495.2M    36.0K   495.2M   4096<br>    /sys/fs/cgroup         495.2M    12.0K   495.2M   4096<br>    /mnt/asec              495.2M     0.0K   495.2M   4096<br>    /mnt/obb               495.2M     0.0K   495.2M   4096<br>    /system               1004.2M   403.0M   601.2M   4096<br>    /cache                 122.0M   140.0K   121.8M   4096<br>    /metadata               11.7M    40.0K    11.7M   4096<br>    /data                  991.9M    87.5M   904.4M   4096<br>    /mnt/shell/emulated    991.9M    87.5M   904.4M   4096<br>    /mnt/internal_sd         1.2G   136.0K     1.2G   8192<br>    /mnt/secure/asec         1.2G   136.0K     1.2G   8192</p>
 
       
     </div>
