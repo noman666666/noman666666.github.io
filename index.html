@@ -160,6 +160,49 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Android编译系统——完整编译过程分析"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/12/Android编译系统——完整编译过程分析/">Android编译系统——完整编译过程分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/12/Android编译系统——完整编译过程分析/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###编译命令<br>    make //整体编译Android<br>    mm<br>    mmm<br>    get_build_var TARGET_PRODUCT  //获取指定变量的当前值</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译/">编译</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Android 编译系统——system.img userdata.img recovery.img目标编译过程"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -168,7 +211,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/11/Android 编译系统——system.img userdata.img recovery.img目标编译过程/">Android 编译系统——system.img userdata.img recovery.img目标编译过程</a>
+      <a class="article-title" href="/2017/04/11/Android 编译系统——system.img userdata.img recovery.img目标编译过程/">Android编译系统——ramdisk.img system.img userdata.img recovery.img目标编译过程</a>
     </h1>
   
 
@@ -186,8 +229,14 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="image-介绍"><a href="#image-介绍" class="headerlink" title="image 介绍"></a>image 介绍</h2><pre><code>ramdisk.img 是Android编译出来的root目录打包成的镜像, 用file命令查看显示ramdisk.img: gzip compressed data, from Unix
-</code></pre><h2 id="image-目标编译过程"><a href="#image-目标编译过程" class="headerlink" title="image 目标编译过程"></a>image 目标编译过程</h2><pre><code>---main.mk中---
+        <h2 id="image-介绍"><a href="#image-介绍" class="headerlink" title="image 介绍"></a>image 介绍</h2><pre><code>boot.img      Android 的初始文件映像，负责初始化并加载 system 分区，一般Android系统这个镜像中包含ramdisk.img根文件系统+kernel（RK平台的boot.img是没包含kernel部分的）
+recovery.img  恢复模式系统启动镜像。内容和boot.img雷同（RK平台recovery.img包含kernel部分），但是其中的ramdisk.img（ramdisk-recovery.img）有些许不同：
+              recovery.fstab文件、sbin下部分工具、build.prop、init.bootmode.emmc.rc、sepolicy等
+
+ramdisk.img   是根文件系统，是root目录打包成的镜像（ramdisk-recovery.img）
+system.img    包括了主要的包、库等文件
+userdata.img  包括了一些用户数据
+</code></pre><h2 id="image-目标编译过程"><a href="#image-目标编译过程" class="headerlink" title="image 目标编译过程"></a>image 目标编译过程</h2><pre><code>---build/core/main.mk中---
 默认目标，即目标all
 .PHONY: droid
 DEFAULT_GOAL := droid
@@ -204,7 +253,7 @@ droidcore: files \             //2级目标，files systemimage ...
     $(INSTALLED_VENDORIMAGE_TARGET) \
     $(INSTALLED_FILES_FILE)
 
----Makefile中---
+---build/core/Makefile中---
 INSTALLED_SYSTEMIMAGE := $(PRODUCT_OUT)/system.img
 BUILT_SYSTEMIMAGE := $(systemimage_intermediates)/system.img
 FULL_SYSTEMIMAGE_DEPS := $(INTERNAL_SYSTEMIMAGE_FILES) $(INTERNAL_USERIMAGES_DEPS)
@@ -241,6 +290,84 @@ endef
 
 
 注 userdata.img 会依赖skip_userdata.img := 这个变量以及嵌套依赖BoardConfig.mk 中的BOARD_USERDATAIMAGE_PARTITION_SIZE和TARGET_USERIMAGES_USE_EXT4的值
+</code></pre><h2 id="image解压方法"><a href="#image解压方法" class="headerlink" title="image解压方法"></a>image解压方法</h2><pre><code>ramdisk.img   用file命令查看显示ramdisk.img: gzip compressed data, from Unix，采用cpio打包，gzip压缩的
+    cp -a ramdisk.img 000/ramdisk.img.gz
+    cd 000/
+    gunzip ramdisk.img.gz //得到ramdisk.img 文件，但是和原始的ramdisk.img是不一样的，大小要大不少
+    mkdir root
+    cd root
+    cpio –i -F ../ramdisk.img
+
+system.img    用file命令查看显示system.img: data
+    cp -a system.img 000/system.img
+    cd 000/
+    out/host/linux-x86/bin/simg2img system.img system.ext4.img //用simg2img工具把system.img转为为ext4文件格式
+    mkdir system                                       //建立system目录
+    sudo mount -t ext4 -o loop system.ext4.img system  //将ext4格式的镜像挂在到system目录
+
+userdata.img  用file命令查看显示userdata.img: data
+    同system.img
+
+recovery.img  用file命令查看显示recovery.img: data
+    需要使用外部工具https://github.com/xiaolu/mkbootimg_tools.git  mkboot命令
+    ./mkbootimg_tools/mkboot recovery.img recovery
+
+boot.img      用file命令查看显示boot.img: data
+    需要使用外部工具https://github.com/xiaolu/mkbootimg_tools.git  mkboot命令
+    ./mkbootimg_tools/mkboot boot.img boot 
+</code></pre><h2 id="image压缩方法"><a href="#image压缩方法" class="headerlink" title="image压缩方法"></a>image压缩方法</h2><pre><code>a. ramdisk 使用cpio -o -H | gzip 生成ramdisk.img
+b. system userdata recovery都可以使用mkuserimg.sh来压缩成镜像
+   mkuserimg.sh -s 镜像源目录 镜像输出文件 ext4 挂在点 分区size FILE_CONTEXTS文件
+</code></pre><h2 id="单独编译image"><a href="#单独编译image" class="headerlink" title="单独编译image"></a>单独编译image</h2><pre><code>make systemimage - system.img
+make userdataimage - userdata.img
+make ramdisk - ramdisk.img
+make snod - 快速打包system.img (with this command, it will build a new system.img very quickly. 
+            well, you cannot use &quot;make snod&quot; for all the situations. it would not check the dependences. 
+            if you change some code in the framework which will effect other applications)
+</code></pre><h2 id="附"><a href="#附" class="headerlink" title="附:"></a>附:</h2><pre><code>simg2img解压缩工具: Convert Android sparse images to raw images. 在out/host/linux-x86/bin/simg2img可以找到
+用法：simg2img &lt;sparse_image_files&gt; &lt;raw_image_file&gt;
+
+mkuserimg.sh镜像制作工具，在out/host/linux-x86/bin/mkuserimg.sh可以找到，工具中会调用make_ext4fs
+用法：mkuserimg.sh [-s] SRC_DIR OUTPUT_FILE EXT_VARIANT MOUNT_POINT SIZE [-j &lt;journal_size&gt;]
+         [-T TIMESTAMP] [-C FS_CONFIG] [-B BLOCK_LIST_FILE] [FILE_CONTEXTS]
+
+    例如制作system.img和userdata.img时：
+    Running:  mkuserimg.sh -s out/target/product/rk3368_box/system out/target/product/rk3368_box/obj/PACKAGING/systemimage_intermediates/system.img ext4 system 1073741824 out/target/product/rk3368_box/root/file_contexts
+    make_ext4fs -s -T -1 -S out/target/product/rk3368_box/root/file_contexts -l 1073741824 -a system out/target/product/rk3368_box/obj/PACKAGING/systemimage_intermediates/system.img out/target/product/rk3368_box/system
+
+    Running:  mkuserimg.sh -s out/target/product/rk3368_box/data out/target/product/rk3368_box/userdata.img ext4 data 2147483648 out/target/product/rk3368_box/root/file_contexts
+    make_ext4fs -s -T -1 -S out/target/product/rk3368_box/root/file_contexts -l 2147483648 -a data out/target/product/rk3368_box/userdata.img out/target/product/rk3368_box/data
+
+make_ext4fs工具：用于Android平台上制作ext4文件系统的镜像，在out/host/linux-x86/bin/make_ext4fs
+用法：make_ext4fs [ -l &lt;len&gt; ] [ -j &lt;journal size&gt; ] [ -b &lt;block_size&gt; ]
+                 [ -g &lt;blocks per group&gt; ] [ -i &lt;inodes&gt; ] [ -I &lt;inode size&gt; ]
+                 [ -L &lt;label&gt; ] [ -f ] [ -a &lt;android mountpoint&gt; ]
+                 [ -S file_contexts ] [ -C fs_config ] [ -T timestamp ]
+                 [ -z | -s ] [ -w ] [ -c ] [ -J ] [ -v ] [ -B &lt;block_list_file&gt; ] &lt;filename&gt; [&lt;directory&gt;]
+        -l 分区大小 支持512M 以及1073741824 单位为bytes
+        -s 生成ext4的S模式制作
+        -a 挂在点
+        -S  file_contexts文件
+        &lt;filename&gt;  生成的目的文件
+        &lt;directory&gt; 源文件目录
+</code></pre><h2 id="附2——一般Android系统的boot-img格式-RK平台的boot-img是没包含kernel部分的"><a href="#附2——一般Android系统的boot-img格式-RK平台的boot-img是没包含kernel部分的" class="headerlink" title="附2——一般Android系统的boot.img格式(RK平台的boot.img是没包含kernel部分的)"></a>附2——一般Android系统的boot.img格式(RK平台的boot.img是没包含kernel部分的)</h2><pre><code>因为boot.img的格式比较简单，它主要分为三大块（有的可能有四块）
+
++—————–+
+| boot header | 1 page
++—————–+
+| kernel | n pages
++—————–+
+| ramdisk | m pages
++—————–+
+| second stage | o pages
++—————–+
+n = (kernel_size + page_size – 1) / page_size
+m = (ramdisk_size + page_size – 1) / page_size
+o = (second_size + page_size – 1) / page_size
+
+a. all entities are page_size aligned in flash
+b. kernel and ramdisk are required (size != 0)
+c. second is optional (second_size == 0 -&gt; no second)
 </code></pre>
       
     </div>
@@ -248,6 +375,86 @@ endef
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/image/">image</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译/">编译</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-RK平台分区信息"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/11/RK平台分区信息/">RK平台分区信息</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/11/RK平台分区信息/" class="article-date">
+	  <time datetime="2017-04-11T09:35:57.000Z" itemprop="datePublished">2017-04-11</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/RK/">RK</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="RK平台分区信息与eMMC-partitions对应"><a href="#RK平台分区信息与eMMC-partitions对应" class="headerlink" title="RK平台分区信息与eMMC partitions对应"></a>RK平台分区信息与eMMC partitions对应</h2><pre><code>lrwxrwxrwx root     root    2013-01-21 08:50 uboot            -&gt; /dev/block/mmcblk0p1
+lrwxrwxrwx root     root    2013-01-21 08:50 trust            -&gt; /dev/block/mmcblk0p2
+lrwxrwxrwx root     root    2013-01-21 08:50 misc             -&gt; /dev/block/mmcblk0p3
+lrwxrwxrwx root     root    2013-01-21 08:50 resource         -&gt; /dev/block/mmcblk0p4
+lrwxrwxrwx root     root    2013-01-21 08:50 kernel           -&gt; /dev/block/mmcblk0p5
+lrwxrwxrwx root     root    2013-01-21 08:50 boot             -&gt; /dev/block/mmcblk0p6
+lrwxrwxrwx root     root    2013-01-21 08:50 recovery         -&gt; /dev/block/mmcblk0p7
+lrwxrwxrwx root     root    2013-01-21 08:50 backup           -&gt; /dev/block/mmcblk0p8
+lrwxrwxrwx root     root    2013-01-21 08:50 cache            -&gt; /dev/block/mmcblk0p9
+lrwxrwxrwx root     root    2013-01-21 08:50 kpanic           -&gt; /dev/block/mmcblk0p10
+lrwxrwxrwx root     root    2013-01-21 08:50 system           -&gt; /dev/block/mmcblk0p11
+lrwxrwxrwx root     root    2013-01-21 08:50 metadata         -&gt; /dev/block/mmcblk0p12
+lrwxrwxrwx root     root    2013-01-21 08:50 baseparamer      -&gt; /dev/block/mmcblk0p13
+lrwxrwxrwx root     root    2013-01-21 08:50 userdata         -&gt; /dev/block/mmcblk0p14
+lrwxrwxrwx root     root    2013-01-21 08:50 radical_update   -&gt; /dev/block/mmcblk0p15
+lrwxrwxrwx root     root    2013-01-21 08:50 user             -&gt; /dev/block/mmcblk0p16
+</code></pre><h2 id="RK平台各分区介绍"><a href="#RK平台各分区介绍" class="headerlink" title="RK平台各分区介绍"></a>RK平台各分区介绍</h2><pre><code>uboot.img
+trust.img
+misc.img      RK平台，misc分区内容用于启动模式切换，是升级基带还是进入Recovery（misc分区的内容可以被按键出发改变???）
+resource.img  RK平台资源映像，内含开机图片和内核的设备树信息。
+kernel
+boot.img      Android 的初始文件映像，负责初始化并加载 system 分区，一般Android系统这个镜像中包含ramdisk.img根文件系统+kernel（RK平台的boot.img是没包含kernel部分的）
+    ramdisk.img   是根文件系统，是root目录打包成的镜像（ramdisk-recovery.img）
+recovery.img  恢复模式系统启动镜像。内容和boot.img雷同（RK平台recovery.img包含kernel部分），但是其中的ramdisk.img（ramdisk-recovery.img）有些许不同：
+              recovery.fstab文件、sbin下部分工具、build.prop、init.bootmode.emmc.rc、sepolicy等
+backup
+cache
+kpanic
+
+system.img    包括了主要的包、库等文件
+metadata
+baseparameter
+userdata.img  包括了一些用户数据
+radical_update
+user
+</code></pre><h2 id="另："><a href="#另：" class="headerlink" title="另："></a>另：</h2><pre><code>RK平台生成boot.img recovery.img system.img userdata.img是使用自己的mkimage.sh工具讲root system data 目录生成的
+再使用工具mkupdate.sh生成update.img的（不带userdata.img）
+烧写userdata.img 需要使用./upgrade_tool DI userdata userdata.img 单独烧写
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RK/">RK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分区/">分区</a></li></ul>
 
     </footer>
   </div>

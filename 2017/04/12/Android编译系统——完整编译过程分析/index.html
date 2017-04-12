@@ -3,18 +3,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>tag: android | 进无止境&#39;s 博客</title>
+  <title>android编译系统——完整编译过程分析 | 进无止境&#39;s 博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="Android编译" />
   
   
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="进无止境's 博客">
-<meta property="og:url" content="http://yoursite.com/tags/Android/index.html">
+  
+  <meta name="description" content="###编译命令    make //整体编译Android    mm    mmm    get_build_var TARGET_PRODUCT  //获取指定变量的当前值">
+<meta name="keywords" content="Android,编译">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android编译系统——完整编译过程分析">
+<meta property="og:url" content="http://yoursite.com/2017/04/12/Android编译系统——完整编译过程分析/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
+<meta property="og:description" content="###编译命令    make //整体编译Android    mm    mmm    get_build_var TARGET_PRODUCT  //获取指定变量的当前值">
+<meta property="og:updated_time" content="2017-04-12T04:26:18.257Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="进无止境's 博客">
+<meta name="twitter:title" content="Android编译系统——完整编译过程分析">
+<meta name="twitter:description" content="###编译命令    make //整体编译Android    mm    mmm    get_build_var TARGET_PRODUCT  //获取指定变量的当前值">
   
     <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
   
@@ -47,14 +54,12 @@
   
 
   
-    <link rel="stylesheet" href="/css/archive.css" >
-  
 
 </head>
 
 
 
-  <body>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
 
 
   
@@ -77,7 +82,7 @@
             
               <a class="brand" style="
                  margin-top: 0px;"  
-                 >
+                href="#" data-toggle="modal" data-target="#myModal" >
                   <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
               </a>
             
@@ -142,65 +147,96 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;">
-  
-  
-  
+          <section id="main" style="float:none;"><article id="post-Android编译系统——完整编译过程分析" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
     
     
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <h1><a href="/archives/2017" class="archive-year">2017</a></h1>
-        </div>
-        <div class="archives">
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Android编译系统——完整编译过程分析
+    </h1>
+  
+
+      </header>
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
+    <div class="article-meta">
       
-	<a href="/2017/04/12/Android编译系统——完整编译过程分析/" class="archive-article-date">
+	<a href="/2017/04/12/Android编译系统——完整编译过程分析/" class="article-date">
 	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
 	</a>
 
       
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="archive-article-title" href="/2017/04/12/Android编译系统——完整编译过程分析/">Android编译系统——完整编译过程分析</a>
-    </h1>
-  
+    <a class="article-category-link" href="/categories/Android/">Android</a>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
+    </div>
+    <div class="article-entry" itemprop="articleBody">
       
-	<a href="/2017/04/11/Android 编译系统——system.img userdata.img recovery.img目标编译过程/" class="archive-article-date">
-	  <time datetime="2017-04-11T09:35:57.000Z" itemprop="datePublished">2017-04-11</time>
-	</a>
+        <p>###编译命令<br>    make //整体编译Android<br>    mm<br>    mmm<br>    get_build_var TARGET_PRODUCT  //获取指定变量的当前值</p>
 
       
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="archive-article-title" href="/2017/04/11/Android 编译系统——system.img userdata.img recovery.img目标编译过程/">Android编译系统——ramdisk.img system.img userdata.img recovery.img目标编译过程</a>
-    </h1>
-  
+    </div>
+    <footer class="article-footer">
+      
+        
+	<div id="comment">
+	
+	<!-- 多说评论框 start -->
+	 <div class="ds-thread" data-thread-key="/2017/04/12/Android编译系统——完整编译过程分析/" data-title="Android编译系统——完整编译过程分析" data-url="http://yoursite.com/2017/04/12/Android编译系统——完整编译过程分析/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"iTimeTraveler"};
+	  (function() {
+	    var ds = document.createElement('script');
+	    ds.type = 'text/javascript';ds.async = true;
+	    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	    ds.charset = 'UTF-8';
+	    (document.getElementsByTagName('head')[0] 
+	     || document.getElementsByTagName('body')[0]).appendChild(ds);
+	  })();
+	  </script>
+	<!-- 多说公共JS代码 end -->
+	
+	</div>
 
-    </header>
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译/">编译</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/11/RK平台分区信息/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          RK平台分区信息
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
+<!-- Table of Contents -->
 
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="artnav">无</ol>
+    
+    </div>
+  </aside>
 </section>
         
       </div>
@@ -301,6 +337,8 @@
 
 
 
+
+  <script src="/js/dialog.js"></script>
 
 
 
