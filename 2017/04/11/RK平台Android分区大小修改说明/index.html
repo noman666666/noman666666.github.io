@@ -11,17 +11,17 @@
   
   
   
-  <meta name="description" content="不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中 ######如下是板子的parameter文件:    FIRMWARE_VER: 5.1.0    MACHINE_MODEL: Geekbox    MACHINE_ID: 007">
+  <meta name="description" content="不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中 如下是板子的parameter文件:FIRMWARE_VER: 5.1.0 MACHINE_MODEL: Geekbox MACHINE_ID: 007 MANUFACTURER: RK33">
 <meta name="keywords" content="分区,RK">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RK平台Android分区大小修改说明">
 <meta property="og:url" content="http://yoursite.com/2017/04/11/RK平台Android分区大小修改说明/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
-<meta property="og:description" content="不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中 ######如下是板子的parameter文件:    FIRMWARE_VER: 5.1.0    MACHINE_MODEL: Geekbox    MACHINE_ID: 007">
-<meta property="og:updated_time" content="2017-04-12T01:02:41.664Z">
+<meta property="og:description" content="不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中 如下是板子的parameter文件:FIRMWARE_VER: 5.1.0 MACHINE_MODEL: Geekbox MACHINE_ID: 007 MANUFACTURER: RK33">
+<meta property="og:updated_time" content="2017-04-12T01:27:09.401Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RK平台Android分区大小修改说明">
-<meta name="twitter:description" content="不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中 ######如下是板子的parameter文件:    FIRMWARE_VER: 5.1.0    MACHINE_MODEL: Geekbox    MACHINE_ID: 007">
+<meta name="twitter:description" content="不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中 如下是板子的parameter文件:FIRMWARE_VER: 5.1.0 MACHINE_MODEL: Geekbox MACHINE_ID: 007 MANUFACTURER: RK33">
   
     <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
   
@@ -174,17 +174,45 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中</p>
-<p>######如下是板子的parameter文件:<br>    FIRMWARE_VER: 5.1.0<br>    MACHINE_MODEL: Geekbox<br>    MACHINE_ID: 007<br>    MANUFACTURER: RK3368<br>    MAGIC: 0x5041524B<br>    ATAG: 0x00200800<br>    MACHINE: 3368<br>    CHECK_MASK: 0x80<br>    PWR_HLD: 0,0,A,0,1</p>
-<pre><code>#KERNEL_IMG: 0x00280000
+<h6 id="如下是板子的parameter文件"><a href="#如下是板子的parameter文件" class="headerlink" title="如下是板子的parameter文件:"></a>如下是板子的parameter文件:</h6><pre><code>FIRMWARE_VER: 5.1.0
+MACHINE_MODEL: Geekbox
+MACHINE_ID: 007
+MANUFACTURER: RK3368
+MAGIC: 0x5041524B
+ATAG: 0x00200800
+MACHINE: 3368
+CHECK_MASK: 0x80
+PWR_HLD: 0,0,A,0,1
+#KERNEL_IMG: 0x00280000
 #FDT_NAME: rk-kernel.dtb
 #RECOVER_KEY: 1,1,0,20,0
 #in section; per section 512(0x200) bytes
 CMDLINE: console=ttyS2 androidboot.baseband=N/A androidboot.selinux=permissive androidboot.hardware=rk30board androidboot.console=ttyS2 init=/init mtdparts=rk29xxnand:0x00002000@0x00002000(uboot),0x00002000@0x00004000(trust),0x00002000@0x00006000(misc),0x00008000@0x00008000(resource),0x00008000@0x00010000(kernel),0x00010000@0x00018000(boot),0x00010000@0x00028000(recovery),0x00038000@0x00038000(backup),0x00040000@0x00070000(cache),0x00002000@0x000B0000(kpanic),0x00200000@0x000B2000(system),0x00008000@0x002B2000(metadata),0x00002000@0x002BA000(baseparamer),0x00400000@0x002BC000(userdata),0x00020000@0x006BC000(radical_update),-@0x006DC000(user)
 </code></pre><p>分区信息在mtdparts=rk29xxnand:字段后面部分，所以我们修改这部分内容就可以了</p>
-<p>######这部分信息格式介绍 如：<br>    0x00002000@0x00002000(uboot)<br>    分区的sector数，每个sector=512Bytes，所以分区大小计算为=0x00002000*512Bytes=4MB<br>               分区起始地址<br>                          分区名</p>
-<p>上述mtdparts=rk29xxnand:字段中所有分区都是连续的，当前分区起始地址+当前分区size和下个分区起始地址都是连续的，所以当修改了其中某个分区后，在它后面的分区的地址都要顺序往前或往后。</p>
-<p>######以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子：<br>    修改前:<br>    0x00002000@0x00002000(uboot),   //4MB               8MB<br>    0x00002000@0x00004000(trust),   //4MB               12MB<br>    0x00002000@0x00006000(misc),    //4MB               16MB<br>    0x00008000@0x00008000(resource),//16MB              32MB<br>    0x00008000@0x00010000(kernel),  //16MB              48<br>    0x00010000@0x00018000(boot),    //32MB              80<br>    0x00010000@0x00028000(recovery),//32MB              112<br>    0x00038000@0x00038000(backup),  //112MB             224<br>    0x00040000@0x00070000(cache),   //128MB             352<br>    0x00002000@0x000B0000(kpanic),  //4MB               356<br>    0x00200000@0x000B2000(system),  //1024MB            1380<br>    0x00008000@0x002B2000(metadata),//16MB              1396<br>    0x00002000@0x002BA000(baseparamer), //4MB           1400MB<br>    0x00400000@0x002BC000(userdata),    //2048MB        3448<br>    0x00020000@0x006BC000(radical_update), //64MB       3512<br>             -@0x006DC000(user)            //212        </p>
-<pre><code>修改后:
+<h6 id="这部分信息格式介绍-如："><a href="#这部分信息格式介绍-如：" class="headerlink" title="这部分信息格式介绍 如："></a>这部分信息格式介绍 如：</h6><pre><code>0x00002000@0x00002000(uboot)  
+分区的sector数，每个sector=512Bytes，所以分区大小计算为=0x00002000*512Bytes=4MB
+           分区起始地址
+                      分区名
+</code></pre><p>上述mtdparts=rk29xxnand:字段中所有分区都是连续的，当前分区起始地址+当前分区size和下个分区起始地址都是连续的，所以当修改了其中某个分区后，在它后面的分区的地址都要顺序往前或往后。</p>
+<h6 id="以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子："><a href="#以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子：" class="headerlink" title="以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子："></a>以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子：</h6><pre><code>修改前:
+0x00002000@0x00002000(uboot),   //4MB               8MB
+0x00002000@0x00004000(trust),   //4MB               12MB
+0x00002000@0x00006000(misc),    //4MB               16MB
+0x00008000@0x00008000(resource),//16MB              32MB
+0x00008000@0x00010000(kernel),  //16MB              48
+0x00010000@0x00018000(boot),    //32MB              80
+0x00010000@0x00028000(recovery),//32MB              112
+0x00038000@0x00038000(backup),  //112MB             224
+0x00040000@0x00070000(cache),   //128MB             352
+0x00002000@0x000B0000(kpanic),  //4MB               356
+0x00200000@0x000B2000(system),  //1024MB            1380
+0x00008000@0x002B2000(metadata),//16MB              1396
+0x00002000@0x002BA000(baseparamer), //4MB           1400MB
+0x00400000@0x002BC000(userdata),    //2048MB        3448
+0x00020000@0x006BC000(radical_update), //64MB       3512
+         -@0x006DC000(user)            //212        
+
+修改后:
 0x00002000@0x00002000(uboot),   //4MB               8MB
 0x00002000@0x00004000(trust),   //4MB               12MB
 0x00002000@0x00006000(misc),    //4MB               16MB
@@ -201,10 +229,23 @@ CMDLINE: console=ttyS2 androidboot.baseband=N/A androidboot.selinux=permissive a
 0x00200000@0x002BC000(userdata),    //1024MB        2424MB
 0x00020000@0x004BC000(radical_update), //64MB       2488MB
          -@0x004DC000(user)            //1024+212MB = 1236MB   
-</code></pre><p>#####注：<br>    1.分区的大小要以4MB对齐！<br>    2.分区总大小不能超过flash的总长度</p>
-<p>#####修改parameter后效果：<br>    shell@rk3368_32:/ # df<br>    Filesystem               Size     Used     Free   Blksize<br>    /dev                   495.2M    36.0K   495.2M   4096<br>    /sys/fs/cgroup         495.2M    12.0K   495.2M   4096<br>    /mnt/asec              495.2M     0.0K   495.2M   4096<br>    /mnt/obb               495.2M     0.0K   495.2M   4096<br>    /system               1004.2M   403.0M   601.2M   4096<br>    /cache                 122.0M   140.0K   121.8M   4096<br>    /metadata               11.7M    40.0K    11.7M   4096<br>    /data                  991.9M    87.5M   904.4M   4096<br>    /mnt/shell/emulated    991.9M    87.5M   904.4M   4096<br>    /mnt/internal_sd         1.2G   136.0K     1.2G   8192<br>    /mnt/secure/asec         1.2G   136.0K     1.2G   8192</p>
-<p>###一般Android平台分区修改<br>    eMMC 分区信息</p>
-<pre><code># cat /proc/partitions                                       
+</code></pre><h5 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h5><pre><code>1.分区的大小要以4MB对齐！  
+2.分区总大小不能超过flash的总长度
+</code></pre><h5 id="修改parameter后效果："><a href="#修改parameter后效果：" class="headerlink" title="修改parameter后效果："></a>修改parameter后效果：</h5><pre><code>shell@rk3368_32:/ # df
+Filesystem               Size     Used     Free   Blksize
+/dev                   495.2M    36.0K   495.2M   4096
+/sys/fs/cgroup         495.2M    12.0K   495.2M   4096
+/mnt/asec              495.2M     0.0K   495.2M   4096
+/mnt/obb               495.2M     0.0K   495.2M   4096
+/system               1004.2M   403.0M   601.2M   4096
+/cache                 122.0M   140.0K   121.8M   4096
+/metadata               11.7M    40.0K    11.7M   4096
+/data                  991.9M    87.5M   904.4M   4096
+/mnt/shell/emulated    991.9M    87.5M   904.4M   4096
+/mnt/internal_sd         1.2G   136.0K     1.2G   8192
+/mnt/secure/asec         1.2G   136.0K     1.2G   8192
+</code></pre><h3 id="一般Android平台分区修改"><a href="#一般Android平台分区修改" class="headerlink" title="一般Android平台分区修改"></a>一般Android平台分区修改</h3><pre><code>eMMC 分区信息
+# cat /proc/partitions                                       
 major      minor  #blocks  name
  254        0     520912   zram0
  179        0   15267840   mmcblk0
@@ -320,7 +361,7 @@ BOARD_FLASH_BLOCK_SIZE := 131072
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="artnav">无</ol>
+        <ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#如下是板子的parameter文件"><span class="nav-number">1.</span> <span class="nav-text">如下是板子的parameter文件:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#这部分信息格式介绍-如："><span class="nav-number">2.</span> <span class="nav-text">这部分信息格式介绍 如：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子："><span class="nav-number">3.</span> <span class="nav-text">以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子：</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注："><span class="nav-number"></span> <span class="nav-text">注：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修改parameter后效果："><span class="nav-number"></span> <span class="nav-text">修改parameter后效果：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般Android平台分区修改"><span class="nav-number"></span> <span class="nav-text">一般Android平台分区修改</span></a>
     
     </div>
   </aside>
