@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>seandroid策略规则 | 进无止境&#39;s 博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="SEAndroidsepolicy" />
+  
+  
+  
+  
+  <meta name="description" content="SEAndroid中各种实体的SContext 定义介绍进程、文件/目录、服务、系统属性等SContext 定义 进程的SContext（以system_server进程为例）（对应每个进程的te文件）u:r:system_server:s0           system    494   186   system_server u表示user SELinux用户 r表示SELinux角色 s">
+<meta name="keywords" content="SEAndroid,sepolicy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SEAndroid策略规则">
+<meta property="og:url" content="http://yoursite.com/2016/10/12/SEAndroid策略规则/index.html">
+<meta property="og:site_name" content="进无止境's 博客">
+<meta property="og:description" content="SEAndroid中各种实体的SContext 定义介绍进程、文件/目录、服务、系统属性等SContext 定义 进程的SContext（以system_server进程为例）（对应每个进程的te文件）u:r:system_server:s0           system    494   186   system_server u表示user SELinux用户 r表示SELinux角色 s">
+<meta property="og:updated_time" content="2017-04-13T11:53:18.413Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SEAndroid策略规则">
+<meta name="twitter:description" content="SEAndroid中各种实体的SContext 定义介绍进程、文件/目录、服务、系统属性等SContext 定义 进程的SContext（以system_server进程为例）（对应每个进程的te文件）u:r:system_server:s0           system    494   186   system_server u表示user SELinux用户 r表示SELinux角色 s">
+  
+    <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-SEAndroid策略规则" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      SEAndroid策略规则
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/10/12/SEAndroid策略规则/" class="article-date">
+	  <time datetime="2016-10-12T10:22:33.000Z" itemprop="datePublished">2016-10-12</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="SEAndroid中各种实体的SContext-定义"><a href="#SEAndroid中各种实体的SContext-定义" class="headerlink" title="SEAndroid中各种实体的SContext 定义"></a>SEAndroid中各种实体的SContext 定义</h2><p>介绍进程、文件/目录、服务、系统属性等SContext 定义</p>
+<h5 id="进程的SContext（以system-server进程为例）（对应每个进程的te文件）"><a href="#进程的SContext（以system-server进程为例）（对应每个进程的te文件）" class="headerlink" title="进程的SContext（以system_server进程为例）（对应每个进程的te文件）"></a>进程的SContext（以system_server进程为例）（对应每个进程的te文件）</h5><pre><code>u:r:system_server:s0           system    494   186   system_server
+u表示user SELinux用户
+r表示SELinux角色
+system_server表示domain，该域的权限定义在策略文件system_server.te中
+s0表示MLS中的级别，Android中可忽略
+</code></pre><h5 id="file和dir的SContext（以system目录为例）（在file-contexts定义）"><a href="#file和dir的SContext（以system目录为例）（在file-contexts定义）" class="headerlink" title="file和dir的SContext（以system目录为例）（在file_contexts定义）"></a>file和dir的SContext（以system目录为例）（在file_contexts定义）</h5><pre><code>drwxr-xr-x root     root              u:object_r:system_file:s0 system
+object_r表示文件对象
+system_file表示文件类型
+</code></pre><h5 id="fs-use-在fs-use定义"><a href="#fs-use-在fs-use定义" class="headerlink" title="fs_use(在fs_use定义)"></a>fs_use(在fs_use定义)</h5><pre><code>// to do
+</code></pre><h5 id="生成-文件系统的-SContext-（在genfs-contexts定义）"><a href="#生成-文件系统的-SContext-（在genfs-contexts定义）" class="headerlink" title="生成 文件系统的 SContext （在genfs_contexts定义）"></a>生成 文件系统的 SContext （在genfs_contexts定义）</h5><pre><code>genfscon rootfs / u:object_r:rootfs:s0
+genfscon usbfs  / u:object_r:usbfs:s0
+</code></pre><h5 id="property的SContext（在property-contexts定义）"><a href="#property的SContext（在property-contexts定义）" class="headerlink" title="property的SContext（在property_contexts定义）"></a>property的SContext（在property_contexts定义）</h5><pre><code>*                       u:object_r:default_prop:s0    //默认property SContext
+hw.                     u:object_r:system_prop:s0
+</code></pre><h5 id="service的SContext（在service-contexts定义）"><a href="#service的SContext（在service-contexts定义）" class="headerlink" title="service的SContext（在service_contexts定义）"></a>service的SContext（在service_contexts定义）</h5><pre><code>*                       u:object_r:default_android_service:s0   //默认服务SContext
+package                 u:object_r:system_server_service:s0     //package 服务  （在shell中执行service list查看所有服务）
+</code></pre><h5 id="APP的SContext-（在mac-permissions-xml-seapp-contexts-xxx定义，详见-APP安全策略）"><a href="#APP的SContext-（在mac-permissions-xml-seapp-contexts-xxx定义，详见-APP安全策略）" class="headerlink" title="APP的SContext （在mac_permissions.xml+seapp_contexts+xxx定义，详见 APP安全策略）"></a>APP的SContext （在mac_permissions.xml+seapp_contexts+xxx定义，详见 APP安全策略）</h5><p>  APP的seinfo: 根据apk的签名决定app的seinfo(platform、default)</p>
+<pre><code>1. 特殊APP——system_server (因为它也是有zygote产生的，所以还是也在seapp_contexts中定义)
+isSystemServer=true domain=system_server                  // isSystemServer返回true，则domain=system_server
+2. 通过user + seinfo + [name]来决定domain 和 type
+user=cts seinfo=* name=roidJUnitRunner domain=ctsrunner_app type=app_data_file  // user 是cts，则domain=ctsrunner_app type=app_data_file CTS测试APP
+user=system domain=system_app type=system_app_data_file   // user是 system seinfo默认是platform签名，则domain=system_app type=system_app_data_file 系统APP
+                                                          // (有android平台签名和system权限)
+user=bluetooth domain=bluetooth type=bluetooth_data_file  // bluetooth
+user=nfc domain=nfc type=nfc_data_file                    // nfc
+user=radio domain=radio type=radio_data_file              // radio
+user=shared_relro domain=shared_relro                     // shared_relro
+user=shell domain=shell type=shell_data_file              // shell
+user=_isolated domain=isolated_app                        // _isolated
+user=_app seinfo=platform domain=platform_app type=app_data_file  // 平台APP(有android平台签名，没有system权限)
+user=_app domain=untrusted_app type=app_data_file                 // 其他的都是第三方(untrusted_app)APP (没有Android平台签名，没有system权限)
+</code></pre><h5 id="APP安全策略"><a href="#APP安全策略" class="headerlink" title="APP安全策略"></a>APP安全策略</h5><p>  APP的SContext 确定了APP domain和type ，下面就是不同类型的app domain的安全策略te文件</p>
+<pre><code>app.te 应用给所有APP的安全策略（这里的所有APP指的是所有由zygote产生的进程），appdomain域——APP的基域
+
+system_server.te system_server的安全策略
+ctsrunner_app.te CTS APP 的安全策略
+system_app.te    系统 APP的安全策略
+bluetooth.te     bluetooth APP的安全策略
+nfc.te           nfc APP 的安全策略
+radio.te         radio APP的安全策略
+shared_relro.te  shared_relro APP的安全策略
+shell.te         通过shell 启动的APP的安全策略
+isolated_app.te  isolated APP的安全策略         AID_ISOLATED_START (99000) ---&gt; AID_ISOLATED_END (99999).
+platform_app.te  第三方平台 APP的安全策略
+untrusted_app.te 其他的都是第三方 APP的安全策略 APP_AID (10000) ---&gt; AID_ISOLATED_START (99000)
+</code></pre><h2 id="安全策略语法"><a href="#安全策略语法" class="headerlink" title="安全策略语法"></a>安全策略语法</h2><p>  上面都将各个实体的SContext 逐一罗列出来了，下面讲下*.te 文件语法    </p>
+<h5 id="关键字的关键字-（有点拗口，但确实是这样的）"><a href="#关键字的关键字-（有点拗口，但确实是这样的）" class="headerlink" title="关键字的关键字 （有点拗口，但确实是这样的）"></a>关键字的关键字 （有点拗口，但确实是这样的）</h5><p>  attribute       用于指定xxx_type和domain关键字的关键字<br>  type            用于指定domain域的关键字的关键字<br>  typeattribute   单独将某个type和某个或多个attribute关联起来   </p>
+<h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><pre><code>我们再来看看最常见的权限设置语句：
+allow netd sysfs:file write;
+1）allow：表示授权。除了allow之外，还有allowaudit、dontaudit、neverallow等；       这条语句的语法为：
+2）netd：sourcetype，也叫Domain，Subject。
+3）sysfs：targettype，它代表其后的file所对应的Type。
+4）file：objectclass，它代表能够给Domain操作的对象。例如file、dir、socket等，Android中SecurityClass的定义在security_classes中。在Android系统中，有一些特殊的Class，如property_service，binder等。
+5）write：在该类objectclass中所定义的操作，例如file类支持ioctl，read，write等操作。access_vectors中定义了所有objectclass支持的操作。
+
+根据SELinux规范，完整的allow语句格式为：
+rule_name source_type target_type:class perm_set;
+1）如果有多个source_type，target_type，class或perm_set，可以用&quot;{}&quot;括起来；       注意：使用allow语句的时候，可以使用下面的一些小技巧来简化命令书写；
+2）&quot;~&quot;号，表示除了&quot;~&quot;以外；
+3）&quot;-&quot;号，表示去除某项内容；
+4）&quot;*&quot;号，表示所有内容
+</code></pre><h3 id="高级语法"><a href="#高级语法" class="headerlink" title="高级语法"></a>高级语法</h3><p>  对于一般的*.te文件编写，基本的语法就差不多够了，下面是高级语法，说高级语法就是相当于一个批量生成sepolicy规则的的语法，让你少些点规则         </p>
+<h5 id="域转换-DomainTransition-简称DT"><a href="#域转换-DomainTransition-简称DT" class="headerlink" title="域转换(DomainTransition,简称DT)"></a>域转换(DomainTransition,简称DT)</h5><p>  SEAndroid中，init进程的SContext为u:r:init:s0（在init.rc中使用” setcon u:r:init:s0”命令设置），而init创建的子进程显然不会也不可能拥有和init进程一样的SContext<br>  （否则根据TE，这些子进程也就在MAC层面上有了和init进程一样的权限）。那么这些子进程是怎么被打上和父进程不一样的SContex呢？<br>  在SELinux中，上述问题被称为DomainTransition，即某个进程的Domain切换到一个更合适的Domain中去。DomainTransition也是在安全策略文件中配置的，而且有相关的关键字。</p>
+<pre><code>语法: type\_transition  source\_type  target\_type:class  default\_type
+表示source_type域的进程在对target_type类型的文件进行class定义的操作时，进程会切换到default_type域中   
+
+下面我们看个域转换的例子：
+type_transition init shell_exec:process init_shell
+这个例子表示：当init域的进程执行（process）shell_exec类型的可执行文件时，进程会从init域切换到init_shell域。
+
+那么，哪个文件是shell_exec类型呢？从file_contexts文件能看到，/system/bin/sh的安全属性是u:object_r:shell_exec:s0，
+也就是说init域的进程如果运行shell脚本的话，进程所在的域就会切换到init_shell域，这就是DomainTransition（简称DT）。
+
+请注意，DT也是SELinux安全策略的一部分，type_transition不过只是开了一个头而已，要真正实施成功这个DT，还至少需要下面三条权限设置语句：
+
+# 首先，你得让init域的进程要能够执行shell_exec类型的文件
+allow init shell_exec:file execute;
+# 然后，你需要告诉SELinux，允许init域的进程切换到init_shell域
+allow init init_shell:process transition;
+# 最后，你还得告诉SELinux，域切换的入口（entrypoint）是执行shell_exec类型的文件
+allow init_shell shell_exec:file entrypoint;
+
+看起来挺麻烦，不过SELinux支持宏定义，我们可以定义一个宏，把上面4个步骤全部包含进来。在SEAndroid中，所有的宏都定义在te_macros文件中，其中和DT相关的宏定义如下：
+# 定义domain_trans宏，$1,$2,$3代表宏的第一个，第二个…参数
+define(`domain_trans&apos;, `
+allow $1 $2:file { getattr open read execute };
+allow $1 $3:process transition;
+allow $3 $2:file { entrypoint open read execute getattr };
+… …
+&apos;)
+# 定义domain_auto_trans宏，这个宏才是我们在te中直接使用的
+define(`domain_auto_trans&apos;, `
+# Allow the necessary permissions.
+domain_trans($1,$2,$3)
+# Make the transition occur by default.
+type_transition $1 $2:process $3;
+&apos;)
+呵呵，是不是简单多了，domain_trnas宏在DT需要的最小权限的基础上还增加了一些权限，在te文件中可以直接用domain_auto_trans宏来显示声明域转换，如下：
+domain_auto_trans(init, shell_exec, init_shell)
+</code></pre><h5 id="类型转换-TypeTransition-简称TT"><a href="#类型转换-TypeTransition-简称TT" class="headerlink" title="类型转换(TypeTransition,简称TT)"></a>类型转换(TypeTransition,简称TT)</h5><p>  除了DT外，还有针对Type的Transition（简称TT）。举个例子，假设目录A的SContext为u:r:dir_a，那么默认情况下，<br>  在该目录下创建的文件的SContext就是u:r:dir_a，如果想让它的SContext发生变化，那么就需要TypeTransition。</p>
+<pre><code>和DT类似，TT的关键字也是type_transition，而且要顺利完成Transition，也需要申请相关权限，废话不多说了，
+直接看te_macros是怎么定义TT所需的宏：
+# 定义file_type_trans宏，为Type Transition申请相关权限
+define(`file_type_trans&apos;, `
+allow $1 $2:dir ra_dir_perms;
+allow $1 $3:notdevfile_class_set create_file_perms;
+allow $1 $3:dir create_dir_perms;
+&apos;)
+# 定义file_type_auto_trans(domain, dir_type, file_type)宏
+# 该宏的意思就是当domain域的进程在dir_type类型的目录创建文件时，该文件的SContext
+# 应该是file_type类型
+define(`file_type_auto_trans&apos;, `
+# Allow the necessary permissions.
+file_type_trans($1, $2, $3)
+# Make the transition occur by default.
+type_transition $1 $2:dir $3;
+type_transition $1 $2:notdevfile_class_set $3;
+&apos;)
+
+栗子： file_type_auto_trans(app_domain, system_data_file, xxx_type)
+</code></pre><h3 id="class集合-class"><a href="#class集合-class" class="headerlink" title="class集合 class"></a>class集合 class</h3><pre><code>// to do
+</code></pre><h3 id="权限集合-perm-set"><a href="#权限集合-perm-set" class="headerlink" title="权限集合 perm_set"></a>权限集合 perm_set</h3><pre><code>// to do
+</code></pre><h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="SELinux模式切换命令"><a href="#SELinux模式切换命令" class="headerlink" title="SELinux模式切换命令"></a>SELinux模式切换命令</h3><p>  SELinux支持Disabled，Permissive，Enforce三种模式<br>  Disabled就不用说了，此时SELinux的权限检查机制处于关闭状态；<br>  Permissive模式就是SELinux有效，但是即使你违反了它的安全策略，它让你继续运行，但是会把你违反的内容记录下来。在策略开发的时候非常有用，相当于Debug模式；<br>  Enforce模式就是你违反了安全策略的话，就无法继续操作下去。<br>  在Eng版本使用setenforce命令，可以在Permissive模式和Enforce模式之间切换。</p>
+<pre><code>usage:  setenforce [ Enforcing | Permissive | 1 | 0 ]
+</code></pre><h3 id="Z——查看SContext-信息的命令"><a href="#Z——查看SContext-信息的命令" class="headerlink" title="-Z——查看SContext 信息的命令"></a>-Z——查看SContext 信息的命令</h3><pre><code>ls -Z   // 文件目录的SContext
+ps -Z   // 进程的SContext
+</code></pre><h3 id="chcon命令——更改文件的安全属性"><a href="#chcon命令——更改文件的安全属性" class="headerlink" title="chcon命令——更改文件的安全属性"></a>chcon命令——更改文件的安全属性</h3><pre><code>usage:  chcon &lt;SContext&gt; &lt;path&gt;
+</code></pre><h3 id="restorecon命令——恢复文件原来的安全属性"><a href="#restorecon命令——恢复文件原来的安全属性" class="headerlink" title="restorecon命令——恢复文件原来的安全属性"></a>restorecon命令——恢复文件原来的安全属性</h3><p>  当文件的安全属性在安全策略配置文件里面有定义时，使用restorecon命令，可以恢复原来的安全属性</p>
+<pre><code>usage:  restorecon [-DFnrRv] &lt;path&gt;
+</code></pre><h3 id="id-命令——确认自己的SecurityContext"><a href="#id-命令——确认自己的SecurityContext" class="headerlink" title="id 命令——确认自己的SecurityContext"></a>id 命令——确认自己的SecurityContext</h3><pre><code>$ id
+uid=2000(shell) gid=2000(shell) groups=1007(log) context=u:r:shell:s0
+# id
+uid=0(root) gid=0(root) groups=1007(log) context=u:r:su:s0
+</code></pre><p>####参考：<br>   <a href="http://blog.csdn.net/modianwutong/article/details/43114883" target="_blank" rel="external">http://blog.csdn.net/modianwutong/article/details/43114883</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        
+	<div id="comment">
+	
+	<!-- 多说评论框 start -->
+	 <div class="ds-thread" data-thread-key="/2016/10/12/SEAndroid策略规则/" data-title="SEAndroid策略规则" data-url="http://yoursite.com/2016/10/12/SEAndroid策略规则/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"iTimeTraveler"};
+	  (function() {
+	    var ds = document.createElement('script');
+	    ds.type = 'text/javascript';ds.async = true;
+	    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	    ds.charset = 'UTF-8';
+	    (document.getElementsByTagName('head')[0] 
+	     || document.getElementsByTagName('body')[0]).appendChild(ds);
+	  })();
+	  </script>
+	<!-- 多说公共JS代码 end -->
+	
+	</div>
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SEAndroid/">SEAndroid</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sepolicy/">sepolicy</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/12/12/Android版本-sdk-ndk-对应关系/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Android版本-sdk-ndk-对应关系表</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SEAndroid中各种实体的SContext-定义"><span class="nav-number">1.</span> <span class="nav-text">SEAndroid中各种实体的SContext 定义</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进程的SContext（以system-server进程为例）（对应每个进程的te文件）"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">进程的SContext（以system_server进程为例）（对应每个进程的te文件）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#file和dir的SContext（以system目录为例）（在file-contexts定义）"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">file和dir的SContext（以system目录为例）（在file_contexts定义）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fs-use-在fs-use定义"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">fs_use(在fs_use定义)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#生成-文件系统的-SContext-（在genfs-contexts定义）"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">生成 文件系统的 SContext （在genfs_contexts定义）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#property的SContext（在property-contexts定义）"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">property的SContext（在property_contexts定义）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#service的SContext（在service-contexts定义）"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">service的SContext（在service_contexts定义）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#APP的SContext-（在mac-permissions-xml-seapp-contexts-xxx定义，详见-APP安全策略）"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">APP的SContext （在mac_permissions.xml+seapp_contexts+xxx定义，详见 APP安全策略）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#APP安全策略"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">APP安全策略</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全策略语法"><span class="nav-number">2.</span> <span class="nav-text">安全策略语法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#关键字的关键字-（有点拗口，但确实是这样的）"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">关键字的关键字 （有点拗口，但确实是这样的）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本语法"><span class="nav-number">2.1.</span> <span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高级语法"><span class="nav-number">2.2.</span> <span class="nav-text">高级语法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#域转换-DomainTransition-简称DT"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">域转换(DomainTransition,简称DT)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#类型转换-TypeTransition-简称TT"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">类型转换(TypeTransition,简称TT)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class集合-class"><span class="nav-number">2.3.</span> <span class="nav-text">class集合 class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限集合-perm-set"><span class="nav-number">2.4.</span> <span class="nav-text">权限集合 perm_set</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附"><span class="nav-number">3.</span> <span class="nav-text">附</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SELinux模式切换命令"><span class="nav-number">3.1.</span> <span class="nav-text">SELinux模式切换命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Z——查看SContext-信息的命令"><span class="nav-number">3.2.</span> <span class="nav-text">-Z——查看SContext 信息的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chcon命令——更改文件的安全属性"><span class="nav-number">3.3.</span> <span class="nav-text">chcon命令——更改文件的安全属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#restorecon命令——恢复文件原来的安全属性"><span class="nav-number">3.4.</span> <span class="nav-text">restorecon命令——恢复文件原来的安全属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#id-命令——确认自己的SecurityContext"><span class="nav-number">3.5.</span> <span class="nav-text">id 命令——确认自己的SecurityContext</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2012 - 2017 进无止境&#39;s 博客 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				<span id="busuanzi_container_site_uv"> 访客数 : <span id="busuanzi_value_site_uv"></span></span> |  
+				<span id="busuanzi_container_site_pv"> 访问量 : <span id="busuanzi_value_site_pv"></span></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            进无止境&#39;s 博客
+          </div>
+          <div class="panel-body">
+            Copyright © 2017 Jim All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+</body>
+</html>
