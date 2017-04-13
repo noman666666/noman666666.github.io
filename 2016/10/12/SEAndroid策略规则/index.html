@@ -18,7 +18,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/10/12/SEAndroid策略规则/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
 <meta property="og:description" content="SEAndroid中各种实体的SContext 定义介绍进程、文件/目录、服务、系统属性等SContext 定义 进程的SContext（以system_server进程为例）（对应每个进程的te文件）u:r:system_server:s0           system    494   186   system_server u表示user SELinux用户 r表示SELinux角色 s">
-<meta property="og:updated_time" content="2017-04-13T11:53:18.413Z">
+<meta property="og:updated_time" content="2017-04-13T12:17:39.408Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SEAndroid策略规则">
 <meta name="twitter:description" content="SEAndroid中各种实体的SContext 定义介绍进程、文件/目录、服务、系统属性等SContext 定义 进程的SContext（以system_server进程为例）（对应每个进程的te文件）u:r:system_server:s0           system    494   186   system_server u表示user SELinux用户 r表示SELinux角色 s">
@@ -306,7 +306,8 @@ ps -Z   // 进程的SContext
 uid=2000(shell) gid=2000(shell) groups=1007(log) context=u:r:shell:s0
 # id
 uid=0(root) gid=0(root) groups=1007(log) context=u:r:su:s0
-</code></pre><p>####参考：<br>   <a href="http://blog.csdn.net/modianwutong/article/details/43114883" target="_blank" rel="external">http://blog.csdn.net/modianwutong/article/details/43114883</a></p>
+</code></pre><p>####参考：<br>  <a href="http://blog.csdn.net/modianwutong/article/details/43114883" target="_blank" rel="external">http://blog.csdn.net/modianwutong/article/details/43114883</a></p>
+<p>  <a href="http://blog.csdn.net/zhudaozhuan/article/details/50964832" target="_blank" rel="external">http://blog.csdn.net/zhudaozhuan/article/details/50964832</a></p>
 
       
     </div>
