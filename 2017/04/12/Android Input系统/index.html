@@ -11,17 +11,17 @@
   
   
   
-  <meta name="description" content="Input系统input  com_android_server_input_InputManagerService.cpp (frameworks\base\services\core\jni)   InputManagerService ==jni==&amp;gt; NativeInputManager  用于InputManagerService集成IInputManager （c++类） IIn">
+  <meta name="description" content="Input系统结构解析InputManager.java (frameworks\base\core\java\android\hardware\input)      InputManagerInternal.java (frameworks\base\core\java\android\hardware\input)       IInputManager.aidl (frameworks\b">
 <meta name="keywords" content="input,input系统,event">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android Input系统——xxx">
 <meta property="og:url" content="http://yoursite.com/2017/04/12/Android Input系统/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
-<meta property="og:description" content="Input系统input  com_android_server_input_InputManagerService.cpp (frameworks\base\services\core\jni)   InputManagerService ==jni==&amp;gt; NativeInputManager  用于InputManagerService集成IInputManager （c++类） IIn">
-<meta property="og:updated_time" content="2017-04-17T00:37:16.396Z">
+<meta property="og:description" content="Input系统结构解析InputManager.java (frameworks\base\core\java\android\hardware\input)      InputManagerInternal.java (frameworks\base\core\java\android\hardware\input)       IInputManager.aidl (frameworks\b">
+<meta property="og:updated_time" content="2017-04-17T11:37:49.631Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Input系统——xxx">
-<meta name="twitter:description" content="Input系统input  com_android_server_input_InputManagerService.cpp (frameworks\base\services\core\jni)   InputManagerService ==jni==&amp;gt; NativeInputManager  用于InputManagerService集成IInputManager （c++类） IIn">
+<meta name="twitter:description" content="Input系统结构解析InputManager.java (frameworks\base\core\java\android\hardware\input)      InputManagerInternal.java (frameworks\base\core\java\android\hardware\input)       IInputManager.aidl (frameworks\b">
   
     <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
   
@@ -173,21 +173,18 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Input系统"><a href="#Input系统" class="headerlink" title="Input系统"></a>Input系统</h3><pre><code>input
+        <h3 id="Input系统结构解析"><a href="#Input系统结构解析" class="headerlink" title="Input系统结构解析"></a>Input系统结构解析</h3><pre><code>InputManager.java (frameworks\base\core\java\android\hardware\input)     
+InputManagerInternal.java (frameworks\base\core\java\android\hardware\input)     
 
+IInputManager.aidl (frameworks\base\core\java\android\hardware\input)     ----------------------
+
+InputManagerService.java (frameworks\base\services\core\java\com\android\server\input) 
+
+InputManagerService == jni ==&gt; NativeInputManager  ---------------------------------------------
 com_android_server_input_InputManagerService.cpp (frameworks\base\services\core\jni)
 
 
-InputManagerService ==jni==&gt; NativeInputManager
-
-用于InputManagerService集成IInputManager （c++类）
-IInputManager.aidl (frameworks\base\core\java\android\hardware\input)     
-
-InputManager.java (frameworks\base\core\java\android\hardware\input)     
-InputManagerInternal.java (frameworks\base\core\java\android\hardware\input)     
-InputManagerService.java (frameworks\base\services\core\java\com\android\server\input) 
-
-
+InputManager.cpp (frameworks\native\services\inputflinger) 
 EventHub.cpp (frameworks\native\services\inputflinger) 
 </code></pre><h3 id="查看event注册设备"><a href="#查看event注册设备" class="headerlink" title="查看event注册设备"></a>查看event注册设备</h3><pre><code>cat /proc/bus/input/devices  
 I: Bus=0019 Vendor=0001 Product=0001 Version=0100
@@ -295,19 +292,19 @@ Usage: getevent [-t] [-n] [-s switchmask] [-S] [-v [mask]] [-d] [-p] [-i] [-l] [
     
 <nav id="article-nav">
   
-    <a href="/2017/04/12/Android编译系统——完整编译过程分析/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/11/RK平台分区信息/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Android编译系统——完整编译过程分析
+          RK平台分区信息
         
       </div>
     </a>
   
   
-    <a href="/2017/04/13/Android支持库/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/04/12/Android编译系统——完整编译过程分析/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Android支持库(转)</div>
+      <div class="article-nav-title">Android编译系统——完整编译过程分析</div>
     </a>
   
 </nav>

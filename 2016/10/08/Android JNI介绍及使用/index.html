@@ -3,25 +3,28 @@
 <head>
   <meta charset="utf-8">
   
-  <title>rk平台分区信息 | 进无止境&#39;s 博客</title>
+  <title>android jni介绍及使用 | 进无止境&#39;s 博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="RK分区" />
+  <meta name="keywords" content="JNInative调用" />
   
   
   
   
-  <meta name="description" content="RK平台分区信息与eMMC partitions对应lrwxrwxrwx root     root    2013-01-21 08:50 uboot            -&amp;gt; /dev/block/mmcblk0p1 lrwxrwxrwx root     root    2013-01-21 08:50 trust            -&amp;gt; /dev/block/mmcblk">
-<meta name="keywords" content="RK,分区">
+  <meta name="description" content="JNI 介绍JNI是Java Native Interface的缩写，它提供了若干的API实现了Java和其他语言的通信（主要是C&amp;amp;C++）。 JNI 类型 jni中结构体层次结构  下面是访问String的一些方法： GetStringUTFChars 将jstring转换成为UTF-8格式的char*    /  ReleaseStringUTFChars  释放指向UTF-8格式的c">
+<meta name="keywords" content="JNI,native调用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RK平台分区信息">
-<meta property="og:url" content="http://yoursite.com/2017/04/11/RK平台分区信息/index.html">
+<meta property="og:title" content="Android JNI介绍及使用">
+<meta property="og:url" content="http://yoursite.com/2016/10/08/Android JNI介绍及使用/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
-<meta property="og:description" content="RK平台分区信息与eMMC partitions对应lrwxrwxrwx root     root    2013-01-21 08:50 uboot            -&amp;gt; /dev/block/mmcblk0p1 lrwxrwxrwx root     root    2013-01-21 08:50 trust            -&amp;gt; /dev/block/mmcblk">
-<meta property="og:updated_time" content="2017-04-12T11:23:39.292Z">
+<meta property="og:description" content="JNI 介绍JNI是Java Native Interface的缩写，它提供了若干的API实现了Java和其他语言的通信（主要是C&amp;amp;C++）。 JNI 类型 jni中结构体层次结构  下面是访问String的一些方法： GetStringUTFChars 将jstring转换成为UTF-8格式的char*    /  ReleaseStringUTFChars  释放指向UTF-8格式的c">
+<meta property="og:image" content="http://i.imgur.com/EoSp6Hu.png">
+<meta property="og:image" content="http://i.imgur.com/GPDJQPc.png">
+<meta property="og:updated_time" content="2017-04-17T11:26:12.622Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RK平台分区信息">
-<meta name="twitter:description" content="RK平台分区信息与eMMC partitions对应lrwxrwxrwx root     root    2013-01-21 08:50 uboot            -&amp;gt; /dev/block/mmcblk0p1 lrwxrwxrwx root     root    2013-01-21 08:50 trust            -&amp;gt; /dev/block/mmcblk">
+<meta name="twitter:title" content="Android JNI介绍及使用">
+<meta name="twitter:description" content="JNI 介绍JNI是Java Native Interface的缩写，它提供了若干的API实现了Java和其他语言的通信（主要是C&amp;amp;C++）。 JNI 类型 jni中结构体层次结构  下面是访问String的一些方法： GetStringUTFChars 将jstring转换成为UTF-8格式的char*    /  ReleaseStringUTFChars  释放指向UTF-8格式的c">
+<meta name="twitter:image" content="http://i.imgur.com/EoSp6Hu.png">
   
     <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
   
@@ -147,7 +150,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-RK平台分区信息" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-Android JNI介绍及使用" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -155,7 +158,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      RK平台分区信息
+      Android JNI介绍及使用
     </h1>
   
 
@@ -163,54 +166,101 @@
     
     <div class="article-meta">
       
-	<a href="/2017/04/11/RK平台分区信息/" class="article-date">
-	  <time datetime="2017-04-11T09:35:57.000Z" itemprop="datePublished">2017-04-11</time>
+	<a href="/2016/10/08/Android JNI介绍及使用/" class="article-date">
+	  <time datetime="2016-10-08T04:22:33.000Z" itemprop="datePublished">2016-10-08</time>
 	</a>
 
       
-    <a class="article-category-link" href="/categories/RK/">RK</a>
+    <a class="article-category-link" href="/categories/Android/">Android</a>
 
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="RK平台分区信息与eMMC-partitions对应"><a href="#RK平台分区信息与eMMC-partitions对应" class="headerlink" title="RK平台分区信息与eMMC partitions对应"></a>RK平台分区信息与eMMC partitions对应</h2><pre><code>lrwxrwxrwx root     root    2013-01-21 08:50 uboot            -&gt; /dev/block/mmcblk0p1
-lrwxrwxrwx root     root    2013-01-21 08:50 trust            -&gt; /dev/block/mmcblk0p2
-lrwxrwxrwx root     root    2013-01-21 08:50 misc             -&gt; /dev/block/mmcblk0p3
-lrwxrwxrwx root     root    2013-01-21 08:50 resource         -&gt; /dev/block/mmcblk0p4
-lrwxrwxrwx root     root    2013-01-21 08:50 kernel           -&gt; /dev/block/mmcblk0p5
-lrwxrwxrwx root     root    2013-01-21 08:50 boot             -&gt; /dev/block/mmcblk0p6
-lrwxrwxrwx root     root    2013-01-21 08:50 recovery         -&gt; /dev/block/mmcblk0p7
-lrwxrwxrwx root     root    2013-01-21 08:50 backup           -&gt; /dev/block/mmcblk0p8
-lrwxrwxrwx root     root    2013-01-21 08:50 cache            -&gt; /dev/block/mmcblk0p9
-lrwxrwxrwx root     root    2013-01-21 08:50 kpanic           -&gt; /dev/block/mmcblk0p10
-lrwxrwxrwx root     root    2013-01-21 08:50 system           -&gt; /dev/block/mmcblk0p11
-lrwxrwxrwx root     root    2013-01-21 08:50 metadata         -&gt; /dev/block/mmcblk0p12
-lrwxrwxrwx root     root    2013-01-21 08:50 baseparamer      -&gt; /dev/block/mmcblk0p13
-lrwxrwxrwx root     root    2013-01-21 08:50 userdata         -&gt; /dev/block/mmcblk0p14
-lrwxrwxrwx root     root    2013-01-21 08:50 radical_update   -&gt; /dev/block/mmcblk0p15
-lrwxrwxrwx root     root    2013-01-21 08:50 user             -&gt; /dev/block/mmcblk0p16
-</code></pre><h2 id="RK平台各分区介绍"><a href="#RK平台各分区介绍" class="headerlink" title="RK平台各分区介绍"></a>RK平台各分区介绍</h2><pre><code>uboot.img
-trust.img
-misc.img      RK平台，misc分区内容用于启动模式切换，是升级基带还是进入Recovery（misc分区的内容可以被按键出发改变???）
-resource.img  RK平台资源映像，内含开机图片和内核的设备树信息。
-kernel
-boot.img      Android 的初始文件映像，负责初始化并加载 system 分区，一般Android系统这个镜像中包含ramdisk.img根文件系统+kernel（RK平台的boot.img是没包含kernel部分的）
-    ramdisk.img   是根文件系统，是root目录打包成的镜像（ramdisk-recovery.img）
-recovery.img  恢复模式系统启动镜像。内容和boot.img雷同（RK平台recovery.img包含kernel部分），但是其中的ramdisk.img（ramdisk-recovery.img）有些许不同：
-              recovery.fstab文件、sbin下部分工具、build.prop、init.bootmode.emmc.rc、sepolicy等
-backup
-cache
-kpanic
+        <h1 id="JNI-介绍"><a href="#JNI-介绍" class="headerlink" title="JNI 介绍"></a>JNI 介绍</h1><p>JNI是Java Native Interface的缩写，它提供了若干的API实现了Java和其他语言的通信（主要是C&amp;C++）。</p>
+<h1 id="JNI-类型"><a href="#JNI-类型" class="headerlink" title="JNI 类型"></a>JNI 类型</h1><p><img src="http://i.imgur.com/EoSp6Hu.png" alt=""></p>
+<p>jni中结构体层次结构</p>
+<p><img src="http://i.imgur.com/GPDJQPc.png" alt=""></p>
+<p>下面是访问String的一些方法：</p>
+<pre><code>GetStringUTFChars 将jstring转换成为UTF-8格式的char*    /  ReleaseStringUTFChars  释放指向UTF-8格式的char*的指针
+GetStringChars    将jstring转换成为Unicode格式的char*  /  ReleaseStringChars     释放指向Unicode格式的char*的指针
 
-system.img    包括了主要的包、库等文件
-metadata
-baseparameter
-userdata.img  包括了一些用户数据
-radical_update
-user
-</code></pre><h2 id="另："><a href="#另：" class="headerlink" title="另："></a>另：</h2><pre><code>RK平台生成boot.img recovery.img system.img userdata.img是使用自己的mkimage.sh工具讲root system data 目录生成的
-再使用工具mkupdate.sh生成update.img的（不带userdata.img）
-烧写userdata.img 需要使用./upgrade_tool DI userdata userdata.img 单独烧写
+NewStringUTF      创建一个UTF-8格式的String对象
+NewString         创建一个Unicode格式的String对象
+GetStringUTFLengt 获取 UTF-8格式的char*的长度　
+GetStringLength   获取Unicode格式的char*的长度
+</code></pre><h1 id="JNI-实现"><a href="#JNI-实现" class="headerlink" title="JNI 实现"></a>JNI 实现</h1><p>如果需要在Java中使用到native接口的话，可以使用JNI这个方式来达到目的：</p>
+<h5 id="1-Java侧使用方法"><a href="#1-Java侧使用方法" class="headerlink" title="1. Java侧使用方法"></a>1. Java侧使用方法</h5><pre><code>public class AudioFlingerBinderTest extends TestCase {                                                                                                                                                        
+    private static native boolean native_test_setMasterMute();     //声明native函数，都是以native_开头                                                                                                                                                             
+    static {                                                                                                                                                        
+        System.loadLibrary(&quot;ctssecurity_jni&quot;);   //加载jni库，该函数会找到对应的动态库，然后首先试图找到 
+                                                 // &quot;JNI_OnLoad&quot;函数，如果该函数存在，则调用它。             
+    }                                                                                                                                                                  
+
+    //使用native_test_setMasterMute()                                                                                                          
+    .....                                                                                                                                                               
+}                                                                                                                                                
+</code></pre><h5 id="2-Java侧Android-mk编写"><a href="#2-Java侧Android-mk编写" class="headerlink" title="2. Java侧Android.mk编写"></a>2. Java侧Android.mk编写</h5><pre><code>Android.mk
+LOCAL_PATH:= $(call my-dir)
+
+include $(CLEAR_VARS)
+...
+LOCAL_JNI_SHARED_LIBRARIES := libctssecurity_jni libcts_jni
+...
+</code></pre><h5 id="3-JNI侧库ctssecurity-jni的Android-mk"><a href="#3-JNI侧库ctssecurity-jni的Android-mk" class="headerlink" title="3. JNI侧库ctssecurity_jni的Android.mk"></a>3. JNI侧库ctssecurity_jni的Android.mk</h5><pre><code>Android.mk------------------------------
+LOCAL_PATH:= $(call my-dir)
+
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := libctssecurity_jni
+LOCAL_MODULE_TAGS := optional
+LOCAL_SRC_FILES := \
+        CtsSecurityJniOnLoad.cpp \
+        android_security_cts_CharDeviceTest.cpp \
+                .....
+LOCAL_C_INCLUDES := $(JNI_H_INCLUDE)
+LOCAL_SHARED_LIBRARIES := libnativehelper liblog libbinder libutils libmedia libselinux libdl
+
+include $(BUILD_SHARED_LIBRARY)
+</code></pre><h5 id="4-JNI侧库ctssecurity-jni"><a href="#4-JNI侧库ctssecurity-jni" class="headerlink" title="4. JNI侧库ctssecurity_jni"></a>4. JNI侧库ctssecurity_jni</h5><h6 id="4-1-实现native函数"><a href="#4-1-实现native函数" class="headerlink" title="4.1 实现native函数"></a>4.1 实现native函数</h6><pre><code>jboolean android_security_cts_AudioFlinger_test_setMasterMute(JNIEnv* env __unused, jobject thiz __unused) {
+    //具体实现
+}
+</code></pre><p>or</p>
+<pre><code>jboolean android_security_cts_AudioFlinger_test_setMasterMute(JNIEnv* env, jclass clazz) {
+    //具体实现
+}
+</code></pre><h6 id="4-2-注册native函数"><a href="#4-2-注册native函数" class="headerlink" title="4.2 注册native函数"></a>4.2 注册native函数</h6><pre><code>static JNINativeMethod gMethods[] = {
+    { &quot;native_test_setMasterMute&quot;, &quot;()Z&quot;,
+            (void *) android_security_cts_AudioFlinger_test_setMasterMute },
+};
+
+
+int register_android_security_cts_AudioFlingerBinderTest(JNIEnv* env) {
+    jclass clazz = env-&gt;FindClass(&quot;android/security/cts/AudioFlingerBinderTest&quot;);
+    return env-&gt;RegisterNatives(clazz, gMethods, sizeof(gMethods) / sizeof(JNINativeMethod));
+}
+</code></pre><p>or</p>
+<pre><code>int register_android_security_cts_AudioFlingerBinderTest(JNIEnv* env) {
+    int res = jniRegisterNativeMethods(env, &quot;android/security/cts/AudioFlingerBinderTest&quot;,
+            gMethods, NELEM(gMethods));
+    LOG_FATAL_IF(res &lt; 0, &quot;Unable to register native methods.&quot;);
+    return res;
+}
+</code></pre><h6 id="4-3-jni库的主函数-加载入口："><a href="#4-3-jni库的主函数-加载入口：" class="headerlink" title="4.3 jni库的主函数/加载入口："></a>4.3 jni库的主函数/加载入口：</h6><pre><code>#include &lt;jni.h&gt;
+#include &lt;stdio.h&gt;
+#include “xxx.h”
+
+jint JNI_OnLoad(JavaVM *vm, void *reserved) {
+    JNIEnv *env = NULL;
+
+    if (vm-&gt;GetEnv((void **) &amp;env, JNI_VERSION_1_4) != JNI_OK) {
+        return JNI_ERR;
+    }
+    if (register_android_security_cts_AudioFlingerBinderTest(env)) {
+        return JNI_ERR;
+    }
+
+    return JNI_VERSION_1_4;
+}
 </code></pre>
       
     </div>
@@ -220,7 +270,7 @@ user
 	<div id="comment">
 	
 	<!-- 多说评论框 start -->
-	 <div class="ds-thread" data-thread-key="/2017/04/11/RK平台分区信息/" data-title="RK平台分区信息" data-url="http://yoursite.com/2017/04/11/RK平台分区信息/"></div>
+	 <div class="ds-thread" data-thread-key="/2016/10/08/Android JNI介绍及使用/" data-title="Android JNI介绍及使用" data-url="http://yoursite.com/2016/10/08/Android JNI介绍及使用/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -241,7 +291,7 @@ user
 
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RK/">RK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分区/">分区</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JNI/">JNI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/native调用/">native调用</a></li></ul>
 
     </footer>
   </div>
@@ -249,19 +299,19 @@ user
     
 <nav id="article-nav">
   
-    <a href="/2017/04/11/Android编译系统——system.img userdata.img recovery.img目标编译过程/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/05/28/C++的类型转换——隐式、显式转换(xxx_cast)/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Android编译系统——ramdisk.img system.img userdata.img recovery.img目标编译过程
+          C++的类型转换——隐式、显式转换(xxx_cast)
         
       </div>
     </a>
   
   
-    <a href="/2017/04/12/Android Input系统/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/10/12/SEAndroid策略规则/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Android Input系统——xxx</div>
+      <div class="article-nav-title">SEAndroid策略规则</div>
     </a>
   
 </nav>
@@ -273,7 +323,7 @@ user
 
   <section id="comments">
 <!--���ٰ棬�����ٶȿ죬ʹ��ǰ������ҳ���ļ�����-->
-<div id="SOHUCS" sid="RK平台分区信息"></div>
+<div id="SOHUCS" sid="Android JNI介绍及使用"></div>
 <script>
   (function(){
     var appid = 'cysWY506v',

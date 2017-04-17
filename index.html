@@ -160,6 +160,49 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Android 智能指针——SP WP"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/05/28/Android 智能指针——SP WP/">Android 智能指针——SP WP</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/05/28/Android 智能指针——SP WP/" class="article-date">
+	  <time datetime="2017-05-28T04:22:33.000Z" itemprop="datePublished">2017-05-28</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://blog.163.com/ye_kc_lcx88/blog/static/217863346201462411215858/" target="_blank" rel="external">http://blog.163.com/ye_kc_lcx88/blog/static/217863346201462411215858/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/弱指针/">弱指针</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/强指针/">强指针</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/智能指针/">智能指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Markdown使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -363,6 +406,50 @@ Cupcake                1.5                 API level 3, NDK 1
 <!-- Table of Contents -->
 
   
+    <article id="post-Android编译系统——完整编译过程分析"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/12/Android编译系统——完整编译过程分析/">Android编译系统——完整编译过程分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/12/Android编译系统——完整编译过程分析/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###编译命令<br>    make //整体编译Android<br>    mm<br>    mmm<br>    get_build_var TARGET_PRODUCT  //获取指定变量的当前值</p>
+<pre><code>待续...
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译/">编译</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Android Input系统"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -389,21 +476,18 @@ Cupcake                1.5                 API level 3, NDK 1
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Input系统"><a href="#Input系统" class="headerlink" title="Input系统"></a>Input系统</h3><pre><code>input
+        <h3 id="Input系统结构解析"><a href="#Input系统结构解析" class="headerlink" title="Input系统结构解析"></a>Input系统结构解析</h3><pre><code>InputManager.java (frameworks\base\core\java\android\hardware\input)     
+InputManagerInternal.java (frameworks\base\core\java\android\hardware\input)     
 
+IInputManager.aidl (frameworks\base\core\java\android\hardware\input)     ----------------------
+
+InputManagerService.java (frameworks\base\services\core\java\com\android\server\input) 
+
+InputManagerService == jni ==&gt; NativeInputManager  ---------------------------------------------
 com_android_server_input_InputManagerService.cpp (frameworks\base\services\core\jni)
 
 
-InputManagerService ==jni==&gt; NativeInputManager
-
-用于InputManagerService集成IInputManager （c++类）
-IInputManager.aidl (frameworks\base\core\java\android\hardware\input)     
-
-InputManager.java (frameworks\base\core\java\android\hardware\input)     
-InputManagerInternal.java (frameworks\base\core\java\android\hardware\input)     
-InputManagerService.java (frameworks\base\services\core\java\com\android\server\input) 
-
-
+InputManager.cpp (frameworks\native\services\inputflinger) 
 EventHub.cpp (frameworks\native\services\inputflinger) 
 </code></pre><h3 id="查看event注册设备"><a href="#查看event注册设备" class="headerlink" title="查看event注册设备"></a>查看event注册设备</h3><pre><code>cat /proc/bus/input/devices  
 I: Bus=0019 Vendor=0001 Product=0001 Version=0100
@@ -480,50 +564,6 @@ Usage: getevent [-t] [-n] [-s switchmask] [-S] [-v [mask]] [-d] [-p] [-i] [-l] [
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event/">event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input/">input</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input系统/">input系统</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Android编译系统——完整编译过程分析"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/12/Android编译系统——完整编译过程分析/">Android编译系统——完整编译过程分析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/04/12/Android编译系统——完整编译过程分析/" class="article-date">
-	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>###编译命令<br>    make //整体编译Android<br>    mm<br>    mmm<br>    get_build_var TARGET_PRODUCT  //获取指定变量的当前值</p>
-<pre><code>待续...
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译/">编译</a></li></ul>
 
     </footer>
   </div>
@@ -1102,179 +1142,6 @@ fs_mgr_flags: Vold ignores any lines in the unified fstab that do not include th
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fstab/">fstab</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Android版本-sdk-ndk-对应关系"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2016/12/12/Android版本-sdk-ndk-对应关系/">Android版本-sdk-ndk-对应关系表</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2016/12/12/Android版本-sdk-ndk-对应关系/" class="article-date">
-	  <time datetime="2016-12-12T04:22:33.000Z" itemprop="datePublished">2016-12-12</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <table>
-<thead>
-<tr>
-<th style="text-align:left">Code name</th>
-<th style="text-align:left">Version</th>
-<th style="text-align:left">API level</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Nougat</td>
-<td style="text-align:left">7.1</td>
-<td style="text-align:left">API level 25</td>
-</tr>
-<tr>
-<td style="text-align:left">Nougat</td>
-<td style="text-align:left">7.0</td>
-<td style="text-align:left">API level 24</td>
-</tr>
-<tr>
-<td style="text-align:left">Marshmallow</td>
-<td style="text-align:left">6.0</td>
-<td style="text-align:left">API level 23</td>
-</tr>
-<tr>
-<td style="text-align:left">Lollipop</td>
-<td style="text-align:left">5.1</td>
-<td style="text-align:left">API level 22</td>
-</tr>
-<tr>
-<td style="text-align:left">Lollipop</td>
-<td style="text-align:left">5.0</td>
-<td style="text-align:left">API level 21, NDK 10</td>
-</tr>
-<tr>
-<td style="text-align:left">KitKat</td>
-<td style="text-align:left">4.4 - 4.4.4</td>
-<td style="text-align:left">API level 19</td>
-</tr>
-<tr>
-<td style="text-align:left">Jelly Bean</td>
-<td style="text-align:left">4.3.x</td>
-<td style="text-align:left">API level 18</td>
-</tr>
-<tr>
-<td style="text-align:left">Jelly Bean</td>
-<td style="text-align:left">4.2.x</td>
-<td style="text-align:left">API level 17</td>
-</tr>
-<tr>
-<td style="text-align:left">Jelly Bean</td>
-<td style="text-align:left">4.1.x</td>
-<td style="text-align:left">API level 16</td>
-</tr>
-<tr>
-<td style="text-align:left">Ice Cream Sandwich</td>
-<td style="text-align:left">4.0.3 - 4.0.4</td>
-<td style="text-align:left">API level 15, NDK 8</td>
-</tr>
-<tr>
-<td style="text-align:left">Ice Cream Sandwich</td>
-<td style="text-align:left">4.0.1 - 4.0.2</td>
-<td style="text-align:left">API level 14, NDK 7</td>
-</tr>
-<tr>
-<td style="text-align:left">Honeycomb</td>
-<td style="text-align:left">3.2.x</td>
-<td style="text-align:left">API level 13</td>
-</tr>
-<tr>
-<td style="text-align:left">Honeycomb</td>
-<td style="text-align:left">3.1</td>
-<td style="text-align:left">API level 12, NDK 6</td>
-</tr>
-<tr>
-<td style="text-align:left">Honeycomb</td>
-<td style="text-align:left">3.0</td>
-<td style="text-align:left">API level 11</td>
-</tr>
-<tr>
-<td style="text-align:left">Gingerbread</td>
-<td style="text-align:left">2.3.3 - 2.3.7</td>
-<td style="text-align:left">API level 10</td>
-</tr>
-<tr>
-<td style="text-align:left">Gingerbread</td>
-<td style="text-align:left">2.3 - 2.3.2</td>
-<td style="text-align:left">API level 9,  NDK 5</td>
-</tr>
-<tr>
-<td style="text-align:left">Froyo</td>
-<td style="text-align:left">2.2.x</td>
-<td style="text-align:left">API level 8,  NDK 4</td>
-</tr>
-<tr>
-<td style="text-align:left">Eclair</td>
-<td style="text-align:left">2.1</td>
-<td style="text-align:left">API level 7,  NDK 3</td>
-</tr>
-<tr>
-<td style="text-align:left">Eclair</td>
-<td style="text-align:left">2.0.1</td>
-<td style="text-align:left">API level 6</td>
-</tr>
-<tr>
-<td style="text-align:left">Eclair</td>
-<td style="text-align:left">2.0</td>
-<td style="text-align:left">API level 5</td>
-</tr>
-<tr>
-<td style="text-align:left">Donut</td>
-<td style="text-align:left">1.6</td>
-<td style="text-align:left">API level 4,  NDK 2</td>
-</tr>
-<tr>
-<td style="text-align:left">Cupcake</td>
-<td style="text-align:left">1.5</td>
-<td style="text-align:left">API level 3,  NDK 1</td>
-</tr>
-<tr>
-<td style="text-align:left">(no code name)</td>
-<td style="text-align:left">1.1</td>
-<td style="text-align:left">API level 2</td>
-</tr>
-<tr>
-<td style="text-align:left">(no code name)</td>
-<td style="text-align:left">1.0</td>
-<td style="text-align:left">API level 1</td>
-</tr>
-</tbody>
-</table>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/API-level/">API level</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NDK/">NDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SDK/">SDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/版本/">版本</a></li></ul>
 
     </footer>
   </div>
