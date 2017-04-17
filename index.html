@@ -533,86 +533,6 @@ Usage: getevent [-t] [-n] [-s switchmask] [-S] [-v [mask]] [-d] [-p] [-i] [-l] [
 <!-- Table of Contents -->
 
   
-    <article id="post-RK平台分区信息"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/11/RK平台分区信息/">RK平台分区信息</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/04/11/RK平台分区信息/" class="article-date">
-	  <time datetime="2017-04-11T09:35:57.000Z" itemprop="datePublished">2017-04-11</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/RK/">RK</a>
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="RK平台分区信息与eMMC-partitions对应"><a href="#RK平台分区信息与eMMC-partitions对应" class="headerlink" title="RK平台分区信息与eMMC partitions对应"></a>RK平台分区信息与eMMC partitions对应</h2><pre><code>lrwxrwxrwx root     root    2013-01-21 08:50 uboot            -&gt; /dev/block/mmcblk0p1
-lrwxrwxrwx root     root    2013-01-21 08:50 trust            -&gt; /dev/block/mmcblk0p2
-lrwxrwxrwx root     root    2013-01-21 08:50 misc             -&gt; /dev/block/mmcblk0p3
-lrwxrwxrwx root     root    2013-01-21 08:50 resource         -&gt; /dev/block/mmcblk0p4
-lrwxrwxrwx root     root    2013-01-21 08:50 kernel           -&gt; /dev/block/mmcblk0p5
-lrwxrwxrwx root     root    2013-01-21 08:50 boot             -&gt; /dev/block/mmcblk0p6
-lrwxrwxrwx root     root    2013-01-21 08:50 recovery         -&gt; /dev/block/mmcblk0p7
-lrwxrwxrwx root     root    2013-01-21 08:50 backup           -&gt; /dev/block/mmcblk0p8
-lrwxrwxrwx root     root    2013-01-21 08:50 cache            -&gt; /dev/block/mmcblk0p9
-lrwxrwxrwx root     root    2013-01-21 08:50 kpanic           -&gt; /dev/block/mmcblk0p10
-lrwxrwxrwx root     root    2013-01-21 08:50 system           -&gt; /dev/block/mmcblk0p11
-lrwxrwxrwx root     root    2013-01-21 08:50 metadata         -&gt; /dev/block/mmcblk0p12
-lrwxrwxrwx root     root    2013-01-21 08:50 baseparamer      -&gt; /dev/block/mmcblk0p13
-lrwxrwxrwx root     root    2013-01-21 08:50 userdata         -&gt; /dev/block/mmcblk0p14
-lrwxrwxrwx root     root    2013-01-21 08:50 radical_update   -&gt; /dev/block/mmcblk0p15
-lrwxrwxrwx root     root    2013-01-21 08:50 user             -&gt; /dev/block/mmcblk0p16
-</code></pre><h2 id="RK平台各分区介绍"><a href="#RK平台各分区介绍" class="headerlink" title="RK平台各分区介绍"></a>RK平台各分区介绍</h2><pre><code>uboot.img
-trust.img
-misc.img      RK平台，misc分区内容用于启动模式切换，是升级基带还是进入Recovery（misc分区的内容可以被按键出发改变???）
-resource.img  RK平台资源映像，内含开机图片和内核的设备树信息。
-kernel
-boot.img      Android 的初始文件映像，负责初始化并加载 system 分区，一般Android系统这个镜像中包含ramdisk.img根文件系统+kernel（RK平台的boot.img是没包含kernel部分的）
-    ramdisk.img   是根文件系统，是root目录打包成的镜像（ramdisk-recovery.img）
-recovery.img  恢复模式系统启动镜像。内容和boot.img雷同（RK平台recovery.img包含kernel部分），但是其中的ramdisk.img（ramdisk-recovery.img）有些许不同：
-              recovery.fstab文件、sbin下部分工具、build.prop、init.bootmode.emmc.rc、sepolicy等
-backup
-cache
-kpanic
-
-system.img    包括了主要的包、库等文件
-metadata
-baseparameter
-userdata.img  包括了一些用户数据
-radical_update
-user
-</code></pre><h2 id="另："><a href="#另：" class="headerlink" title="另："></a>另：</h2><pre><code>RK平台生成boot.img recovery.img system.img userdata.img是使用自己的mkimage.sh工具讲root system data 目录生成的
-再使用工具mkupdate.sh生成update.img的（不带userdata.img）
-烧写userdata.img 需要使用./upgrade_tool DI userdata userdata.img 单独烧写
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RK/">RK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分区/">分区</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-Android编译系统——system.img userdata.img recovery.img目标编译过程"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -785,6 +705,86 @@ c. second is optional (second_size == 0 -&gt; no second)
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/image/">image</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译/">编译</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-RK平台分区信息"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/11/RK平台分区信息/">RK平台分区信息</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/11/RK平台分区信息/" class="article-date">
+	  <time datetime="2017-04-11T09:35:57.000Z" itemprop="datePublished">2017-04-11</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/RK/">RK</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="RK平台分区信息与eMMC-partitions对应"><a href="#RK平台分区信息与eMMC-partitions对应" class="headerlink" title="RK平台分区信息与eMMC partitions对应"></a>RK平台分区信息与eMMC partitions对应</h2><pre><code>lrwxrwxrwx root     root    2013-01-21 08:50 uboot            -&gt; /dev/block/mmcblk0p1
+lrwxrwxrwx root     root    2013-01-21 08:50 trust            -&gt; /dev/block/mmcblk0p2
+lrwxrwxrwx root     root    2013-01-21 08:50 misc             -&gt; /dev/block/mmcblk0p3
+lrwxrwxrwx root     root    2013-01-21 08:50 resource         -&gt; /dev/block/mmcblk0p4
+lrwxrwxrwx root     root    2013-01-21 08:50 kernel           -&gt; /dev/block/mmcblk0p5
+lrwxrwxrwx root     root    2013-01-21 08:50 boot             -&gt; /dev/block/mmcblk0p6
+lrwxrwxrwx root     root    2013-01-21 08:50 recovery         -&gt; /dev/block/mmcblk0p7
+lrwxrwxrwx root     root    2013-01-21 08:50 backup           -&gt; /dev/block/mmcblk0p8
+lrwxrwxrwx root     root    2013-01-21 08:50 cache            -&gt; /dev/block/mmcblk0p9
+lrwxrwxrwx root     root    2013-01-21 08:50 kpanic           -&gt; /dev/block/mmcblk0p10
+lrwxrwxrwx root     root    2013-01-21 08:50 system           -&gt; /dev/block/mmcblk0p11
+lrwxrwxrwx root     root    2013-01-21 08:50 metadata         -&gt; /dev/block/mmcblk0p12
+lrwxrwxrwx root     root    2013-01-21 08:50 baseparamer      -&gt; /dev/block/mmcblk0p13
+lrwxrwxrwx root     root    2013-01-21 08:50 userdata         -&gt; /dev/block/mmcblk0p14
+lrwxrwxrwx root     root    2013-01-21 08:50 radical_update   -&gt; /dev/block/mmcblk0p15
+lrwxrwxrwx root     root    2013-01-21 08:50 user             -&gt; /dev/block/mmcblk0p16
+</code></pre><h2 id="RK平台各分区介绍"><a href="#RK平台各分区介绍" class="headerlink" title="RK平台各分区介绍"></a>RK平台各分区介绍</h2><pre><code>uboot.img
+trust.img
+misc.img      RK平台，misc分区内容用于启动模式切换，是升级基带还是进入Recovery（misc分区的内容可以被按键出发改变???）
+resource.img  RK平台资源映像，内含开机图片和内核的设备树信息。
+kernel
+boot.img      Android 的初始文件映像，负责初始化并加载 system 分区，一般Android系统这个镜像中包含ramdisk.img根文件系统+kernel（RK平台的boot.img是没包含kernel部分的）
+    ramdisk.img   是根文件系统，是root目录打包成的镜像（ramdisk-recovery.img）
+recovery.img  恢复模式系统启动镜像。内容和boot.img雷同（RK平台recovery.img包含kernel部分），但是其中的ramdisk.img（ramdisk-recovery.img）有些许不同：
+              recovery.fstab文件、sbin下部分工具、build.prop、init.bootmode.emmc.rc、sepolicy等
+backup
+cache
+kpanic
+
+system.img    包括了主要的包、库等文件
+metadata
+baseparameter
+userdata.img  包括了一些用户数据
+radical_update
+user
+</code></pre><h2 id="另："><a href="#另：" class="headerlink" title="另："></a>另：</h2><pre><code>RK平台生成boot.img recovery.img system.img userdata.img是使用自己的mkimage.sh工具讲root system data 目录生成的
+再使用工具mkupdate.sh生成update.img的（不带userdata.img）
+烧写userdata.img 需要使用./upgrade_tool DI userdata userdata.img 单独烧写
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RK/">RK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分区/">分区</a></li></ul>
 
     </footer>
   </div>

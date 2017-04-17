@@ -359,15 +359,25 @@ uid=0(root) gid=0(root) groups=1007(log) context=u:r:su:s0
 
 <!-- Table of Contents -->
 
-  <aside id="sidebar">
-    <div id="toc" class="toc-article">
-    <strong class="toc-title">文章目录</strong>
-    
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SEAndroid中各种实体的SContext-定义"><span class="nav-number">1.</span> <span class="nav-text">SEAndroid中各种实体的SContext 定义</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进程的SContext（以system-server进程为例）（对应每个进程的te文件）"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">进程的SContext（以system_server进程为例）（对应每个进程的te文件）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#file和dir的SContext（以system目录为例）（在file-contexts定义）"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">file和dir的SContext（以system目录为例）（在file_contexts定义）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fs-use-在fs-use定义"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">fs_use(在fs_use定义)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#生成-文件系统的-SContext-（在genfs-contexts定义）"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">生成 文件系统的 SContext （在genfs_contexts定义）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#property的SContext（在property-contexts定义）"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">property的SContext（在property_contexts定义）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#service的SContext（在service-contexts定义）"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">service的SContext（在service_contexts定义）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#APP的SContext-（在mac-permissions-xml-seapp-contexts-xxx定义，详见-APP安全策略）"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">APP的SContext （在mac_permissions.xml+seapp_contexts+xxx定义，详见 APP安全策略）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#APP安全策略"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">APP安全策略</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全策略语法"><span class="nav-number">2.</span> <span class="nav-text">安全策略语法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#关键字的关键字-（有点拗口，但确实是这样的）"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">关键字的关键字 （有点拗口，但确实是这样的）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本语法"><span class="nav-number">2.1.</span> <span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高级语法"><span class="nav-number">2.2.</span> <span class="nav-text">高级语法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#域转换-DomainTransition-简称DT"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">域转换(DomainTransition,简称DT)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#类型转换-TypeTransition-简称TT"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">类型转换(TypeTransition,简称TT)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class集合-class"><span class="nav-number">2.3.</span> <span class="nav-text">class集合 class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限集合-perm-set"><span class="nav-number">2.4.</span> <span class="nav-text">权限集合 perm_set</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附"><span class="nav-number">3.</span> <span class="nav-text">附</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SELinux模式切换命令"><span class="nav-number">3.1.</span> <span class="nav-text">SELinux模式切换命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Z——查看SContext-信息的命令"><span class="nav-number">3.2.</span> <span class="nav-text">-Z——查看SContext 信息的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chcon命令——更改文件的安全属性"><span class="nav-number">3.3.</span> <span class="nav-text">chcon命令——更改文件的安全属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#restorecon命令——恢复文件原来的安全属性"><span class="nav-number">3.4.</span> <span class="nav-text">restorecon命令——恢复文件原来的安全属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#id-命令——确认自己的SecurityContext"><span class="nav-number">3.5.</span> <span class="nav-text">id 命令——确认自己的SecurityContext</span></a></li></ol></li></ol>
-    
-    </div>
-  </aside>
-</section>
+  <section id="comments">
+<!--���ٰ棬�����ٶȿ죬ʹ��ǰ������ҳ���ļ�����-->
+<div id="SOHUCS" sid="SEAndroid策略规则"></div>
+<script>
+  (function(){
+    var appid = 'cysWY506v',
+    conf = 'prod_b3fbdae0e52a1e5b116b4b9fe328664b';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>    
+  </section>
+  </section>
         
       </div>
       
