@@ -11,17 +11,19 @@
   
   
   
-  <meta name="description" content="MarkdownPad编辑器添加表格的扩展开启表格特性支持： 工具 ==&amp;gt; 选项 ==&amp;gt; Markdown ==&amp;gt; Markdown处理器 改为 &amp;quot;Markdown(扩展)&amp;quot;即可。 表格语法:      | Tables        | Are           | Cool  |     | :------------ |:-------------:|">
+  <meta name="description" content="MarkdownPad编辑器添加表格的扩展开启表格特性支持： 工具 ==&amp;gt; 选项 ==&amp;gt; Markdown ==&amp;gt; Markdown处理器 改为 &amp;quot;Markdown(扩展)&amp;quot;or&amp;quot;GitHub风格Markdown&amp;quot;即可。 表格语法:      | Tables        | Are           | Cool  |     | :">
 <meta name="keywords" content="Markdown">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Markdown&MarkdownPad编辑器">
 <meta property="og:url" content="http://yoursite.com/2017/04/13/Markdown使用/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
-<meta property="og:description" content="MarkdownPad编辑器添加表格的扩展开启表格特性支持： 工具 ==&amp;gt; 选项 ==&amp;gt; Markdown ==&amp;gt; Markdown处理器 改为 &amp;quot;Markdown(扩展)&amp;quot;即可。 表格语法:      | Tables        | Are           | Cool  |     | :------------ |:-------------:|">
-<meta property="og:updated_time" content="2017-04-13T12:27:19.089Z">
+<meta property="og:description" content="MarkdownPad编辑器添加表格的扩展开启表格特性支持： 工具 ==&amp;gt; 选项 ==&amp;gt; Markdown ==&amp;gt; Markdown处理器 改为 &amp;quot;Markdown(扩展)&amp;quot;or&amp;quot;GitHub风格Markdown&amp;quot;即可。 表格语法:      | Tables        | Are           | Cool  |     | :">
+<meta property="og:image" content="http://yoursite.com/path/img.jpg">
+<meta property="og:updated_time" content="2017-04-18T02:47:16.977Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Markdown&MarkdownPad编辑器">
-<meta name="twitter:description" content="MarkdownPad编辑器添加表格的扩展开启表格特性支持： 工具 ==&amp;gt; 选项 ==&amp;gt; Markdown ==&amp;gt; Markdown处理器 改为 &amp;quot;Markdown(扩展)&amp;quot;即可。 表格语法:      | Tables        | Are           | Cool  |     | :------------ |:-------------:|">
+<meta name="twitter:description" content="MarkdownPad编辑器添加表格的扩展开启表格特性支持： 工具 ==&amp;gt; 选项 ==&amp;gt; Markdown ==&amp;gt; Markdown处理器 改为 &amp;quot;Markdown(扩展)&amp;quot;or&amp;quot;GitHub风格Markdown&amp;quot;即可。 表格语法:      | Tables        | Are           | Cool  |     | :">
+<meta name="twitter:image" content="http://yoursite.com/path/img.jpg">
   
     <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
   
@@ -173,7 +175,7 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="MarkdownPad编辑器添加表格的扩展"><a href="#MarkdownPad编辑器添加表格的扩展" class="headerlink" title="MarkdownPad编辑器添加表格的扩展"></a>MarkdownPad编辑器添加表格的扩展</h3><p><strong>开启表格特性支持：</strong> <code>工具 ==&gt; 选项 ==&gt; Markdown ==&gt; Markdown处理器 改为 &quot;Markdown(扩展)&quot;即可。</code></p>
+        <h3 id="MarkdownPad编辑器添加表格的扩展"><a href="#MarkdownPad编辑器添加表格的扩展" class="headerlink" title="MarkdownPad编辑器添加表格的扩展"></a>MarkdownPad编辑器添加表格的扩展</h3><p><strong>开启表格特性支持：</strong> <code>工具 ==&gt; 选项 ==&gt; Markdown ==&gt; Markdown处理器 改为 &quot;Markdown(扩展)&quot;or&quot;GitHub风格Markdown&quot;即可。</code></p>
 <p><strong>表格语法:</strong></p>
 <pre>
     | Tables        | Are           | Cool  |
@@ -210,14 +212,80 @@ Cx20sV1ClOTZtAGngSOJtIOFXK599sBr5aIEFyH0K7H4BoNMiiDMnxt1rD8Vb/ikJdhGMMQr
 · 横线 Ctrl + R
 · 撤销 Ctrl + Z
 · 重做 Ctrl + Y
-</code></pre><h3 id="不解析内容处理方法"><a href="#不解析内容处理方法" class="headerlink" title="不解析内容处理方法"></a>不解析内容处理方法</h3><pre><code>``` 
-代码块 
-``` 
-</code></pre><p>或者 </p>
-<pre><code>&lt;pre&gt; 
-代码块 
-&lt;/pre&gt; 
-</code></pre>
+</code></pre><h3 id="不解析内容处理方法"><a href="#不解析内容处理方法" class="headerlink" title="不解析内容处理方法"></a>不解析内容处理方法</h3><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">    代码块 </div><div class="line">    ``` </div><div class="line"></div><div class="line">或者 </div><div class="line"></div><div class="line">    &lt;pre&gt; </div><div class="line">    代码块 </div><div class="line">    &lt;/pre&gt; </div><div class="line"></div><div class="line"></div><div class="line"># Markdown语法参考 #</div><div class="line"></div><div class="line">### 加粗和倾斜</div></pre></td></tr></table></figure>
+
+*emphasize*   **strong**
+_emphasize_   __strong__
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 链接和Email</div><div class="line">链接：</div></pre></td></tr></table></figure>
+<p>   An <a href="http://url.com/" title="Title" target="_blank" rel="external">example</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Reference-style labels (titles are optional)：</div></pre></td></tr></table></figure></p>
+<p> An [example][id]. Then, anywhere else in the doc,<br> define the link:</p>
+<pre><code>[id]: http://example.com/  &quot;Title&quot;
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Email：</div></pre></td></tr></table></figure>
+<p>  An email <a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#111;&#58;&#x65;&#120;&#x61;&#109;&#x70;&#108;&#x65;&#64;&#x65;&#120;&#97;&#x6d;&#x70;&#108;&#x65;&#46;&#99;&#x6f;&#109;">&#x65;&#120;&#x61;&#109;&#x70;&#108;&#x65;&#64;&#x65;&#120;&#97;&#x6d;&#x70;&#108;&#x65;&#46;&#99;&#x6f;&#109;</a> link.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 图片</div><div class="line"></div><div class="line">Inline (titles are optional):</div></pre></td></tr></table></figure></p>
+<p>  <img src="/path/img.jpg" alt="alt text" title="Title"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Reference-style:</div></pre></td></tr></table></figure></p>
+<pre><code>![alt text][id]
+
+[id]: /url/to/img.jpg &quot;Title&quot;
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 标题</div><div class="line"></div><div class="line">Setext-style:</div></pre></td></tr></table></figure>
+<pre><code>Header 1
+========
+
+Header 2
+--------
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">atx-style (closing #’s are optional):</div></pre></td></tr></table></figure>
+<pre><code># Header 1 #
+
+## Header 2 ##
+
+### Header 3 ###
+
+#### Header 4
+
+##### Header 5
+
+###### Header 6
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 列表</div><div class="line">    </div><div class="line">无段落有序列表：</div></pre></td></tr></table></figure>
+<pre><code>1. Foo
+2. Bar
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">有段落无序列表</div></pre></td></tr></table></figure>
+<pre><code>*   A list item.
+
+    With multiple paragraphs.
+
+*   Bar
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line">嵌套使用列表</div></pre></td></tr></table></figure>
+<pre><code>*   Abacus
+    * answer
+*   Bubbles
+    1.  bunk
+    2.  bupkis
+        * BELITTLER
+    3. burper
+*   Cunning
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">引用</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Email-style angle brackets 方括号被用于引用<br>are used for blockquotes.</p>
+<blockquote>
+<p>你也可以嵌套引用.</p>
+</blockquote>
+<h4 id="Headers-in-blockquotes-引用中嵌入标题"><a href="#Headers-in-blockquotes-引用中嵌入标题" class="headerlink" title="Headers in blockquotes 引用中嵌入标题"></a>Headers in blockquotes 引用中嵌入标题</h4><ul>
+<li>You can quote a list. 引用中嵌入列表</li>
+<li>Etc.<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">代码嵌入</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<p><code>&lt;code&gt;</code> spans are delimited<br>by backticks.</p>
+<p>You can include literal backticks<br>like <code>`this` </code>.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">代码块</div><div class="line">Indent every line of a code block by at least 4 spaces or 1 tab.</div></pre></td></tr></table></figure></p>
+<pre><code>This is a normal paragraph.
+
+    This is a preformatted
+    code block.
+</code></pre><p>```</p>
+<p>水平线<br>三个破折号或者星号</p>
+<hr>
+<hr>
+<hr>
+
       
     </div>
     <footer class="article-footer">
