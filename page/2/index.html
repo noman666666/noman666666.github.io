@@ -59,7 +59,7 @@
   
     <div id="intrologo" class="intro-logo" style="background-position:center; background-repeat:no-repeat; background-image: url(); background-size: auto 100%;">
     <script>
-        var imgUrls = "https://c1.staticflickr.com/3/2832/33195909430_70d023ea43_o.jpg,https://drscdn.500px.org/photo/205349685/q%3D80_m%3D2000/d1509b5f99333da2af557aa1fbc52c3b,css/images/home-bg.jpg".split(",");
+        var imgUrls = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492934953851&di=e78549a4d40ae596b6c6c4fc9594ea23&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F13%2F49%2F70%2F11i58PICZjp_1024.jpg".split(",");
         var random = Math.floor((Math.random() * imgUrls.length ));
         if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
           document.getElementById("intrologo").style.backgroundImage='url(' + imgUrls[random] + ')';
@@ -159,6 +159,872 @@
       <div id="content" class="outer">
         
           <section id="main" style="float:none;">
+  
+    <article id="post-InputSystem001_driver"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/12/InputSystem001_driver/">Input系统——Linux驱动</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/12/InputSystem001_driver/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event/">event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input/">input</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input系统/">input系统</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Android_update_img"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/12/Android_update_img/">Android系统升级、烧录、Recovery、OTA</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/12/Android_update_img/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Recovery"><a href="#Recovery" class="headerlink" title="Recovery:"></a>Recovery:</h3><p><a href="http://www.tuicool.com/articles/Q7ZBbu" target="_blank" rel="external">http://www.tuicool.com/articles/Q7ZBbu</a><br><a href="http://blog.csdn.net/fengying765/article/details/38301895" target="_blank" rel="external">http://blog.csdn.net/fengying765/article/details/38301895</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OTA/">OTA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recovery/">recovery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/update/">update</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-APK_tool"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/12/APK_tool/">APK 反编译及签名工具</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/12/APK_tool/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="反编译-解包-再编译"><a href="#反编译-解包-再编译" class="headerlink" title="反编译/解包/再编译"></a>反编译/解包/再编译</h1><h3 id="1-Apktool——APK反编译及再打包工具"><a href="#1-Apktool——APK反编译及再打包工具" class="headerlink" title="1. Apktool——APK反编译及再打包工具"></a>1. Apktool——APK反编译及再打包工具</h3><p>通过反编译APK中XML文件，直接可以查看<br><a href="https://ibotpeaches.github.io/Apktool/" target="_blank" rel="external">https://ibotpeaches.github.io/Apktool/</a></p>
+<p>下载安装Apktool （Windows/Linux/Mac）<br><a href="https://ibotpeaches.github.io/Apktool/install/" target="_blank" rel="external">https://ibotpeaches.github.io/Apktool/install/</a></p>
+<p>Apktool 通常用法<br>反编译APK     <code>apktool d[ecode] test.apk</code><br>再打包成APK   <code>apktool b[uild] test</code></p>
+<h3 id="2-dex2jar"><a href="#2-dex2jar" class="headerlink" title="2. dex2jar"></a>2. dex2jar</h3><p>将apk中的classes.dex转化成Jar文件<br><a href="https://github.com/pxb1988/dex2jar" target="_blank" rel="external">https://github.com/pxb1988/dex2jar</a></p>
+<h3 id="3-JD-GUI"><a href="#3-JD-GUI" class="headerlink" title="3. JD-GUI"></a>3. JD-GUI</h3><p>反编译工具，可以直接查看Jar包的源代码<br><a href="https://code.google.com/archive/p/innlab/downloads" target="_blank" rel="external">https://code.google.com/archive/p/innlab/downloads</a><br><a href="https://pan.baidu.com/disk/home#list/vmode=list&amp;path=%2Fapps%2FAPK-Track%E5%B7%A5%E5%85%B7" target="_blank" rel="external">https://pan.baidu.com/disk/home#list/vmode=list&amp;path=%2Fapps%2FAPK-Track%E5%B7%A5%E5%85%B7</a></p>
+<h1 id="签名"><a href="#签名" class="headerlink" title="签名"></a>签名</h1><h3 id="1-keytool"><a href="#1-keytool" class="headerlink" title="1. keytool"></a>1. keytool</h3><p>是个密钥和证书管理工具,可以用来生成证书.<br><code>keytool -genkey -keystore test.keystore  -alias test -keyalg RSA -validity 10000</code></p>
+<blockquote>
+<p>  参数解释:<br>    -genkey 产生证书文件<br>    -keystore 指定密钥库的.keystore文件中<br>    -keyalg 指定密钥的算法,这里指定为RSA(非对称密钥算法)<br>    -validity 为证书有效天数，这里我们写的是10000天<br>    -alias 产生别名</p>
+</blockquote>
+<h3 id="2-jarsigner"><a href="#2-jarsigner" class="headerlink" title="2. jarsigner"></a>2. jarsigner</h3><p>工具利用密钥仓库中的信息来产生或校验 Java 存档 (JAR) 文件的数字签名</p>
+<p>可以使用jarsigner 来签名,例子如下:<br><code>jarsigner -verbose -keystore test.keystore -signedjar -signed.apk unsigned.apk &#39;test.keystore&#39;</code></p>
+<blockquote>
+<p>  参数说明:<br>    -verbose：指定生成详细输出<br>    -keystore：指定数字证书存储路径<br>    -signedjar：该选项的三个参数为 签名后的apk包 未签名的apk包 数字证书别名(注意顺序)</p>
+</blockquote>
+<h1 id="To-Do"><a href="#To-Do" class="headerlink" title="To Do"></a>To Do</h1><p>后续将qq记事本中《加密和签名（及反编译）》 整合到本文 …</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APK反编译，APK签名/">APK反编译，APK签名</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-InputSystem002_InputSubSystem"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/12/InputSystem002_InputSubSystem/">Input系统——Linux 输入子系统</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/12/InputSystem002_InputSubSystem/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>待整理完善。。。</p>
+<h3 id="1-struct-input-dev"><a href="#1-struct-input-dev" class="headerlink" title="1. struct input_dev"></a>1. struct input_dev</h3><pre><code>struct input_dev {
+    const char *name; //名字 
+    const char *phys;
+    const char *uniq;
+    struct input_id id;
+
+    unsigned long propbit[BITS_TO_LONGS(INPUT_PROP_CNT)];
+
+    unsigned long evbit[BITS_TO_LONGS(EV_CNT)];    // 设备所支持的事件类型
+
+    unsigned long keybit[BITS_TO_LONGS(KEY_CNT)];  // 按键类型 
+    unsigned long relbit[BITS_TO_LONGS(REL_CNT)];  // 相对值类型
+    unsigned long absbit[BITS_TO_LONGS(ABS_CNT)];  // 绝对值类型
+    unsigned long mscbit[BITS_TO_LONGS(MSC_CNT)];  // 混合类型
+    unsigned long ledbit[BITS_TO_LONGS(LED_CNT)];  // LED类型
+    unsigned long sndbit[BITS_TO_LONGS(SND_CNT)];  // 声音类型
+    unsigned long ffbit[BITS_TO_LONGS(FF_CNT)];    // 力反馈
+    unsigned long swbit[BITS_TO_LONGS(SW_CNT)];    // 开关类型???
+
+    unsigned int hint_events_per_packet;
+
+    unsigned int keycodemax;
+    unsigned int keycodesize;
+    void *keycode;
+
+    int (*setkeycode)(struct input_dev *dev,
+              const struct input_keymap_entry *ke,
+              unsigned int *old_keycode);
+    int (*getkeycode)(struct input_dev *dev,
+              struct input_keymap_entry *ke);
+
+    struct ff_device *ff;
+
+    unsigned int repeat_key;
+    struct timer_list timer;
+
+    int rep[REP_CNT];
+
+    struct input_mt *mt;
+
+    struct input_absinfo *absinfo;
+
+    unsigned long key[BITS_TO_LONGS(KEY_CNT)];
+    unsigned long led[BITS_TO_LONGS(LED_CNT)];
+    unsigned long snd[BITS_TO_LONGS(SND_CNT)];
+    unsigned long sw[BITS_TO_LONGS(SW_CNT)];
+
+    int (*open)(struct input_dev *dev);
+    void (*close)(struct input_dev *dev);
+    int (*flush)(struct input_dev *dev, struct file *file);
+    int (*event)(struct input_dev *dev, unsigned int type, unsigned int code, int value);
+
+    struct input_handle __rcu *grab;
+
+    spinlock_t event_lock;
+    struct mutex mutex;
+
+    unsigned int users;
+    bool going_away;
+
+    struct device dev;
+
+    struct list_head    h_list;
+    struct list_head    node;
+
+    unsigned int num_vals;
+    unsigned int max_vals;
+    struct input_value *vals;
+
+    bool devres_managed;
+};
+</code></pre><h3 id="2-注册-注销函数"><a href="#2-注册-注销函数" class="headerlink" title="2. 注册/注销函数"></a>2. 注册/注销函数</h3><pre><code>int input_register_device搜索(struct input_dev *dev)
+void input_unregister_device(struct input_dev *dev)
+</code></pre><h3 id="3-设备所支持的事件类型有"><a href="#3-设备所支持的事件类型有" class="headerlink" title="3. 设备所支持的事件类型有"></a>3. 设备所支持的事件类型有</h3><pre><code>EV_KEY 按键
+EV_REL 相对坐标
+EV_ABS绝对坐标
+EV_MSC 其它
+EV_LED LED
+EV_SND 声音
+EV_FF 力反馈
+EV_SW 开关???
+</code></pre><h3 id="4-操作函数"><a href="#4-操作函数" class="headerlink" title="4. 操作函数"></a>4. 操作函数</h3><pre><code>set_bit(EV_KEY, button_dev.evbit)   // 设置支持的事件
+void input_report_key(struct input_dev *dev,unsigned int code, int value)   // 在中断过程中中，内核层使用input_report_key等函数向用户空间报告，然后应用程序读取状态。
+void input_report_rel(struct input_dev *dev,unsigned int code, int value)   // ..
+void input_report_abs(struct input_dev *dev,unsigned int code, int value)   // ..
+input_sync()  // 用于事件同步，它告知事件的接收者：驱动已经发出了一个完整的报告。
+</code></pre><h3 id="5-事件代码"><a href="#5-事件代码" class="headerlink" title="5. 事件代码"></a>5. 事件代码</h3><p>EV_KEY 事件代码</p>
+<pre><code>代码值0~127为键盘上的按键代码，0x110~0x116为鼠标上按键代码，其中0x110(BTN_LEFT)为鼠标左键，0x111(BTN_RIGHT)为鼠标右键,0x112(BTN_ MIDDLE)为鼠标中键。其它代码含义请参看include/linux/input.h文件
+</code></pre><p>EV_KEY 事件值</p>
+<pre><code>按键按下时值为1,松开时值为0
+</code></pre><h3 id="6-…"><a href="#6-…" class="headerlink" title="6. …"></a>6. …</h3><pre><code>// to do
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event/">event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input/">input</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input系统/">input系统</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-RK平台分区信息"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/11/RK平台分区信息/">RK平台分区信息</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/11/RK平台分区信息/" class="article-date">
+	  <time datetime="2017-04-11T09:35:57.000Z" itemprop="datePublished">2017-04-11</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/RK/">RK</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="RK平台分区信息与eMMC-partitions对应"><a href="#RK平台分区信息与eMMC-partitions对应" class="headerlink" title="RK平台分区信息与eMMC partitions对应"></a>RK平台分区信息与eMMC partitions对应</h2><pre><code>lrwxrwxrwx root     root    2013-01-21 08:50 uboot            -&gt; /dev/block/mmcblk0p1
+lrwxrwxrwx root     root    2013-01-21 08:50 trust            -&gt; /dev/block/mmcblk0p2
+lrwxrwxrwx root     root    2013-01-21 08:50 misc             -&gt; /dev/block/mmcblk0p3
+lrwxrwxrwx root     root    2013-01-21 08:50 resource         -&gt; /dev/block/mmcblk0p4
+lrwxrwxrwx root     root    2013-01-21 08:50 kernel           -&gt; /dev/block/mmcblk0p5
+lrwxrwxrwx root     root    2013-01-21 08:50 boot             -&gt; /dev/block/mmcblk0p6
+lrwxrwxrwx root     root    2013-01-21 08:50 recovery         -&gt; /dev/block/mmcblk0p7
+lrwxrwxrwx root     root    2013-01-21 08:50 backup           -&gt; /dev/block/mmcblk0p8
+lrwxrwxrwx root     root    2013-01-21 08:50 cache            -&gt; /dev/block/mmcblk0p9
+lrwxrwxrwx root     root    2013-01-21 08:50 kpanic           -&gt; /dev/block/mmcblk0p10
+lrwxrwxrwx root     root    2013-01-21 08:50 system           -&gt; /dev/block/mmcblk0p11
+lrwxrwxrwx root     root    2013-01-21 08:50 metadata         -&gt; /dev/block/mmcblk0p12
+lrwxrwxrwx root     root    2013-01-21 08:50 baseparamer      -&gt; /dev/block/mmcblk0p13
+lrwxrwxrwx root     root    2013-01-21 08:50 userdata         -&gt; /dev/block/mmcblk0p14
+lrwxrwxrwx root     root    2013-01-21 08:50 radical_update   -&gt; /dev/block/mmcblk0p15
+lrwxrwxrwx root     root    2013-01-21 08:50 user             -&gt; /dev/block/mmcblk0p16
+
+mmcblk0: p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 p14 p15 p16 p17
+
+/mnt/external_sd vfat                                            /dev/block/mmcblk1p1
+</code></pre><h2 id="RK平台各分区介绍"><a href="#RK平台各分区介绍" class="headerlink" title="RK平台各分区介绍"></a>RK平台各分区介绍</h2><pre><code>uboot.img
+trust.img
+misc.img      RK平台，misc分区内容用于启动模式切换，是升级基带还是进入Recovery（misc分区的内容可以被按键出发改变???）
+resource.img  RK平台资源映像，内含开机图片和内核的设备树信息。
+kernel
+boot.img      Android 的初始文件映像，负责初始化并加载 system 分区，一般Android系统这个镜像中包含ramdisk.img根文件系统+kernel（RK平台的boot.img是没包含kernel部分的）
+    ramdisk.img   是根文件系统，是root目录打包成的镜像（ramdisk-recovery.img）
+recovery.img  恢复模式系统启动镜像。内容和boot.img雷同（RK平台recovery.img包含kernel部分），但是其中的ramdisk.img（ramdisk-recovery.img）有些许不同：
+              recovery.fstab文件、sbin下部分工具、build.prop、init.bootmode.emmc.rc、sepolicy等
+backup
+cache
+kpanic
+
+system.img    包括了主要的包、库等文件
+metadata
+baseparameter
+userdata.img  包括了一些用户数据
+radical_update
+user
+</code></pre><h2 id="另："><a href="#另：" class="headerlink" title="另："></a>另：</h2><pre><code>RK平台生成boot.img recovery.img system.img userdata.img是使用自己的mkimage.sh工具讲root system data 目录生成的
+再使用工具mkupdate.sh生成update.img的（不带userdata.img）
+烧写userdata.img 需要使用./upgrade_tool DI userdata userdata.img 单独烧写
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RK/">RK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分区/">分区</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Android编译系统——system.img userdata.img recovery.img目标编译过程"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/11/Android编译系统——system.img userdata.img recovery.img目标编译过程/">Android编译系统——ramdisk.img system.img userdata.img recovery.img目标编译过程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/11/Android编译系统——system.img userdata.img recovery.img目标编译过程/" class="article-date">
+	  <time datetime="2017-04-11T09:35:57.000Z" itemprop="datePublished">2017-04-11</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="image-介绍"><a href="#image-介绍" class="headerlink" title="image 介绍"></a>image 介绍</h2><pre><code>boot.img      Android 的初始文件映像，负责初始化并加载 system 分区，一般Android系统这个镜像中包含ramdisk.img根文件系统+kernel（RK平台的boot.img是没包含kernel部分的）
+recovery.img  恢复模式系统启动镜像。内容和boot.img雷同（RK平台recovery.img包含kernel部分），但是其中的ramdisk.img（ramdisk-recovery.img）有些许不同：
+              recovery.fstab文件、sbin下部分工具、build.prop、init.bootmode.emmc.rc、sepolicy等
+
+ramdisk.img   是根文件系统，是root目录打包成的镜像（ramdisk-recovery.img）
+system.img    包括了主要的包、库等文件
+userdata.img  包括了一些用户数据
+</code></pre><h2 id="image-目标编译过程"><a href="#image-目标编译过程" class="headerlink" title="image 目标编译过程"></a>image 目标编译过程</h2><pre><code>---build/core/main.mk中---
+默认目标，即目标all
+.PHONY: droid
+DEFAULT_GOAL := droid
+$(DEFAULT_GOAL):             //root目标droid
+
+droid: droidcore dist_files  //1级目标，droidcore
+
+droidcore: files \             //2级目标，files systemimage ...
+    systemimage \
+    $(INSTALLED_BOOTIMAGE_TARGET) \
+    $(INSTALLED_RECOVERYIMAGE_TARGET) \
+    $(INSTALLED_USERDATAIMAGE_TARGET) \
+    $(INSTALLED_CACHEIMAGE_TARGET) \
+    $(INSTALLED_VENDORIMAGE_TARGET) \
+    $(INSTALLED_FILES_FILE)
+
+---build/core/Makefile中---
+INSTALLED_SYSTEMIMAGE := $(PRODUCT_OUT)/system.img
+BUILT_SYSTEMIMAGE := $(systemimage_intermediates)/system.img
+FULL_SYSTEMIMAGE_DEPS := $(INTERNAL_SYSTEMIMAGE_FILES) $(INTERNAL_USERIMAGES_DEPS)
+INSTALLED_FILES_FILE := $(PRODUCT_OUT)/installed-files.txt
+
+
+systemimage: $(INSTALLED_SYSTEMIMAGE)        //3级目标 ./system.img
+
+$(INSTALLED_SYSTEMIMAGE): $(BUILT_SYSTEMIMAGE) $(RECOVERY_FROM_BOOT_PATCH) | $(ACP)    //4级目标  _./system.img
+
+$(BUILT_SYSTEMIMAGE): $(FULL_SYSTEMIMAGE_DEPS) $(INSTALLED_FILES_FILE)                 //5级目标  
+    $(call build-systemimage-target,$@)
+
+
+BUILT_USERDATAIMAGE_TARGET := $(PRODUCT_OUT)/userdata.img
+INSTALLED_USERDATAIMAGE_TARGET := $(BUILT_USERDATAIMAGE_TARGET)
+INTERNAL_USERDATAIMAGE_FILES := \                                                      //4级目标
+    $(filter $(TARGET_OUT_DATA)/%,$(ALL_DEFAULT_INSTALLED_MODULES))
+
+$(INSTALLED_USERDATAIMAGE_TARGET): $(INTERNAL_USERIMAGES_DEPS) \                       //3级目标
+                               $(INTERNAL_USERDATAIMAGE_FILES)
+    $(build-userdataimage-target)
+
+define build-userdataimage-target  //做userdata.img分区build操作
+  $(call pretty,&quot;Target userdata fs image: $(INSTALLED_USERDATAIMAGE_TARGET)&quot;)
+  @mkdir -p $(TARGET_OUT_DATA)
+  @mkdir -p $(userdataimage_intermediates) &amp;&amp; rm -rf $(userdataimage_intermediates)/userdata_image_info.txt
+  $(call generate-userimage-prop-dictionary, $(userdataimage_intermediates)/userdata_image_info.txt, skip_fsck=true)
+  $(hide) PATH=$(foreach p,$(INTERNAL_USERIMAGES_BINARY_PATHS),$(p):)$$PATH \
+      ./build/tools/releasetools/build_image.py \
+      $(TARGET_OUT_DATA) $(userdataimage_intermediates)/userdata_image_info.txt $(INSTALLED_USERDATAIMAGE_TARGET)
+  $(hide) $(call assert-max-image-size,$(INSTALLED_USERDATAIMAGE_TARGET),$(BOARD_USERDATAIMAGE_PARTITION_SIZE))
+endef
+
+
+注 system.img userdata.img 会依赖skip_userdata.img := 这个变量 及 嵌套依赖device/.../BoardConfig.mk中的TARGET_USERIMAGES_USE_EXT4、BOARD_SYSTEMIMAGE_PARTITION_SIZE、BOARD_USERDATAIMAGE_PARTITION_SIZE和
+</code></pre><h2 id="image解压方法"><a href="#image解压方法" class="headerlink" title="image解压方法"></a>image解压方法</h2><pre><code>ramdisk.img   用file命令查看显示ramdisk.img: gzip compressed data, from Unix，采用cpio打包，gzip压缩的
+    cp -a ramdisk.img 000/ramdisk.img.gz
+    cd 000/
+    gunzip ramdisk.img.gz //得到ramdisk.img 文件，但是和原始的ramdisk.img是不一样的，大小要大不少
+    mkdir root
+    cd root
+    cpio –i -F ../ramdisk.img
+
+system.img    用file命令查看显示system.img: data
+    cp -a system.img 000/system.img
+    cd 000/
+    out/host/linux-x86/bin/simg2img system.img system.ext4.img //用simg2img工具把system.img转为为ext4文件格式
+    mkdir system                                       //建立system目录
+    sudo mount -t ext4 -o loop system.ext4.img system  //将ext4格式的镜像挂在到system目录
+
+userdata.img  用file命令查看显示userdata.img: data
+    同system.img
+
+recovery.img  用file命令查看显示recovery.img: data
+    需要使用外部工具https://github.com/xiaolu/mkbootimg_tools.git  mkboot命令
+    ./mkbootimg_tools/mkboot recovery.img recovery
+
+boot.img      用file命令查看显示boot.img: data
+    需要使用外部工具https://github.com/xiaolu/mkbootimg_tools.git  mkboot命令
+    ./mkbootimg_tools/mkboot boot.img boot 
+</code></pre><h2 id="image压缩方法"><a href="#image压缩方法" class="headerlink" title="image压缩方法"></a>image压缩方法</h2><pre><code>a. ramdisk 使用cpio -o -H | gzip 生成ramdisk.img
+b. system userdata recovery都可以使用mkuserimg.sh来压缩成镜像
+   mkuserimg.sh -s 镜像源目录 镜像输出文件 ext4 挂在点 分区size FILE_CONTEXTS文件
+</code></pre><h2 id="单独编译image"><a href="#单独编译image" class="headerlink" title="单独编译image"></a>单独编译image</h2><pre><code>make systemimage - system.img
+make userdataimage - userdata.img
+make ramdisk - ramdisk.img
+make snod - 快速打包system.img (with this command, it will build a new system.img very quickly. 
+            well, you cannot use &quot;make snod&quot; for all the situations. it would not check the dependences. 
+            if you change some code in the framework which will effect other applications)
+</code></pre><h2 id="附"><a href="#附" class="headerlink" title="附:"></a>附:</h2><pre><code>simg2img解压缩工具: Convert Android sparse images to raw images. 在out/host/linux-x86/bin/simg2img可以找到
+用法：simg2img &lt;sparse_image_files&gt; &lt;raw_image_file&gt;
+
+mkuserimg.sh镜像制作工具，在out/host/linux-x86/bin/mkuserimg.sh可以找到，工具中会调用make_ext4fs
+用法：mkuserimg.sh [-s] SRC_DIR OUTPUT_FILE EXT_VARIANT MOUNT_POINT SIZE [-j &lt;journal_size&gt;]
+         [-T TIMESTAMP] [-C FS_CONFIG] [-B BLOCK_LIST_FILE] [FILE_CONTEXTS]
+
+    例如制作system.img和userdata.img时：
+    Running:  mkuserimg.sh -s out/target/product/rk3368_box/system out/target/product/rk3368_box/obj/PACKAGING/systemimage_intermediates/system.img ext4 system 1073741824 out/target/product/rk3368_box/root/file_contexts
+    make_ext4fs -s -T -1 -S out/target/product/rk3368_box/root/file_contexts -l 1073741824 -a system out/target/product/rk3368_box/obj/PACKAGING/systemimage_intermediates/system.img out/target/product/rk3368_box/system
+
+    Running:  mkuserimg.sh -s out/target/product/rk3368_box/data out/target/product/rk3368_box/userdata.img ext4 data 2147483648 out/target/product/rk3368_box/root/file_contexts
+    make_ext4fs -s -T -1 -S out/target/product/rk3368_box/root/file_contexts -l 2147483648 -a data out/target/product/rk3368_box/userdata.img out/target/product/rk3368_box/data
+
+make_ext4fs工具：用于Android平台上制作ext4文件系统的镜像，在out/host/linux-x86/bin/make_ext4fs
+用法：make_ext4fs [ -l &lt;len&gt; ] [ -j &lt;journal size&gt; ] [ -b &lt;block_size&gt; ]
+                 [ -g &lt;blocks per group&gt; ] [ -i &lt;inodes&gt; ] [ -I &lt;inode size&gt; ]
+                 [ -L &lt;label&gt; ] [ -f ] [ -a &lt;android mountpoint&gt; ]
+                 [ -S file_contexts ] [ -C fs_config ] [ -T timestamp ]
+                 [ -z | -s ] [ -w ] [ -c ] [ -J ] [ -v ] [ -B &lt;block_list_file&gt; ] &lt;filename&gt; [&lt;directory&gt;]
+        -l 分区大小 支持512M 以及1073741824 单位为bytes
+        -s 生成ext4的S模式制作
+        -T timestamp  // -1 mean what? fix me
+        -a 挂在点
+        -S  file_contexts文件
+        &lt;filename&gt;  生成的目的文件
+        &lt;directory&gt; 源文件目录
+</code></pre><h2 id="附2——一般Android系统的boot-img格式-RK平台的boot-img是没包含kernel部分的"><a href="#附2——一般Android系统的boot-img格式-RK平台的boot-img是没包含kernel部分的" class="headerlink" title="附2——一般Android系统的boot.img格式(RK平台的boot.img是没包含kernel部分的)"></a>附2——一般Android系统的boot.img格式(RK平台的boot.img是没包含kernel部分的)</h2><pre><code>因为boot.img的格式比较简单，它主要分为三大块（有的可能有四块）
+
++—————–+
+| boot header | 1 page
++—————–+
+| kernel | n pages
++—————–+
+| ramdisk | m pages
++—————–+
+| second stage | o pages
++—————–+
+n = (kernel_size + page_size – 1) / page_size
+m = (ramdisk_size + page_size – 1) / page_size
+o = (second_size + page_size – 1) / page_size
+
+a. all entities are page_size aligned in flash
+b. kernel and ramdisk are required (size != 0)
+c. second is optional (second_size == 0 -&gt; no second)
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/image/">image</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译/">编译</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-RK平台Android分区大小修改说明"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/11/RK平台Android分区大小修改说明/">RK平台Android分区大小修改说明</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/11/RK平台Android分区大小修改说明/" class="article-date">
+	  <time datetime="2017-04-11T01:01:57.000Z" itemprop="datePublished">2017-04-11</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中</p>
+<h6 id="如下是板子的parameter文件"><a href="#如下是板子的parameter文件" class="headerlink" title="如下是板子的parameter文件:"></a>如下是板子的parameter文件:</h6><pre><code>FIRMWARE_VER: 5.1.0
+MACHINE_MODEL: Geekbox
+MACHINE_ID: 007
+MANUFACTURER: RK3368
+MAGIC: 0x5041524B
+ATAG: 0x00200800
+MACHINE: 3368
+CHECK_MASK: 0x80
+PWR_HLD: 0,0,A,0,1
+#KERNEL_IMG: 0x00280000
+#FDT_NAME: rk-kernel.dtb
+#RECOVER_KEY: 1,1,0,20,0
+#in section; per section 512(0x200) bytes
+CMDLINE: console=ttyS2 androidboot.baseband=N/A androidboot.selinux=permissive androidboot.hardware=rk30board androidboot.console=ttyS2 init=/init mtdparts=rk29xxnand:0x00002000@0x00002000(uboot),0x00002000@0x00004000(trust),0x00002000@0x00006000(misc),0x00008000@0x00008000(resource),0x00008000@0x00010000(kernel),0x00010000@0x00018000(boot),0x00010000@0x00028000(recovery),0x00038000@0x00038000(backup),0x00040000@0x00070000(cache),0x00002000@0x000B0000(kpanic),0x00200000@0x000B2000(system),0x00008000@0x002B2000(metadata),0x00002000@0x002BA000(baseparamer),0x00400000@0x002BC000(userdata),0x00020000@0x006BC000(radical_update),-@0x006DC000(user)
+</code></pre><p>分区信息在mtdparts=rk29xxnand:字段后面部分，所以我们修改这部分内容就可以了</p>
+<h6 id="这部分信息格式介绍-如："><a href="#这部分信息格式介绍-如：" class="headerlink" title="这部分信息格式介绍 如："></a>这部分信息格式介绍 如：</h6><pre><code>0x00002000@0x00002000(uboot)  分区大小计算为=0x00002000*512Bytes = 4MBytes
+↑分区的sector数，每个sector=512Bytes
+           ↑分区起始地址
+                      ↑分区名
+
+0x00200000@0x002BC000(userdata)  分区大小0x00200000*512Bytes = 1073741824 Bytes
+
+注: sector 512Bytes 逻辑单位???
+    page: FLASH操作的基本单位。  最小读/写单元 page， 1page = 4096Bytes = 4KB；
+    block:最小擦除单元 block，1block = (32 * page) = (32 * 4KB) = 131072Bytes = 128KB；     
+</code></pre><p>上述mtdparts=rk29xxnand:字段中所有分区都是连续的，当前分区起始地址+当前分区size和下个分区起始地址都是连续的，所以当修改了其中某个分区后，在它后面的分区的地址都要顺序往前或往后。</p>
+<h6 id="以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子："><a href="#以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子：" class="headerlink" title="以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子："></a>以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子：</h6><pre><code>修改前:                            size             offset
+0x00002000@0x00000000(parameter)//4MB               4MB
+0x00002000@0x00002000(uboot),   //4MB               8MB
+0x00002000@0x00004000(trust),   //4MB               12MB
+0x00002000@0x00006000(misc),    //4MB               16MB
+0x00008000@0x00008000(resource),//16MB              32MB
+0x00008000@0x00010000(kernel),  //16MB              48
+0x00010000@0x00018000(boot),    //32MB              80
+0x00010000@0x00028000(recovery),//32MB              112
+0x00038000@0x00038000(backup),  //112MB             224
+0x00040000@0x00070000(cache),   //128MB             352
+0x00002000@0x000B0000(kpanic),  //4MB               356
+0x00200000@0x000B2000(system),  //1024MB            1380
+0x00008000@0x002B2000(metadata),//16MB              1396
+0x00002000@0x002BA000(baseparamer), //4MB           1400MB
+0x00400000@0x002BC000(userdata),    //2048MB        3448
+0x00020000@0x006BC000(radical_update), //64MB       3512
+         -@0x006DC000(user)            //212MB/11394MB  ...        
+
+修改后:
+0x00002000@0x00002000(uboot),   //4MB               8MB
+0x00002000@0x00004000(trust),   //4MB               12MB
+0x00002000@0x00006000(misc),    //4MB               16MB
+0x00008000@0x00008000(resource),//16MB              32MB
+0x00008000@0x00010000(kernel),  //16MB              48
+0x00010000@0x00018000(boot),    //32MB              80
+0x00010000@0x00028000(recovery),//32MB              112
+0x00038000@0x00038000(backup),  //112MB             224
+0x00040000@0x00070000(cache),   //128MB             352
+0x00002000@0x000B0000(kpanic),  //4MB               356
+0x00200000@0x000B2000(system),  //1024MB            1380
+0x00008000@0x002B2000(metadata),//16MB              1396
+0x00002000@0x002BA000(baseparamer), //4MB           1400MB
+0x00200000@0x002BC000(userdata),    //1024MB        2424MB
+0x00020000@0x004BC000(radical_update), //64MB       2488MB
+         -@0x004DC000(user)            //1024+212MB = 1236MB   
+</code></pre><h5 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h5><pre><code>1.分区的大小要以4MB对齐！  
+2.分区总大小不能超过flash的总长度
+</code></pre><h5 id="修改parameter后效果："><a href="#修改parameter后效果：" class="headerlink" title="修改parameter后效果："></a>修改parameter后效果：</h5><pre><code>shell@rk3368_32:/ # df
+Filesystem               Size     Used     Free   Blksize
+/dev                   495.2M    36.0K   495.2M   4096
+/sys/fs/cgroup         495.2M    12.0K   495.2M   4096
+/mnt/asec              495.2M     0.0K   495.2M   4096
+/mnt/obb               495.2M     0.0K   495.2M   4096
+/system               1004.2M   403.0M   601.2M   4096
+/cache                 122.0M   140.0K   121.8M   4096
+/metadata               11.7M    40.0K    11.7M   4096
+/data                  991.9M    87.5M   904.4M   4096
+/mnt/shell/emulated    991.9M    87.5M   904.4M   4096
+/mnt/internal_sd         1.2G   136.0K     1.2G   8192
+/mnt/secure/asec         1.2G   136.0K     1.2G   8192
+</code></pre><h3 id="一般Android平台分区修改"><a href="#一般Android平台分区修改" class="headerlink" title="一般Android平台分区修改"></a>一般Android平台分区修改</h3><pre><code>eMMC 分区信息
+# cat /proc/partitions                                       
+major      minor  #blocks  name
+ 254        0     520912   zram0
+ 179        0   15267840   mmcblk0
+ 179        1       4096   mmcblk0p1
+ 179        2       4096   mmcblk0p2
+ 179        3       4096   mmcblk0p3
+ 179        4      16384   mmcblk0p4
+ 179        5      16384   mmcblk0p5
+ 179        6      32768   mmcblk0p6
+ 179        7      32768   mmcblk0p7
+ 179        8     114688   mmcblk0p8
+ 179        9     131072   mmcblk0p9
+ 179       10       4096   mmcblk0p10
+ 179       11    1048576   mmcblk0p11
+ 179       12      16384   mmcblk0p12
+ 179       13       4096   mmcblk0p13
+ 179       14    2097152   mmcblk0p14
+ 179       15      65536   mmcblk0p15
+ 179       16   11667456   mmcblk0p16
+mmcblk0即emmc的容量（单位kb）
+
+#ls /dev/block/platform/ff0f0000.rksdmmc/by-name/* -l 
+lrwxrwxrwx root     root    2013-01-21 08:50 uboot            -&gt; /dev/block/mmcblk0p1
+lrwxrwxrwx root     root    2013-01-21 08:50 trust            -&gt; /dev/block/mmcblk0p2
+lrwxrwxrwx root     root    2013-01-21 08:50 misc             -&gt; /dev/block/mmcblk0p3
+lrwxrwxrwx root     root    2013-01-21 08:50 resource         -&gt; /dev/block/mmcblk0p4
+lrwxrwxrwx root     root    2013-01-21 08:50 kernel           -&gt; /dev/block/mmcblk0p5
+lrwxrwxrwx root     root    2013-01-21 08:50 boot             -&gt; /dev/block/mmcblk0p6
+lrwxrwxrwx root     root    2013-01-21 08:50 recovery         -&gt; /dev/block/mmcblk0p7
+lrwxrwxrwx root     root    2013-01-21 08:50 backup           -&gt; /dev/block/mmcblk0p8
+lrwxrwxrwx root     root    2013-01-21 08:50 cache            -&gt; /dev/block/mmcblk0p9
+lrwxrwxrwx root     root    2013-01-21 08:50 kpanic           -&gt; /dev/block/mmcblk0p10
+lrwxrwxrwx root     root    2013-01-21 08:50 system           -&gt; /dev/block/mmcblk0p11
+lrwxrwxrwx root     root    2013-01-21 08:50 metadata         -&gt; /dev/block/mmcblk0p12
+lrwxrwxrwx root     root    2013-01-21 08:50 baseparamer      -&gt; /dev/block/mmcblk0p13
+lrwxrwxrwx root     root    2013-01-21 08:50 userdata         -&gt; /dev/block/mmcblk0p14
+lrwxrwxrwx root     root    2013-01-21 08:50 radical_update   -&gt; /dev/block/mmcblk0p15
+lrwxrwxrwx root     root    2013-01-21 08:50 user             -&gt; /dev/block/mmcblk0p16
+
+
+即userdata 分区 大小为2097152*1024KB = 2147483648B
+
+BoardConfig.mk 中修改指定变量即可：
+BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16793600
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2147483648
+BOARD_OEMIMAGE_PARTITION_SIZE := 67108864
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 25253773312 ---&gt; 2147483648B
+BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_FLASH_BLOCK_SIZE := 131072
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RK/">RK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分区/">分区</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Hexo入手"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/07/Hexo入手/">Hexo入手</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/07/Hexo入手/" class="article-date">
+	  <time datetime="2017-04-07T10:01:57.000Z" itemprop="datePublished">2017-04-07</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Hexo/">Hexo</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1-安装nodejs"><a href="#1-安装nodejs" class="headerlink" title="1. 安装nodejs"></a>1. 安装nodejs</h4><pre><code>从官网下载对应平台binary 包，安装（linux直接将bin lib目录的文件cp到usr/local对应目录下，Window直接点击安装）
+</code></pre><h4 id="2-安装hexo"><a href="#2-安装hexo" class="headerlink" title="2. 安装hexo"></a>2. 安装hexo</h4><pre><code>npm install hexo-cli -g
+</code></pre><h4 id="3-新建blog"><a href="#3-新建blog" class="headerlink" title="3. 新建blog"></a>3. 新建blog</h4><pre><code>hexo init blog
+cd blog
+npm install
+hexo server
+</code></pre><h4 id="3-解决一个warning"><a href="#3-解决一个warning" class="headerlink" title="3. 解决一个warning"></a>3. 解决一个warning</h4><pre><code>npm install -g npm@3.3.12
+npm install hexo-deployer-git --save
+</code></pre><h4 id="4-配置-config-yml"><a href="#4-配置-config-yml" class="headerlink" title="4. 配置_config.yml"></a>4. 配置_config.yml</h4><pre><code>language: zh-CN
+deploy:
+  type: git
+  repo: &lt;repository url&gt;
+  branch: [branch]
+  message: [message]
+</code></pre><h4 id="5-部署"><a href="#5-部署" class="headerlink" title="5. 部署"></a>5. 部署</h4><pre><code>hexo deploy -generate   //hexo d -g 
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网页博客/">网页博客</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Android fstab"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/07/Android fstab/">Android fstab介绍</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/07/Android fstab/" class="article-date">
+	  <time datetime="2017-04-07T08:01:57.000Z" itemprop="datePublished">2017-04-07</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="ubuntu-fstab文件格式"><a href="#ubuntu-fstab文件格式" class="headerlink" title="ubuntu fstab文件格式"></a>ubuntu fstab文件格式</h2><pre><code>下面是/etc/fatab文件的一个示例行：
+fs_spec     fs_file fs_type     fs_options  fs_dump    fs_pass
+/dev/hda1   /       ext2        defaults    1          1    
+
+fs_spec - 该字段定义希望加载的文件系统所在的设备或远程文件系统，对于一般的本地块设备情况来说：IDE设备一般描述为
+          /dev/hdaXN，X是IDE设备通道 (a, b, or c)，N代表分区号；SCSI设备一描述为/dev/sdaXN。对于NFS情况，格式一般为:
+         例 如：`knuth.aeb.nl:/&apos;。对于procfs，使用`proc&apos;来定义。
+fs_file - 该字段描述希望的文件系统加载的目录点，对于swap设备，该字段为none；对于加载目录名包含空格的情况，用40来
+          表示空格。
+fs_type - 定义了该设备上的文件系统，一般常见的文件类型为ext2 (linux设备的常用文件类型)、vfat(Windows系统的fat32格
+          式)、NTFS、iso9600等。
+fs_options - 指定加载该设备的文件系统是需要使用的特定参数选项，多个参数是由逗号分隔开来。对于大多数系统使用&quot;defaults&quot;
+             就可以满足需要。其他常见的选项包括：
+            选项含义:
+            ro      以只读模式加载该文件系统
+            sync    不对该设备的写操作进行缓冲处理，这可以防止在非正常关机时情况下破坏文件系统，但是却降低了计算机速度
+            user    允许普通用户加载该文件系统
+            quota   强制在该文件系统上进行磁盘定额限制
+            noauto  不再使用mount －a命令（例如系统启动时）加载该文件系统
+
+fs_dump 该选项被&quot;dump&quot;命令使用来检查一个文件系统应该以多快频率进行转储，若不需要转储就设置该字段为0
+fs_pass 该字段被fsck命令用来决定在启动时需要被扫描的文件系统的顺序，根文件系统&quot;/&quot;对应该字段的值应该为1，
+                    其他文件系统应该为2。若该文件系统无需在启动时扫描则设置该字段为0
+</code></pre><h5 id="ubuntu上实例"><a href="#ubuntu上实例" class="headerlink" title="ubuntu上实例:"></a>ubuntu上实例:</h5><pre><code>&lt;file system&gt;                             &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;      &lt;dump&gt;  &lt;pass&gt;
+/ was on /dev/sda1 during installation
+UUID=757fbb2f-6ee4-4a05-ad2e-0c16b3edc982 /               ext4    errors=remount-ro 0     1
+/home was on /dev/sda6 during installation
+UUID=a018cd99-6608-43fc-adea-319a5f04fb29 /home           ext4    defaults        0       2
+/opt was on /dev/sda7 during installation
+UUID=0351ac71-4e1d-4194-8d7f-4d9e873e5830 /opt            ext4    defaults        0       2
+/work was on /dev/sda8 during installation
+UUID=3f49c9cc-c9cc-48c5-aa8e-058a1d1ec7ad /work           ext4    defaults        0       2
+/work2 was on /dev/sda9 during installation
+UUID=e2f54160-fb2d-4517-af54-13393f80ef5f /work2          ext4    defaults        0       2
+swap was on /dev/sda5 during installation
+UUID=d15cbce2-bff1-4241-9c3c-6811f4a1d67d none            swap    sw              0       0
+</code></pre><h2 id="Android-fstab格式及实例"><a href="#Android-fstab格式及实例" class="headerlink" title="Android fstab格式及实例"></a>Android fstab格式及实例</h2><pre><code>https://source.android.com/devices/storage/config.html
+&lt;src&gt;                                                 &lt;mnt_point&gt;          &lt;type&gt;    &lt;mnt_flags&gt;     &lt;fs_mgr_flags&gt;
+/devices/ff0f0000.rksdmmc/mmc_host/mmc                /mnt/internal_sd     vfat      defaults        voldmanaged=internal_sd:15,noemulatedsd
+/dev/block/platform/ff0f0000.rksdmmc/by-name/system   /system              ext4      ro,noatime,nodiratime,noauto_da_alloc     wait,resize,check
+
+src: 设备路径
+mnt_point: 挂在点
+type: volume中文件系统类型, 对于external cards, type 为vfat
+mnt_flags: Vold ignores this field and it should be set to defaults
+fs_mgr_flags: Vold ignores any lines in the unified fstab that do not include the voldmanaged= flag in this field. 
+           This flag must be followed by a label describing the card, and a partition number or the word auto.
+           Here is an example: voldmanaged=sdcard:auto. 
+           Other possible flags are nonremovable, encryptable=sdcard, noemulatedsd, and encryptable=userdata.
+
+
+待续...
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fstab/">fstab</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
   
     <article id="post-Android版本-sdk-ndk-对应关系"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
@@ -333,464 +1199,11 @@
 <!-- Table of Contents -->
 
   
-    <article id="post-SEAndroid策略规则"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2016/10/12/SEAndroid策略规则/">SEAndroid策略规则</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2016/10/12/SEAndroid策略规则/" class="article-date">
-	  <time datetime="2016-10-12T10:22:33.000Z" itemprop="datePublished">2016-10-12</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="SEAndroid中各种实体的SContext-定义"><a href="#SEAndroid中各种实体的SContext-定义" class="headerlink" title="SEAndroid中各种实体的SContext 定义"></a>SEAndroid中各种实体的SContext 定义</h2><p>介绍进程、文件/目录、服务、系统属性等SContext 定义</p>
-<h5 id="进程的SContext（以system-server进程为例）（对应每个进程的te文件）"><a href="#进程的SContext（以system-server进程为例）（对应每个进程的te文件）" class="headerlink" title="进程的SContext（以system_server进程为例）（对应每个进程的te文件）"></a>进程的SContext（以system_server进程为例）（对应每个进程的te文件）</h5><pre><code>u:r:system_server:s0           system    494   186   system_server
-u表示user SELinux用户
-r表示SELinux角色
-system_server表示domain，该域的权限定义在策略文件system_server.te中
-s0表示MLS中的级别，Android中可忽略
-</code></pre><h5 id="file和dir的SContext（以system目录为例）（在file-contexts定义）"><a href="#file和dir的SContext（以system目录为例）（在file-contexts定义）" class="headerlink" title="file和dir的SContext（以system目录为例）（在file_contexts定义）"></a>file和dir的SContext（以system目录为例）（在file_contexts定义）</h5><pre><code>drwxr-xr-x root     root              u:object_r:system_file:s0 system
-object_r表示文件对象
-system_file表示文件类型
-</code></pre><h5 id="fs-use-在fs-use定义"><a href="#fs-use-在fs-use定义" class="headerlink" title="fs_use(在fs_use定义)"></a>fs_use(在fs_use定义)</h5><pre><code>// to do
-</code></pre><h5 id="生成-文件系统的-SContext-（在genfs-contexts定义）"><a href="#生成-文件系统的-SContext-（在genfs-contexts定义）" class="headerlink" title="生成 文件系统的 SContext （在genfs_contexts定义）"></a>生成 文件系统的 SContext （在genfs_contexts定义）</h5><pre><code>genfscon rootfs / u:object_r:rootfs:s0
-genfscon usbfs  / u:object_r:usbfs:s0
-</code></pre><h5 id="property的SContext（在property-contexts定义）"><a href="#property的SContext（在property-contexts定义）" class="headerlink" title="property的SContext（在property_contexts定义）"></a>property的SContext（在property_contexts定义）</h5><pre><code>*                       u:object_r:default_prop:s0    //默认property SContext
-hw.                     u:object_r:system_prop:s0
-</code></pre><h5 id="service的SContext（在service-contexts定义）"><a href="#service的SContext（在service-contexts定义）" class="headerlink" title="service的SContext（在service_contexts定义）"></a>service的SContext（在service_contexts定义）</h5><pre><code>*                       u:object_r:default_android_service:s0   //默认服务SContext
-package                 u:object_r:system_server_service:s0     //package 服务  （在shell中执行service list查看所有服务）
-</code></pre><h5 id="APP的SContext-（在mac-permissions-xml-seapp-contexts-xxx定义，详见-APP安全策略）"><a href="#APP的SContext-（在mac-permissions-xml-seapp-contexts-xxx定义，详见-APP安全策略）" class="headerlink" title="APP的SContext （在mac_permissions.xml+seapp_contexts+xxx定义，详见 APP安全策略）"></a>APP的SContext （在mac_permissions.xml+seapp_contexts+xxx定义，详见 APP安全策略）</h5><p>  APP的seinfo: 根据apk的签名决定app的seinfo(platform、default)</p>
-<pre><code>1. 特殊APP——system_server (因为它也是有zygote产生的，所以还是也在seapp_contexts中定义)
-isSystemServer=true domain=system_server                  // isSystemServer返回true，则domain=system_server
-2. 通过user + seinfo + [name]来决定domain 和 type
-user=cts seinfo=* name=roidJUnitRunner domain=ctsrunner_app type=app_data_file  // user 是cts，则domain=ctsrunner_app type=app_data_file CTS测试APP
-user=system domain=system_app type=system_app_data_file   // user是 system seinfo默认是platform签名，则domain=system_app type=system_app_data_file 系统APP
-                                                          // (有android平台签名和system权限)
-user=bluetooth domain=bluetooth type=bluetooth_data_file  // bluetooth
-user=nfc domain=nfc type=nfc_data_file                    // nfc
-user=radio domain=radio type=radio_data_file              // radio
-user=shared_relro domain=shared_relro                     // shared_relro
-user=shell domain=shell type=shell_data_file              // shell
-user=_isolated domain=isolated_app                        // _isolated
-user=_app seinfo=platform domain=platform_app type=app_data_file  // 平台APP(有android平台签名，没有system权限)
-user=_app domain=untrusted_app type=app_data_file                 // 其他的都是第三方(untrusted_app)APP (没有Android平台签名，没有system权限)
-</code></pre><h5 id="APP安全策略"><a href="#APP安全策略" class="headerlink" title="APP安全策略"></a>APP安全策略</h5><p>  APP的SContext 确定了APP domain和type ，下面就是不同类型的app domain的安全策略te文件</p>
-<pre><code>app.te 应用给所有APP的安全策略（这里的所有APP指的是所有由zygote产生的进程），appdomain域——APP的基域
-
-system_server.te system_server的安全策略
-ctsrunner_app.te CTS APP 的安全策略
-system_app.te    系统 APP的安全策略
-bluetooth.te     bluetooth APP的安全策略
-nfc.te           nfc APP 的安全策略
-radio.te         radio APP的安全策略
-shared_relro.te  shared_relro APP的安全策略
-shell.te         通过shell 启动的APP的安全策略
-isolated_app.te  isolated APP的安全策略         AID_ISOLATED_START (99000) ---&gt; AID_ISOLATED_END (99999).
-platform_app.te  第三方平台 APP的安全策略
-untrusted_app.te 其他的都是第三方 APP的安全策略 APP_AID (10000) ---&gt; AID_ISOLATED_START (99000)
-</code></pre><h2 id="安全策略语法"><a href="#安全策略语法" class="headerlink" title="安全策略语法"></a>安全策略语法</h2><p>  上面都将各个实体的SContext 逐一罗列出来了，下面讲下*.te 文件语法    </p>
-<h5 id="关键字的关键字-（有点拗口，但确实是这样的）"><a href="#关键字的关键字-（有点拗口，但确实是这样的）" class="headerlink" title="关键字的关键字 （有点拗口，但确实是这样的）"></a>关键字的关键字 （有点拗口，但确实是这样的）</h5><p>  attribute       用于指定xxx_type和domain关键字的关键字<br>  type            用于指定domain域的关键字的关键字<br>  typeattribute   单独将某个type和某个或多个attribute关联起来   </p>
-<h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><pre><code>我们再来看看最常见的权限设置语句：
-allow netd sysfs:file write;
-1）allow：表示授权。除了allow之外，还有allowaudit、dontaudit、neverallow等；       这条语句的语法为：
-2）netd：sourcetype，也叫Domain，Subject。
-3）sysfs：targettype，它代表其后的file所对应的Type。
-4）file：objectclass，它代表能够给Domain操作的对象。例如file、dir、socket等，Android中SecurityClass的定义在security_classes中。在Android系统中，有一些特殊的Class，如property_service，binder等。
-5）write：在该类objectclass中所定义的操作，例如file类支持ioctl，read，write等操作。access_vectors中定义了所有objectclass支持的操作。
-
-根据SELinux规范，完整的allow语句格式为：
-rule_name source_type target_type:class perm_set;
-1）如果有多个source_type，target_type，class或perm_set，可以用&quot;{}&quot;括起来；       注意：使用allow语句的时候，可以使用下面的一些小技巧来简化命令书写；
-2）&quot;~&quot;号，表示除了&quot;~&quot;以外；
-3）&quot;-&quot;号，表示去除某项内容；
-4）&quot;*&quot;号，表示所有内容
-</code></pre><h3 id="高级语法"><a href="#高级语法" class="headerlink" title="高级语法"></a>高级语法</h3><p>  对于一般的*.te文件编写，基本的语法就差不多够了，下面是高级语法，说高级语法就是相当于一个批量生成sepolicy规则的的语法，让你少些点规则         </p>
-<h5 id="域转换-DomainTransition-简称DT"><a href="#域转换-DomainTransition-简称DT" class="headerlink" title="域转换(DomainTransition,简称DT)"></a>域转换(DomainTransition,简称DT)</h5><p>  SEAndroid中，init进程的SContext为u:r:init:s0（在init.rc中使用” setcon u:r:init:s0”命令设置），而init创建的子进程显然不会也不可能拥有和init进程一样的SContext<br>  （否则根据TE，这些子进程也就在MAC层面上有了和init进程一样的权限）。那么这些子进程是怎么被打上和父进程不一样的SContex呢？<br>  在SELinux中，上述问题被称为DomainTransition，即某个进程的Domain切换到一个更合适的Domain中去。DomainTransition也是在安全策略文件中配置的，而且有相关的关键字。</p>
-<pre><code>语法: type\_transition  source\_type  target\_type:class  default\_type
-表示source_type域的进程在对target_type类型的文件进行class定义的操作时，进程会切换到default_type域中   
-
-下面我们看个域转换的例子：
-type_transition init shell_exec:process init_shell
-这个例子表示：当init域的进程执行（process）shell_exec类型的可执行文件时，进程会从init域切换到init_shell域。
-
-那么，哪个文件是shell_exec类型呢？从file_contexts文件能看到，/system/bin/sh的安全属性是u:object_r:shell_exec:s0，
-也就是说init域的进程如果运行shell脚本的话，进程所在的域就会切换到init_shell域，这就是DomainTransition（简称DT）。
-
-请注意，DT也是SELinux安全策略的一部分，type_transition不过只是开了一个头而已，要真正实施成功这个DT，还至少需要下面三条权限设置语句：
-
-# 首先，你得让init域的进程要能够执行shell_exec类型的文件
-allow init shell_exec:file execute;
-# 然后，你需要告诉SELinux，允许init域的进程切换到init_shell域
-allow init init_shell:process transition;
-# 最后，你还得告诉SELinux，域切换的入口（entrypoint）是执行shell_exec类型的文件
-allow init_shell shell_exec:file entrypoint;
-
-看起来挺麻烦，不过SELinux支持宏定义，我们可以定义一个宏，把上面4个步骤全部包含进来。在SEAndroid中，所有的宏都定义在te_macros文件中，其中和DT相关的宏定义如下：
-# 定义domain_trans宏，$1,$2,$3代表宏的第一个，第二个…参数
-define(`domain_trans&apos;, `
-allow $1 $2:file { getattr open read execute };
-allow $1 $3:process transition;
-allow $3 $2:file { entrypoint open read execute getattr };
-… …
-&apos;)
-# 定义domain_auto_trans宏，这个宏才是我们在te中直接使用的
-define(`domain_auto_trans&apos;, `
-# Allow the necessary permissions.
-domain_trans($1,$2,$3)
-# Make the transition occur by default.
-type_transition $1 $2:process $3;
-&apos;)
-呵呵，是不是简单多了，domain_trnas宏在DT需要的最小权限的基础上还增加了一些权限，在te文件中可以直接用domain_auto_trans宏来显示声明域转换，如下：
-domain_auto_trans(init, shell_exec, init_shell)
-</code></pre><h5 id="类型转换-TypeTransition-简称TT"><a href="#类型转换-TypeTransition-简称TT" class="headerlink" title="类型转换(TypeTransition,简称TT)"></a>类型转换(TypeTransition,简称TT)</h5><p>  除了DT外，还有针对Type的Transition（简称TT）。举个例子，假设目录A的SContext为u:r:dir_a，那么默认情况下，<br>  在该目录下创建的文件的SContext就是u:r:dir_a，如果想让它的SContext发生变化，那么就需要TypeTransition。</p>
-<pre><code>和DT类似，TT的关键字也是type_transition，而且要顺利完成Transition，也需要申请相关权限，废话不多说了，
-直接看te_macros是怎么定义TT所需的宏：
-# 定义file_type_trans宏，为Type Transition申请相关权限
-define(`file_type_trans&apos;, `
-allow $1 $2:dir ra_dir_perms;
-allow $1 $3:notdevfile_class_set create_file_perms;
-allow $1 $3:dir create_dir_perms;
-&apos;)
-# 定义file_type_auto_trans(domain, dir_type, file_type)宏
-# 该宏的意思就是当domain域的进程在dir_type类型的目录创建文件时，该文件的SContext
-# 应该是file_type类型
-define(`file_type_auto_trans&apos;, `
-# Allow the necessary permissions.
-file_type_trans($1, $2, $3)
-# Make the transition occur by default.
-type_transition $1 $2:dir $3;
-type_transition $1 $2:notdevfile_class_set $3;
-&apos;)
-
-栗子： file_type_auto_trans(app_domain, system_data_file, xxx_type)
-</code></pre><h3 id="class集合-class"><a href="#class集合-class" class="headerlink" title="class集合 class"></a>class集合 class</h3><pre><code>// to do
-</code></pre><h3 id="权限集合-perm-set"><a href="#权限集合-perm-set" class="headerlink" title="权限集合 perm_set"></a>权限集合 perm_set</h3><pre><code>// to do
-</code></pre><h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="SELinux模式切换命令"><a href="#SELinux模式切换命令" class="headerlink" title="SELinux模式切换命令"></a>SELinux模式切换命令</h3><p>  SELinux支持Disabled，Permissive，Enforce三种模式<br>  Disabled就不用说了，此时SELinux的权限检查机制处于关闭状态；<br>  Permissive模式就是SELinux有效，但是即使你违反了它的安全策略，它让你继续运行，但是会把你违反的内容记录下来。在策略开发的时候非常有用，相当于Debug模式；<br>  Enforce模式就是你违反了安全策略的话，就无法继续操作下去。<br>  在Eng版本使用setenforce命令，可以在Permissive模式和Enforce模式之间切换。</p>
-<pre><code>usage:  setenforce [ Enforcing | Permissive | 1 | 0 ]
-</code></pre><h3 id="Z——查看SContext-信息的命令"><a href="#Z——查看SContext-信息的命令" class="headerlink" title="-Z——查看SContext 信息的命令"></a>-Z——查看SContext 信息的命令</h3><pre><code>ls -Z   // 文件目录的SContext
-ps -Z   // 进程的SContext
-</code></pre><h3 id="chcon命令——更改文件的安全属性"><a href="#chcon命令——更改文件的安全属性" class="headerlink" title="chcon命令——更改文件的安全属性"></a>chcon命令——更改文件的安全属性</h3><pre><code>usage:  chcon &lt;SContext&gt; &lt;path&gt;
-</code></pre><h3 id="restorecon命令——恢复文件原来的安全属性"><a href="#restorecon命令——恢复文件原来的安全属性" class="headerlink" title="restorecon命令——恢复文件原来的安全属性"></a>restorecon命令——恢复文件原来的安全属性</h3><p>  当文件的安全属性在安全策略配置文件里面有定义时，使用restorecon命令，可以恢复原来的安全属性</p>
-<pre><code>usage:  restorecon [-DFnrRv] &lt;path&gt;
-</code></pre><h3 id="id-命令——确认自己的SecurityContext"><a href="#id-命令——确认自己的SecurityContext" class="headerlink" title="id 命令——确认自己的SecurityContext"></a>id 命令——确认自己的SecurityContext</h3><pre><code>$ id
-uid=2000(shell) gid=2000(shell) groups=1007(log) context=u:r:shell:s0
-# id
-uid=0(root) gid=0(root) groups=1007(log) context=u:r:su:s0
-</code></pre><p>####参考：<br>  <a href="http://blog.csdn.net/modianwutong/article/details/43114883" target="_blank" rel="external">http://blog.csdn.net/modianwutong/article/details/43114883</a></p>
-<p>  <a href="http://blog.csdn.net/zhudaozhuan/article/details/50964832" target="_blank" rel="external">http://blog.csdn.net/zhudaozhuan/article/details/50964832</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SEAndroid/">SEAndroid</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sepolicy/">sepolicy</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Android JNI介绍及使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2016/10/08/Android JNI介绍及使用/">Android JNI介绍及使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2016/10/08/Android JNI介绍及使用/" class="article-date">
-	  <time datetime="2016-10-08T04:22:33.000Z" itemprop="datePublished">2016-10-08</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="JNI-介绍"><a href="#JNI-介绍" class="headerlink" title="JNI 介绍"></a>JNI 介绍</h1><p>JNI是Java Native Interface的缩写，它提供了若干的API实现了Java和其他语言的通信（主要是C&amp;C++）。</p>
-<h1 id="JNI-类型"><a href="#JNI-类型" class="headerlink" title="JNI 类型"></a>JNI 类型</h1><p><img src="http://i.imgur.com/EoSp6Hu.png" alt=""></p>
-<p>jni中结构体层次结构</p>
-<p><img src="http://i.imgur.com/GPDJQPc.png" alt=""></p>
-<p>下面是访问String的一些方法：</p>
-<pre><code>GetStringUTFChars 将jstring转换成为UTF-8格式的char*    /  ReleaseStringUTFChars  释放指向UTF-8格式的char*的指针
-GetStringChars    将jstring转换成为Unicode格式的char*  /  ReleaseStringChars     释放指向Unicode格式的char*的指针
-
-NewStringUTF      创建一个UTF-8格式的String对象
-NewString         创建一个Unicode格式的String对象
-GetStringUTFLengt 获取 UTF-8格式的char*的长度　
-GetStringLength   获取Unicode格式的char*的长度
-</code></pre><h1 id="JNI-实现"><a href="#JNI-实现" class="headerlink" title="JNI 实现"></a>JNI 实现</h1><p>如果需要在Java中使用到native接口的话，可以使用JNI这个方式来达到目的：</p>
-<h5 id="1-Java侧使用方法"><a href="#1-Java侧使用方法" class="headerlink" title="1. Java侧使用方法"></a>1. Java侧使用方法</h5><pre><code>public class AudioFlingerBinderTest extends TestCase {                                                                                                                                                        
-    private static native boolean native_test_setMasterMute();     //声明native函数，都是以native_开头                                                                                                                                                             
-    static {                                                                                                                                                        
-        System.loadLibrary(&quot;ctssecurity_jni&quot;);   //加载jni库，该函数会找到对应的动态库，然后首先试图找到 
-                                                 // &quot;JNI_OnLoad&quot;函数，如果该函数存在，则调用它。             
-    }                                                                                                                                                                  
-
-    //使用native_test_setMasterMute()                                                                                                          
-    .....                                                                                                                                                               
-}                                                                                                                                                
-</code></pre><h5 id="2-Java侧Android-mk编写"><a href="#2-Java侧Android-mk编写" class="headerlink" title="2. Java侧Android.mk编写"></a>2. Java侧Android.mk编写</h5><pre><code>Android.mk
-LOCAL_PATH:= $(call my-dir)
-
-include $(CLEAR_VARS)
-...
-LOCAL_JNI_SHARED_LIBRARIES := libctssecurity_jni libcts_jni
-...
-</code></pre><h5 id="3-JNI侧库ctssecurity-jni的Android-mk"><a href="#3-JNI侧库ctssecurity-jni的Android-mk" class="headerlink" title="3. JNI侧库ctssecurity_jni的Android.mk"></a>3. JNI侧库ctssecurity_jni的Android.mk</h5><pre><code>Android.mk------------------------------
-LOCAL_PATH:= $(call my-dir)
-
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := libctssecurity_jni
-LOCAL_MODULE_TAGS := optional
-LOCAL_SRC_FILES := \
-        CtsSecurityJniOnLoad.cpp \
-        android_security_cts_CharDeviceTest.cpp \
-                .....
-LOCAL_C_INCLUDES := $(JNI_H_INCLUDE)
-LOCAL_SHARED_LIBRARIES := libnativehelper liblog libbinder libutils libmedia libselinux libdl
-
-include $(BUILD_SHARED_LIBRARY)
-</code></pre><h5 id="4-JNI侧库ctssecurity-jni"><a href="#4-JNI侧库ctssecurity-jni" class="headerlink" title="4. JNI侧库ctssecurity_jni"></a>4. JNI侧库ctssecurity_jni</h5><h6 id="4-1-实现native函数"><a href="#4-1-实现native函数" class="headerlink" title="4.1 实现native函数"></a>4.1 实现native函数</h6><pre><code>jboolean android_security_cts_AudioFlinger_test_setMasterMute(JNIEnv* env __unused, jobject thiz __unused) {
-    //具体实现
-}
-</code></pre><p>or</p>
-<pre><code>jboolean android_security_cts_AudioFlinger_test_setMasterMute(JNIEnv* env, jclass clazz) {
-    //具体实现
-}
-</code></pre><h6 id="4-2-注册native函数"><a href="#4-2-注册native函数" class="headerlink" title="4.2 注册native函数"></a>4.2 注册native函数</h6><pre><code>static JNINativeMethod gMethods[] = {
-    { &quot;native_test_setMasterMute&quot;, &quot;()Z&quot;,
-            (void *) android_security_cts_AudioFlinger_test_setMasterMute },
-};
-
-
-int register_android_security_cts_AudioFlingerBinderTest(JNIEnv* env) {
-    jclass clazz = env-&gt;FindClass(&quot;android/security/cts/AudioFlingerBinderTest&quot;);
-    return env-&gt;RegisterNatives(clazz, gMethods, sizeof(gMethods) / sizeof(JNINativeMethod));
-}
-</code></pre><p>or</p>
-<pre><code>int register_android_security_cts_AudioFlingerBinderTest(JNIEnv* env) {
-    int res = jniRegisterNativeMethods(env, &quot;android/security/cts/AudioFlingerBinderTest&quot;,
-            gMethods, NELEM(gMethods));
-    LOG_FATAL_IF(res &lt; 0, &quot;Unable to register native methods.&quot;);
-    return res;
-}
-</code></pre><h6 id="4-3-jni库的主函数-加载入口："><a href="#4-3-jni库的主函数-加载入口：" class="headerlink" title="4.3 jni库的主函数/加载入口："></a>4.3 jni库的主函数/加载入口：</h6><pre><code>#include &lt;jni.h&gt;
-#include &lt;stdio.h&gt;
-#include “xxx.h”
-
-jint JNI_OnLoad(JavaVM *vm, void *reserved) {
-    JNIEnv *env = NULL;
-
-    if (vm-&gt;GetEnv((void **) &amp;env, JNI_VERSION_1_4) != JNI_OK) {
-        return JNI_ERR;
-    }
-    if (register_android_security_cts_AudioFlingerBinderTest(env)) {
-        return JNI_ERR;
-    }
-
-    return JNI_VERSION_1_4;
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JNI/">JNI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/native调用/">native调用</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-C++的类型转换——隐式、显式转换(xxx_cast)"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2016/05/28/C++的类型转换——隐式、显式转换(xxx_cast)/">C++的类型转换——隐式、显式转换(xxx_cast)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2016/05/28/C++的类型转换——隐式、显式转换(xxx_cast)/" class="article-date">
-	  <time datetime="2016-05-28T04:22:33.000Z" itemprop="datePublished">2016-05-28</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/C/">C++</a>
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="第一部分-隐式类型转换"><a href="#第一部分-隐式类型转换" class="headerlink" title="第一部分. 隐式类型转换"></a>第一部分. 隐式类型转换</h1><pre><code>算数运算float + int =&gt; float  、  赋值int = float、传参、返回值
-</code></pre><h1 id="第二部分-显式类型转换"><a href="#第二部分-显式类型转换" class="headerlink" title="第二部分.显式类型转换"></a>第二部分.显式类型转换</h1><pre><code>C风格
-    (type) value
-
-C++风格
-    static_cast、dynamic_cast、reinterpret_cast和const_cast 
-</code></pre><h3 id="static-cast-expression"><a href="#static-cast-expression" class="headerlink" title="static_cast (expression)"></a>static_cast<type-id> (expression)</type-id></h3><pre><code>该运算符把expression转换为type-id类型，但没有运行时类型检查来保证转换的安全性，如下几种用法：
-a. 用于类层次结构中基类和子类之间指针或引用的转换。
-    进行上行转换（把子类的指针或引用转换成基类表示）是安全的；
-    进行下行转换（把基类指针或引用转换成子类指针或引用）时，由于没有动态类型检查，所以是不安全的。
-b. 用于基本数据类型之间的转换，如把int转换成char，把int转换成enum。这种转换的安全性也要开发人员来保证。
-c. 把void指针转换成目标类型的指针(不安全!!)
-e. 把任何类型的表达式转换成void类型。
-
-注意：static_cast不能转换掉expression的const、volatile、或者__unaligned属性。
-
-来源：为什么需要static_cast强制转换？
-情况1：void指针-&gt;其他类型指针
-情况2：改变通常的标准转换
-情况3：避免出现可能多种转换的歧义
-</code></pre><h3 id="dynamic-cast-expression"><a href="#dynamic-cast-expression" class="headerlink" title="dynamic_cast (expression)"></a>dynamic_cast<type-id> (expression)</type-id></h3><pre><code>该运算符把expression转换成type-id类型的对象。Type-id必须是类的指针、类的引用或者void *；如果type-id是类指针类型，那么expression也必须是一个指针，如果type-id是一个引用，那么expression也必须是一个引用。
-dynamic_cast主要用于类层次间的上行转换和下行转换，还可以用于类之间的交叉转换。在类层次间进行上行转换时，dynamic_cast和static_cast的效果是一样的；在进行下行转换时，dynamic_cast具有类型检查的功能，比static_cast更安全。
-
-class Base{
-public:
-    int m_iNum;
-    virtual void foo();
-};
-class Derived:public Base{
-public:
-    char *m_szName[100];
-};
-void func(Base *pb){  //pb可能是Base or Derived
-    Derived *pd1 = static_cast&lt;Derived *&gt; (pb);
-    Derived *pd2 = dynamic_cast&lt;Derived *&gt; (pb);
-}
-
-在上面的代码段中，如果pb实际指向一个Derived类型的对象，pd1和pd2是一样的，并且对这两个指针执行Derived类型的任何操作都是安全的；
-如果pb实际指向的是一个Base类型的对象，那么pd1将是一个指向该对象的指针，对它进行Derived类型的操作将是不安全且非法的（如访问m_szName），而pd2将是一个空指针(即0，因为dynamic_cast失败)。
-另外要注意：
-dynamic_cast 转换时Base要有虚函数，否则会编译出错；static_cast则没有这个限制。这是由于运行时类型检查需要运行时类型信息，而这个信息存储在类的虚函数表（关于虚函数表的概念，详细可见&lt;Inside c++ object model&gt;）中，只有定义了虚函数的类才有虚函数表，没有定义虚函数的类是没有虚函数表的。
-
-dynamic_cast还支持交叉转换（cross cast）。如下代码所示。
-class Base {
-public:
-    int m_iNum;
-    virtual void f(){}
-};
-class Derived1 : public Base{
-};
-class Derived2 : public Base {
-};
-void foo() {
-    Derived1 *pd1 = new Drived1();
-    pd1-&gt;m_iNum = 100;
-    Derived2 *pd2 = static_cast&lt;Derived2 *&gt;(pd1);   //Compile error
-    Derived2 *pd2 = dynamic_cast&lt;Derived2 *&gt;(pd1);  //pd2 is NULL
-    delete pd1;
-}
-在函数foo中，使用static_cast进行转换是不被允许的，将在编译时出错；而使用 dynamic_cast的转换则是允许的，结果是空指针。
-
-来源：为什么需要dynamic_cast强制转换？
-简单的说，当无法使用virtual函数的时候
-</code></pre><h3 id="reinterpret-cast-expression"><a href="#reinterpret-cast-expression" class="headerlink" title="reinterpret_cast (expression)"></a>reinterpret_cast<type-id> (expression)</type-id></h3><pre><code>是C++中强制类型转换符，操作符修改了操作数类型，但仅仅是重新解释了给出的对象的比特模型而没有进行二进制转换。eg: void *p ===&gt; int p
-type-id必须是一个指针、引用、算术类型、函数指针或者成员指针。它可以把一个指针转换成一个整数，也可以把一个整数转换成一个指针（先把一个指针转换成一个整数，再把该整数转换成原类型的指针，还可以得到原先的指针值）。
-
-reinterpret_cast是为了映射到一个完全不同类型的意思，这个关键词在我们需要把类型映射回原有类型时用到它。
-</code></pre><h3 id="const-cast-expression"><a href="#const-cast-expression" class="headerlink" title="const_cast (expression)"></a>const_cast<type_id> (expression)</type_id></h3><pre><code>该运算符用来修改类型的const或volatile属性。除了const 或volatile修饰之外， type_id和expression的类型是一样的。
-常量指针被转化成非常量指针，并且仍然指向原来的对象；
-常量引用被转换成非常量引用，并且仍然指向原来的对象；
-常量对象被转换成非常量对象。
-Voiatile和const类试。举如下一例：
-class B{
-public:
-    int m_iNum;
-}
-void foo(){
-    const B b1;
-    b1.m_iNum = 100; //comile error
-    B b2 = const_cast&lt;B&gt;(b1);  // 去掉const 属性
-    b2. m_iNum = 200; //fine
-}
-上面的代码编译时会报错，因为b1是一个常量对象，不能对它进行改变；
-使用const_cast把它转换成一个非常量对象，就可以对它的数据成员任意改变。注意：b1和b2是两个不同的对象。
-</code></pre><h3 id="比较static-cast-Vs-reinterpret-cast"><a href="#比较static-cast-Vs-reinterpret-cast" class="headerlink" title="比较static_cast Vs. reinterpret_cast"></a>比较static_cast Vs. reinterpret_cast</h3><pre><code>reinterpret_cast是为了映射到一个完全不同类型的意思，这个关键词在我们需要把类型映射回原有类型时用到它。我们映射到的类型仅仅是为了故弄玄虚和其他目的，这是所有映射中最危险的。(这句话是C++编程思想中的原话)
-
-static_cast 和 reinterpret_cast 操作符修改了操作数类型。它们不是互逆的； static_cast 在编译时使用类型信息执行转换，在转换执行必要的检测(诸如指针越界计算, 类型检查). 其操作数相对是安全的。另一方面；reinterpret_cast 仅仅是重新解释了给出的对象的比特模型而没有进行二进制转换，例子如下：
-int n=9; double d=static_cast &lt; double &gt; (n);
-上面的例子中, 我们将一个变量从 int 转换到 double。这些类型的二进制表达式是不同的。 要将整数 9 转换到 双精度整数 9，static_cast 需要正确地为双精度整数 d 补足比特位。其结果为 9.0。而reinterpret_cast 的行为却不同:
-int n=9;
-double d=reinterpret_cast&lt;double &amp; &gt; (n);
-这次, 结果有所不同. 在进行计算以后, d 包含无用值. 这是因为 reinterpret_cast 仅仅是复制 n 的比特位到 d, 没有进行必要的分析.
-因此, 你需要谨慎使用 reinterpret_cast.
-
-
-C++primer第五章里写了编译器隐式执行任何类型转换都可由static_cast显示完成;reinterpret_cast通常为操作数的位模式提供较低层的重新解释
-1、C++中的static_cast执行非多态的转换，用于代替C中通常的转换操作。因此，被做为隐式类型转换使用。比如： 
-int i; 
-float f = 166.7f; 
-i = static_cast&lt;int&gt;(f); 
-此时结果，i的值为166。 
-2、C++中的reinterpret_cast主要是将数据从一种类型的转换为另一种类型。所谓“通常为操作数的位模式提供较低层的重新解释”也就是说将数据以二进制存在形式的重新解释。比如：
-int i; 
-char *p = &quot;This is a example.&quot;; 
-i = reinterpret_cast&lt;int&gt;(p); 
-此时结果，i与p的值是完全相同的。reinterpret_cast的作用是说将指针p的值以二进制（位模式）的方式被解释为整型，并赋给i，一个明显的现象是在转换前后没有数位损失。
-</code></pre><p>C++的类型转换明显比C里面的用()的类型转换要严谨很多。首先，C++样式的类型转换编写 的代码更容易维护，想想看，只要搜索“static_cast”，就可以找出代码中所有使用了静态转换的代码，比C里面五花八门的 (long) (long*) (double )好找多了吧。另外，reinterpret_cast，看字面意思就知道，是保持二进制位不变，用另一种格式来重新解释，我们也知道计算机里面只有 bit,到底代表什么类型，整形还是浮点型，全在于应用程序怎么解释每一个bit，reinterpret_cast给了我们这么一个机会。而C里面要想 二进制重解释，你要么拷贝内存，要么还是用()来强制类型转换，某些特定情况下，()强制转换其实是二进制的重解释，毫无疑问，C风格的转换会让代码变得 难懂。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/const-cast/">const_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dynamic-cast/">dynamic_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reinterpret-cast/">reinterpret_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/static-cast/">static_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/类型转换/">类型转换</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
   </nav>
 
 </section>

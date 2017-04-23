@@ -18,7 +18,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/11/RK平台分区信息/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
 <meta property="og:description" content="RK平台分区信息与eMMC partitions对应lrwxrwxrwx root     root    2013-01-21 08:50 uboot            -&amp;gt; /dev/block/mmcblk0p1 lrwxrwxrwx root     root    2013-01-21 08:50 trust            -&amp;gt; /dev/block/mmcblk">
-<meta property="og:updated_time" content="2017-04-12T11:23:39.292Z">
+<meta property="og:updated_time" content="2017-04-20T13:34:08.845Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RK平台分区信息">
 <meta name="twitter:description" content="RK平台分区信息与eMMC partitions对应lrwxrwxrwx root     root    2013-01-21 08:50 uboot            -&amp;gt; /dev/block/mmcblk0p1 lrwxrwxrwx root     root    2013-01-21 08:50 trust            -&amp;gt; /dev/block/mmcblk">
@@ -189,6 +189,10 @@ lrwxrwxrwx root     root    2013-01-21 08:50 baseparamer      -&gt; /dev/block/m
 lrwxrwxrwx root     root    2013-01-21 08:50 userdata         -&gt; /dev/block/mmcblk0p14
 lrwxrwxrwx root     root    2013-01-21 08:50 radical_update   -&gt; /dev/block/mmcblk0p15
 lrwxrwxrwx root     root    2013-01-21 08:50 user             -&gt; /dev/block/mmcblk0p16
+
+mmcblk0: p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 p14 p15 p16 p17
+
+/mnt/external_sd vfat                                            /dev/block/mmcblk1p1
 </code></pre><h2 id="RK平台各分区介绍"><a href="#RK平台各分区介绍" class="headerlink" title="RK平台各分区介绍"></a>RK平台各分区介绍</h2><pre><code>uboot.img
 trust.img
 misc.img      RK平台，misc分区内容用于启动模式切换，是升级基带还是进入Recovery（misc分区的内容可以被按键出发改变???）
@@ -259,9 +263,9 @@ user
     </a>
   
   
-    <a href="/2017/04/12/Android Input系统/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/04/12/InputSystem003_AndroidInputSystem/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Android Input系统——xxx</div>
+      <div class="article-nav-title">Input系统——Android Input系统</div>
     </a>
   
 </nav>

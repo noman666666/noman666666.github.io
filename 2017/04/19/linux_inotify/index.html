@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>linux inotify机制 | 进无止境&#39;s 博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="inotify" />
+  
+  
+  
+  
+  <meta name="description" content="Inotify 是一个 Linux 内核特性，它监控文件系统，并且及时向专门的应用程序发出相关的事件警告，比如删除、读、写和卸载操作等。您还可以跟踪活动的源头和目标等细节。使用 inotify 很简单：创建一个文件描述符fd，附加一个或多个监视器（一个监视器 是一个路径和一组事件，对应一个描述符wd），然后使用 read() 方法从描述符fd获取事件信息。 inotify，linux内核版本 &amp;g">
+<meta name="keywords" content="inotify">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux inotify机制">
+<meta property="og:url" content="http://yoursite.com/2017/04/19/linux_inotify/index.html">
+<meta property="og:site_name" content="进无止境's 博客">
+<meta property="og:description" content="Inotify 是一个 Linux 内核特性，它监控文件系统，并且及时向专门的应用程序发出相关的事件警告，比如删除、读、写和卸载操作等。您还可以跟踪活动的源头和目标等细节。使用 inotify 很简单：创建一个文件描述符fd，附加一个或多个监视器（一个监视器 是一个路径和一组事件，对应一个描述符wd），然后使用 read() 方法从描述符fd获取事件信息。 inotify，linux内核版本 &amp;g">
+<meta property="og:updated_time" content="2017-04-20T02:48:35.493Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux inotify机制">
+<meta name="twitter:description" content="Inotify 是一个 Linux 内核特性，它监控文件系统，并且及时向专门的应用程序发出相关的事件警告，比如删除、读、写和卸载操作等。您还可以跟踪活动的源头和目标等细节。使用 inotify 很简单：创建一个文件描述符fd，附加一个或多个监视器（一个监视器 是一个路径和一组事件，对应一个描述符wd），然后使用 read() 方法从描述符fd获取事件信息。 inotify，linux内核版本 &amp;g">
+  
+    <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-linux_inotify" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Linux inotify机制
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/19/linux_inotify/" class="article-date">
+	  <time datetime="2017-04-18T16:00:00.000Z" itemprop="datePublished">2017-04-19</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Inotify 是一个 Linux 内核特性，它监控文件系统，并且及时向专门的应用程序发出相关的事件警告，比如删除、读、写和卸载操作等。您还可以跟踪活动的源头和目标等细节。<br>使用 inotify 很简单：创建一个文件描述符fd，附加一个或多个监视器（一个监视器 是一个路径和一组事件，对应一个描述符wd），然后使用 read() 方法从描述符fd获取事件信息。</p>
+<p>inotify，linux内核版本 &gt;= 2.6.13</p>
+<h3 id="inotify-C-API"><a href="#inotify-C-API" class="headerlink" title="inotify C API"></a>inotify C API</h3><p>Inotify 提供几个系统调用，它们可以构建各种各样的文件系统监控器：</p>
+<h5 id="1-fd-inotify-init-fd-inotify-init1-int-flags"><a href="#1-fd-inotify-init-fd-inotify-init1-int-flags" class="headerlink" title="1. fd = inotify_init();  / fd = inotify_init1(int flags);"></a>1. fd = inotify_init();  / fd = inotify_init1(int flags);</h5><pre><code>在内核中创建 inotify 子系统的一个实例instance，成功的话将返回一个文件描述符fd，失败则返回 -1。
+就像其他系统调用一样，如果 inotify_init() 失败，请检查 errno 以获得诊断信息。
+</code></pre><h5 id="2-wd-inotify-add-watch-int-fd-const-char-pathname-uint32-t-mask"><a href="#2-wd-inotify-add-watch-int-fd-const-char-pathname-uint32-t-mask" class="headerlink" title="2. wd = inotify_add_watch(int fd, const char *pathname, uint32_t mask);"></a>2. wd = inotify_add_watch(int fd, const char *pathname, uint32_t mask);</h5><pre><code>用于添加监视器。每个监视器必须提供一个路径名和相关事件的列表（每个事件由一个常量指定，比如 IN_MODIFY）。
+要监控多个事件，只需在事件之间使用逻辑操作符或&apos;|&apos;。
+如果 inotify_add_watch() 成功，该调用会为已注册的监视器返回一个惟一的标识符wd; 否则，返回 -1。
+使用这个标识符更改或删除监视器。
+</code></pre><h5 id="3-inotify-rm-watch-int-fd-int-wd"><a href="#3-inotify-rm-watch-int-fd-int-wd" class="headerlink" title="3. inotify_rm_watch(int fd, int wd);"></a>3. inotify_rm_watch(int fd, int wd);</h5><pre><code>删除一个inotify实例中的监视器wd。 success return 0 ； error return -1。
+删除操作将触发IN_IGNORED 事件给该wd
+</code></pre><h5 id="4-读事件、关闭监视器、关闭inotify实例"><a href="#4-读事件、关闭监视器、关闭inotify实例" class="headerlink" title="4. 读事件、关闭监视器、关闭inotify实例"></a>4. 读事件、关闭监视器、关闭inotify实例</h5><pre><code>创建完inotify实例及添加监视器后，读inotify实例描述符fd，可以得到监控到的事件。
+可以使用select pselect poll epoll 等避免阻塞
+
+文件描述符上的由 inotify_init() 生成的通用 close() 删除所有活动监视器，并释放与 inotify 实例相关联的所有内存（这里也用到典型的引用计数警告。与实例相关联的所有文件描述符必须在监视器和 inotify 消耗的内存被释放之前关闭）。
+</code></pre><h5 id="5-使用技巧-注意事项"><a href="#5-使用技巧-注意事项" class="headerlink" title="5. 使用技巧/注意事项"></a>5. 使用技巧/注意事项</h5><pre><code>如果监视中的文件或目录被删除，它的监视器也会被自动删除（在删除事件发出之后）。
+如果在已卸载的文件系统上监控文件或目录，监视器将在删除所有受影响的监视之前收到一个卸载事件。
+将 IN_ONESHOT 标志添加到监视器标记中，设置一个一次性警告。警告在发送之后将被删除。
+要修改一个事件，必须提供相同的路径名和不同的标记。新监视器将取代老监视器。
+考虑到实用性，不可能耗尽任何一个 inotify 实例的监视器。然而，您可能会耗尽事件队列的空间，这取决于处理事件的频率。
+    队列溢出会引起 IN_Q_OVERFLOW 事件。
+close() 方法毁坏 inotify 实例和所有相关联的监视器，并清空队列中的所有等待事件。
+</code></pre><h3 id="inotify-事件结构体及宏（详见inotify-h）"><a href="#inotify-事件结构体及宏（详见inotify-h）" class="headerlink" title="inotify 事件结构体及宏（详见inotify.h）"></a>inotify 事件结构体及宏（详见inotify.h）</h3><h5 id="1-inotify-event-结构体"><a href="#1-inotify-event-结构体" class="headerlink" title="1. inotify_event 结构体"></a>1. inotify_event 结构体</h5><pre><code>struct inotify_event {
+   int      wd;       /* Watch descriptor */  属于哪个监视器的事件，说白了就是wd对应的pathname的事件
+   uint32_t mask;     /* Mask of events */   //  IN_ACCESS  IN_MODIFY  IN_ATTRIB ... 中一个或多个的位或
+   uint32_t cookie;   /* Unique cookie associating related events (for rename(2)) */ 用于关联两个事件
+   uint32_t len;      /* Size of name field */  name长度
+   char     name[];   /* Optional null-terminated name */  事件关联的文件名，不包括路径
+};
+</code></pre><p><strong>cookie字段使用场景:</strong> 当把一个文件从一个目录移动到另一个目录时，您可以使用 cookie 将两个事件绑在一起。<br>仅当您监视源和目标目录时，inotify 才生成两个移动事件 — 分别针对源和目标 —，并通过设置 cookie 将它们绑定在一起。<br>要监视一个移动操作，必须指定 IN_MOVED_FROM 或 IN_MOVED_TO，或使用简短的 IN_MOVE，它可以监视两个操作。<br>使用 IN_MOVED_FROM 和 IN_MOVED_TO 来测试事件类型。</p>
+<h5 id="2-事件类型-宏（详见inotify-h）"><a href="#2-事件类型-宏（详见inotify-h）" class="headerlink" title="2. 事件类型/宏（详见inotify.h）"></a>2. 事件类型/宏（详见inotify.h）</h5><pre><code>IN_ACCESS         0x00000001 File was accessed (read) (*).
+IN_MODIFY         0x00000002 File was modified (*).
+IN_ATTRIB         0x00000004 Metadata changed, e.g., permissions, timestamps, extended attributes, 
+                             link count (since Linux 2.6.25), UID, GID, etc. (*).
+IN_CLOSE_WRITE    0x00000008 File opened for writing was closed (*).
+IN_CLOSE_NOWRITE  0x00000010 File not opened for writing was closed (*).
+IN_OPEN           0x00000020 File was opened (*).
+IN_MOVED_FROM     0x00000040 Generated for the directory containing the old filename when a file is renamed (*).
+IN_MOVED_TO       0x00000080 Generated for the directory containing the new filename when a file is renamed (*).
+IN_CREATE         0x00000100 File/directory created in watched directory (*).
+IN_DELETE         0x00000200 File/directory deleted from watched directory (*).
+IN_DELETE_SELF    0x00000400 Watched file/directory was itself deleted.
+IN_MOVE_SELF      0x00000800 Watched file/directory was itself moved.
+
+IN_UNMOUNT        0x00002000
+IN_Q_OVERFLOW     0x00004000
+IN_IGNORED        0x00008000
+
+复合型事件类型
+IN_CLOSE      (IN_CLOSE_WRITE | IN_CLOSE_NOWRITE)
+IN_MOVE       (IN_MOVED_FROM | IN_MOVED_TO)
+IN_ALL_EVENTS (IN_ACCESS | IN_MODIFY | IN_ATTRIB | IN_CLOSE_WRITE |   IN_CLOSE_NOWRITE | IN_OPEN 
+              | IN_MOVED_FROM |   IN_MOVED_TO | IN_DELETE | IN_CREATE | IN_DELETE_SELF |   IN_MOVE_SELF)
+
+IN_ONLYDIR        0x01000000
+IN_DONT_FOLLOW    0x02000000
+IN_MASK_ADD       0x20000000
+IN_ISDIR          0x40000000
+IN_ONESHOT        0x80000000
+</code></pre><h3 id="inotify-程序示例"><a href="#inotify-程序示例" class="headerlink" title="inotify 程序示例"></a>inotify 程序示例</h3><pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/inotify.h&gt;
+
+#define EVENT_SIZE  ( sizeof (struct inotify_event) )
+#define BUF_LEN     ( 1024 * ( EVENT_SIZE + 16 ) )
+
+int main( int argc, char **argv ) 
+{
+  int length, i = 0;
+  int fd;
+  int wd;
+  char buffer[BUF_LEN];
+
+  fd = inotify_init();
+
+  if ( fd &lt; 0 ) {
+    perror( &quot;inotify_init&quot; );
+  }
+
+  wd = inotify_add_watch( fd, &quot;/home/jim/test_inotity&quot;, 
+                         IN_MODIFY | IN_CREATE | IN_DELETE );
+  length = read( fd, buffer, BUF_LEN );  
+
+  if ( length &lt; 0 ) {
+    perror( &quot;read&quot; );
+  }  
+
+  while ( i &lt; length ) {
+    struct inotify_event *event = ( struct inotify_event * ) &amp;buffer[ i ];
+    if ( event-&gt;len ) {
+      if ( event-&gt;mask &amp; IN_CREATE ) {
+        if ( event-&gt;mask &amp; IN_ISDIR ) {
+          printf( &quot;The directory %s was created.\n&quot;, event-&gt;name );       
+        }
+        else {
+          printf( &quot;The file %s was created.\n&quot;, event-&gt;name );
+        }
+      }
+      else if ( event-&gt;mask &amp; IN_DELETE ) {
+        if ( event-&gt;mask &amp; IN_ISDIR ) {
+          printf( &quot;The directory %s was deleted.\n&quot;, event-&gt;name );       
+        }
+        else {
+          printf( &quot;The file %s was deleted.\n&quot;, event-&gt;name );
+        }
+      }
+      else if ( event-&gt;mask &amp; IN_MODIFY ) {
+        if ( event-&gt;mask &amp; IN_ISDIR ) {
+          printf( &quot;The directory %s was modified.\n&quot;, event-&gt;name );
+        }
+        else {
+          printf( &quot;The file %s was modified.\n&quot;, event-&gt;name );
+        }
+      }
+    }
+    i += EVENT_SIZE + event-&gt;len;
+  }
+
+  ( void ) inotify_rm_watch( fd, wd );
+  ( void ) close( fd );
+
+  exit( 0 );
+}
+
+运行测试
+$ ./watcher  &amp; 
+$ cd $HOME/test_inotify
+$ touch a b c
+The file a was created.
+The file b was created.
+The file c was created.
+</code></pre><h3 id="inotify-程序示例2"><a href="#inotify-程序示例2" class="headerlink" title="inotify 程序示例2"></a>inotify 程序示例2</h3><pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;sys/inotify.h&gt;
+
+struct wd_path
+{
+    int wd;
+    char *path;
+};
+char * event_array[] = {
+&quot;File was accessed&quot;,
+&quot;File was modified&quot;,
+&quot;File attributes were changed&quot;,
+&quot;writtable file closed&quot;,
+&quot;Unwrittable file closed&quot;,
+&quot;File was opened&quot;,
+&quot;File was moved from X&quot;,
+&quot;File was moved to Y&quot;,
+&quot;Subfile was created&quot;,
+&quot;Subfile was deleted&quot;,
+&quot;Self was deleted&quot;,
+&quot;Self was moved&quot;,
+&quot;&quot;,
+&quot;Backing fs was unmounted&quot;,
+&quot;Event queued overflowed&quot;,
+&quot;File was ignored&quot;
+};
+#define EVENT_NUM 16
+
+int main(int argc,char *argv[])
+{
+    int fd,wd,len,tmp_len,i;
+    char buffer[1024],*offset,target[1024];
+    struct wd_path *wd_array;
+    struct inotify_event *event;
+    wd_array=(struct wd_path*)malloc((argc-1)*sizeof(struct wd_path));
+    fd=inotify_init();
+    if(-1==fd) 
+    {
+        printf(&quot;failed to init inotifyn&quot;);
+        return 0;
+    }
+
+    printf(&quot;argc = %d \n&quot;, argc);
+    if (argc &lt; 2) {
+        return -1;
+    }
+
+    printf(&quot;argv[0] = %d \n&quot;, argv[0]);
+    printf(&quot;argv[1] = %d \n&quot;, argv[1]);
+
+    for(i=0;i&lt;argc-1;i++) 
+    {
+        wd_array[i].path = argv[i+1];
+        wd=inotify_add_watch(fd,wd_array[i].path,IN_ALL_EVENTS); 
+        wd_array[i].wd=wd;
+    }
+
+    memset(buffer,0,1024);
+    while(len=read(fd,buffer,1024))
+    {
+        offset=buffer;
+        event=(struct inotify_event*)buffer;
+        while(((char *)event-buffer)&lt;len)
+        {
+            for(i=0;i&lt;argc-1;i++)
+            {
+                if(event-&gt;wd==wd_array[i].wd)
+                {
+                    memset(target,0,1024);
+                    strcpy(target,wd_array[i].path);
+                    strcat(target,&quot;/&quot;);
+                    strcat(target,event-&gt;name);
+                    printf(&quot;nnntarget:%s:n&quot;,target); 
+                }
+            }
+            for(i=0;i&lt;EVENT_NUM;i++)
+            {
+                if(event-&gt;mask&amp;(1&lt;&lt;i))
+                    printf(&quot;    event:%sn&quot;,event_array[i]);
+            }
+            tmp_len=sizeof(struct inotify_event)+event-&gt;len;
+            event=(struct inotify_event*)(offset+tmp_len);
+            offset+=tmp_len;
+        }
+    }
+    return 1;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+        
+	<div id="comment">
+	
+	<!-- 多说评论框 start -->
+	 <div class="ds-thread" data-thread-key="/2017/04/19/linux_inotify/" data-title="Linux inotify机制" data-url="http://yoursite.com/2017/04/19/linux_inotify/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"iTimeTraveler"};
+	  (function() {
+	    var ds = document.createElement('script');
+	    ds.type = 'text/javascript';ds.async = true;
+	    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	    ds.charset = 'UTF-8';
+	    (document.getElementsByTagName('head')[0] 
+	     || document.getElementsByTagName('body')[0]).appendChild(ds);
+	  })();
+	  </script>
+	<!-- 多说公共JS代码 end -->
+	
+	</div>
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/inotify/">inotify</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/13/Markdown使用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Markdown&amp;MarkdownPad编辑器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/19/linux_select_poll/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Linux select pselect poll epoll用法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <section id="comments">
+<!--���ٰ棬�����ٶȿ죬ʹ��ǰ������ҳ���ļ�����-->
+<div id="SOHUCS" sid="Linux inotify机制"></div>
+<script>
+  (function(){
+    var appid = 'cysWY506v',
+    conf = 'prod_b3fbdae0e52a1e5b116b4b9fe328664b';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>    
+  </section>
+  </section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2012 - 2017 进无止境&#39;s 博客 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				<span id="busuanzi_container_site_uv"> 访客数 : <span id="busuanzi_value_site_uv"></span></span> |  
+				<span id="busuanzi_container_site_pv"> 访问量 : <span id="busuanzi_value_site_pv"></span></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            进无止境&#39;s 博客
+          </div>
+          <div class="panel-body">
+            Copyright © 2017 Jim All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+</body>
+</html>

@@ -18,7 +18,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/11/Android编译系统——system.img userdata.img recovery.img目标编译过程/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
 <meta property="og:description" content="image 介绍boot.img      Android 的初始文件映像，负责初始化并加载 system 分区，一般Android系统这个镜像中包含ramdisk.img根文件系统+kernel（RK平台的boot.img是没包含kernel部分的） recovery.img  恢复模式系统启动镜像。内容和boot.img雷同（RK平台recovery.img包含kernel部分），但是其中的r">
-<meta property="og:updated_time" content="2017-04-12T11:23:27.293Z">
+<meta property="og:updated_time" content="2017-04-20T09:47:01.274Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android编译系统——ramdisk.img system.img userdata.img recovery.img目标编译过程">
 <meta name="twitter:description" content="image 介绍boot.img      Android 的初始文件映像，负责初始化并加载 system 分区，一般Android系统这个镜像中包含ramdisk.img根文件系统+kernel（RK平台的boot.img是没包含kernel部分的） recovery.img  恢复模式系统启动镜像。内容和boot.img雷同（RK平台recovery.img包含kernel部分），但是其中的r">
@@ -233,7 +233,7 @@ define build-userdataimage-target  //做userdata.img分区build操作
 endef
 
 
-注 userdata.img 会依赖skip_userdata.img := 这个变量以及嵌套依赖BoardConfig.mk 中的BOARD_USERDATAIMAGE_PARTITION_SIZE和TARGET_USERIMAGES_USE_EXT4的值
+注 system.img userdata.img 会依赖skip_userdata.img := 这个变量 及 嵌套依赖device/.../BoardConfig.mk中的TARGET_USERIMAGES_USE_EXT4、BOARD_SYSTEMIMAGE_PARTITION_SIZE、BOARD_USERDATAIMAGE_PARTITION_SIZE和
 </code></pre><h2 id="image解压方法"><a href="#image解压方法" class="headerlink" title="image解压方法"></a>image解压方法</h2><pre><code>ramdisk.img   用file命令查看显示ramdisk.img: gzip compressed data, from Unix，采用cpio打包，gzip压缩的
     cp -a ramdisk.img 000/ramdisk.img.gz
     cd 000/
@@ -290,6 +290,7 @@ make_ext4fs工具：用于Android平台上制作ext4文件系统的镜像，在o
                  [ -z | -s ] [ -w ] [ -c ] [ -J ] [ -v ] [ -B &lt;block_list_file&gt; ] &lt;filename&gt; [&lt;directory&gt;]
         -l 分区大小 支持512M 以及1073741824 单位为bytes
         -s 生成ext4的S模式制作
+        -T timestamp  // -1 mean what? fix me
         -a 挂在点
         -S  file_contexts文件
         &lt;filename&gt;  生成的目的文件

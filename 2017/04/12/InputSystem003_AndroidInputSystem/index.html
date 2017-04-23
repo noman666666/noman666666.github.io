@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>input系统——android input系统 | 进无止境&#39;s 博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="inputinput系统event" />
+  
+  
+  
+  
+  <meta name="description" content="Input系统结构解析InputManager.java (frameworks\base\core\java\android\hardware\input)      InputManagerInternal.java (frameworks\base\core\java\android\hardware\input)       IInputManager.aidl (frameworks\b">
+<meta name="keywords" content="input,input系统,event">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Input系统——Android Input系统">
+<meta property="og:url" content="http://yoursite.com/2017/04/12/InputSystem003_AndroidInputSystem/index.html">
+<meta property="og:site_name" content="进无止境's 博客">
+<meta property="og:description" content="Input系统结构解析InputManager.java (frameworks\base\core\java\android\hardware\input)      InputManagerInternal.java (frameworks\base\core\java\android\hardware\input)       IInputManager.aidl (frameworks\b">
+<meta property="og:updated_time" content="2017-04-21T09:43:07.354Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Input系统——Android Input系统">
+<meta name="twitter:description" content="Input系统结构解析InputManager.java (frameworks\base\core\java\android\hardware\input)      InputManagerInternal.java (frameworks\base\core\java\android\hardware\input)       IInputManager.aidl (frameworks\b">
+  
+    <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-InputSystem003_AndroidInputSystem" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Input系统——Android Input系统
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/12/InputSystem003_AndroidInputSystem/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Input系统结构解析"><a href="#Input系统结构解析" class="headerlink" title="Input系统结构解析"></a>Input系统结构解析</h3><pre><code>InputManager.java (frameworks\base\core\java\android\hardware\input)     
+InputManagerInternal.java (frameworks\base\core\java\android\hardware\input)     
+
+IInputManager.aidl (frameworks\base\core\java\android\hardware\input)     ----------------------
+
+InputManagerService.java (frameworks\base\services\core\java\com\android\server\input) 
+
+InputManagerService == jni ==&gt; NativeInputManager  ---------------------------------------------
+com_android_server_input_InputManagerService.cpp (frameworks\base\services\core\jni)
+
+
+InputManager.cpp (frameworks\native\services\inputflinger) 
+EventHub.cpp (frameworks\native\services\inputflinger) 
+</code></pre><h3 id="查看event注册设备"><a href="#查看event注册设备" class="headerlink" title="查看event注册设备"></a>查看event注册设备</h3><pre><code>shell@rk3368_32:/dev/input # cat /proc/bus/input/devices
+I: Bus=0000 Vendor=0000 Product=0003 Version=206a
+N: Name=&quot;synaptics_dsx&quot;
+P: Phys=synaptics_dsx/touch_input
+S: Sysfs=/devices/ff140000.i2c/i2c-2/2-0020/input/input0
+U: Uniq=
+H: Handlers=event0 cpufreq ddr_freq 
+B: PROP=2
+B: EV=b
+B: KEY=420 0 0 0 0 0 8000 0 0 0 0
+B: ABS=2638000 3
+
+I: Bus=0019 Vendor=0000 Product=0000 Version=0000
+N: Name=&quot;rotary.35&quot;
+P: Phys=
+S: Sysfs=/devices/rotary.35/input/input1
+U: Uniq=
+H: Handlers=event1 
+B: PROP=0
+B: EV=5
+B: REL=1
+
+I: Bus=0019 Vendor=0001 Product=0001 Version=0100
+N: Name=&quot;rk29-keypad&quot;
+P: Phys=gpio-keys/input0
+S: Sysfs=/devices/ff100000.adc/key.38/input/input2
+U: Uniq=
+H: Handlers=event2 ddr_freq keychord 
+B: PROP=0
+B: EV=3
+B: KEY=8000 100000 0 0 0
+
+I: Bus=0000 Vendor=0000 Product=0000 Version=0000
+N: Name=&quot;temperature&quot;
+P: Phys=
+S: Sysfs=/devices/ff160000.i2c/i2c-4/4-005b/input/input3
+U: Uniq=
+H: Handlers=event3 
+B: PROP=0
+B: EV=9
+B: ABS=40
+</code></pre><h3 id="查看Handler个数"><a href="#查看Handler个数" class="headerlink" title="查看Handler个数"></a>查看Handler个数</h3><pre><code>shell@rk3368_box:/dev/input # ls -l                                            
+crw-rw---- root     input     13,  64 2017-04-12 11:15 event0
+crw-rw---- root     input     13,  65 2017-04-12 11:15 event1
+crw-rw---- root     input     13,  66 2017-04-14 08:12 event2
+crw-rw---- root     input     13,  67 2017-04-14 08:12 event3
+
+cat event0 
+cat event1
+</code></pre><h3 id="获取事件"><a href="#获取事件" class="headerlink" title="获取事件"></a>获取事件</h3><pre><code># getevent -h
+Usage: getevent [-t] [-n] [-s switchmask] [-S] [-v [mask]] [-d] [-p] [-i] [-l] [-q] [-c count] [-r] [device]
+    -t: show time stamps
+    -n: don&apos;t print newlines
+    -s: print switch states for given bits
+    -S: print all switch states
+    -v: verbosity mask (errs=1, dev=2, name=4, info=8, vers=16, pos. events=32, props=64)
+    -d: show HID descriptor, if available
+    -p: show possible events (errs, dev, name, pos. events)
+    -i: show all device info and possible events
+    -l: label event types and names in plain text
+    -q: quiet (clear verbosity mask)
+    -c: print given number of events then exit
+    -r: print rate events are received
+
+如：getevent -r -q 监控设备的sendevent事件 
+
+shell@rk3368_32:/dev/input # getevent                                      
+add device 1: /dev/input/event3
+  name:     &quot;temperature&quot;
+add device 2: /dev/input/event1
+  name:     &quot;rotary.35&quot;
+add device 3: /dev/input/event0
+  name:     &quot;synaptics_dsx&quot;
+add device 4: /dev/input/event2
+  name:     &quot;rk29-keypad&quot;
+
+/dev/input/event1: 0002 0000 00000001   ID=1    EV_REL=0x02   REL_X = 0x00    Value = 0x01
+/dev/input/event1: 0000 0000 00000000   ID=0    EV_SYN 0x00   SYN_REPORT = 0  Value = 0x00
+/dev/input/event1: 0002 0000 00000001       
+/dev/input/event1: 0000 0000 00000000       
+/dev/input/event1: 0002 0000 00000001
+/dev/input/event1: 0000 0000 00000000
+/dev/input/event1: 0002 0000 ffffffff       EV_REL=0x02   REL_X = 0x00    Value = 0xffffffffff
+/dev/input/event1: 0000 0000 00000000
+/dev/input/event1: 0002 0000 ffffffff
+</code></pre><h3 id="1-input-device-id"><a href="#1-input-device-id" class="headerlink" title="1. input_device_id"></a>1. input_device_id</h3><pre><code>struct input_device_id {
+ kernel_ulong_t flags;
+ __u16 bustype;  // BUS_USB  BUS_BLUETOOTH  
+ __u16 vendor;
+ __u16 product;
+ __u16 version;
+ kernel_ulong_t evbit[INPUT_DEVICE_ID_EV_MAX / BITS_PER_LONG + 1];
+
+ kernel_ulong_t keybit[INPUT_DEVICE_ID_KEY_MAX / BITS_PER_LONG + 1];
+ kernel_ulong_t relbit[INPUT_DEVICE_ID_REL_MAX / BITS_PER_LONG + 1];
+ kernel_ulong_t absbit[INPUT_DEVICE_ID_ABS_MAX / BITS_PER_LONG + 1];
+ kernel_ulong_t mscbit[INPUT_DEVICE_ID_MSC_MAX / BITS_PER_LONG + 1];
+ kernel_ulong_t ledbit[INPUT_DEVICE_ID_LED_MAX / BITS_PER_LONG + 1];
+ kernel_ulong_t sndbit[INPUT_DEVICE_ID_SND_MAX / BITS_PER_LONG + 1];
+ kernel_ulong_t ffbit[INPUT_DEVICE_ID_FF_MAX / BITS_PER_LONG + 1];
+ kernel_ulong_t swbit[INPUT_DEVICE_ID_SW_MAX / BITS_PER_LONG + 1];
+ kernel_ulong_t driver_info;
+};
+</code></pre><h3 id="2-input-event-input-h"><a href="#2-input-event-input-h" class="headerlink" title="2. input_event (input.h)"></a>2. input_event (input.h)</h3><pre><code>struct input_event {
+    struct timeval time;
+    __u16 type;
+    __u16 code;
+    __s32 value;
+};
+</code></pre><h3 id="3-RawEvent-EventHub-h"><a href="#3-RawEvent-EventHub-h" class="headerlink" title="3. RawEvent (EventHub.h)"></a>3. RawEvent (EventHub.h)</h3><pre><code>struct RawEvent {
+    nsecs_t when;       time
+    int32_t deviceId;   ID    = 1       ID         = 0
+    int32_t type;       EV_REL= 0x02    EV_SYN     = 0x00
+    int32_t code;       REL_X = 0x00    SYN_REPORT = 0
+    int32_t value;      Value = 0x01    Value      = 0x00
+};
+</code></pre><h3 id="Input设备类型"><a href="#Input设备类型" class="headerlink" title="Input设备类型"></a>Input设备类型</h3><p>从元特性来划分<br>    EV_KEY 按键          INPUT_DEVICE_CLASS_KEYBOARD  INPUT_DEVICE_CLASS_KEYMOUSE<br>    EV_REL 相对坐标<br>    EV_ABS绝对坐标<br>    EV_MSC 其它<br>    EV_LED LED<br>    EV_SND 声音<br>    EV_FF 力反馈<br>    EV_SW 开关???</p>
+<p>从常见特性来划分（一个产品可能有多个特性）<br>    按键  KEY_RESERVED-0x0 ~ KEY_MAX-0x2ff                     INPUT_DEVICE_CLASS_KEYBOARD</p>
+<pre><code>    普通键盘按键     0x0~0x100     0x160~0x2ff    INPUT_DEVICE_CLASS_KEYBOARD  INPUT_DEVICE_CLASS_KEYMOUSE
+    游戏柄的按键     0x100~0x110   0x120~0x140    INPUT_DEVICE_CLASS_KEYBOARD  INPUT_DEVICE_CLASS_KEYMOUSE
+    鼠标按键         BTN_MOUSE-BTN_LEFT-0x110-左键；  BTN_RIGHT-0x111-右键；  BTN_MIDDLE-0x112-中键；
+
+相对值  REL_X-0x0 ~ REL_MAX-0x0f
+    X坐标  REL_X 0x0
+    Y坐标  REL_Y 0x01
+    Z坐标  REL_Z 0x02
+    H轮   REL_HWHEEL 0x06
+    轮    REL_WHEEL  0x08
+    其他  REL_MISC    0x09
+          REL_MAX 0x0f
+
+绝对值 ABS_X-0x0 ~ ABS_MAX-0x3f
+    X坐标  ABS_X 0x0
+    Y坐标  ABS_Y 0x01
+    Z坐标  ABS_Z 0x02
+    轮    ABS_WHEEL  0x08
+          ABS_GAS 0x09
+          ABS_DISTANCE 0x19
+          ABS_VOLUME 0x20
+          ABS_MISC 0x28 
+          ABS_MT_SLOT 0x2f
+          ABS_MT_TOUCH_MAJOR 0x30
+          ABS_MT_TOUCH_MINOR 0x31
+          ABS_MT_WIDTH_MAJOR 0x32
+          ABS_MT_WIDTH_MINOR 0x33
+          ABS_MT_ORIENTATION 0x34
+          ABS_MT_POSITION_X 0x35
+          ABS_MT_POSITION_Y 0x36
+          ABS_MAX 0x3f
+
+FF压力 FF_RUMBLE-0x50 ~ FF_MAX-0x7f
+    FF_RUMBLE 0x50
+    FF_CONSTANT 0x52
+</code></pre><p>从Class 来区分<br>    INPUT_DEVICE_CLASS_CURSOR<br>        有BTN_MOUSE 按钮 且 REL_X  REL_Y </p>
+<pre><code>INPUT_DEVICE_CLASS_TOUCH | INPUT_DEVICE_CLASS_TOUCH_MT 
+    有BTN_TOUCH  ABS_MT_POSITION_X ABS_MT_POSITION_Y 且没有游戏键
+
+INPUT_DEVICE_CLASS_JOYSTICK 
+
+
+INPUT_DEVICE_CLASS_SWITCH
+    任一个即可
+
+
+INPUT_DEVICE_CLASS_VIBRATOR
+    有FF_RUMBLE-0x50
+</code></pre><p>按键类型还有按键map<br>    key map.</p>
+<p><a href="https://source.android.com/devices/input/overview" target="_blank" rel="external">https://source.android.com/devices/input/overview</a><br><a href="https://www.kernel.org/doc/Documentation/input/event-codes.txt" target="_blank" rel="external">https://www.kernel.org/doc/Documentation/input/event-codes.txt</a><br><a href="https://www.kernel.org/doc/Documentation/input/input.txt" target="_blank" rel="external">https://www.kernel.org/doc/Documentation/input/input.txt</a></p>
+<p>MotionEvent.AXIS_WHEEL</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        
+	<div id="comment">
+	
+	<!-- 多说评论框 start -->
+	 <div class="ds-thread" data-thread-key="/2017/04/12/InputSystem003_AndroidInputSystem/" data-title="Input系统——Android Input系统" data-url="http://yoursite.com/2017/04/12/InputSystem003_AndroidInputSystem/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"iTimeTraveler"};
+	  (function() {
+	    var ds = document.createElement('script');
+	    ds.type = 'text/javascript';ds.async = true;
+	    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	    ds.charset = 'UTF-8';
+	    (document.getElementsByTagName('head')[0] 
+	     || document.getElementsByTagName('body')[0]).appendChild(ds);
+	  })();
+	  </script>
+	<!-- 多说公共JS代码 end -->
+	
+	</div>
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event/">event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input/">input</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input系统/">input系统</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/11/RK平台分区信息/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          RK平台分区信息
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/12/InputSystem001_driver/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Input系统——Linux驱动</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <section id="comments">
+<!--���ٰ棬�����ٶȿ죬ʹ��ǰ������ҳ���ļ�����-->
+<div id="SOHUCS" sid="Input系统——Android Input系统"></div>
+<script>
+  (function(){
+    var appid = 'cysWY506v',
+    conf = 'prod_b3fbdae0e52a1e5b116b4b9fe328664b';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>    
+  </section>
+  </section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2012 - 2017 进无止境&#39;s 博客 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				<span id="busuanzi_container_site_uv"> 访客数 : <span id="busuanzi_value_site_uv"></span></span> |  
+				<span id="busuanzi_container_site_pv"> 访问量 : <span id="busuanzi_value_site_pv"></span></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            进无止境&#39;s 博客
+          </div>
+          <div class="panel-body">
+            Copyright © 2017 Jim All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+</body>
+</html>

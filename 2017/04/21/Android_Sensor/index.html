@@ -3,25 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>android input系统——xxx | 进无止境&#39;s 博客</title>
+  <title>进无止境&#39;s 博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="inputinput系统event" />
   
   
   
-  
-  <meta name="description" content="Input系统结构解析InputManager.java (frameworks\base\core\java\android\hardware\input)      InputManagerInternal.java (frameworks\base\core\java\android\hardware\input)       IInputManager.aidl (frameworks\b">
-<meta name="keywords" content="input,input系统,event">
+  <meta name="description" content="Android Sensor http://processors.wiki.ti.com/index.php/Android_Sensor_PortingGuide">
+<meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android Input系统——xxx">
-<meta property="og:url" content="http://yoursite.com/2017/04/12/Android Input系统/index.html">
+<meta property="og:title" content="进无止境's 博客">
+<meta property="og:url" content="http://yoursite.com/2017/04/21/Android_Sensor/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
-<meta property="og:description" content="Input系统结构解析InputManager.java (frameworks\base\core\java\android\hardware\input)      InputManagerInternal.java (frameworks\base\core\java\android\hardware\input)       IInputManager.aidl (frameworks\b">
-<meta property="og:updated_time" content="2017-04-19T01:49:46.843Z">
+<meta property="og:description" content="Android Sensor http://processors.wiki.ti.com/index.php/Android_Sensor_PortingGuide">
+<meta property="og:updated_time" content="2017-04-21T09:39:27.496Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android Input系统——xxx">
-<meta name="twitter:description" content="Input系统结构解析InputManager.java (frameworks\base\core\java\android\hardware\input)      InputManagerInternal.java (frameworks\base\core\java\android\hardware\input)       IInputManager.aidl (frameworks\b">
+<meta name="twitter:title" content="进无止境's 博客">
+<meta name="twitter:description" content="Android Sensor http://processors.wiki.ti.com/index.php/Android_Sensor_PortingGuide">
   
     <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
   
@@ -147,131 +145,23 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-Android Input系统" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-Android_Sensor" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" class="article-title" itemprop="name">
-      Android Input系统——xxx
-    </h1>
-  
-
-      </header>
-    
     <div class="article-meta">
       
-	<a href="/2017/04/12/Android Input系统/" class="article-date">
-	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	<a href="/2017/04/21/Android_Sensor/" class="article-date">
+	  <time datetime="2017-04-21T09:39:27.492Z" itemprop="datePublished">2017-04-21</time>
 	</a>
 
       
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Input系统结构解析"><a href="#Input系统结构解析" class="headerlink" title="Input系统结构解析"></a>Input系统结构解析</h3><pre><code>InputManager.java (frameworks\base\core\java\android\hardware\input)     
-InputManagerInternal.java (frameworks\base\core\java\android\hardware\input)     
+        <p>Android Sensor</p>
+<p><a href="http://processors.wiki.ti.com/index.php/Android_Sensor_PortingGuide" target="_blank" rel="external">http://processors.wiki.ti.com/index.php/Android_Sensor_PortingGuide</a></p>
 
-IInputManager.aidl (frameworks\base\core\java\android\hardware\input)     ----------------------
-
-InputManagerService.java (frameworks\base\services\core\java\com\android\server\input) 
-
-InputManagerService == jni ==&gt; NativeInputManager  ---------------------------------------------
-com_android_server_input_InputManagerService.cpp (frameworks\base\services\core\jni)
-
-
-InputManager.cpp (frameworks\native\services\inputflinger) 
-EventHub.cpp (frameworks\native\services\inputflinger) 
-</code></pre><h3 id="查看event注册设备"><a href="#查看event注册设备" class="headerlink" title="查看event注册设备"></a>查看event注册设备</h3><pre><code>shell@rk3368_32:/dev/input # cat /proc/bus/input/devices
-I: Bus=0000 Vendor=0000 Product=0003 Version=206a
-N: Name=&quot;synaptics_dsx&quot;
-P: Phys=synaptics_dsx/touch_input
-S: Sysfs=/devices/ff140000.i2c/i2c-2/2-0020/input/input0
-U: Uniq=
-H: Handlers=event0 cpufreq ddr_freq 
-B: PROP=2
-B: EV=b
-B: KEY=420 0 0 0 0 0 8000 0 0 0 0
-B: ABS=2638000 3
-
-I: Bus=0019 Vendor=0000 Product=0000 Version=0000
-N: Name=&quot;rotary.35&quot;
-P: Phys=
-S: Sysfs=/devices/rotary.35/input/input1
-U: Uniq=
-H: Handlers=event1 
-B: PROP=0
-B: EV=5
-B: REL=1
-
-I: Bus=0019 Vendor=0001 Product=0001 Version=0100
-N: Name=&quot;rk29-keypad&quot;
-P: Phys=gpio-keys/input0
-S: Sysfs=/devices/ff100000.adc/key.38/input/input2
-U: Uniq=
-H: Handlers=event2 ddr_freq keychord 
-B: PROP=0
-B: EV=3
-B: KEY=8000 100000 0 0 0
-
-I: Bus=0000 Vendor=0000 Product=0000 Version=0000
-N: Name=&quot;temperature&quot;
-P: Phys=
-S: Sysfs=/devices/ff160000.i2c/i2c-4/4-005b/input/input3
-U: Uniq=
-H: Handlers=event3 
-B: PROP=0
-B: EV=9
-B: ABS=40
-</code></pre><h3 id="查看Handler个数"><a href="#查看Handler个数" class="headerlink" title="查看Handler个数"></a>查看Handler个数</h3><pre><code>shell@rk3368_box:/dev/input # ls -l                                            
-crw-rw---- root     input     13,  64 2017-04-12 11:15 event0
-crw-rw---- root     input     13,  65 2017-04-12 11:15 event1
-crw-rw---- root     input     13,  66 2017-04-14 08:12 event2
-crw-rw---- root     input     13,  67 2017-04-14 08:12 event3
-
-cat event0 
-cat event1
-</code></pre><h3 id="获取事件"><a href="#获取事件" class="headerlink" title="获取事件"></a>获取事件</h3><pre><code># getevent -h
-Usage: getevent [-t] [-n] [-s switchmask] [-S] [-v [mask]] [-d] [-p] [-i] [-l] [-q] [-c count] [-r] [device]
-    -t: show time stamps
-    -n: don&apos;t print newlines
-    -s: print switch states for given bits
-    -S: print all switch states
-    -v: verbosity mask (errs=1, dev=2, name=4, info=8, vers=16, pos. events=32, props=64)
-    -d: show HID descriptor, if available
-    -p: show possible events (errs, dev, name, pos. events)
-    -i: show all device info and possible events
-    -l: label event types and names in plain text
-    -q: quiet (clear verbosity mask)
-    -c: print given number of events then exit
-    -r: print rate events are received
-
-如：getevent -r -q 监控设备的sendevent事件 
-
-shell@rk3368_32:/dev/input # getevent                                      
-add device 1: /dev/input/event3
-  name:     &quot;temperature&quot;
-add device 2: /dev/input/event1
-  name:     &quot;rotary.35&quot;
-add device 3: /dev/input/event0
-  name:     &quot;synaptics_dsx&quot;
-add device 4: /dev/input/event2
-  name:     &quot;rk29-keypad&quot;
-
-/dev/input/event1: 0002 0000 00000001
-/dev/input/event1: 0000 0000 00000000
-/dev/input/event1: 0002 0000 00000001
-/dev/input/event1: 0000 0000 00000000
-/dev/input/event1: 0002 0000 00000001
-/dev/input/event1: 0000 0000 00000000
-/dev/input/event1: 0002 0000 ffffffff
-/dev/input/event1: 0000 0000 00000000
-/dev/input/event1: 0002 0000 ffffffff
-</code></pre>
       
     </div>
     <footer class="article-footer">
@@ -280,7 +170,7 @@ add device 4: /dev/input/event2
 	<div id="comment">
 	
 	<!-- 多说评论框 start -->
-	 <div class="ds-thread" data-thread-key="/2017/04/12/Android Input系统/" data-title="Android Input系统——xxx" data-url="http://yoursite.com/2017/04/12/Android Input系统/"></div>
+	 <div class="ds-thread" data-thread-key="/2017/04/21/Android_Sensor/" data-title="" data-url="http://yoursite.com/2017/04/21/Android_Sensor/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -301,27 +191,25 @@ add device 4: /dev/input/event2
 
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event/">event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input/">input</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input系统/">input系统</a></li></ul>
-
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2017/04/11/RK平台分区信息/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/19/linux_select_poll/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          RK平台分区信息
+          Linux select pselect poll epoll用法
         
       </div>
     </a>
   
   
-    <a href="/2017/04/12/Android编译系统——完整编译过程分析/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/05/28/Android智能指针——SP WP/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Android编译系统——完整编译过程分析</div>
+      <div class="article-nav-title">Android 智能指针——SP WP</div>
     </a>
   
 </nav>
@@ -333,7 +221,7 @@ add device 4: /dev/input/event2
 
   <section id="comments">
 <!--���ٰ棬�����ٶȿ죬ʹ��ǰ������ҳ���ļ�����-->
-<div id="SOHUCS" sid="Android Input系统——xxx"></div>
+<div id="SOHUCS" sid=""></div>
 <script>
   (function(){
     var appid = 'cysWY506v',

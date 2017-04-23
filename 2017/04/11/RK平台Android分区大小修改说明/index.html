@@ -18,7 +18,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/11/RK平台Android分区大小修改说明/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
 <meta property="og:description" content="不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中 如下是板子的parameter文件:FIRMWARE_VER: 5.1.0 MACHINE_MODEL: Geekbox MACHINE_ID: 007 MANUFACTURER: RK33">
-<meta property="og:updated_time" content="2017-04-12T01:27:09.401Z">
+<meta property="og:updated_time" content="2017-04-21T06:04:32.705Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RK平台Android分区大小修改说明">
 <meta name="twitter:description" content="不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中 如下是板子的parameter文件:FIRMWARE_VER: 5.1.0 MACHINE_MODEL: Geekbox MACHINE_ID: 007 MANUFACTURER: RK33">
@@ -189,12 +189,19 @@ PWR_HLD: 0,0,A,0,1
 #in section; per section 512(0x200) bytes
 CMDLINE: console=ttyS2 androidboot.baseband=N/A androidboot.selinux=permissive androidboot.hardware=rk30board androidboot.console=ttyS2 init=/init mtdparts=rk29xxnand:0x00002000@0x00002000(uboot),0x00002000@0x00004000(trust),0x00002000@0x00006000(misc),0x00008000@0x00008000(resource),0x00008000@0x00010000(kernel),0x00010000@0x00018000(boot),0x00010000@0x00028000(recovery),0x00038000@0x00038000(backup),0x00040000@0x00070000(cache),0x00002000@0x000B0000(kpanic),0x00200000@0x000B2000(system),0x00008000@0x002B2000(metadata),0x00002000@0x002BA000(baseparamer),0x00400000@0x002BC000(userdata),0x00020000@0x006BC000(radical_update),-@0x006DC000(user)
 </code></pre><p>分区信息在mtdparts=rk29xxnand:字段后面部分，所以我们修改这部分内容就可以了</p>
-<h6 id="这部分信息格式介绍-如："><a href="#这部分信息格式介绍-如：" class="headerlink" title="这部分信息格式介绍 如："></a>这部分信息格式介绍 如：</h6><pre><code>0x00002000@0x00002000(uboot)  
-分区的sector数，每个sector=512Bytes，所以分区大小计算为=0x00002000*512Bytes=4MB
-           分区起始地址
-                      分区名
+<h6 id="这部分信息格式介绍-如："><a href="#这部分信息格式介绍-如：" class="headerlink" title="这部分信息格式介绍 如："></a>这部分信息格式介绍 如：</h6><pre><code>0x00002000@0x00002000(uboot)  分区大小计算为=0x00002000*512Bytes = 4MBytes
+↑分区的sector数，每个sector=512Bytes
+           ↑分区起始地址
+                      ↑分区名
+
+0x00200000@0x002BC000(userdata)  分区大小0x00200000*512Bytes = 1073741824 Bytes
+
+注: sector 512Bytes 逻辑单位???
+    page: FLASH操作的基本单位。  最小读/写单元 page， 1page = 4096Bytes = 4KB；
+    block:最小擦除单元 block，1block = (32 * page) = (32 * 4KB) = 131072Bytes = 128KB；     
 </code></pre><p>上述mtdparts=rk29xxnand:字段中所有分区都是连续的，当前分区起始地址+当前分区size和下个分区起始地址都是连续的，所以当修改了其中某个分区后，在它后面的分区的地址都要顺序往前或往后。</p>
-<h6 id="以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子："><a href="#以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子：" class="headerlink" title="以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子："></a>以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子：</h6><pre><code>修改前:
+<h6 id="以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子："><a href="#以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子：" class="headerlink" title="以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子："></a>以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子：</h6><pre><code>修改前:                            size             offset
+0x00002000@0x00000000(parameter)//4MB               4MB
 0x00002000@0x00002000(uboot),   //4MB               8MB
 0x00002000@0x00004000(trust),   //4MB               12MB
 0x00002000@0x00006000(misc),    //4MB               16MB
@@ -210,7 +217,7 @@ CMDLINE: console=ttyS2 androidboot.baseband=N/A androidboot.selinux=permissive a
 0x00002000@0x002BA000(baseparamer), //4MB           1400MB
 0x00400000@0x002BC000(userdata),    //2048MB        3448
 0x00020000@0x006BC000(radical_update), //64MB       3512
-         -@0x006DC000(user)            //212        
+         -@0x006DC000(user)            //212MB/11394MB  ...        
 
 修改后:
 0x00002000@0x00002000(uboot),   //4MB               8MB
