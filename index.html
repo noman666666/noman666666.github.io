@@ -212,28 +212,40 @@
   
 
   
-    <article id="post-Android_Sensor"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Linux_select_poll"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/19/Linux_select_poll/">Linux select pselect poll epoll用法</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="article-meta">
       
-	<a href="/2017/04/21/Android_Sensor/" class="article-date">
-	  <time datetime="2017-04-21T09:39:27.492Z" itemprop="datePublished">2017-04-21</time>
+	<a href="/2017/04/19/Linux_select_poll/" class="article-date">
+	  <time datetime="2017-04-18T16:00:00.000Z" itemprop="datePublished">2017-04-19</time>
 	</a>
 
       
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Android Sensor</p>
-<p><a href="http://processors.wiki.ti.com/index.php/Android_Sensor_PortingGuide" target="_blank" rel="external">http://processors.wiki.ti.com/index.php/Android_Sensor_PortingGuide</a></p>
-
+        <h3 id="select"><a href="#select" class="headerlink" title="select"></a>select</h3><h3 id="pselect"><a href="#pselect" class="headerlink" title="pselect"></a>pselect</h3><h3 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h3><h3 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h3>
       
     </div>
     <footer class="article-footer">
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poll/">poll</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/select/">select</a></li></ul>
+
     </footer>
   </div>
   
@@ -514,52 +526,6 @@ int main(int argc,char *argv[])
   
 
   
-    <article id="post-Linux_select_poll"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/19/Linux_select_poll/">Linux select pselect poll epoll用法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/04/19/Linux_select_poll/" class="article-date">
-	  <time datetime="2017-04-18T16:00:00.000Z" itemprop="datePublished">2017-04-19</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/linux/">linux</a>
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="select"><a href="#select" class="headerlink" title="select"></a>select</h3><h3 id="pselect"><a href="#pselect" class="headerlink" title="pselect"></a>pselect</h3><h3 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h3><h3 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h3>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poll/">poll</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/select/">select</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-  
-
-  
     <article id="post-Other_Markdown使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -632,7 +598,7 @@ _emphasize_   __strong__
 <p> An [example][id]. Then, anywhere else in the doc,<br> define the link:</p>
 <pre><code>[id]: http://example.com/  &quot;Title&quot;
 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Email：</div></pre></td></tr></table></figure>
-<p>  An email <a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#58;&#101;&#120;&#97;&#x6d;&#112;&#x6c;&#101;&#x40;&#x65;&#x78;&#97;&#109;&#x70;&#x6c;&#101;&#46;&#99;&#111;&#109;">&#101;&#120;&#97;&#x6d;&#112;&#x6c;&#101;&#x40;&#x65;&#x78;&#97;&#109;&#x70;&#x6c;&#101;&#46;&#99;&#111;&#109;</a> link.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 图片</div><div class="line"></div><div class="line">Inline (titles are optional):</div></pre></td></tr></table></figure></p>
+<p>  An email <a href="&#109;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#101;&#120;&#97;&#109;&#112;&#x6c;&#x65;&#x40;&#101;&#x78;&#97;&#109;&#112;&#x6c;&#x65;&#x2e;&#x63;&#x6f;&#x6d;">&#101;&#120;&#97;&#109;&#112;&#x6c;&#x65;&#x40;&#101;&#x78;&#97;&#109;&#112;&#x6c;&#x65;&#x2e;&#x63;&#x6f;&#x6d;</a> link.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 图片</div><div class="line"></div><div class="line">Inline (titles are optional):</div></pre></td></tr></table></figure></p>
 <p>  <img src="/path/img.jpg" alt="alt text" title="Title"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Reference-style:</div></pre></td></tr></table></figure></p>
 <pre><code>![alt text][id]
 
@@ -837,7 +803,7 @@ Cupcake                1.5                 API level 3, NDK 1
   
 
   
-    <article id="post-Android_APK_tool"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Android_mk"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -845,7 +811,7 @@ Cupcake                1.5                 API level 3, NDK 1
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/12/Android_APK_tool/">APK 反编译及签名工具</a>
+      <a class="article-title" href="/2017/04/12/Android_mk/">Android.mk</a>
     </h1>
   
 
@@ -853,7 +819,7 @@ Cupcake                1.5                 API level 3, NDK 1
     
     <div class="article-meta">
       
-	<a href="/2017/04/12/Android_APK_tool/" class="article-date">
+	<a href="/2017/04/12/Android_mk/" class="article-date">
 	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
 	</a>
 
@@ -863,74 +829,13 @@ Cupcake                1.5                 API level 3, NDK 1
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="反编译-解包-再编译"><a href="#反编译-解包-再编译" class="headerlink" title="反编译/解包/再编译"></a>反编译/解包/再编译</h1><h3 id="1-Apktool——APK反编译及再打包工具"><a href="#1-Apktool——APK反编译及再打包工具" class="headerlink" title="1. Apktool——APK反编译及再打包工具"></a>1. Apktool——APK反编译及再打包工具</h3><p>通过反编译APK中XML文件，直接可以查看<br><a href="https://ibotpeaches.github.io/Apktool/" target="_blank" rel="external">https://ibotpeaches.github.io/Apktool/</a></p>
-<p>下载安装Apktool （Windows/Linux/Mac）<br><a href="https://ibotpeaches.github.io/Apktool/install/" target="_blank" rel="external">https://ibotpeaches.github.io/Apktool/install/</a></p>
-<p>Apktool 通常用法<br>反编译APK     <code>apktool d[ecode] test.apk</code><br>再打包成APK   <code>apktool b[uild] test</code></p>
-<h3 id="2-dex2jar"><a href="#2-dex2jar" class="headerlink" title="2. dex2jar"></a>2. dex2jar</h3><p>将apk中的classes.dex转化成Jar文件<br><a href="https://github.com/pxb1988/dex2jar" target="_blank" rel="external">https://github.com/pxb1988/dex2jar</a></p>
-<h3 id="3-JD-GUI"><a href="#3-JD-GUI" class="headerlink" title="3. JD-GUI"></a>3. JD-GUI</h3><p>反编译工具，可以直接查看Jar包的源代码<br><a href="https://code.google.com/archive/p/innlab/downloads" target="_blank" rel="external">https://code.google.com/archive/p/innlab/downloads</a><br><a href="https://pan.baidu.com/disk/home#list/vmode=list&amp;path=%2Fapps%2FAPK-Track%E5%B7%A5%E5%85%B7" target="_blank" rel="external">https://pan.baidu.com/disk/home#list/vmode=list&amp;path=%2Fapps%2FAPK-Track%E5%B7%A5%E5%85%B7</a></p>
-<h1 id="签名"><a href="#签名" class="headerlink" title="签名"></a>签名</h1><h3 id="1-keytool"><a href="#1-keytool" class="headerlink" title="1. keytool"></a>1. keytool</h3><p>是个密钥和证书管理工具,可以用来生成证书.<br><code>keytool -genkey -keystore test.keystore  -alias test -keyalg RSA -validity 10000</code></p>
-<blockquote>
-<p>  参数解释:<br>    -genkey 产生证书文件<br>    -keystore 指定密钥库的.keystore文件中<br>    -keyalg 指定密钥的算法,这里指定为RSA(非对称密钥算法)<br>    -validity 为证书有效天数，这里我们写的是10000天<br>    -alias 产生别名</p>
-</blockquote>
-<h3 id="2-jarsigner"><a href="#2-jarsigner" class="headerlink" title="2. jarsigner"></a>2. jarsigner</h3><p>工具利用密钥仓库中的信息来产生或校验 Java 存档 (JAR) 文件的数字签名</p>
-<p>可以使用jarsigner 来签名,例子如下:<br><code>jarsigner -verbose -keystore test.keystore -signedjar -signed.apk unsigned.apk &#39;test.keystore&#39;</code></p>
-<blockquote>
-<p>  参数说明:<br>    -verbose：指定生成详细输出<br>    -keystore：指定数字证书存储路径<br>    -signedjar：该选项的三个参数为 签名后的apk包 未签名的apk包 数字证书别名(注意顺序)</p>
-</blockquote>
-<h1 id="To-Do"><a href="#To-Do" class="headerlink" title="To Do"></a>To Do</h1><p>后续将qq记事本中《加密和签名（及反编译）》 整合到本文 …</p>
-
+        <h1 id="Android-mk"><a href="#Android-mk" class="headerlink" title="Android.mk"></a>Android.mk</h1>
       
     </div>
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APK反编译，APK签名/">APK反编译，APK签名</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-  
-
-  
-    <article id="post-Android_init_rc"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/12/Android_init_rc/">Android init.rc</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/04/12/Android_init_rc/" class="article-date">
-	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="init-rc"><a href="#init-rc" class="headerlink" title="init.rc"></a>init.rc</h1>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/init-rc/">init.rc</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-mk/">Android.mk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Makefile/">Makefile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/build/">build</a></li></ul>
 
     </footer>
   </div>
@@ -1026,6 +931,114 @@ Cupcake                1.5                 API level 3, NDK 1
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译/">编译</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
+  
+
+  
+    <article id="post-Android_APK_tool"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/12/Android_APK_tool/">APK 反编译及签名工具</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/12/Android_APK_tool/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="反编译-解包-再编译"><a href="#反编译-解包-再编译" class="headerlink" title="反编译/解包/再编译"></a>反编译/解包/再编译</h1><h3 id="1-Apktool——APK反编译及再打包工具"><a href="#1-Apktool——APK反编译及再打包工具" class="headerlink" title="1. Apktool——APK反编译及再打包工具"></a>1. Apktool——APK反编译及再打包工具</h3><p>通过反编译APK中XML文件，直接可以查看<br><a href="https://ibotpeaches.github.io/Apktool/" target="_blank" rel="external">https://ibotpeaches.github.io/Apktool/</a></p>
+<p>下载安装Apktool （Windows/Linux/Mac）<br><a href="https://ibotpeaches.github.io/Apktool/install/" target="_blank" rel="external">https://ibotpeaches.github.io/Apktool/install/</a></p>
+<p>Apktool 通常用法<br>反编译APK     <code>apktool d[ecode] test.apk</code><br>再打包成APK   <code>apktool b[uild] test</code></p>
+<h3 id="2-dex2jar"><a href="#2-dex2jar" class="headerlink" title="2. dex2jar"></a>2. dex2jar</h3><p>将apk中的classes.dex转化成Jar文件<br><a href="https://github.com/pxb1988/dex2jar" target="_blank" rel="external">https://github.com/pxb1988/dex2jar</a></p>
+<h3 id="3-JD-GUI"><a href="#3-JD-GUI" class="headerlink" title="3. JD-GUI"></a>3. JD-GUI</h3><p>反编译工具，可以直接查看Jar包的源代码<br><a href="https://code.google.com/archive/p/innlab/downloads" target="_blank" rel="external">https://code.google.com/archive/p/innlab/downloads</a><br><a href="https://pan.baidu.com/disk/home#list/vmode=list&amp;path=%2Fapps%2FAPK-Track%E5%B7%A5%E5%85%B7" target="_blank" rel="external">https://pan.baidu.com/disk/home#list/vmode=list&amp;path=%2Fapps%2FAPK-Track%E5%B7%A5%E5%85%B7</a></p>
+<h1 id="签名"><a href="#签名" class="headerlink" title="签名"></a>签名</h1><h3 id="1-keytool"><a href="#1-keytool" class="headerlink" title="1. keytool"></a>1. keytool</h3><p>是个密钥和证书管理工具,可以用来生成证书.<br><code>keytool -genkey -keystore test.keystore  -alias test -keyalg RSA -validity 10000</code></p>
+<blockquote>
+<p>  参数解释:<br>    -genkey 产生证书文件<br>    -keystore 指定密钥库的.keystore文件中<br>    -keyalg 指定密钥的算法,这里指定为RSA(非对称密钥算法)<br>    -validity 为证书有效天数，这里我们写的是10000天<br>    -alias 产生别名</p>
+</blockquote>
+<h3 id="2-jarsigner"><a href="#2-jarsigner" class="headerlink" title="2. jarsigner"></a>2. jarsigner</h3><p>工具利用密钥仓库中的信息来产生或校验 Java 存档 (JAR) 文件的数字签名</p>
+<p>可以使用jarsigner 来签名,例子如下:<br><code>jarsigner -verbose -keystore test.keystore -signedjar -signed.apk unsigned.apk &#39;test.keystore&#39;</code></p>
+<blockquote>
+<p>  参数说明:<br>    -verbose：指定生成详细输出<br>    -keystore：指定数字证书存储路径<br>    -signedjar：该选项的三个参数为 签名后的apk包 未签名的apk包 数字证书别名(注意顺序)</p>
+</blockquote>
+<h1 id="To-Do"><a href="#To-Do" class="headerlink" title="To Do"></a>To Do</h1><p>后续将qq记事本中《加密和签名（及反编译）》 整合到本文 …</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APK反编译，APK签名/">APK反编译，APK签名</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
+  
+
+  
+    <article id="post-Android_Sensor"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/12/Android_Sensor/">Android Sensor</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/12/Android_Sensor/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://processors.wiki.ti.com/index.php/Android_Sensor_PortingGuide" target="_blank" rel="external">http://processors.wiki.ti.com/index.php/Android_Sensor_PortingGuide</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sensor/">sensor</a></li></ul>
 
     </footer>
   </div>
