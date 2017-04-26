@@ -11,21 +11,21 @@
   
   
   
-  <meta name="description" content="Input系统结构解析AndroidInput系统——JNI NativeInputManager InputManger InputReaderhttps://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/edit AndroidInput系统——InputReaderhttps://docs.go">
+  <meta name="description" content="Input系统结构解析AndroidInput系统——JNI NativeInputManager InputManger InputReaderhttps://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/edit">
 <meta name="keywords" content="input,input系统,event">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Input系统——Android Input系统">
 <meta property="og:url" content="jingg.me/2017/04/12/InputSystem003_AndroidInputSystem/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
-<meta property="og:description" content="Input系统结构解析AndroidInput系统——JNI NativeInputManager InputManger InputReaderhttps://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/edit AndroidInput系统——InputReaderhttps://docs.go">
+<meta property="og:description" content="Input系统结构解析AndroidInput系统——JNI NativeInputManager InputManger InputReaderhttps://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/edit">
 <meta property="og:image" content="https://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/pub?w=998&h=918">
 <meta property="og:image" content="https://docs.google.com/drawings/d/1A78eIrYTHg2nh-HrWJMpsMu64HitGj7dk_ciSajtex4/pub?w=982&h=726">
 <meta property="og:image" content="https://docs.google.com/drawings/d/19KStX_1m2rNCqjCouwW5DFWOY-e1ZbfDTcYAXrPSzOA/pub?w=960&h=720">
 <meta property="og:image" content="https://docs.google.com/drawings/d/1QAC0GFiARVOJcv6vugVNEiqIMkGZX0XXhiCuIDssvtk/pub?w=960&h=720">
-<meta property="og:updated_time" content="2017-04-26T06:45:14.708Z">
+<meta property="og:updated_time" content="2017-04-26T13:02:03.136Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Input系统——Android Input系统">
-<meta name="twitter:description" content="Input系统结构解析AndroidInput系统——JNI NativeInputManager InputManger InputReaderhttps://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/edit AndroidInput系统——InputReaderhttps://docs.go">
+<meta name="twitter:description" content="Input系统结构解析AndroidInput系统——JNI NativeInputManager InputManger InputReaderhttps://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/edit">
 <meta name="twitter:image" content="https://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/pub?w=998&h=918">
   
     <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
@@ -179,6 +179,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="Input系统结构解析"><a href="#Input系统结构解析" class="headerlink" title="Input系统结构解析"></a>Input系统结构解析</h1><p>AndroidInput系统——JNI NativeInputManager InputManger InputReader<br><a href="https://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/edit" target="_blank" rel="external">https://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/edit</a><br><img src="https://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/pub?w=998&amp;h=918" alt="AndroidInput系统——JNI NativeInputManager InputManger InputReader"></p>
+<a id="more"></a>
 <p>AndroidInput系统——InputReader<br><a href="https://docs.google.com/drawings/d/1A78eIrYTHg2nh-HrWJMpsMu64HitGj7dk_ciSajtex4/edit" target="_blank" rel="external">https://docs.google.com/drawings/d/1A78eIrYTHg2nh-HrWJMpsMu64HitGj7dk_ciSajtex4/edit</a><br><img src="https://docs.google.com/drawings/d/1A78eIrYTHg2nh-HrWJMpsMu64HitGj7dk_ciSajtex4/pub?w=982&amp;h=726" alt="AndroidInput系统——InputReader "></p>
 <p>AndroidInput系统——InputDispatcher<br><a href="https://docs.google.com/drawings/d/19KStX_1m2rNCqjCouwW5DFWOY-e1ZbfDTcYAXrPSzOA/edit" target="_blank" rel="external">https://docs.google.com/drawings/d/19KStX_1m2rNCqjCouwW5DFWOY-e1ZbfDTcYAXrPSzOA/edit</a><br><img src="https://docs.google.com/drawings/d/19KStX_1m2rNCqjCouwW5DFWOY-e1ZbfDTcYAXrPSzOA/pub?w=960&amp;h=720" alt="AndroidInput系统——InputDispatcher "></p>
 <p>AndroidInput系统——EventHub<br><a href="https://docs.google.com/drawings/d/1QAC0GFiARVOJcv6vugVNEiqIMkGZX0XXhiCuIDssvtk/edit" target="_blank" rel="external">https://docs.google.com/drawings/d/1QAC0GFiARVOJcv6vugVNEiqIMkGZX0XXhiCuIDssvtk/edit</a><br><img src="https://docs.google.com/drawings/d/1QAC0GFiARVOJcv6vugVNEiqIMkGZX0XXhiCuIDssvtk/pub?w=960&amp;h=720" alt="AndroidInput系统——EventHub"></p>

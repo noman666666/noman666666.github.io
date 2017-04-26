@@ -18,7 +18,7 @@
 <meta property="og:url" content="jingg.me/2017/04/19/Linux_select_poll/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
 <meta property="og:description" content="select &amp;amp; pselect#include &amp;lt;sys/select.h&amp;gt; #include &amp;lt;sys/time.h&amp;gt; #include &amp;lt;sys/types.h&amp;gt; #include &amp;lt;unistd.h&amp;gt;  void FD_CLR(int fd, fd_set *set); int  FD_ISSET(int fd, fd_set *se">
-<meta property="og:updated_time" content="2017-04-26T12:47:34.513Z">
+<meta property="og:updated_time" content="2017-04-26T13:01:14.369Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux select pselect poll epoll用法">
 <meta name="twitter:description" content="select &amp;amp; pselect#include &amp;lt;sys/select.h&amp;gt; #include &amp;lt;sys/time.h&amp;gt; #include &amp;lt;sys/types.h&amp;gt; #include &amp;lt;unistd.h&amp;gt;  void FD_CLR(int fd, fd_set *set); int  FD_ISSET(int fd, fd_set *se">
@@ -189,6 +189,7 @@ int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struc
 int pselect(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, const struct timespec *timeout, const sigset_t *sigmask);
 除了监测fd状态，pselect精度更准，且监测signal(另外pselect的timeout参数是const的)
 </code></pre><p>monitor multiple file descriptors, waiting until one or more of the file descriptors become “ready” for some class of I/O operation</p>
+<a id="more"></a>
 <h1 id="poll-amp-ppoll"><a href="#poll-amp-ppoll" class="headerlink" title="poll &amp; ppoll"></a>poll &amp; ppoll</h1><pre><code>#include &lt;poll.h&gt;
 
 int poll(struct pollfd *fds, nfds_t nfds, int timeout);  
