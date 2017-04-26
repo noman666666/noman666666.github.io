@@ -191,86 +191,102 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="select-amp-pselect"><a href="#select-amp-pselect" class="headerlink" title="select &amp; pselect"></a>select &amp; pselect</h1><blockquote>
-<p> #include <sys select.h=""></sys></p>
-<p>   #include <sys time.h=""></sys></p>
-<p>   #include <sys types.h=""></sys></p>
-<p>   #include <unistd.h></unistd.h></p>
-<p> void FD_CLR(int fd, fd_set <em>set);<br> int  FD_ISSET(int fd, fd_set </em>set);<br> void FD_SET(int fd, fd_set <em>set);<br> void FD_ZERO(fd_set </em>set);</p>
-<p> int select(int nfds, fd_set <em>readfds, fd_set </em>writefds, fd_set <em>exceptfds, struct timeval </em>timeout);<br> 监控fd状态（timeout 是到期前剩余时间）</p>
-<p> int pselect(int nfds, fd_set <em>readfds, fd_set </em>writefds, fd_set <em>exceptfds, const struct timespec </em>timeout, const sigset_t *sigmask);<br>   除了监测fd状态，pselect精度更准，且监测signal(另外pselect的timeout参数是const的)</p>
-</blockquote>
-<p>monitor multiple file descriptors, waiting until one or more of the file descriptors become “ready” for some class of I/O operation</p>
-<h1 id="poll-amp-ppoll"><a href="#poll-amp-ppoll" class="headerlink" title="poll &amp; ppoll"></a>poll &amp; ppoll</h1><blockquote>
-<p> #include <poll.h></poll.h></p>
-<p> int poll(struct pollfd *fds, nfds_t nfds, int timeout);  </p>
-<pre><code>fds:        监听事件的item数组     
-nfds:       数组成员数
-timeout:    超时时间(unit:milliseconds, -1 mean infinite, 0 mean immediately)
-return:     success: &gt; 0 带有revents事件的数组个数;  = 0 time out 或者没有fd 事件
-            error:   -1, errno is set
-</code></pre><p> int ppoll(struct pollfd <em>fds, nfds_t nfds, const struct timespec </em>timeout_ts, const sigset_t *sigmask);</p>
-<pre><code>fds:        监听事件的item数组     
-nfds:       数组成员数
-timeout_ts: 超时时间(unit:seconds+nanoseconds, -1:indefinitely, 0:immediately)
-sigmask:    监测的signal (遇到这些signal，ppoll也会返回) (NULL:indefinitely)
-return:     success: &gt; 0 带有revents事件的数组个数;  = 0 time out 或者没有fd 事件
-            error:   -1, errno is set
-</code></pre></blockquote>
-<p>performs a similar task to select(2): it waits for one of a set of file descriptors to become ready to perform I/O.</p>
-<h3 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h3><blockquote>
-<p>  struct pollfd {<br>       int   fd;         /<em> in,  file descriptor </em>/<br>       short events;     /<em> in,  requested events </em>/<br>       short revents;    /<em> out, returned events </em>/<br>    };</p>
-<p>  The bits that may be set/returned in events and revents are defined in <poll.h>:</poll.h></p>
-<p>  POLLIN      可读<br>    POLLPRI     紧急数据可读<br>    POLLOUT     可读(不会block)<br>    POLLRDHUP   对端关闭, 本段hangup, 只针对stream socket fd<br>    POLLERR     错误状态 (output only，即只会出现在revents中)<br>    POLLHUP     Hang up (output only，即只会出现在revents中)<br>    POLLNVAL    无效请求 (output only，即只会出现在revents中)</p>
-</blockquote>
-<h1 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h1><blockquote>
-<p> #include <sys epoll.h=""></sys></p>
-</blockquote>
-<p>The epoll API performs a similar task to poll(2): monitoring multiple file descriptors to see if I/O is possible on any of them.<br>The epoll API can be used either as an edge-trig‐gered or a level-triggered interface and scales well to large numbers of watched file descriptors.</p>
-<h3 id="Level-triggered-and-edge-triggered"><a href="#Level-triggered-and-edge-triggered" class="headerlink" title="Level-triggered and edge-triggered"></a>Level-triggered and edge-triggered</h3><p>  LT 一般<br>  ET 事件发生时就出发</p>
+        <h1 id="select-amp-pselect"><a href="#select-amp-pselect" class="headerlink" title="select &amp; pselect"></a>select &amp; pselect</h1><pre><code>#include &lt;sys/select.h&gt;
+#include &lt;sys/time.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;unistd.h&gt;
+
+void FD_CLR(int fd, fd_set *set);
+int  FD_ISSET(int fd, fd_set *set);
+void FD_SET(int fd, fd_set *set);
+void FD_ZERO(fd_set *set);
+
+int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);
+监控fd状态（timeout 是到期前剩余时间）
+
+int pselect(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, const struct timespec *timeout, const sigset_t *sigmask);
+除了监测fd状态，pselect精度更准，且监测signal(另外pselect的timeout参数是const的)
+</code></pre><p>monitor multiple file descriptors, waiting until one or more of the file descriptors become “ready” for some class of I/O operation</p>
+<h1 id="poll-amp-ppoll"><a href="#poll-amp-ppoll" class="headerlink" title="poll &amp; ppoll"></a>poll &amp; ppoll</h1><pre><code>#include &lt;poll.h&gt;
+
+int poll(struct pollfd *fds, nfds_t nfds, int timeout);  
+
+    fds:        监听事件的item数组     
+    nfds:       数组成员数
+    timeout:    超时时间(unit:milliseconds, -1 mean infinite, 0 mean immediately)
+    return:     success: &gt; 0 带有revents事件的数组个数;  = 0 time out 或者没有fd 事件
+                error:   -1, errno is set
+
+int ppoll(struct pollfd *fds, nfds_t nfds, const struct timespec *timeout_ts, const sigset_t *sigmask);
+
+    fds:        监听事件的item数组     
+    nfds:       数组成员数
+    timeout_ts: 超时时间(unit:seconds+nanoseconds, -1:indefinitely, 0:immediately)
+    sigmask:    监测的signal (遇到这些signal，ppoll也会返回) (NULL:indefinitely)
+    return:     success: &gt; 0 带有revents事件的数组个数;  = 0 time out 或者没有fd 事件
+                error:   -1, errno is set
+</code></pre><p>performs a similar task to select(2): it waits for one of a set of file descriptors to become ready to perform I/O.</p>
+<h3 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h3><pre><code>struct pollfd {
+   int   fd;         /* in,  file descriptor */
+   short events;     /* in,  requested events */
+   short revents;    /* out, returned events */
+};
+
+The bits that may be set/returned in events and revents are defined in &lt;poll.h&gt;:
+
+POLLIN      可读
+POLLPRI     紧急数据可读
+POLLOUT     可读(不会block)
+POLLRDHUP   对端关闭, 本段hangup, 只针对stream socket fd
+POLLERR     错误状态 (output only，即只会出现在revents中)
+POLLHUP     Hang up (output only，即只会出现在revents中)
+POLLNVAL    无效请求 (output only，即只会出现在revents中)
+</code></pre><h1 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h1><p>The epoll API performs a similar task to poll(2): monitoring multiple file descriptors to see if I/O is possible on any of them.<br>The epoll API can be used either as an edge-trig‐gered or a level-triggered interface and scales well to large numbers of watched file descriptors.</p>
+<h3 id="模式-and"><a href="#模式-and" class="headerlink" title="模式 and"></a>模式 and</h3><p>  LT(Level-triggered)   一般<br>  ET(edge-triggered)    事件发生时就触发</p>
 <h3 id="epoll-create"><a href="#epoll-create" class="headerlink" title="epoll_create"></a>epoll_create</h3><p>  creates an epoll instance and returns a file descriptor referring to that instance, The more recent epoll_create1 extends the functionality.</p>
-<blockquote>
-<p> #include <sys epoll.h=""><br> int epoll_create(int size);<br> int epoll_create1(int flags);</sys></p>
-</blockquote>
-<h3 id="epoll-ctl"><a href="#epoll-ctl" class="headerlink" title="epoll_ctl"></a>epoll_ctl</h3><p>  register particular file descriptors interested. </p>
-<blockquote>
-<p> #include <sys epoll.h=""><br> int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);</sys></p>
-<pre><code>epfd: return by epoll_create
-op:
-    EPOLL_CTL_ADD Register the target file descriptor fd on the epoll instance
-    EPOLL_CTL_MOD Change the event event associated with the target file descriptor fd.
-    EPOLL_CTL_DEL Remove (deregister) the target file descriptor fd from the epoll
-fd: 需要监听的描述符fd
+<pre><code>#include &lt;sys/epoll.h&gt;
+int epoll_create(int size);
+int epoll_create1(int flags);
+</code></pre><h3 id="epoll-ctl"><a href="#epoll-ctl" class="headerlink" title="epoll_ctl"></a>epoll_ctl</h3><p>  register particular file descriptors interested. </p>
+<pre><code>#include &lt;sys/epoll.h&gt;
+int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);
 
+    epfd: return by epoll_create
+    op:
+        EPOLL_CTL_ADD Register the target file descriptor fd on the epoll instance
+        EPOLL_CTL_MOD Change the event event associated with the target file descriptor fd.
+        EPOLL_CTL_DEL Remove (deregister) the target file descriptor fd from the epoll
+    fd: 需要监听的描述符fd
 
-event：需要监听的指定fd上的事件
-    typedef union epoll_data {
-        void        *ptr;
-        int          fd;
-        uint32_t     u32;
-        uint64_t     u64;
-    } epoll_data_t;
+    event：需要监听的指定fd上的事件
+        typedef union epoll_data {
+             void        *ptr;
+             int          fd;
+             uint32_t     u32;
+             uint64_t     u64;
+         } epoll_data_t;
 
-    struct epoll_event {
-        uint32_t     events;    // EPOLLIN EPOLLOUT EPOLLRDHUP EPOLLPRI EPOLLERR EPOLLHUP EPOLLET EPOLLONESHOT 
-        epoll_data_t data;      // User data variable
-    };
+         struct epoll_event {
+             uint32_t     events; // EPOLLIN EPOLLOUT EPOLLRDHUP EPOLLPRI EPOLLERR 
+                                     EPOLLHUP EPOLLET EPOLLONESHOT 
+             epoll_data_t data; // User data variable
+         };
 
-return:
-    success 0
-    error   -1 errno
-</code></pre></blockquote>
-<h3 id="epoll-wait"><a href="#epoll-wait" class="headerlink" title="epoll_wait"></a>epoll_wait</h3><p>  waits for I/O events, blocking the calling thread if no events are currently available.</p>
-<blockquote>
-<p> #include <sys epoll.h=""><br> int epoll_wait(int epfd, struct epoll_event <em>events, int maxevents, int timeout);<br>   int epoll_pwait(int epfd, struct epoll_event </em>events, int maxevents, int timeout, const sigset_t *sigmask);</sys></p>
-<pre><code>epfd: return by epoll_create
-events：out, 监听到的事件数组
-maxevents: in, 需要监听到事件个数，&gt;0
-timeout: time out值， (-1 mean infinite, 0 mean immediately)
-sigmask: 监测的signal 
-return: the number of file descriptors ready for the requested I/O.
-</code></pre></blockquote>
-<h1 id="附（epoll-使用示例）"><a href="#附（epoll-使用示例）" class="headerlink" title="附（epoll 使用示例）"></a>附（epoll 使用示例）</h1><p>功能: 使用epoll 实现tcp server</p>
+    return:
+        success 0
+        error   -1 errno
+</code></pre><h3 id="epoll-wait"><a href="#epoll-wait" class="headerlink" title="epoll_wait"></a>epoll_wait</h3><p>  waits for I/O events, blocking the calling thread if no events are currently available.</p>
+<pre><code>#include &lt;sys/epoll.h&gt;
+int epoll_wait(int epfd, struct epoll_event *events, int maxevents, int timeout);
+int epoll_pwait(int epfd, struct epoll_event *events, int maxevents, int timeout, const sigset_t *sigmask);
+
+    epfd: return by epoll_create
+    events：out, 监听到的事件数组
+    maxevents: in, 需要监听到事件个数，&gt;0
+    timeout: time out值， (-1 mean infinite, 0 mean immediately)
+    sigmask: 监测的signal 
+    return: the number of file descriptors ready for the requested I/O.
+</code></pre><h1 id="附（epoll-使用示例）"><a href="#附（epoll-使用示例）" class="headerlink" title="附（epoll 使用示例）"></a>附（epoll 使用示例）</h1><p>功能: 使用epoll 实现tcp server</p>
 <pre><code>#include &lt;iostream&gt;
 #include &lt;sys/socket.h&gt;
 #include &lt;sys/epoll.h&gt;
