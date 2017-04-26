@@ -15,10 +15,10 @@
 <meta name="keywords" content="inotify">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux inotify机制">
-<meta property="og:url" content="http://yoursite.com/2017/04/19/Linux_inotify/index.html">
+<meta property="og:url" content="jingg.me/2017/04/19/Linux_inotify/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
 <meta property="og:description" content="Inotify 是一个 Linux 内核特性，它监控文件系统，并且及时向专门的应用程序发出相关的事件警告，比如删除、读、写和卸载操作等。您还可以跟踪活动的源头和目标等细节。使用 inotify 很简单：创建一个文件描述符fd，附加一个或多个监视器（一个监视器 是一个路径和一组事件，对应一个描述符wd），然后使用 read() 方法从描述符fd获取事件信息。 inotify，linux内核版本 &amp;g">
-<meta property="og:updated_time" content="2017-04-20T02:48:35.493Z">
+<meta property="og:updated_time" content="2017-04-26T08:59:00.529Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux inotify机制">
 <meta name="twitter:description" content="Inotify 是一个 Linux 内核特性，它监控文件系统，并且及时向专门的应用程序发出相关的事件警告，比如删除、读、写和卸载操作等。您还可以跟踪活动的源头和目标等细节。使用 inotify 很简单：创建一个文件描述符fd，附加一个或多个监视器（一个监视器 是一个路径和一组事件，对应一个描述符wd），然后使用 read() 方法从描述符fd获取事件信息。 inotify，linux内核版本 &amp;g">
@@ -175,7 +175,7 @@
       
         <p>Inotify 是一个 Linux 内核特性，它监控文件系统，并且及时向专门的应用程序发出相关的事件警告，比如删除、读、写和卸载操作等。您还可以跟踪活动的源头和目标等细节。<br>使用 inotify 很简单：创建一个文件描述符fd，附加一个或多个监视器（一个监视器 是一个路径和一组事件，对应一个描述符wd），然后使用 read() 方法从描述符fd获取事件信息。</p>
 <p>inotify，linux内核版本 &gt;= 2.6.13</p>
-<h3 id="inotify-C-API"><a href="#inotify-C-API" class="headerlink" title="inotify C API"></a>inotify C API</h3><p>Inotify 提供几个系统调用，它们可以构建各种各样的文件系统监控器：</p>
+<h1 id="inotify-C-API"><a href="#inotify-C-API" class="headerlink" title="inotify C API"></a>inotify C API</h1><p>Inotify 提供几个系统调用，它们可以构建各种各样的文件系统监控器：</p>
 <h5 id="1-fd-inotify-init-fd-inotify-init1-int-flags"><a href="#1-fd-inotify-init-fd-inotify-init1-int-flags" class="headerlink" title="1. fd = inotify_init();  / fd = inotify_init1(int flags);"></a>1. fd = inotify_init();  / fd = inotify_init1(int flags);</h5><pre><code>在内核中创建 inotify 子系统的一个实例instance，成功的话将返回一个文件描述符fd，失败则返回 -1。
 就像其他系统调用一样，如果 inotify_init() 失败，请检查 errno 以获得诊断信息。
 </code></pre><h5 id="2-wd-inotify-add-watch-int-fd-const-char-pathname-uint32-t-mask"><a href="#2-wd-inotify-add-watch-int-fd-const-char-pathname-uint32-t-mask" class="headerlink" title="2. wd = inotify_add_watch(int fd, const char *pathname, uint32_t mask);"></a>2. wd = inotify_add_watch(int fd, const char *pathname, uint32_t mask);</h5><pre><code>用于添加监视器。每个监视器必须提供一个路径名和相关事件的列表（每个事件由一个常量指定，比如 IN_MODIFY）。
@@ -195,7 +195,7 @@
 考虑到实用性，不可能耗尽任何一个 inotify 实例的监视器。然而，您可能会耗尽事件队列的空间，这取决于处理事件的频率。
     队列溢出会引起 IN_Q_OVERFLOW 事件。
 close() 方法毁坏 inotify 实例和所有相关联的监视器，并清空队列中的所有等待事件。
-</code></pre><h3 id="inotify-事件结构体及宏（详见inotify-h）"><a href="#inotify-事件结构体及宏（详见inotify-h）" class="headerlink" title="inotify 事件结构体及宏（详见inotify.h）"></a>inotify 事件结构体及宏（详见inotify.h）</h3><h5 id="1-inotify-event-结构体"><a href="#1-inotify-event-结构体" class="headerlink" title="1. inotify_event 结构体"></a>1. inotify_event 结构体</h5><pre><code>struct inotify_event {
+</code></pre><h1 id="inotify-事件结构体及宏（详见inotify-h）"><a href="#inotify-事件结构体及宏（详见inotify-h）" class="headerlink" title="inotify 事件结构体及宏（详见inotify.h）"></a>inotify 事件结构体及宏（详见inotify.h）</h1><h5 id="1-inotify-event-结构体"><a href="#1-inotify-event-结构体" class="headerlink" title="1. inotify_event 结构体"></a>1. inotify_event 结构体</h5><pre><code>struct inotify_event {
    int      wd;       /* Watch descriptor */  属于哪个监视器的事件，说白了就是wd对应的pathname的事件
    uint32_t mask;     /* Mask of events */   //  IN_ACCESS  IN_MODIFY  IN_ATTRIB ... 中一个或多个的位或
    uint32_t cookie;   /* Unique cookie associating related events (for rename(2)) */ 用于关联两个事件
@@ -232,7 +232,7 @@ IN_DONT_FOLLOW    0x02000000
 IN_MASK_ADD       0x20000000
 IN_ISDIR          0x40000000
 IN_ONESHOT        0x80000000
-</code></pre><h3 id="inotify-程序示例"><a href="#inotify-程序示例" class="headerlink" title="inotify 程序示例"></a>inotify 程序示例</h3><pre><code>#include &lt;stdio.h&gt;
+</code></pre><h1 id="inotify-程序示例"><a href="#inotify-程序示例" class="headerlink" title="inotify 程序示例"></a>inotify 程序示例</h1><pre><code>#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 #include &lt;errno.h&gt;
 #include &lt;sys/types.h&gt;
@@ -306,7 +306,7 @@ $ touch a b c
 The file a was created.
 The file b was created.
 The file c was created.
-</code></pre><h3 id="inotify-程序示例2"><a href="#inotify-程序示例2" class="headerlink" title="inotify 程序示例2"></a>inotify 程序示例2</h3><pre><code>#include &lt;stdio.h&gt;
+</code></pre><h1 id="inotify-程序示例2"><a href="#inotify-程序示例2" class="headerlink" title="inotify 程序示例2"></a>inotify 程序示例2</h1><pre><code>#include &lt;stdio.h&gt;
 #include &lt;string.h&gt;
 #include &lt;stdlib.h&gt;
 #include &lt;sys/inotify.h&gt;
@@ -399,7 +399,7 @@ int main(int argc,char *argv[])
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/19/Linux_inotify/" data-id="cj1ypru7g001fmxwm65ht9ikj" class="article-share-link">分享</a>
+      <a data-url="jingg.me/2017/04/19/Linux_inotify/" data-id="cj1ypru7g001fmxwm65ht9ikj" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/inotify/">inotify</a></li></ul>
@@ -419,11 +419,6 @@ int main(int argc,char *argv[])
       </div>
     </a>
   
-  
-    <a href="/2017/05/28/Android智能指针——SP WP/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Android 智能指针——SP WP</div>
-    </a>
   
 </nav>
 
