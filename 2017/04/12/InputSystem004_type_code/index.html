@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>input系统——type code | 进无止境&#39;s 博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="inputinput系统event" />
+  
+  
+  
+  
+  <meta name="description" content="Event Type&amp;amp;CodeEV_SYN:  - 用于事件间的分割标志。事件可能按时间或空间进行分割，就像在多点触摸协议中的例子。     SYN_REPORT:    - 当多个输入数据在同一时间发生变化时，SYN_REPORT用于把这些数据进行打包和包同步。                 例如，一次鼠标的移动可以上报   REL_X和REL_Y两个数值，然后发出一个SYN_REPO">
+<meta name="keywords" content="input,input系统,event">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Input系统——TYPE CODE">
+<meta property="og:url" content="http://yoursite.com/2017/04/12/InputSystem004_type_code/index.html">
+<meta property="og:site_name" content="进无止境's 博客">
+<meta property="og:description" content="Event Type&amp;amp;CodeEV_SYN:  - 用于事件间的分割标志。事件可能按时间或空间进行分割，就像在多点触摸协议中的例子。     SYN_REPORT:    - 当多个输入数据在同一时间发生变化时，SYN_REPORT用于把这些数据进行打包和包同步。                 例如，一次鼠标的移动可以上报   REL_X和REL_Y两个数值，然后发出一个SYN_REPO">
+<meta property="og:updated_time" content="2017-04-26T03:21:56.523Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Input系统——TYPE CODE">
+<meta name="twitter:description" content="Event Type&amp;amp;CodeEV_SYN:  - 用于事件间的分割标志。事件可能按时间或空间进行分割，就像在多点触摸协议中的例子。     SYN_REPORT:    - 当多个输入数据在同一时间发生变化时，SYN_REPORT用于把这些数据进行打包和包同步。                 例如，一次鼠标的移动可以上报   REL_X和REL_Y两个数值，然后发出一个SYN_REPO">
+  
+    <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-InputSystem004_type_code" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Input系统——TYPE CODE
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/12/InputSystem004_type_code/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Event-Type-amp-Code"><a href="#Event-Type-amp-Code" class="headerlink" title="Event Type&amp;Code"></a>Event Type&amp;Code</h1><pre><code>EV_SYN:  - 用于事件间的分割标志。事件可能按时间或空间进行分割，就像在多点触摸协议中的例子。
+    SYN_REPORT:    - 当多个输入数据在同一时间发生变化时，SYN_REPORT用于把这些数据进行打包和包同步。
+                例如，一次鼠标的移动可以上报   REL_X和REL_Y两个数值，然后发出一个SYN_REPORT。
+                下一次鼠标移动可以再次发出REL_X和REL_Y两个数值，然后经跟这另一个SYN_REPORT。
+
+    SYN_MT_REPORT: - 用于同步和分离触摸事件
+    SYN_DROPPED:   - 用来指出evdev客户的事件队列的的缓冲区溢出。
+
+EV_KEY:  - 用来描述键盘，按键或者类似键盘设备的状态变化。
+    KEY_&lt;name&gt;:    - EV_KEY事件采取KEY_&lt;name&gt; 或BTN_&lt;name&gt;的形式，
+                        比如，KEY_A代表键盘上的A键，当一个按键被按下时，一个带有按键编码和value为1的事件被发出。
+                        当一个按键被释放时，一个value为0的事件被发出。有些硬件当按键重复时会发出事件，这些事件的value值为2。
+                        通常，KEY_&lt;name&gt;用作键盘上的按键，而BTN_&lt;name&gt;则用于开关按钮事件。 
+                   - 普通键盘按键     0x0~0x100     0x160~0x2ff
+                   - 游戏柄的按键     0x100~0x110   0x120~0x140
+                   - 鼠标按键         BTN_MOUSE-BTN_LEFT-0x110-左键；  BTN_RIGHT-0x111-右键；  BTN_MIDDLE-0x112-中键；
+    BTN_&lt;name&gt;:    - see above
+
+EV_REL:  - 用来描述相对坐标轴上数值的变化，例如：鼠标向左方移动了5个单位。
+    REL_X 0x00      //X 轴
+    REL_Y 0x01      //Y 轴
+    REL_Z 0x02      //Z 轴
+    REL_RX 0x03
+    REL_RY 0x04
+    REL_RZ 0x05
+    REL_HWHEEL 0x06 //水平方向horizontal的滚轮
+    REL_DIAL 0x07
+    REL_WHEEL 0x08  //垂直方向vertical的滚轮
+    REL_MISC 0x09
+    REL_MAX 0x0f
+    REL_CNT (REL_MAX+1)
+
+EV_ABS:  - 用来描述相对坐标轴上数值的变化，例如：描述触摸屏上坐标的值。
+    ABS_X 0x00
+    ABS_Y 0x01
+    ABS_Z 0x02
+    ABS_RX 0x03
+    ABS_RY 0x04
+    ABS_RZ 0x05
+    ABS_THROTTLE 0x06
+    ABS_RUDDER 0x07
+    ABS_WHEEL 0x08
+    ABS_GAS 0x09
+    ABS_BRAKE 0x0a
+    ABS_DISTANCE 0x19 - 用来描述触摸工具离触摸表面的距离
+    ABS_MT_&lt;name&gt; 用于描述多手指触摸输入设备。详情请参考内核文档：multi-touch-protocol.txt。
+
+EV_MSC:  - 当不能匹配现有的类型时，使用该类型进行描述。
+EV_SW:   - 用来描述具备两种状态的输入开关。
+    SW_LID 0x00  用来指出笔记本电脑的屏幕是否合上
+
+EV_LED:  - 用于设置或查询设备上的LED灯的开和关。
+EV_SND:  - 用来给设备输出提示声音。
+EV_REP:  - 用于可以自动重复的设备（autorepeating）。
+EV_FF:   - 用来给输入设备发送强制回馈命令。（震动？）
+    FF_RUMBLE 0x50
+    FF_CONSTANT 0x52
+
+EV_PWR:  - 特别用于电源开关的输入。.
+EV_FF_STATUS:  - 用于接收设备的强制反馈状态。
+</code></pre><h1 id="INPUT-DEVICE-ClASS-来区分"><a href="#INPUT-DEVICE-ClASS-来区分" class="headerlink" title="INPUT_DEVICE_ClASS 来区分"></a>INPUT_DEVICE_ClASS 来区分</h1><pre><code>INPUT_DEVICE_CLASS_CURSOR  
+    有BTN_MOUSE按钮 且 REL_X及REL_Y 
+
+INPUT_DEVICE_CLASS_TOUCH | INPUT_DEVICE_CLASS_TOUCH_MT 
+    有BTN_TOUCH  ABS_MT_POSITION_X ABS_MT_POSITION_Y 且没有游戏键
+
+INPUT_DEVICE_CLASS_JOYSTICK 
+
+
+INPUT_DEVICE_CLASS_SWITCH
+    任一个即可
+
+
+INPUT_DEVICE_CLASS_VIBRATOR
+    有FF_RUMBLE-0x50
+</code></pre><h1 id="TOOL-TYPE"><a href="#TOOL-TYPE" class="headerlink" title="TOOL_TYPE"></a>TOOL_TYPE</h1><pre><code>AMOTION_EVENT_TOOL_TYPE_UNKNOWN 0
+    类型未知，或者都无关联项，例如 trackball or other non-pointing device.
+AMOTION_EVENT_TOOL_TYPE_FINGER  1
+    The tool is a finger 触摸类工具
+AMOTION_EVENT_TOOL_TYPE_STYLUS  2
+    类似触针类工具，例如手写笔等
+AMOTION_EVENT_TOOL_TYPE_MOUSE   3
+    The tool is a mouse or trackpad.  鼠标或者触摸板
+AMOTION_EVENT_TOOL_TYPE_ERASER  4
+    The tool is an eraser or a stylus being used in an inverted posture. 擦除类工具，或者一类反向针式工具
+</code></pre><h1 id="MotionEvent"><a href="#MotionEvent" class="headerlink" title="MotionEvent"></a>MotionEvent</h1><pre><code>用于报告运动事件，例如 mouse, pen, finger, trackball 
+Motion events may hold either absolute or relative movements and other data, depending on the type of device.
+
+ACTION_BUTTON_PRESS
+ACTION_BUTTON_RELEASE
+ACTION_CANCEL  // The current gesture has been aborted.
+ACTION_SCROLL  // The motion event contains relative vertical and/or horizontal scroll offsets.
+ACTION_UP      // 
+AXIS_SCROLL    // Generic scroll axis of a motion event.
+</code></pre><h1 id="AINPUT-SOURCE"><a href="#AINPUT-SOURCE" class="headerlink" title="AINPUT_SOURCE"></a>AINPUT_SOURCE</h1><pre><code>基本类型
+AINPUT_SOURCE_CLASS_MASK        0x000000ff      //         
+AINPUT_SOURCE_UNKNOWN           0x00000000      // 
+AINPUT_SOURCE_CLASS_BUTTON      0x00000001      // 输入设备有按钮和键
+AINPUT_SOURCE_CLASS_POINTER     0x00000002      // 与显示相关的指针式设备
+AINPUT_SOURCE_CLASS_NAVIGATION  0x00000004      // 
+AINPUT_SOURCE_CLASS_TRACKBALL   0x00000004      // 轨迹导航设备
+AINPUT_SOURCE_CLASS_POSITION    0x00000008      // 绝对定位设备（与显示无关的定位）
+AINPUT_SOURCE_CLASS_JOYSTICK    0x00000010      // 
+AINPUT_SOURCE_CLASS_NONE        0x00000000      // joystick 操作杆，绝对运动
+
+衍生类型
+AINPUT_SOURCE_KEYBOARD          0x00000101      // 
+AINPUT_SOURCE_DPAD              0x00000201      // 
+AINPUT_SOURCE_GAMEPAD           0x00000401      // 
+AINPUT_SOURCE_TOUCHSCREEN       0x00001002      // 
+AINPUT_SOURCE_MOUSE             0x00002002      // 
+AINPUT_SOURCE_STYLUS            0x00004002      //
+AINPUT_SOURCE_BLUETOOTH_STYLUS  0x0000c002      // 蓝牙指针，蓝牙鼠标?   API 23
+AINPUT_SOURCE_TRACKBALL         0x00010004      // 
+AINPUT_SOURCE_MOUSE_RELATIVE    0x00020004      // Android O Developer Preview
+AINPUT_SOURCE_TOUCHPAD          0x00100008      //
+AINPUT_SOURCE_TOUCH_NAVIGATION  0x00200000      // 
+AINPUT_SOURCE_ROTARY_ENCODER    0x00400000      // Android O Developer Preview  
+AINPUT_SOURCE_JOYSTICK          0x01000010      // 
+AINPUT_SOURCE_HDMI              0x02000001      // 
+AINPUT_SOURCE_ANY               0xffffff00      //
+</code></pre><h1 id="AINPUT-KEYBOARD-TYPE"><a href="#AINPUT-KEYBOARD-TYPE" class="headerlink" title="AINPUT_KEYBOARD_TYPE"></a>AINPUT_KEYBOARD_TYPE</h1><pre><code>AINPUT_KEYBOARD_TYPE_NONE 0                     // There is no keyboard
+AINPUT_KEYBOARD_TYPE_NON_ALPHABETIC 1           // The keyboard supports a complement of alphabetic keys.
+AINPUT_KEYBOARD_TYPE_ALPHABETIC 2               // The keyboard is not fully alphabetic
+</code></pre><h1 id="Input-device-configuration-idc"><a href="#Input-device-configuration-idc" class="headerlink" title="Input device configuration (.idc)"></a>Input device configuration (.idc)</h1><p>  Input device configuration files (.idc files) contain device-specific configuration properties that affect the behavior of input devices.</p>
+<p>  <strong>Location</strong><br>    /system/usr/idc/  or   /data/system/devices/idc/</p>
+<p>  <strong>idc文件example如下</strong></p>
+<pre><code># This is an example of an input device configuration file.
+# It might be used to describe the characteristics of a built-in touch screen.
+
+# This is an internal device, not an external peripheral attached to the USB
+# or Bluetooth bus.
+device.internal = 1
+
+# The device should behave as a touch screen, which uses the same orientation
+# as the built-in display.
+touch.deviceType = touchScreen
+touch.orientationAware = 1
+
+# Additional calibration properties...
+keyboard.layout = qwerty
+keyboard.characterMap = qwerty
+keyboard.orientationAware = 1
+keyboard.builtIn = 1
+
+cursor.mode = navigation
+cursor.orientationAware = 1
+</code></pre><p>  <strong>Common属性语法</strong></p>
+<pre><code>device.internal // Specifies whether the input device is an internal built-in component 
+                    as opposed to an externally attached (most likely removable) peripheral.
+                    If the value is 0, the device is external.
+                    If the value is 1, the device is internal.
+                    If the value is not specified, the default value is 0 for all devices on the USB (BUS_USB) or Bluetooth (BUS_BLUETOOTH) bus, 1 otherwise.
+
+                    This property determines default policy decisions regarding wake events.
+</code></pre><h1 id="Key-Layout-Files-kl"><a href="#Key-Layout-Files-kl" class="headerlink" title="Key Layout Files (.kl)"></a>Key Layout Files (.kl)</h1><p>  详见 <a href="https://source.android.com/devices/input/key-layout-files" target="_blank" rel="external">https://source.android.com/devices/input/key-layout-files</a> </p>
+<pre><code>Key layout files (.kl files) map Linux key codes and axis codes to Android key codes and axis codes and specify associated policy flags. Device-specific key layout files are:
+
+Required for internal (built-in) input devices with keys, including special keys such as volume, power, and headset media keys.
+Optional for other input devices but recommended for special-purpose keyboards and joysticks.
+If no device-specific key layout file is available, the system chooses a default instead.
+</code></pre><h3 id="Location"><a href="#Location" class="headerlink" title="Location"></a>Location</h3><p>  /system/usr/keylayout/ or /data/system/devices/keylayout/</p>
+<h3 id="Generic-Key-Layout-File"><a href="#Generic-Key-Layout-File" class="headerlink" title="Generic Key Layout File"></a>Generic Key Layout File</h3><p>  The system provides a special built-in generic key layout file called Generic.kl. This key layout is intended to support a variety of standard external keyboards and joysticks. Do not modify the generic key layout!</p>
+<h3 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h3><p>  A key layout file is a plain text file consisting of key or axis declarations and flags.</p>
+<p>  <strong>Key Declarations</strong><br>    key         Linux key code number               Android key code name<br>    key usage   HID usage(Hex 32-bit integer)       Android key code name</p>
+<p>  <strong>Axis Declarations</strong><br>    axis        Linux axis code number              Android axis code name<br>    Basic Axes<br>    Split Axes<br>    Inverted Axes<br>    Center Flat Position Option</p>
+<p>  <strong>Comments</strong><br>    Comment lines begin with # and continue to the end of the line:<br>    <code># A comment!</code></p>
+<p>  <strong>Examples</strong> </p>
+<pre><code>-- Keyboard --
+key 1     ESCAPE
+key 2     1
+key 3     2
+key 4     3
+key 5     4
+key 6     5
+key 7     6
+key 8     7
+key 9     8
+key 10    9
+key 11    0
+key 12    MINUS
+key 13    EQUALS
+key 14    DEL
+
+-- System Controls --
+# This is an example of a key layout file for basic system controls,
+# such as volume and power keys which are typically implemented as GPIO pins
+# the device decodes into key presses.
+
+key 114   VOLUME_DOWN
+key 115   VOLUME_UP
+key 116   POWER
+
+-- Capacitive Buttons -- 
+# This is an example of a key layout file for a touch device with capacitive buttons.
+key 139    MENU           VIRTUAL
+key 102    HOME           VIRTUAL
+key 158    BACK           VIRTUAL
+key 217    SEARCH         VIRTUAL
+
+-- Headset Jack Media Controls --
+# This is an example of a key layout file for headset mounted media controls.
+# A typical headset jack interface might have special control wires or detect known
+# resistive loads as corresponding to media functions or volume controls.
+# This file assumes that the driver decodes these signals and reports media
+# controls as key presses.
+key 163   MEDIA_NEXT
+key 165   MEDIA_PREVIOUS
+key 226   HEADSETHOOK
+
+-- Joystick --
+# This is an example of a key layout file for a joystick.
+
+# These are the buttons that the joystick supports, represented as keys.
+key 304   BUTTON_A
+key 305   BUTTON_B
+key 307   BUTTON_X
+key 308   BUTTON_Y
+key 310   BUTTON_L1
+key 311   BUTTON_R1
+key 314   BUTTON_SELECT
+key 315   BUTTON_START
+key 316   BUTTON_MODE
+key 317   BUTTON_THUMBL
+key 318   BUTTON_THUMBR
+
+# Left and right stick.
+# The reported value for flat is 128 in a range of -32767 to 32768, which is absurd.
+# This confuses applications that rely on the flat value because the joystick
+# actually settles in a flat range of +/- 4096 or so. We override it here.
+axis 0x00 X flat 4096
+axis 0x01 Y flat 4096
+axis 0x03 Z flat 4096
+axis 0x04 RZ flat 4096
+
+# Triggers.
+axis 0x02 LTRIGGER
+axis 0x05 RTRIGGER
+
+# Hat.
+axis 0x10 HAT_X
+axis 0x11 HAT_Y
+</code></pre><h3 id="Virtual-Soft-Keys"><a href="#Virtual-Soft-Keys" class="headerlink" title="Virtual Soft Keys"></a>Virtual Soft Keys</h3><p>  // to do</p>
+<h3 id="Validation"><a href="#Validation" class="headerlink" title="Validation"></a>Validation</h3><p>  You should validate your key layout files using the Validate Keymaps tool.</p>
+<h1 id="Key-Character-Map-Files-kcm"><a href="#Key-Character-Map-Files-kcm" class="headerlink" title="Key Character Map Files (.kcm)"></a>Key Character Map Files (.kcm)</h1><p>  Key character map files (.kcm files) are responsible for mapping combinations of Android key codes with modifiers to Unicode characters.</p>
+<p>  <strong>Location</strong><br>    /system/usr/keychars/<br>    /data/system/devices/keychars/</p>
+<p>  <strong>Generic Key Character Map File</strong><br>    Generic.kcm</p>
+<p>  <strong>Virtual Key Character Map File</strong><br>    Virtual.kcm</p>
+<p>  <strong>Syntax</strong><br>    Keyboard Type Declaration<br>    Key Declarations<br>    Comments</p>
+<h1 id="Keyboard-Devices"><a href="#Keyboard-Devices" class="headerlink" title="Keyboard Devices"></a>Keyboard Devices</h1><h1 id="Touch-Devices"><a href="#Touch-Devices" class="headerlink" title="Touch Devices"></a>Touch Devices</h1><h1 id="附："><a href="#附：" class="headerlink" title="附："></a>附：</h1><p>HID号码即Hidden ID code 隐含码；<br>PID号码即Public ID code 公开码。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        
+	<div id="comment">
+	
+	<!-- 多说评论框 start -->
+	 <div class="ds-thread" data-thread-key="/2017/04/12/InputSystem004_type_code/" data-title="Input系统——TYPE CODE" data-url="http://yoursite.com/2017/04/12/InputSystem004_type_code/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"iTimeTraveler"};
+	  (function() {
+	    var ds = document.createElement('script');
+	    ds.type = 'text/javascript';ds.async = true;
+	    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	    ds.charset = 'UTF-8';
+	    (document.getElementsByTagName('head')[0] 
+	     || document.getElementsByTagName('body')[0]).appendChild(ds);
+	  })();
+	  </script>
+	<!-- 多说公共JS代码 end -->
+	
+	</div>
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event/">event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input/">input</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input系统/">input系统</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/12/APK_tool/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          APK 反编译及签名工具
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/12/Android_init_rc/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Android init.rc</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <section id="comments">
+<!--���ٰ棬�����ٶȿ죬ʹ��ǰ������ҳ���ļ�����-->
+<div id="SOHUCS" sid="Input系统——TYPE CODE"></div>
+<script>
+  (function(){
+    var appid = 'cysWY506v',
+    conf = 'prod_b3fbdae0e52a1e5b116b4b9fe328664b';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>    
+  </section>
+  </section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2012 - 2017 进无止境&#39;s 博客 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				<span id="busuanzi_container_site_uv"> 访客数 : <span id="busuanzi_value_site_uv"></span></span> |  
+				<span id="busuanzi_container_site_pv"> 访问量 : <span id="busuanzi_value_site_pv"></span></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            进无止境&#39;s 博客
+          </div>
+          <div class="panel-body">
+            Copyright © 2017 Jim All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+</body>
+</html>
