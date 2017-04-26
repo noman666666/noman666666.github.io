@@ -147,8 +147,18 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-Linux_inotify" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
+          <section id="main" style="float:none;"><article id="post-Linux_inotify" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2017/04/19/Linux_inotify/" class="article-date">
+	  <time datetime="2017-04-18T16:00:00.000Z" itemprop="datePublished">2017-04-19</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+
+  </div>
+  <div class="article-inner">
     
     
       <header class="article-header">
@@ -161,16 +171,6 @@
 
       </header>
     
-    <div class="article-meta">
-      
-	<a href="/2017/04/19/Linux_inotify/" class="article-date">
-	  <time datetime="2017-04-18T16:00:00.000Z" itemprop="datePublished">2017-04-19</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/linux/">linux</a>
-
-    </div>
     <div class="article-entry" itemprop="articleBody">
       
         <p>Inotify 是一个 Linux 内核特性，它监控文件系统，并且及时向专门的应用程序发出相关的事件警告，比如删除、读、写和卸载操作等。您还可以跟踪活动的源头和目标等细节。<br>使用 inotify 很简单：创建一个文件描述符fd，附加一个或多个监视器（一个监视器 是一个路径和一组事件，对应一个描述符wd），然后使用 read() 方法从描述符fd获取事件信息。</p>
@@ -399,6 +399,7 @@ int main(int argc,char *argv[])
       
     </div>
     <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/19/Linux_inotify/" data-id="cj1ypru7g001fmxwm65ht9ikj" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/inotify/">inotify</a></li></ul>
@@ -429,10 +430,8 @@ int main(int argc,char *argv[])
   
 </article>
 
-<!-- Table of Contents -->
 
-
-  <section id="comments">
+<section id="comments">
 <div id="SOHUCS" sid="Linux inotify机制"></div>
 <script>
   (function(){
@@ -448,10 +447,8 @@ int main(int argc,char *argv[])
     window.SCS_NO_IFRAME = true;
   })()
 </script>    
-  </section>
-  
-  
-  
+</section>
+
 </section>
         
       </div>
