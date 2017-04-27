@@ -522,11 +522,11 @@ int main(int argc,char *argv[])
         <h3 id="MarkdownPad编辑器添加表格的扩展"><a href="#MarkdownPad编辑器添加表格的扩展" class="headerlink" title="MarkdownPad编辑器添加表格的扩展"></a>MarkdownPad编辑器添加表格的扩展</h3><p><strong>开启表格特性支持：</strong> <code>工具 ==&gt; 选项 ==&gt; Markdown ==&gt; Markdown处理器 改为 &quot;Markdown(扩展)&quot;or&quot;GitHub风格Markdown&quot;即可。</code></p>
 <p><strong>表格语法:</strong></p>
 <pre>
-    | Tables        | Are           | Cool  |
-    | :------------ |:-------------:| -----:|
-    | col 3 is      | right-aligned | $1600 |
-    | col 2 is      | centered      |   $12 |
-    | zebra stripes | are neat      |    $1 |
+| Tables        | Are           | Cool  |
+| :------------ |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
 </pre>
 
 <pre><code>:---- 左对齐,默认左对齐
@@ -556,75 +556,39 @@ Cx20sV1ClOTZtAGngSOJtIOFXK599sBr5aIEFyH0K7H4BoNMiiDMnxt1rD8Vb/ikJdhGMMQr
 · 横线 Ctrl + R
 · 撤销 Ctrl + Z
 · 重做 Ctrl + Y
-</code></pre><h3 id="不解析内容处理方法"><a href="#不解析内容处理方法" class="headerlink" title="不解析内容处理方法"></a>不解析内容处理方法</h3><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">    代码块 </div><div class="line">    ``` </div><div class="line"></div><div class="line">或者 </div><div class="line"></div><div class="line">    &lt;pre&gt; </div><div class="line">    代码块 </div><div class="line">    &lt;/pre&gt; </div><div class="line"></div><div class="line"></div><div class="line"># Markdown语法参考 #</div><div class="line"></div><div class="line">### 加粗和倾斜</div></pre></td></tr></table></figure>
+</code></pre><h3 id="不解析内容处理方法"><a href="#不解析内容处理方法" class="headerlink" title="不解析内容处理方法"></a>不解析内容处理方法</h3><pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">代码块</div></pre></td></tr></table></figure>
 
-*emphasize*   **strong**
-_emphasize_   __strong__
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 链接和Email</div><div class="line">链接：</div></pre></td></tr></table></figure>
-<p>   An <a href="http://url.com/" title="Title" target="_blank" rel="external">example</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Reference-style labels (titles are optional)：</div></pre></td></tr></table></figure></p>
-<p> An [example][id]. Then, anywhere else in the doc,<br> define the link:</p>
-<pre><code>[id]: http://example.com/  &quot;Title&quot;
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Email：</div></pre></td></tr></table></figure>
-<p>  An email <a href="&#109;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#101;&#120;&#97;&#109;&#112;&#x6c;&#x65;&#x40;&#101;&#x78;&#97;&#109;&#112;&#x6c;&#x65;&#x2e;&#x63;&#x6f;&#x6d;">&#101;&#120;&#97;&#109;&#112;&#x6c;&#x65;&#x40;&#101;&#x78;&#97;&#109;&#112;&#x6c;&#x65;&#x2e;&#x63;&#x6f;&#x6d;</a> link.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 图片</div><div class="line"></div><div class="line">Inline (titles are optional):</div></pre></td></tr></table></figure></p>
-<p>  <img src="/path/img.jpg" alt="alt text" title="Title"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Reference-style:</div></pre></td></tr></table></figure></p>
-<pre><code>![alt text][id]
+</pre>
 
-[id]: /url/to/img.jpg &quot;Title&quot;
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 标题</div><div class="line"></div><div class="line">Setext-style:</div></pre></td></tr></table></figure>
-<pre><code>Header 1
-========
-
-Header 2
---------
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">atx-style (closing #’s are optional):</div></pre></td></tr></table></figure>
-<pre><code># Header 1 #
-
-## Header 2 ##
-
-### Header 3 ###
-
-#### Header 4
-
-##### Header 5
-
-###### Header 6
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 列表</div><div class="line">    </div><div class="line">无段落有序列表：</div></pre></td></tr></table></figure>
-<pre><code>1. Foo
-2. Bar
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">有段落无序列表</div></pre></td></tr></table></figure>
-<pre><code>*   A list item.
-
-    With multiple paragraphs.
-
-*   Bar
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line">嵌套使用列表</div></pre></td></tr></table></figure>
-<pre><code>*   Abacus
-    * answer
-*   Bubbles
-    1.  bunk
-    2.  bupkis
-        * BELITTLER
-    3. burper
-*   Cunning
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">引用</div></pre></td></tr></table></figure>
-<blockquote>
-<p>Email-style angle brackets 方括号被用于引用<br>are used for blockquotes.</p>
-<blockquote>
-<p>你也可以嵌套引用.</p>
-</blockquote>
-<h4 id="Headers-in-blockquotes-引用中嵌入标题"><a href="#Headers-in-blockquotes-引用中嵌入标题" class="headerlink" title="Headers in blockquotes 引用中嵌入标题"></a>Headers in blockquotes 引用中嵌入标题</h4><ul>
-<li>You can quote a list. 引用中嵌入列表</li>
-<li>Etc.<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">代码嵌入</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-<p><code>&lt;code&gt;</code> spans are delimited<br>by backticks.</p>
-<p>You can include literal backticks<br>like <code>`this` </code>.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">代码块</div><div class="line">Indent every line of a code block by at least 4 spaces or 1 tab.</div></pre></td></tr></table></figure></p>
-<pre><code>This is a normal paragraph.
-
-    This is a preformatted
-    code block.
-</code></pre><p>```</p>
+<p>或者 </p>
+<pre><code>&lt;pre&gt; 
+代码块 
+&lt;/pre&gt; 
+</code></pre><h1 id="Markdown语法参考"><a href="#Markdown语法参考" class="headerlink" title="Markdown语法参考"></a>Markdown语法参考</h1><h3 id="加粗和倾斜"><a href="#加粗和倾斜" class="headerlink" title="加粗和倾斜"></a>加粗和倾斜</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">*emphasize*   **strong**</div><div class="line">_emphasize_   __strong__</div></pre></td></tr></table></figure>
+<h3 id="链接和Email"><a href="#链接和Email" class="headerlink" title="链接和Email"></a>链接和Email</h3><p>链接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">An [example](http://url.com/ &quot;Title&quot;)</div></pre></td></tr></table></figure>
+<p>Reference-style labels (titles are optional)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">An [example][id]. Then, anywhere else in the doc, </div><div class="line">define the link:</div><div class="line"></div><div class="line">   [id]: http://example.com/  &quot;Title&quot;</div></pre></td></tr></table></figure>
+<p>Email：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">An email &lt;example@example.com&gt; link.</div></pre></td></tr></table></figure>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p>Inline (titles are optional):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">![alt text](/path/img.jpg &quot;Title&quot;)</div></pre></td></tr></table></figure></p>
+<p>Reference-style:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">![alt text][id]</div><div class="line"></div><div class="line">[id]: /url/to/img.jpg &quot;Title&quot;</div></pre></td></tr></table></figure></p>
+<h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><p>Setext-style:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Header 1</div><div class="line">========</div><div class="line"></div><div class="line">Header 2</div><div class="line">--------</div></pre></td></tr></table></figure></p>
+<p>atx-style (closing #’s are optional):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># Header 1 #</div><div class="line"></div><div class="line">## Header 2 ##</div><div class="line"></div><div class="line">### Header 3 ###</div><div class="line"></div><div class="line">#### Header 4</div><div class="line"></div><div class="line">##### Header 5</div><div class="line"></div><div class="line">###### Header 6</div></pre></td></tr></table></figure></p>
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><p>无段落有序列表：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1. Foo</div><div class="line">2. Bar</div></pre></td></tr></table></figure>
+<p>有段落无序列表:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">*   A list item.</div><div class="line"></div><div class="line">    With multiple paragraphs.</div><div class="line"></div><div class="line">*   Bar</div></pre></td></tr></table></figure>
+<p>嵌套使用列表:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">*   Abacus</div><div class="line">    * answer</div><div class="line">*   Bubbles</div><div class="line">    1.  bunk</div><div class="line">    2.  bupkis</div><div class="line">        * BELITTLER</div><div class="line">    3. burper</div><div class="line">*   Cunning</div></pre></td></tr></table></figure>
+<p>引用:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; Email-style angle brackets 方括号被用于引用</div><div class="line">&gt; are used for blockquotes.</div><div class="line"></div><div class="line">&gt; &gt; 你也可以嵌套引用.</div><div class="line"></div><div class="line">&gt; #### Headers in blockquotes 引用中嵌入标题</div><div class="line">&gt; </div><div class="line">&gt; * You can quote a list. 引用中嵌入列表</div><div class="line">&gt; * Etc.</div></pre></td></tr></table></figure>
+<p>代码嵌入:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">`&lt;code&gt;` spans are delimited</div><div class="line">by backticks.</div><div class="line"></div><div class="line">You can include literal backticks</div><div class="line">like `` `this` ``.</div></pre></td></tr></table></figure>
+<p>代码块:</p>
+<p>Indent every line of a code block by at least 4 spaces or 1 tab.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">This is a normal paragraph.</div><div class="line"></div><div class="line">    This is a preformatted</div><div class="line">    code block.</div></pre></td></tr></table></figure>
 <p>水平线<br>三个破折号或者星号</p>
 <hr>
 <hr>
