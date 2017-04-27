@@ -18,7 +18,7 @@
 <meta property="og:url" content="jingg.me/2017/04/11/Android编译系统——system.img userdata.img recovery.img目标编译过程/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
 <meta property="og:description" content="image 介绍boot.img      Android 的初始文件映像，负责初始化并加载 system 分区，一般Android系统这个镜像中包含ramdisk.img根文件系统+kernel（RK平台的boot.img是没包含kernel部分的） recovery.img  恢复模式系统启动镜像。内容和boot.img雷同（RK平台recovery.img包含kernel部分），但是其中的r">
-<meta property="og:updated_time" content="2017-04-20T09:47:01.274Z">
+<meta property="og:updated_time" content="2017-04-27T03:21:18.256Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android编译系统——ramdisk.img system.img userdata.img recovery.img目标编译过程">
 <meta name="twitter:description" content="image 介绍boot.img      Android 的初始文件映像，负责初始化并加载 system 分区，一般Android系统这个镜像中包含ramdisk.img根文件系统+kernel（RK平台的boot.img是没包含kernel部分的） recovery.img  恢复模式系统启动镜像。内容和boot.img雷同（RK平台recovery.img包含kernel部分），但是其中的r">
@@ -180,7 +180,8 @@ recovery.img  恢复模式系统启动镜像。内容和boot.img雷同（RK平�
 ramdisk.img   是根文件系统，是root目录打包成的镜像（ramdisk-recovery.img）
 system.img    包括了主要的包、库等文件
 userdata.img  包括了一些用户数据
-</code></pre><h2 id="image-目标编译过程"><a href="#image-目标编译过程" class="headerlink" title="image 目标编译过程"></a>image 目标编译过程</h2><pre><code>---build/core/main.mk中---
+</code></pre><a id="more"></a>
+<h2 id="image-目标编译过程"><a href="#image-目标编译过程" class="headerlink" title="image 目标编译过程"></a>image 目标编译过程</h2><pre><code>---build/core/main.mk中---
 默认目标，即目标all
 .PHONY: droid
 DEFAULT_GOAL := droid
@@ -328,19 +329,19 @@ c. second is optional (second_size == 0 -&gt; no second)
     
 <nav id="article-nav">
   
-    <a href="/2017/04/11/RK平台分区信息/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/11/RK平台Android分区大小修改说明/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          RK平台分区信息
+          RK平台Android分区大小修改说明
         
       </div>
     </a>
   
   
-    <a href="/2017/04/12/Android_init_rc/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/04/11/RK平台分区信息/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Android init.rc</div>
+      <div class="article-nav-title">RK平台分区信息</div>
     </a>
   
 </nav>

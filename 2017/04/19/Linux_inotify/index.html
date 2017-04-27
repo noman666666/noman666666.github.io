@@ -18,7 +18,7 @@
 <meta property="og:url" content="jingg.me/2017/04/19/Linux_inotify/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
 <meta property="og:description" content="Inotify 是一个 Linux 内核特性，它监控文件系统，并且及时向专门的应用程序发出相关的事件警告，比如删除、读、写和卸载操作等。您还可以跟踪活动的源头和目标等细节。使用 inotify 很简单：创建一个文件描述符fd，附加一个或多个监视器（一个监视器 是一个路径和一组事件，对应一个描述符wd），然后使用 read() 方法从描述符fd获取事件信息。 inotify，linux内核版本 &amp;g">
-<meta property="og:updated_time" content="2017-04-26T08:59:00.529Z">
+<meta property="og:updated_time" content="2017-04-27T03:15:46.237Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux inotify机制">
 <meta name="twitter:description" content="Inotify 是一个 Linux 内核特性，它监控文件系统，并且及时向专门的应用程序发出相关的事件警告，比如删除、读、写和卸载操作等。您还可以跟踪活动的源头和目标等细节。使用 inotify 很简单：创建一个文件描述符fd，附加一个或多个监视器（一个监视器 是一个路径和一组事件，对应一个描述符wd），然后使用 read() 方法从描述符fd获取事件信息。 inotify，linux内核版本 &amp;g">
@@ -175,6 +175,7 @@
       
         <p>Inotify 是一个 Linux 内核特性，它监控文件系统，并且及时向专门的应用程序发出相关的事件警告，比如删除、读、写和卸载操作等。您还可以跟踪活动的源头和目标等细节。<br>使用 inotify 很简单：创建一个文件描述符fd，附加一个或多个监视器（一个监视器 是一个路径和一组事件，对应一个描述符wd），然后使用 read() 方法从描述符fd获取事件信息。</p>
 <p>inotify，linux内核版本 &gt;= 2.6.13</p>
+<a id="more"></a>
 <h1 id="inotify-C-API"><a href="#inotify-C-API" class="headerlink" title="inotify C API"></a>inotify C API</h1><p>Inotify 提供几个系统调用，它们可以构建各种各样的文件系统监控器：</p>
 <h5 id="1-fd-inotify-init-fd-inotify-init1-int-flags"><a href="#1-fd-inotify-init-fd-inotify-init1-int-flags" class="headerlink" title="1. fd = inotify_init();  / fd = inotify_init1(int flags);"></a>1. fd = inotify_init();  / fd = inotify_init1(int flags);</h5><pre><code>在内核中创建 inotify 子系统的一个实例instance，成功的话将返回一个文件描述符fd，失败则返回 -1。
 就像其他系统调用一样，如果 inotify_init() 失败，请检查 errno 以获得诊断信息。

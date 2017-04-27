@@ -18,7 +18,7 @@
 <meta property="og:url" content="jingg.me/2017/04/07/Android fstab/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
 <meta property="og:description" content="ubuntu fstab文件格式下面是/etc/fatab文件的一个示例行： fs_spec     fs_file fs_type     fs_options  fs_dump    fs_pass /dev/hda1   /       ext2        defaults    1          1      fs_spec - 该字段定义希望加载的文件系统所在的设备或远程文件系统">
-<meta property="og:updated_time" content="2017-04-12T01:02:32.476Z">
+<meta property="og:updated_time" content="2017-04-27T03:23:52.649Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android fstab介绍">
 <meta name="twitter:description" content="ubuntu fstab文件格式下面是/etc/fatab文件的一个示例行： fs_spec     fs_file fs_type     fs_options  fs_dump    fs_pass /dev/hda1   /       ext2        defaults    1          1      fs_spec - 该字段定义希望加载的文件系统所在的设备或远程文件系统">
@@ -196,7 +196,8 @@ fs_options - 指定加载该设备的文件系统是需要使用的特定参数�
 fs_dump 该选项被&quot;dump&quot;命令使用来检查一个文件系统应该以多快频率进行转储，若不需要转储就设置该字段为0
 fs_pass 该字段被fsck命令用来决定在启动时需要被扫描的文件系统的顺序，根文件系统&quot;/&quot;对应该字段的值应该为1，
                     其他文件系统应该为2。若该文件系统无需在启动时扫描则设置该字段为0
-</code></pre><h5 id="ubuntu上实例"><a href="#ubuntu上实例" class="headerlink" title="ubuntu上实例:"></a>ubuntu上实例:</h5><pre><code>&lt;file system&gt;                             &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;      &lt;dump&gt;  &lt;pass&gt;
+</code></pre><a id="more"></a>
+<h5 id="ubuntu上实例"><a href="#ubuntu上实例" class="headerlink" title="ubuntu上实例:"></a>ubuntu上实例:</h5><pre><code>&lt;file system&gt;                             &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;      &lt;dump&gt;  &lt;pass&gt;
 / was on /dev/sda1 during installation
 UUID=757fbb2f-6ee4-4a05-ad2e-0c16b3edc982 /               ext4    errors=remount-ro 0     1
 /home was on /dev/sda6 during installation
@@ -240,11 +241,11 @@ fs_mgr_flags: Vold ignores any lines in the unified fstab that do not include th
     
 <nav id="article-nav">
   
-    <a href="/2017/01/01/Android智能指针——SP WP/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/01/01/InputSystem005_ExampleAPP/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Android 智能指针——SP WP
+          Input系统——APP事件监听及处理
         
       </div>
     </a>

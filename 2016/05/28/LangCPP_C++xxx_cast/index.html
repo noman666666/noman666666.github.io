@@ -11,17 +11,17 @@
   
   
   
-  <meta name="description" content="第一部分. 隐式类型转换算数运算float + int =&amp;gt; float  、  赋值int = float、传参、返回值 第二部分.显式类型转换C风格     (type) value  C++风格     static_cast、dynamic_cast、reinterpret_cast和const_cast  static_cast (expression)该运算符把expressio">
+  <meta name="description" content="第一部分. 隐式类型转换算数运算float + int =&amp;gt; float  、  赋值int = float、传参、返回值 第二部分.显式类型转换C风格     (type) value  C++风格     static_cast、dynamic_cast、reinterpret_cast和const_cast">
 <meta name="keywords" content="类型转换,static_cast,dynamic_cast,reinterpret_cast,const_cast">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++的类型转换——隐式、显式转换(xxx_cast)">
 <meta property="og:url" content="jingg.me/2016/05/28/LangCPP_C++xxx_cast/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
-<meta property="og:description" content="第一部分. 隐式类型转换算数运算float + int =&amp;gt; float  、  赋值int = float、传参、返回值 第二部分.显式类型转换C风格     (type) value  C++风格     static_cast、dynamic_cast、reinterpret_cast和const_cast  static_cast (expression)该运算符把expressio">
-<meta property="og:updated_time" content="2017-04-18T02:50:19.948Z">
+<meta property="og:description" content="第一部分. 隐式类型转换算数运算float + int =&amp;gt; float  、  赋值int = float、传参、返回值 第二部分.显式类型转换C风格     (type) value  C++风格     static_cast、dynamic_cast、reinterpret_cast和const_cast">
+<meta property="og:updated_time" content="2017-04-27T03:20:19.052Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++的类型转换——隐式、显式转换(xxx_cast)">
-<meta name="twitter:description" content="第一部分. 隐式类型转换算数运算float + int =&amp;gt; float  、  赋值int = float、传参、返回值 第二部分.显式类型转换C风格     (type) value  C++风格     static_cast、dynamic_cast、reinterpret_cast和const_cast  static_cast (expression)该运算符把expressio">
+<meta name="twitter:description" content="第一部分. 隐式类型转换算数运算float + int =&amp;gt; float  、  赋值int = float、传参、返回值 第二部分.显式类型转换C风格     (type) value  C++风格     static_cast、dynamic_cast、reinterpret_cast和const_cast">
   
     <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
   
@@ -179,7 +179,8 @@
 
 C++风格
     static_cast、dynamic_cast、reinterpret_cast和const_cast 
-</code></pre><h3 id="static-cast-expression"><a href="#static-cast-expression" class="headerlink" title="static_cast (expression)"></a>static_cast<type-id> (expression)</type-id></h3><pre><code>该运算符把expression转换为type-id类型，但没有运行时类型检查来保证转换的安全性，如下几种用法：
+</code></pre><a id="more"></a>
+<h3 id="static-cast-expression"><a href="#static-cast-expression" class="headerlink" title="static_cast (expression)"></a>static_cast<type-id> (expression)</type-id></h3><pre><code>该运算符把expression转换为type-id类型，但没有运行时类型检查来保证转换的安全性，如下几种用法：
 a. 用于类层次结构中基类和子类之间指针或引用的转换。
     进行上行转换（把子类的指针或引用转换成基类表示）是安全的；
     进行下行转换（把基类指针或引用转换成子类指针或引用）时，由于没有动态类型检查，所以是不安全的。

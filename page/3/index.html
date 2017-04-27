@@ -165,10 +165,10 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-Android智能指针——SP WP" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-InputSystem005_ExampleAPP" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
-	<a href="/2017/01/01/Android智能指针——SP WP/" class="article-date">
+	<a href="/2017/01/01/InputSystem005_ExampleAPP/" class="article-date">
 	  <time datetime="2016-12-31T16:00:00.000Z" itemprop="datePublished">2017-01-01</time>
 	</a>
 
@@ -183,7 +183,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/01/01/Android智能指针——SP WP/">Android 智能指针——SP WP</a>
+      <a class="article-title" href="/2017/01/01/InputSystem005_ExampleAPP/">Input系统——APP事件监听及处理</a>
     </h1>
   
 
@@ -191,15 +191,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="http://blog.163.com/ye_kc_lcx88/blog/static/217863346201462411215858/" target="_blank" rel="external">http://blog.163.com/ye_kc_lcx88/blog/static/217863346201462411215858/</a></p>
-
+        <p>InputDevice<br><a href="https://developer.android.com/reference/android/view/InputDevice.html">https://developer.android.com/reference/android/view/InputDevice.html</a></p>
+<p>android.support.wearable 包</p>
+<p><a href="http://stackoverflow.com/questions/24520240/import-android-support-wearable-cannot-be-resolved">http://stackoverflow.com/questions/24520240/import-android-support-wearable-cannot-be-resolved</a></p>
+        
+          <p class="article-more-link">
+            <a href="/2017/01/01/InputSystem005_ExampleAPP/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="jingg.me/2017/01/01/Android智能指针——SP WP/" data-id="cj1ypru6z000mmxwm66q5tt16" class="article-share-link">分享</a>
+      <a data-url="jingg.me/2017/01/01/InputSystem005_ExampleAPP/" data-id="cj1ypru7d0019mxwmwq4tsst5" class="article-share-link">分享</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/弱指针/">弱指针</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/强指针/">强指针</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/智能指针/">智能指针</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APP/">APP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input/">input</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input系统/">input系统</a></li></ul>
 
     </footer>
   </div>
@@ -409,7 +415,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="SEAndroid中各种实体的SContext-定义"><a href="#SEAndroid中各种实体的SContext-定义" class="headerlink" title="SEAndroid中各种实体的SContext 定义"></a>SEAndroid中各种实体的SContext 定义</h2><p>介绍进程、文件/目录、服务、系统属性等SContext 定义</p>
+        <h1 id="SEAndroid中各种实体的SContext-定义"><a href="#SEAndroid中各种实体的SContext-定义" class="headerlink" title="SEAndroid中各种实体的SContext 定义"></a>SEAndroid中各种实体的SContext 定义</h1><p>介绍进程、文件/目录、服务、系统属性等SContext 定义</p>
 <h5 id="进程的SContext（以system-server进程为例）（对应每个进程的te文件）"><a href="#进程的SContext（以system-server进程为例）（对应每个进程的te文件）" class="headerlink" title="进程的SContext（以system_server进程为例）（对应每个进程的te文件）"></a>进程的SContext（以system_server进程为例）（对应每个进程的te文件）</h5><pre><code>u:r:system_server:s0           system    494   186   system_server
 u表示user SELinux用户
 r表示SELinux角色
@@ -425,126 +431,12 @@ genfscon usbfs  / u:object_r:usbfs:s0
 hw.                     u:object_r:system_prop:s0
 </code></pre><h5 id="service的SContext（在service-contexts定义）"><a href="#service的SContext（在service-contexts定义）" class="headerlink" title="service的SContext（在service_contexts定义）"></a>service的SContext（在service_contexts定义）</h5><pre><code>*                       u:object_r:default_android_service:s0   //默认服务SContext
 package                 u:object_r:system_server_service:s0     //package 服务  （在shell中执行service list查看所有服务）
-</code></pre><h5 id="APP的SContext-（在mac-permissions-xml-seapp-contexts-xxx定义，详见-APP安全策略）"><a href="#APP的SContext-（在mac-permissions-xml-seapp-contexts-xxx定义，详见-APP安全策略）" class="headerlink" title="APP的SContext （在mac_permissions.xml+seapp_contexts+xxx定义，详见 APP安全策略）"></a>APP的SContext （在mac_permissions.xml+seapp_contexts+xxx定义，详见 APP安全策略）</h5><p>  APP的seinfo: 根据apk的签名决定app的seinfo(platform、default)</p>
-<pre><code>1. 特殊APP——system_server (因为它也是有zygote产生的，所以还是也在seapp_contexts中定义)
-isSystemServer=true domain=system_server                  // isSystemServer返回true，则domain=system_server
-2. 通过user + seinfo + [name]来决定domain 和 type
-user=cts seinfo=* name=roidJUnitRunner domain=ctsrunner_app type=app_data_file  // user 是cts，则domain=ctsrunner_app type=app_data_file CTS测试APP
-user=system domain=system_app type=system_app_data_file   // user是 system seinfo默认是platform签名，则domain=system_app type=system_app_data_file 系统APP
-                                                          // (有android平台签名和system权限)
-user=bluetooth domain=bluetooth type=bluetooth_data_file  // bluetooth
-user=nfc domain=nfc type=nfc_data_file                    // nfc
-user=radio domain=radio type=radio_data_file              // radio
-user=shared_relro domain=shared_relro                     // shared_relro
-user=shell domain=shell type=shell_data_file              // shell
-user=_isolated domain=isolated_app                        // _isolated
-user=_app seinfo=platform domain=platform_app type=app_data_file  // 平台APP(有android平台签名，没有system权限)
-user=_app domain=untrusted_app type=app_data_file                 // 其他的都是第三方(untrusted_app)APP (没有Android平台签名，没有system权限)
-</code></pre><h5 id="APP安全策略"><a href="#APP安全策略" class="headerlink" title="APP安全策略"></a>APP安全策略</h5><p>  APP的SContext 确定了APP domain和type ，下面就是不同类型的app domain的安全策略te文件</p>
-<pre><code>app.te 应用给所有APP的安全策略（这里的所有APP指的是所有由zygote产生的进程），appdomain域——APP的基域
-
-system_server.te system_server的安全策略
-ctsrunner_app.te CTS APP 的安全策略
-system_app.te    系统 APP的安全策略
-bluetooth.te     bluetooth APP的安全策略
-nfc.te           nfc APP 的安全策略
-radio.te         radio APP的安全策略
-shared_relro.te  shared_relro APP的安全策略
-shell.te         通过shell 启动的APP的安全策略
-isolated_app.te  isolated APP的安全策略         AID_ISOLATED_START (99000) ---&gt; AID_ISOLATED_END (99999).
-platform_app.te  第三方平台 APP的安全策略
-untrusted_app.te 其他的都是第三方 APP的安全策略 APP_AID (10000) ---&gt; AID_ISOLATED_START (99000)
-</code></pre><h2 id="安全策略语法"><a href="#安全策略语法" class="headerlink" title="安全策略语法"></a>安全策略语法</h2><p>  上面都将各个实体的SContext 逐一罗列出来了，下面讲下*.te 文件语法    </p>
-<h5 id="关键字的关键字-（有点拗口，但确实是这样的）"><a href="#关键字的关键字-（有点拗口，但确实是这样的）" class="headerlink" title="关键字的关键字 （有点拗口，但确实是这样的）"></a>关键字的关键字 （有点拗口，但确实是这样的）</h5><p>  attribute       用于指定xxx_type和domain关键字的关键字<br>  type            用于指定domain域的关键字的关键字<br>  typeattribute   单独将某个type和某个或多个attribute关联起来   </p>
-<h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><pre><code>我们再来看看最常见的权限设置语句：
-allow netd sysfs:file write;
-1）allow：表示授权。除了allow之外，还有allowaudit、dontaudit、neverallow等；       这条语句的语法为：
-2）netd：sourcetype，也叫Domain，Subject。
-3）sysfs：targettype，它代表其后的file所对应的Type。
-4）file：objectclass，它代表能够给Domain操作的对象。例如file、dir、socket等，Android中SecurityClass的定义在security_classes中。在Android系统中，有一些特殊的Class，如property_service，binder等。
-5）write：在该类objectclass中所定义的操作，例如file类支持ioctl，read，write等操作。access_vectors中定义了所有objectclass支持的操作。
-
-根据SELinux规范，完整的allow语句格式为：
-rule_name source_type target_type:class perm_set;
-1）如果有多个source_type，target_type，class或perm_set，可以用&quot;{}&quot;括起来；       注意：使用allow语句的时候，可以使用下面的一些小技巧来简化命令书写；
-2）&quot;~&quot;号，表示除了&quot;~&quot;以外；
-3）&quot;-&quot;号，表示去除某项内容；
-4）&quot;*&quot;号，表示所有内容
-</code></pre><h3 id="高级语法"><a href="#高级语法" class="headerlink" title="高级语法"></a>高级语法</h3><p>  对于一般的*.te文件编写，基本的语法就差不多够了，下面是高级语法，说高级语法就是相当于一个批量生成sepolicy规则的的语法，让你少些点规则         </p>
-<h5 id="域转换-DomainTransition-简称DT"><a href="#域转换-DomainTransition-简称DT" class="headerlink" title="域转换(DomainTransition,简称DT)"></a>域转换(DomainTransition,简称DT)</h5><p>  SEAndroid中，init进程的SContext为u:r:init:s0（在init.rc中使用” setcon u:r:init:s0”命令设置），而init创建的子进程显然不会也不可能拥有和init进程一样的SContext<br>  （否则根据TE，这些子进程也就在MAC层面上有了和init进程一样的权限）。那么这些子进程是怎么被打上和父进程不一样的SContex呢？<br>  在SELinux中，上述问题被称为DomainTransition，即某个进程的Domain切换到一个更合适的Domain中去。DomainTransition也是在安全策略文件中配置的，而且有相关的关键字。</p>
-<pre><code>语法: type\_transition  source\_type  target\_type:class  default\_type
-表示source_type域的进程在对target_type类型的文件进行class定义的操作时，进程会切换到default_type域中   
-
-下面我们看个域转换的例子：
-type_transition init shell_exec:process init_shell
-这个例子表示：当init域的进程执行（process）shell_exec类型的可执行文件时，进程会从init域切换到init_shell域。
-
-那么，哪个文件是shell_exec类型呢？从file_contexts文件能看到，/system/bin/sh的安全属性是u:object_r:shell_exec:s0，
-也就是说init域的进程如果运行shell脚本的话，进程所在的域就会切换到init_shell域，这就是DomainTransition（简称DT）。
-
-请注意，DT也是SELinux安全策略的一部分，type_transition不过只是开了一个头而已，要真正实施成功这个DT，还至少需要下面三条权限设置语句：
-
-# 首先，你得让init域的进程要能够执行shell_exec类型的文件
-allow init shell_exec:file execute;
-# 然后，你需要告诉SELinux，允许init域的进程切换到init_shell域
-allow init init_shell:process transition;
-# 最后，你还得告诉SELinux，域切换的入口（entrypoint）是执行shell_exec类型的文件
-allow init_shell shell_exec:file entrypoint;
-
-看起来挺麻烦，不过SELinux支持宏定义，我们可以定义一个宏，把上面4个步骤全部包含进来。在SEAndroid中，所有的宏都定义在te_macros文件中，其中和DT相关的宏定义如下：
-# 定义domain_trans宏，$1,$2,$3代表宏的第一个，第二个…参数
-define(`domain_trans&apos;, `
-allow $1 $2:file { getattr open read execute };
-allow $1 $3:process transition;
-allow $3 $2:file { entrypoint open read execute getattr };
-… …
-&apos;)
-# 定义domain_auto_trans宏，这个宏才是我们在te中直接使用的
-define(`domain_auto_trans&apos;, `
-# Allow the necessary permissions.
-domain_trans($1,$2,$3)
-# Make the transition occur by default.
-type_transition $1 $2:process $3;
-&apos;)
-呵呵，是不是简单多了，domain_trnas宏在DT需要的最小权限的基础上还增加了一些权限，在te文件中可以直接用domain_auto_trans宏来显示声明域转换，如下：
-domain_auto_trans(init, shell_exec, init_shell)
-</code></pre><h5 id="类型转换-TypeTransition-简称TT"><a href="#类型转换-TypeTransition-简称TT" class="headerlink" title="类型转换(TypeTransition,简称TT)"></a>类型转换(TypeTransition,简称TT)</h5><p>  除了DT外，还有针对Type的Transition（简称TT）。举个例子，假设目录A的SContext为u:r:dir_a，那么默认情况下，<br>  在该目录下创建的文件的SContext就是u:r:dir_a，如果想让它的SContext发生变化，那么就需要TypeTransition。</p>
-<pre><code>和DT类似，TT的关键字也是type_transition，而且要顺利完成Transition，也需要申请相关权限，废话不多说了，
-直接看te_macros是怎么定义TT所需的宏：
-# 定义file_type_trans宏，为Type Transition申请相关权限
-define(`file_type_trans&apos;, `
-allow $1 $2:dir ra_dir_perms;
-allow $1 $3:notdevfile_class_set create_file_perms;
-allow $1 $3:dir create_dir_perms;
-&apos;)
-# 定义file_type_auto_trans(domain, dir_type, file_type)宏
-# 该宏的意思就是当domain域的进程在dir_type类型的目录创建文件时，该文件的SContext
-# 应该是file_type类型
-define(`file_type_auto_trans&apos;, `
-# Allow the necessary permissions.
-file_type_trans($1, $2, $3)
-# Make the transition occur by default.
-type_transition $1 $2:dir $3;
-type_transition $1 $2:notdevfile_class_set $3;
-&apos;)
-
-栗子： file_type_auto_trans(app_domain, system_data_file, xxx_type)
-</code></pre><h3 id="class集合-class"><a href="#class集合-class" class="headerlink" title="class集合 class"></a>class集合 class</h3><pre><code>// to do
-</code></pre><h3 id="权限集合-perm-set"><a href="#权限集合-perm-set" class="headerlink" title="权限集合 perm_set"></a>权限集合 perm_set</h3><pre><code>// to do
-</code></pre><h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="SELinux模式切换命令"><a href="#SELinux模式切换命令" class="headerlink" title="SELinux模式切换命令"></a>SELinux模式切换命令</h3><p>  SELinux支持Disabled，Permissive，Enforce三种模式<br>  Disabled就不用说了，此时SELinux的权限检查机制处于关闭状态；<br>  Permissive模式就是SELinux有效，但是即使你违反了它的安全策略，它让你继续运行，但是会把你违反的内容记录下来。在策略开发的时候非常有用，相当于Debug模式；<br>  Enforce模式就是你违反了安全策略的话，就无法继续操作下去。<br>  在Eng版本使用setenforce命令，可以在Permissive模式和Enforce模式之间切换。</p>
-<pre><code>usage:  setenforce [ Enforcing | Permissive | 1 | 0 ]
-</code></pre><h3 id="Z——查看SContext-信息的命令"><a href="#Z——查看SContext-信息的命令" class="headerlink" title="-Z——查看SContext 信息的命令"></a>-Z——查看SContext 信息的命令</h3><pre><code>ls -Z   // 文件目录的SContext
-ps -Z   // 进程的SContext
-</code></pre><h3 id="chcon命令——更改文件的安全属性"><a href="#chcon命令——更改文件的安全属性" class="headerlink" title="chcon命令——更改文件的安全属性"></a>chcon命令——更改文件的安全属性</h3><pre><code>usage:  chcon &lt;SContext&gt; &lt;path&gt;
-</code></pre><h3 id="restorecon命令——恢复文件原来的安全属性"><a href="#restorecon命令——恢复文件原来的安全属性" class="headerlink" title="restorecon命令——恢复文件原来的安全属性"></a>restorecon命令——恢复文件原来的安全属性</h3><p>  当文件的安全属性在安全策略配置文件里面有定义时，使用restorecon命令，可以恢复原来的安全属性</p>
-<pre><code>usage:  restorecon [-DFnrRv] &lt;path&gt;
-</code></pre><h3 id="id-命令——确认自己的SecurityContext"><a href="#id-命令——确认自己的SecurityContext" class="headerlink" title="id 命令——确认自己的SecurityContext"></a>id 命令——确认自己的SecurityContext</h3><pre><code>$ id
-uid=2000(shell) gid=2000(shell) groups=1007(log) context=u:r:shell:s0
-# id
-uid=0(root) gid=0(root) groups=1007(log) context=u:r:su:s0
-</code></pre><p>####参考：<br>  <a href="http://blog.csdn.net/modianwutong/article/details/43114883" target="_blank" rel="external">http://blog.csdn.net/modianwutong/article/details/43114883</a></p>
-<p>  <a href="http://blog.csdn.net/zhudaozhuan/article/details/50964832" target="_blank" rel="external">http://blog.csdn.net/zhudaozhuan/article/details/50964832</a></p>
-
+</code></pre>
+        
+          <p class="article-more-link">
+            <a href="/2016/10/12/Android SEpolicy策略规则/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -599,80 +491,12 @@ NewStringUTF      创建一个UTF-8格式的String对象
 NewString         创建一个Unicode格式的String对象
 GetStringUTFLengt 获取 UTF-8格式的char*的长度　
 GetStringLength   获取Unicode格式的char*的长度
-</code></pre><h1 id="JNI-实现"><a href="#JNI-实现" class="headerlink" title="JNI 实现"></a>JNI 实现</h1><p>如果需要在Java中使用到native接口的话，可以使用JNI这个方式来达到目的：</p>
-<h5 id="1-Java侧使用方法"><a href="#1-Java侧使用方法" class="headerlink" title="1. Java侧使用方法"></a>1. Java侧使用方法</h5><pre><code>public class AudioFlingerBinderTest extends TestCase {                                                                                                                                                        
-    private static native boolean native_test_setMasterMute();     //声明native函数，都是以native_开头                                                                                                                                                             
-    static {                                                                                                                                                        
-        System.loadLibrary(&quot;ctssecurity_jni&quot;);   //加载jni库，该函数会找到对应的动态库，然后首先试图找到 
-                                                 // &quot;JNI_OnLoad&quot;函数，如果该函数存在，则调用它。             
-    }                                                                                                                                                                  
-
-    //使用native_test_setMasterMute()                                                                                                          
-    .....                                                                                                                                                               
-}                                                                                                                                                
-</code></pre><h5 id="2-Java侧Android-mk编写"><a href="#2-Java侧Android-mk编写" class="headerlink" title="2. Java侧Android.mk编写"></a>2. Java侧Android.mk编写</h5><pre><code>Android.mk
-LOCAL_PATH:= $(call my-dir)
-
-include $(CLEAR_VARS)
-...
-LOCAL_JNI_SHARED_LIBRARIES := libctssecurity_jni libcts_jni
-...
-</code></pre><h5 id="3-JNI侧库ctssecurity-jni的Android-mk"><a href="#3-JNI侧库ctssecurity-jni的Android-mk" class="headerlink" title="3. JNI侧库ctssecurity_jni的Android.mk"></a>3. JNI侧库ctssecurity_jni的Android.mk</h5><pre><code>Android.mk------------------------------
-LOCAL_PATH:= $(call my-dir)
-
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := libctssecurity_jni
-LOCAL_MODULE_TAGS := optional
-LOCAL_SRC_FILES := \
-        CtsSecurityJniOnLoad.cpp \
-        android_security_cts_CharDeviceTest.cpp \
-                .....
-LOCAL_C_INCLUDES := $(JNI_H_INCLUDE)
-LOCAL_SHARED_LIBRARIES := libnativehelper liblog libbinder libutils libmedia libselinux libdl
-
-include $(BUILD_SHARED_LIBRARY)
-</code></pre><h5 id="4-JNI侧库ctssecurity-jni"><a href="#4-JNI侧库ctssecurity-jni" class="headerlink" title="4. JNI侧库ctssecurity_jni"></a>4. JNI侧库ctssecurity_jni</h5><h6 id="4-1-实现native函数"><a href="#4-1-实现native函数" class="headerlink" title="4.1 实现native函数"></a>4.1 实现native函数</h6><pre><code>jboolean android_security_cts_AudioFlinger_test_setMasterMute(JNIEnv* env __unused, jobject thiz __unused) {
-    //具体实现
-}
-</code></pre><p>or</p>
-<pre><code>jboolean android_security_cts_AudioFlinger_test_setMasterMute(JNIEnv* env, jclass clazz) {
-    //具体实现
-}
-</code></pre><h6 id="4-2-注册native函数"><a href="#4-2-注册native函数" class="headerlink" title="4.2 注册native函数"></a>4.2 注册native函数</h6><pre><code>static JNINativeMethod gMethods[] = {
-    { &quot;native_test_setMasterMute&quot;, &quot;()Z&quot;,
-            (void *) android_security_cts_AudioFlinger_test_setMasterMute },
-};
-
-
-int register_android_security_cts_AudioFlingerBinderTest(JNIEnv* env) {
-    jclass clazz = env-&gt;FindClass(&quot;android/security/cts/AudioFlingerBinderTest&quot;);
-    return env-&gt;RegisterNatives(clazz, gMethods, sizeof(gMethods) / sizeof(JNINativeMethod));
-}
-</code></pre><p>or</p>
-<pre><code>int register_android_security_cts_AudioFlingerBinderTest(JNIEnv* env) {
-    int res = jniRegisterNativeMethods(env, &quot;android/security/cts/AudioFlingerBinderTest&quot;,
-            gMethods, NELEM(gMethods));
-    LOG_FATAL_IF(res &lt; 0, &quot;Unable to register native methods.&quot;);
-    return res;
-}
-</code></pre><h6 id="4-3-jni库的主函数-加载入口："><a href="#4-3-jni库的主函数-加载入口：" class="headerlink" title="4.3 jni库的主函数/加载入口："></a>4.3 jni库的主函数/加载入口：</h6><pre><code>#include &lt;jni.h&gt;
-#include &lt;stdio.h&gt;
-#include “xxx.h”
-
-jint JNI_OnLoad(JavaVM *vm, void *reserved) {
-    JNIEnv *env = NULL;
-
-    if (vm-&gt;GetEnv((void **) &amp;env, JNI_VERSION_1_4) != JNI_OK) {
-        return JNI_ERR;
-    }
-    if (register_android_security_cts_AudioFlingerBinderTest(env)) {
-        return JNI_ERR;
-    }
-
-    return JNI_VERSION_1_4;
-}
 </code></pre>
+        
+          <p class="article-more-link">
+            <a href="/2016/10/08/Android JNI介绍及使用/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -721,108 +545,12 @@ jint JNI_OnLoad(JavaVM *vm, void *reserved) {
 
 C++风格
     static_cast、dynamic_cast、reinterpret_cast和const_cast 
-</code></pre><h3 id="static-cast-expression"><a href="#static-cast-expression" class="headerlink" title="static_cast (expression)"></a>static_cast<type-id> (expression)</type-id></h3><pre><code>该运算符把expression转换为type-id类型，但没有运行时类型检查来保证转换的安全性，如下几种用法：
-a. 用于类层次结构中基类和子类之间指针或引用的转换。
-    进行上行转换（把子类的指针或引用转换成基类表示）是安全的；
-    进行下行转换（把基类指针或引用转换成子类指针或引用）时，由于没有动态类型检查，所以是不安全的。
-b. 用于基本数据类型之间的转换，如把int转换成char，把int转换成enum。这种转换的安全性也要开发人员来保证。
-c. 把void指针转换成目标类型的指针(不安全!!)
-e. 把任何类型的表达式转换成void类型。
-
-注意：static_cast不能转换掉expression的const、volatile、或者__unaligned属性。
-
-来源：为什么需要static_cast强制转换？
-情况1：void指针-&gt;其他类型指针
-情况2：改变通常的标准转换
-情况3：避免出现可能多种转换的歧义
-</code></pre><h3 id="dynamic-cast-expression"><a href="#dynamic-cast-expression" class="headerlink" title="dynamic_cast (expression)"></a>dynamic_cast<type-id> (expression)</type-id></h3><pre><code>该运算符把expression转换成type-id类型的对象。Type-id必须是类的指针、类的引用或者void *；如果type-id是类指针类型，那么expression也必须是一个指针，如果type-id是一个引用，那么expression也必须是一个引用。
-dynamic_cast主要用于类层次间的上行转换和下行转换，还可以用于类之间的交叉转换。在类层次间进行上行转换时，dynamic_cast和static_cast的效果是一样的；在进行下行转换时，dynamic_cast具有类型检查的功能，比static_cast更安全。
-
-class Base{
-public:
-    int m_iNum;
-    virtual void foo();
-};
-class Derived:public Base{
-public:
-    char *m_szName[100];
-};
-void func(Base *pb){  //pb可能是Base or Derived
-    Derived *pd1 = static_cast&lt;Derived *&gt; (pb);
-    Derived *pd2 = dynamic_cast&lt;Derived *&gt; (pb);
-}
-
-在上面的代码段中，如果pb实际指向一个Derived类型的对象，pd1和pd2是一样的，并且对这两个指针执行Derived类型的任何操作都是安全的；
-如果pb实际指向的是一个Base类型的对象，那么pd1将是一个指向该对象的指针，对它进行Derived类型的操作将是不安全且非法的（如访问m_szName），而pd2将是一个空指针(即0，因为dynamic_cast失败)。
-另外要注意：
-dynamic_cast 转换时Base要有虚函数，否则会编译出错；static_cast则没有这个限制。这是由于运行时类型检查需要运行时类型信息，而这个信息存储在类的虚函数表（关于虚函数表的概念，详细可见&lt;Inside c++ object model&gt;）中，只有定义了虚函数的类才有虚函数表，没有定义虚函数的类是没有虚函数表的。
-
-dynamic_cast还支持交叉转换（cross cast）。如下代码所示。
-class Base {
-public:
-    int m_iNum;
-    virtual void f(){}
-};
-class Derived1 : public Base{
-};
-class Derived2 : public Base {
-};
-void foo() {
-    Derived1 *pd1 = new Drived1();
-    pd1-&gt;m_iNum = 100;
-    Derived2 *pd2 = static_cast&lt;Derived2 *&gt;(pd1);   //Compile error
-    Derived2 *pd2 = dynamic_cast&lt;Derived2 *&gt;(pd1);  //pd2 is NULL
-    delete pd1;
-}
-在函数foo中，使用static_cast进行转换是不被允许的，将在编译时出错；而使用 dynamic_cast的转换则是允许的，结果是空指针。
-
-来源：为什么需要dynamic_cast强制转换？
-简单的说，当无法使用virtual函数的时候
-</code></pre><h3 id="reinterpret-cast-expression"><a href="#reinterpret-cast-expression" class="headerlink" title="reinterpret_cast (expression)"></a>reinterpret_cast<type-id> (expression)</type-id></h3><pre><code>是C++中强制类型转换符，操作符修改了操作数类型，但仅仅是重新解释了给出的对象的比特模型而没有进行二进制转换。eg: void *p ===&gt; int p
-type-id必须是一个指针、引用、算术类型、函数指针或者成员指针。它可以把一个指针转换成一个整数，也可以把一个整数转换成一个指针（先把一个指针转换成一个整数，再把该整数转换成原类型的指针，还可以得到原先的指针值）。
-
-reinterpret_cast是为了映射到一个完全不同类型的意思，这个关键词在我们需要把类型映射回原有类型时用到它。
-</code></pre><h3 id="const-cast-expression"><a href="#const-cast-expression" class="headerlink" title="const_cast (expression)"></a>const_cast<type_id> (expression)</type_id></h3><pre><code>该运算符用来修改类型的const或volatile属性。除了const 或volatile修饰之外， type_id和expression的类型是一样的。
-常量指针被转化成非常量指针，并且仍然指向原来的对象；
-常量引用被转换成非常量引用，并且仍然指向原来的对象；
-常量对象被转换成非常量对象。
-Voiatile和const类试。举如下一例：
-class B{
-public:
-    int m_iNum;
-}
-void foo(){
-    const B b1;
-    b1.m_iNum = 100; //comile error
-    B b2 = const_cast&lt;B&gt;(b1);  // 去掉const 属性
-    b2. m_iNum = 200; //fine
-}
-上面的代码编译时会报错，因为b1是一个常量对象，不能对它进行改变；
-使用const_cast把它转换成一个非常量对象，就可以对它的数据成员任意改变。注意：b1和b2是两个不同的对象。
-</code></pre><h3 id="比较static-cast-Vs-reinterpret-cast"><a href="#比较static-cast-Vs-reinterpret-cast" class="headerlink" title="比较static_cast Vs. reinterpret_cast"></a>比较static_cast Vs. reinterpret_cast</h3><pre><code>reinterpret_cast是为了映射到一个完全不同类型的意思，这个关键词在我们需要把类型映射回原有类型时用到它。我们映射到的类型仅仅是为了故弄玄虚和其他目的，这是所有映射中最危险的。(这句话是C++编程思想中的原话)
-
-static_cast 和 reinterpret_cast 操作符修改了操作数类型。它们不是互逆的； static_cast 在编译时使用类型信息执行转换，在转换执行必要的检测(诸如指针越界计算, 类型检查). 其操作数相对是安全的。另一方面；reinterpret_cast 仅仅是重新解释了给出的对象的比特模型而没有进行二进制转换，例子如下：
-int n=9; double d=static_cast &lt; double &gt; (n);
-上面的例子中, 我们将一个变量从 int 转换到 double。这些类型的二进制表达式是不同的。 要将整数 9 转换到 双精度整数 9，static_cast 需要正确地为双精度整数 d 补足比特位。其结果为 9.0。而reinterpret_cast 的行为却不同:
-int n=9;
-double d=reinterpret_cast&lt;double &amp; &gt; (n);
-这次, 结果有所不同. 在进行计算以后, d 包含无用值. 这是因为 reinterpret_cast 仅仅是复制 n 的比特位到 d, 没有进行必要的分析.
-因此, 你需要谨慎使用 reinterpret_cast.
-
-
-C++primer第五章里写了编译器隐式执行任何类型转换都可由static_cast显示完成;reinterpret_cast通常为操作数的位模式提供较低层的重新解释
-1、C++中的static_cast执行非多态的转换，用于代替C中通常的转换操作。因此，被做为隐式类型转换使用。比如： 
-int i; 
-float f = 166.7f; 
-i = static_cast&lt;int&gt;(f); 
-此时结果，i的值为166。 
-2、C++中的reinterpret_cast主要是将数据从一种类型的转换为另一种类型。所谓“通常为操作数的位模式提供较低层的重新解释”也就是说将数据以二进制存在形式的重新解释。比如：
-int i; 
-char *p = &quot;This is a example.&quot;; 
-i = reinterpret_cast&lt;int&gt;(p); 
-此时结果，i与p的值是完全相同的。reinterpret_cast的作用是说将指针p的值以二进制（位模式）的方式被解释为整型，并赋给i，一个明显的现象是在转换前后没有数位损失。
-</code></pre><p>C++的类型转换明显比C里面的用()的类型转换要严谨很多。首先，C++样式的类型转换编写 的代码更容易维护，想想看，只要搜索“static_cast”，就可以找出代码中所有使用了静态转换的代码，比C里面五花八门的 (long) (long*) (double )好找多了吧。另外，reinterpret_cast，看字面意思就知道，是保持二进制位不变，用另一种格式来重新解释，我们也知道计算机里面只有 bit,到底代表什么类型，整形还是浮点型，全在于应用程序怎么解释每一个bit，reinterpret_cast给了我们这么一个机会。而C里面要想 二进制重解释，你要么拷贝内存，要么还是用()来强制类型转换，某些特定情况下，()强制转换其实是二进制的重解释，毫无疑问，C风格的转换会让代码变得 难懂。</p>
-
+</code></pre>
+        
+          <p class="article-more-link">
+            <a href="/2016/05/28/LangCPP_C++xxx_cast/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">

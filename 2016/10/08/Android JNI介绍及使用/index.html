@@ -20,7 +20,7 @@
 <meta property="og:description" content="JNI 介绍JNI是Java Native Interface的缩写，它提供了若干的API实现了Java和其他语言的通信（主要是C&amp;amp;C++）。 JNI 类型 jni中结构体层次结构  下面是访问String的一些方法： GetStringUTFChars 将jstring转换成为UTF-8格式的char*    /  ReleaseStringUTFChars  释放指向UTF-8格式的c">
 <meta property="og:image" content="http://i.imgur.com/EoSp6Hu.png">
 <meta property="og:image" content="http://i.imgur.com/GPDJQPc.png">
-<meta property="og:updated_time" content="2017-04-17T11:26:12.622Z">
+<meta property="og:updated_time" content="2017-04-27T03:23:38.701Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android JNI介绍及使用">
 <meta name="twitter:description" content="JNI 介绍JNI是Java Native Interface的缩写，它提供了若干的API实现了Java和其他语言的通信（主要是C&amp;amp;C++）。 JNI 类型 jni中结构体层次结构  下面是访问String的一些方法： GetStringUTFChars 将jstring转换成为UTF-8格式的char*    /  ReleaseStringUTFChars  释放指向UTF-8格式的c">
@@ -188,7 +188,8 @@ NewStringUTF      创建一个UTF-8格式的String对象
 NewString         创建一个Unicode格式的String对象
 GetStringUTFLengt 获取 UTF-8格式的char*的长度　
 GetStringLength   获取Unicode格式的char*的长度
-</code></pre><h1 id="JNI-实现"><a href="#JNI-实现" class="headerlink" title="JNI 实现"></a>JNI 实现</h1><p>如果需要在Java中使用到native接口的话，可以使用JNI这个方式来达到目的：</p>
+</code></pre><a id="more"></a>
+<h1 id="JNI-实现"><a href="#JNI-实现" class="headerlink" title="JNI 实现"></a>JNI 实现</h1><p>如果需要在Java中使用到native接口的话，可以使用JNI这个方式来达到目的：</p>
 <h5 id="1-Java侧使用方法"><a href="#1-Java侧使用方法" class="headerlink" title="1. Java侧使用方法"></a>1. Java侧使用方法</h5><pre><code>public class AudioFlingerBinderTest extends TestCase {                                                                                                                                                        
     private static native boolean native_test_setMasterMute();     //声明native函数，都是以native_开头                                                                                                                                                             
     static {                                                                                                                                                        
