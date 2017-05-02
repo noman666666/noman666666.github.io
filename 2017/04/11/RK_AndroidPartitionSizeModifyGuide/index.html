@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>rk平台android分区大小修改说明 | 进无止境&#39;s 博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="分区RK" />
+  
+  
+  
+  
+  <meta name="description" content="不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中">
+<meta name="keywords" content="分区,RK">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RK平台Android分区大小修改说明">
+<meta property="og:url" content="jingg.me/2017/04/11/RK_AndroidPartitionSizeModifyGuide/index.html">
+<meta property="og:site_name" content="进无止境's 博客">
+<meta property="og:description" content="不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中">
+<meta property="og:updated_time" content="2017-04-27T03:19:19.910Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RK平台Android分区大小修改说明">
+<meta name="twitter:description" content="不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中">
+  
+    <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-RK_AndroidPartitionSizeModifyGuide" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2017/04/11/RK_AndroidPartitionSizeModifyGuide/" class="article-date">
+	  <time datetime="2017-04-11T01:01:57.000Z" itemprop="datePublished">2017-04-11</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      RK平台Android分区大小修改说明
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中</p>
+<a id="more"></a>
+<h6 id="如下是板子的parameter文件"><a href="#如下是板子的parameter文件" class="headerlink" title="如下是板子的parameter文件:"></a>如下是板子的parameter文件:</h6><pre><code>FIRMWARE_VER: 5.1.0
+MACHINE_MODEL: Geekbox
+MACHINE_ID: 007
+MANUFACTURER: RK3368
+MAGIC: 0x5041524B
+ATAG: 0x00200800
+MACHINE: 3368
+CHECK_MASK: 0x80
+PWR_HLD: 0,0,A,0,1
+#KERNEL_IMG: 0x00280000
+#FDT_NAME: rk-kernel.dtb
+#RECOVER_KEY: 1,1,0,20,0
+#in section; per section 512(0x200) bytes
+CMDLINE: console=ttyS2 androidboot.baseband=N/A androidboot.selinux=permissive androidboot.hardware=rk30board androidboot.console=ttyS2 init=/init mtdparts=rk29xxnand:0x00002000@0x00002000(uboot),0x00002000@0x00004000(trust),0x00002000@0x00006000(misc),0x00008000@0x00008000(resource),0x00008000@0x00010000(kernel),0x00010000@0x00018000(boot),0x00010000@0x00028000(recovery),0x00038000@0x00038000(backup),0x00040000@0x00070000(cache),0x00002000@0x000B0000(kpanic),0x00200000@0x000B2000(system),0x00008000@0x002B2000(metadata),0x00002000@0x002BA000(baseparamer),0x00400000@0x002BC000(userdata),0x00020000@0x006BC000(radical_update),-@0x006DC000(user)
+</code></pre><p>分区信息在mtdparts=rk29xxnand:字段后面部分，所以我们修改这部分内容就可以了</p>
+<h6 id="这部分信息格式介绍-如："><a href="#这部分信息格式介绍-如：" class="headerlink" title="这部分信息格式介绍 如："></a>这部分信息格式介绍 如：</h6><pre><code>0x00002000@0x00002000(uboot)  分区大小计算为=0x00002000*512Bytes = 4MBytes
+↑分区的sector数，每个sector=512Bytes
+           ↑分区起始地址
+                      ↑分区名
+
+0x00200000@0x002BC000(userdata)  分区大小0x00200000*512Bytes = 1073741824 Bytes
+
+注: sector 512Bytes 逻辑单位???
+    page: FLASH操作的基本单位。  最小读/写单元 page， 1page = 4096Bytes = 4KB；
+    block:最小擦除单元 block，1block = (32 * page) = (32 * 4KB) = 131072Bytes = 128KB；     
+</code></pre><p>上述mtdparts=rk29xxnand:字段中所有分区都是连续的，当前分区起始地址+当前分区size和下个分区起始地址都是连续的，所以当修改了其中某个分区后，在它后面的分区的地址都要顺序往前或往后。</p>
+<h6 id="以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子："><a href="#以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子：" class="headerlink" title="以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子："></a>以下是我将userdata分区缩小为1GB，将user分区扩大1GB的例子：</h6><pre><code>修改前:                            size             offset
+0x00002000@0x00000000(parameter)//4MB               4MB
+0x00002000@0x00002000(uboot),   //4MB               8MB
+0x00002000@0x00004000(trust),   //4MB               12MB
+0x00002000@0x00006000(misc),    //4MB               16MB
+0x00008000@0x00008000(resource),//16MB              32MB
+0x00008000@0x00010000(kernel),  //16MB              48
+0x00010000@0x00018000(boot),    //32MB              80
+0x00010000@0x00028000(recovery),//32MB              112
+0x00038000@0x00038000(backup),  //112MB             224
+0x00040000@0x00070000(cache),   //128MB             352
+0x00002000@0x000B0000(kpanic),  //4MB               356
+0x00200000@0x000B2000(system),  //1024MB            1380
+0x00008000@0x002B2000(metadata),//16MB              1396
+0x00002000@0x002BA000(baseparamer), //4MB           1400MB
+0x00400000@0x002BC000(userdata),    //2048MB        3448
+0x00020000@0x006BC000(radical_update), //64MB       3512
+         -@0x006DC000(user)            //212MB/11394MB  ...        
+
+修改后:
+0x00002000@0x00002000(uboot),   //4MB               8MB
+0x00002000@0x00004000(trust),   //4MB               12MB
+0x00002000@0x00006000(misc),    //4MB               16MB
+0x00008000@0x00008000(resource),//16MB              32MB
+0x00008000@0x00010000(kernel),  //16MB              48
+0x00010000@0x00018000(boot),    //32MB              80
+0x00010000@0x00028000(recovery),//32MB              112
+0x00038000@0x00038000(backup),  //112MB             224
+0x00040000@0x00070000(cache),   //128MB             352
+0x00002000@0x000B0000(kpanic),  //4MB               356
+0x00200000@0x000B2000(system),  //1024MB            1380
+0x00008000@0x002B2000(metadata),//16MB              1396
+0x00002000@0x002BA000(baseparamer), //4MB           1400MB
+0x00200000@0x002BC000(userdata),    //1024MB        2424MB
+0x00020000@0x004BC000(radical_update), //64MB       2488MB
+         -@0x004DC000(user)            //1024+212MB = 1236MB   
+</code></pre><h5 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h5><pre><code>1.分区的大小要以4MB对齐！  
+2.分区总大小不能超过flash的总长度
+</code></pre><h5 id="修改parameter后效果："><a href="#修改parameter后效果：" class="headerlink" title="修改parameter后效果："></a>修改parameter后效果：</h5><pre><code>shell@rk3368_32:/ # df
+Filesystem               Size     Used     Free   Blksize
+/dev                   495.2M    36.0K   495.2M   4096
+/sys/fs/cgroup         495.2M    12.0K   495.2M   4096
+/mnt/asec              495.2M     0.0K   495.2M   4096
+/mnt/obb               495.2M     0.0K   495.2M   4096
+/system               1004.2M   403.0M   601.2M   4096
+/cache                 122.0M   140.0K   121.8M   4096
+/metadata               11.7M    40.0K    11.7M   4096
+/data                  991.9M    87.5M   904.4M   4096
+/mnt/shell/emulated    991.9M    87.5M   904.4M   4096
+/mnt/internal_sd         1.2G   136.0K     1.2G   8192
+/mnt/secure/asec         1.2G   136.0K     1.2G   8192
+</code></pre><h3 id="一般Android平台分区修改"><a href="#一般Android平台分区修改" class="headerlink" title="一般Android平台分区修改"></a>一般Android平台分区修改</h3><pre><code>eMMC 分区信息
+# cat /proc/partitions                                       
+major      minor  #blocks  name
+ 254        0     520912   zram0
+ 179        0   15267840   mmcblk0
+ 179        1       4096   mmcblk0p1
+ 179        2       4096   mmcblk0p2
+ 179        3       4096   mmcblk0p3
+ 179        4      16384   mmcblk0p4
+ 179        5      16384   mmcblk0p5
+ 179        6      32768   mmcblk0p6
+ 179        7      32768   mmcblk0p7
+ 179        8     114688   mmcblk0p8
+ 179        9     131072   mmcblk0p9
+ 179       10       4096   mmcblk0p10
+ 179       11    1048576   mmcblk0p11
+ 179       12      16384   mmcblk0p12
+ 179       13       4096   mmcblk0p13
+ 179       14    2097152   mmcblk0p14
+ 179       15      65536   mmcblk0p15
+ 179       16   11667456   mmcblk0p16
+mmcblk0即emmc的容量（单位kb）
+
+#ls /dev/block/platform/ff0f0000.rksdmmc/by-name/* -l 
+lrwxrwxrwx root     root    2013-01-21 08:50 uboot            -&gt; /dev/block/mmcblk0p1
+lrwxrwxrwx root     root    2013-01-21 08:50 trust            -&gt; /dev/block/mmcblk0p2
+lrwxrwxrwx root     root    2013-01-21 08:50 misc             -&gt; /dev/block/mmcblk0p3
+lrwxrwxrwx root     root    2013-01-21 08:50 resource         -&gt; /dev/block/mmcblk0p4
+lrwxrwxrwx root     root    2013-01-21 08:50 kernel           -&gt; /dev/block/mmcblk0p5
+lrwxrwxrwx root     root    2013-01-21 08:50 boot             -&gt; /dev/block/mmcblk0p6
+lrwxrwxrwx root     root    2013-01-21 08:50 recovery         -&gt; /dev/block/mmcblk0p7
+lrwxrwxrwx root     root    2013-01-21 08:50 backup           -&gt; /dev/block/mmcblk0p8
+lrwxrwxrwx root     root    2013-01-21 08:50 cache            -&gt; /dev/block/mmcblk0p9
+lrwxrwxrwx root     root    2013-01-21 08:50 kpanic           -&gt; /dev/block/mmcblk0p10
+lrwxrwxrwx root     root    2013-01-21 08:50 system           -&gt; /dev/block/mmcblk0p11
+lrwxrwxrwx root     root    2013-01-21 08:50 metadata         -&gt; /dev/block/mmcblk0p12
+lrwxrwxrwx root     root    2013-01-21 08:50 baseparamer      -&gt; /dev/block/mmcblk0p13
+lrwxrwxrwx root     root    2013-01-21 08:50 userdata         -&gt; /dev/block/mmcblk0p14
+lrwxrwxrwx root     root    2013-01-21 08:50 radical_update   -&gt; /dev/block/mmcblk0p15
+lrwxrwxrwx root     root    2013-01-21 08:50 user             -&gt; /dev/block/mmcblk0p16
+
+
+即userdata 分区 大小为2097152*1024KB = 2147483648B
+
+BoardConfig.mk 中修改指定变量即可：
+BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16793600
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2147483648
+BOARD_OEMIMAGE_PARTITION_SIZE := 67108864
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 25253773312 ---&gt; 2147483648B
+BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_FLASH_BLOCK_SIZE := 131072
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2017/04/11/RK_AndroidPartitionSizeModifyGuide/" data-id="cj270vhq6001gzvwm81y0jvj6" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RK/">RK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分区/">分区</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/07/Other_HexoSetUp/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Hexo入手
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/11/Android_Build_Img/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Android编译系统——ramdisk.img system.img userdata.img recovery.img目标编译过程</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+<div id="SOHUCS" sid="RK平台Android分区大小修改说明"></div>
+<script>
+  (function(){
+    var appid = 'cysWY506v',
+    conf = 'prod_b3fbdae0e52a1e5b116b4b9fe328664b';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>    
+</section>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2012 - 2017 进无止境&#39;s 博客 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				<span id="busuanzi_container_site_uv"> 访客数 : <span id="busuanzi_value_site_uv"></span></span> |  
+				<span id="busuanzi_container_site_pv"> 访问量 : <span id="busuanzi_value_site_pv"></span></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            进无止境&#39;s 博客
+          </div>
+          <div class="panel-body">
+            Copyright © 2017 Jim All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+</body>
+</html>

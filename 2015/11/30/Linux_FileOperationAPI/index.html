@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>linux 文件操作api | 进无止境&#39;s 博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="openioctl" />
+  
+  
+  
+  
+  <meta name="description" content="open#include &amp;lt;sys/types.h&amp;gt; #include &amp;lt;sys/stat.h&amp;gt; #include &amp;lt;fcntl.h&amp;gt;  int open(const char *pathname, int flags); //打开一个现有的文件 int open(const char *pathname, int flags, mode_t mode);  /">
+<meta name="keywords" content="open,ioctl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 文件操作API">
+<meta property="og:url" content="jingg.me/2015/11/30/Linux_FileOperationAPI/index.html">
+<meta property="og:site_name" content="进无止境's 博客">
+<meta property="og:description" content="open#include &amp;lt;sys/types.h&amp;gt; #include &amp;lt;sys/stat.h&amp;gt; #include &amp;lt;fcntl.h&amp;gt;  int open(const char *pathname, int flags); //打开一个现有的文件 int open(const char *pathname, int flags, mode_t mode);  /">
+<meta property="og:updated_time" content="2017-04-28T11:02:10.812Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux 文件操作API">
+<meta name="twitter:description" content="open#include &amp;lt;sys/types.h&amp;gt; #include &amp;lt;sys/stat.h&amp;gt; #include &amp;lt;fcntl.h&amp;gt;  int open(const char *pathname, int flags); //打开一个现有的文件 int open(const char *pathname, int flags, mode_t mode);  /">
+  
+    <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Linux_FileOperationAPI" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2015/11/30/Linux_FileOperationAPI/" class="article-date">
+	  <time datetime="2015-11-29T16:00:00.000Z" itemprop="datePublished">2015-11-30</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Linux 文件操作API
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="open"><a href="#open" class="headerlink" title="open"></a>open</h1><pre><code>#include &lt;sys/types.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;fcntl.h&gt;
+
+int open(const char *pathname, int flags); //打开一个现有的文件
+int open(const char *pathname, int flags, mode_t mode);  //打开文件不存在，则先创建
+
+【flags】:----------
+O_RDONLY, O_WRONLY, or O_RDWR.  这三个之一必备
+O_APPEND:  The file is opened in append mode.
+O_ASYNC:   This feature is available only for terminals, pseudoterminals, sockets, pipes and FIFOs 
+O_CLOEXEC: Enable the close-on-exec flag for the new file descriptor.
+    了解这个选项需要明白fork后跟随exec和fork后不跟随exec的区别
+    fork之后若跟随执行exec后，该进程执行的程序完全替换为新程序，而新程序则从其main函数开始执行。因为调用exec并不创建新进程，所以先后的进程ID并未改变。exec只是用一个全新的程序替换了当前进程的正文、数据、堆和栈段。
+    也就是说之前的打开的文件描述符fd会被清理掉，导致打开的文件句柄无法释放，所以有了这个选项，在当前进程执行exec族函数时，会先做一个清理工作，close掉当前进程的文件描述符，再载入要执行的程序到当前进程环境。
+
+O_CREAT:-
+    【mode】: （如果是新建文件，就设置初始访问权限）
+        S_IRWXU  00700 user (file owner) has read, write and execute permission
+        S_IRUSR  00400 user has read permission
+        S_IWUSR  00200 user has write permission
+        S_IXUSR  00100 user has execute permission
+        S_IRWXG  00070 group has read, write and execute permission
+        S_IRGRP  00040 group has read permission
+        S_IWGRP  00020 group has write permission
+        S_IXGRP  00010 group has execute permission
+        S_IRWXO  00007 others have read, write and execute permission
+        S_IROTH  00004 others have read permission
+        S_IWOTH  00002 others have write permission
+        S_IXOTH  00001 others have execute permission
+        多个模式可位或 bitwise-or
+
+O_DIRECT:    Try to minimize cache effects of the I/O to and from this file.
+O_DIRECTORY: If  pathname is not a directory, cause the open to fail.
+O_EXCL:      如果同时指定了O_CREAT，而文件已经存在，则导致调用出错
+O_LARGEFILE: 
+O_NOATIME:   
+O_NOCTTY: 如果pathname指的是终端设备(tty)，则不将此设备分配作为此进程的控制终端
+O_NOFOLLOW
+O_NONBLOCK : When possible, the file is opened in nonblocking mode.
+O_PATH: 
+O_SYNC: The file is opened for synchronous I/O. Any write(2)s on the resulting file descriptor will block  
+        the calling process until the data has been physically written to the underlying hardware.
+        只在数据被写入外存或者其他设备之后操作才返回
+O_TRUNC: If  the  file already exists and is a regular file and the open mode allows writing
+         (i.e., is O_RDWR or O_WRONLY) it will be truncated to length 0.
+        如果文件存在，而且为读写或只写方式打开，则将其长度截断为0
+</code></pre><h1 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h1><pre><code>ls -l
+drwxr-xr-x. 2 anxier anxier 4096 1月 15 00:29 desktop
+第一栏的信息包含10字符。第1个字符，表示文件的类型；第2～4位，代表文件所有者（User）的权限，分别为读、写、执行；第5～7位，代表文件所有者的同组用户（Group）的权限，分别是读、写、执行；第8～10位，代表其他用户（Other）的权限，分别为读、写、执行。
+</code></pre><table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-/l/c/s/d/b/p</td>
+<td>r/-</td>
+<td>w/-</td>
+<td>x/-</td>
+<td>r/-</td>
+<td>w/-</td>
+<td>x/-</td>
+<td>r/-</td>
+<td>w/-</td>
+<td>x/-</td>
+</tr>
+</tbody>
+</table>
+<pre><code>- 普通文件
+d 目录文件      文本文件和二进制文件。
+l 链接文件
+b 块设备文件
+c 字符设备文件
+p 管道文件      用于在进程间传递数据
+s 套接口文件
+</code></pre><h1 id="ioctl"><a href="#ioctl" class="headerlink" title="ioctl"></a>ioctl</h1><pre><code>#include &lt;sys/ioctl.h&gt;
+
+int ioctl(int d, int request, ...);
+
+request: ----
+    TIOCSETD int *ldisc change the line discipline:
+    TTYDISC termios interactive line discipline
+    TABLDISC tablet line discipline
+    SLIPDISC serial IP line discipline
+    PPPDISC PPP line discipline
+    TIOCGETD int *ldisc return the current line discipline
+    TIOCSBRK set the terminal into BREAK condition
+    TIOCCBRK clear the terminal BREAK condition
+    TIOCSDTR assert data terminal ready
+    TIOCCDTR clear data terminal ready
+    TIOCGPGRP int *tpgrp return the terminal&apos;s process group
+    TIOCSPGRP int *tpgrp associate the terminal&apos;s process group
+    TIOCGETA struct termios *term get the terminal&apos;s termios attributes
+    TIOCSETA struct termios *term set the terminal&apos;s termios attributes
+    TIOCSETAW struct termios *term set the termios attrs after any output completes
+    TIOCSETAF struct termios *term after any output completes, clear input and set termios attrs
+    TIOCOUTQ int *num current number of characters in the output queue
+    TIOCSTI char *cp manually send a character to the terminal
+    TIOCSTOP stop output (like typing ^S)
+    TIOCSTART start output (like typing ^Q)
+    TIOCSCTTY make this the controlling terminal for the process
+    TIOCDRAIN wait until all output is drained
+    TIOCEXCL set exclusive use on the terminal
+    TIOCNXCL clear exclusive use of the terminal
+    TIOCFLUSH int *what clear input/output if `what&apos; has FREAD/FWRITE set
+    TIOCGWINSZ struct winsize *ws get the winsize information
+    TIOCSWINSZ struct winsize *ws set the winsize information
+    TIOCCONS int *on redirect kernel console messages
+    TIOCMSET int *state set the modem state bit flags according to the following:
+    TIOCM_LE Line Enable
+    TIOCM_DTR Data Terminal Ready
+    TIOCM_RTS Request To Send
+    TIOCM_ST Secondary Transmit
+    TIOCM_SR Secondary Receive
+    TIOCM_CTS Clear To Send
+    TIOCM_CAR Carrier Detect
+    TIOCM_CD Carrier Detect (synonym)
+    TIOCM_RNG Ring Indication
+    TIOCM_RI Ring Indication (synonym)
+    TIOCM_DSR Data Set Ready
+    TIOCMGET int *state get the modem state bit flags
+    TIOCMBIS int *state add modem state bit flags, OR-ing in the new states
+    TIOCMBIC int *state clear modem state bit flags
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2015/11/30/Linux_FileOperationAPI/" data-id="cj270vhpu000szvwmrj5j0tn4" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ioctl/">ioctl</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/open/">open</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/11/30/Android_SourceCodePathGuide/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Android 源码目录解析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/30/Android_NDKPorting_Za/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Android NDK移植杂项</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+<div id="SOHUCS" sid="Linux 文件操作API"></div>
+<script>
+  (function(){
+    var appid = 'cysWY506v',
+    conf = 'prod_b3fbdae0e52a1e5b116b4b9fe328664b';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>    
+</section>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2012 - 2017 进无止境&#39;s 博客 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				<span id="busuanzi_container_site_uv"> 访客数 : <span id="busuanzi_value_site_uv"></span></span> |  
+				<span id="busuanzi_container_site_pv"> 访问量 : <span id="busuanzi_value_site_pv"></span></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            进无止境&#39;s 博客
+          </div>
+          <div class="panel-body">
+            Copyright © 2017 Jim All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+</body>
+</html>
