@@ -165,6 +165,60 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Android_Binder" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2017/05/27/Android_Binder/" class="article-date">
+	  <time datetime="2017-05-27T02:37:33.000Z" itemprop="datePublished">2017-05-27</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/05/27/Android_Binder/">Android Binder</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Binder-通信机制概述"><a href="#Binder-通信机制概述" class="headerlink" title="Binder 通信机制概述"></a>Binder 通信机制概述</h1><p>Binder通信是一种类似于IPC 的机制，基于C/S通信结构，它是给servicemanager及servicemanager管理的server及client之间通信的工具，下面简单介绍具体实现原理：</p>
+<ol>
+<li>从表面上来看，是client通过获得一个server的代理接口，对server进行直接调用；<br>实际上，代理接口中定义的方法与server中定义的方法是一一对应的。</li>
+<li>client调用某个代理接口中的方法时，代理接口的方法会将client传递的参数打包成为Parcel对象；<br>代理接口将该Parcel发送给内核中的binder driver。<br>server会读取binder driver中的请求数据，如果是发送给自己的，解包Parcel对象，处理并将结果返回；</li>
+<li>整个的调用过程是一个同步过程，在server处理的时候，client会block住。</li>
+</ol>
+<p><img src="http://i.imgur.com/du2Bpo5.png" alt=""></p>
+        
+          <p class="article-more-link">
+            <a href="/2017/05/27/Android_Binder/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2017/05/27/Android_Binder/" data-id="cj270vhpy0010zvwmtg1gztcg" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binder/">Binder</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IPC/">IPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RPC/">RPC</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Linux_inotify" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -400,125 +454,6 @@ Cx20sV1ClOTZtAGngSOJtIOFXK599sBr5aIEFyH0K7H4BoNMiiDMnxt1rD8Vb/ikJdhGMMQr
 
 
   
-    <article id="post-Android_APK_tool" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2017/04/12/Android_APK_tool/" class="article-date">
-	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/12/Android_APK_tool/">APK 反编译及签名工具</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="反编译-解包-再编译"><a href="#反编译-解包-再编译" class="headerlink" title="反编译/解包/再编译"></a>反编译/解包/再编译</h1><h3 id="1-Apktool——APK反编译及再打包工具"><a href="#1-Apktool——APK反编译及再打包工具" class="headerlink" title="1. Apktool——APK反编译及再打包工具"></a>1. Apktool——APK反编译及再打包工具</h3><p>通过反编译APK中XML文件，直接可以查看<br><a href="https://ibotpeaches.github.io/Apktool/">https://ibotpeaches.github.io/Apktool/</a></p>
-<p>下载安装Apktool （Windows/Linux/Mac）<br><a href="https://ibotpeaches.github.io/Apktool/install/">https://ibotpeaches.github.io/Apktool/install/</a></p>
-<p>Apktool 通常用法<br>反编译APK     <code>apktool d[ecode] test.apk</code><br>再打包成APK   <code>apktool b[uild] test</code></p>
-<h3 id="2-dex2jar"><a href="#2-dex2jar" class="headerlink" title="2. dex2jar"></a>2. dex2jar</h3><p>将apk中的classes.dex转化成Jar文件<br><a href="https://github.com/pxb1988/dex2jar">https://github.com/pxb1988/dex2jar</a></p>
-<h3 id="3-JD-GUI"><a href="#3-JD-GUI" class="headerlink" title="3. JD-GUI"></a>3. JD-GUI</h3><p>反编译工具，可以直接查看Jar包的源代码<br><a href="https://code.google.com/archive/p/innlab/downloads">https://code.google.com/archive/p/innlab/downloads</a><br><a href="https://pan.baidu.com/disk/home#list/vmode=list&amp;path=%2Fapps%2FAPK-Track%E5%B7%A5%E5%85%B7">https://pan.baidu.com/disk/home#list/vmode=list&amp;path=%2Fapps%2FAPK-Track%E5%B7%A5%E5%85%B7</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2017/04/12/Android_APK_tool/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2017/04/12/Android_APK_tool/" data-id="cj1ypru6l0005mxwmv29qyxpg" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APK反编译，APK签名/">APK反编译，APK签名</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-InputSystem002_LinuxInputSubSystem" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2017/04/12/InputSystem002_LinuxInputSubSystem/" class="article-date">
-	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/12/InputSystem002_LinuxInputSubSystem/">Input系统——Linux 输入子系统</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>待整理完善。。。</p>
-<h3 id="1-struct-input-dev"><a href="#1-struct-input-dev" class="headerlink" title="1. struct input_dev"></a>1. struct input_dev</h3><pre><code>struct input_dev {
-    const char *name; //名字 
-    const char *phys;
-    const char *uniq;
-    struct input_id id;
-
-    unsigned long propbit[BITS_TO_LONGS(INPUT_PROP_CNT)];
-
-    unsigned long evbit[BITS_TO_LONGS(EV_CNT)];    // 设备所支持的事件类型
-
-    unsigned long keybit[BITS_TO_LONGS(KEY_CNT)];  // 按键类型 
-    unsigned long relbit[BITS_TO_LONGS(REL_CNT)];  // 相对值类型
-    unsigned long absbit[BITS_TO_LONGS(ABS_CNT)];  // 绝对值类型
-    unsigned long mscbit[BITS_TO_LONGS(MSC_CNT)];  // 混合类型
-    unsigned long ledbit[BITS_TO_LONGS(LED_CNT)];  // LED类型
-    unsigned long sndbit[BITS_TO_LONGS(SND_CNT)];  // 声音类型
-    unsigned long ffbit[BITS_TO_LONGS(FF_CNT)];    // 力反馈
-    unsigned long swbit[BITS_TO_LONGS(SW_CNT)];    // 开关类型???
-</code></pre>
-        
-          <p class="article-more-link">
-            <a href="/2017/04/12/InputSystem002_LinuxInputSubSystem/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2017/04/12/InputSystem002_LinuxInputSubSystem/" data-id="cj1ypru750010mxwmfiik6g4m" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event/">event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input/">input</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input系统/">input系统</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
     <article id="post-InputSystem003_AndroidInputSystem" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -545,7 +480,7 @@ Cx20sV1ClOTZtAGngSOJtIOFXK599sBr5aIEFyH0K7H4BoNMiiDMnxt1rD8Vb/ikJdhGMMQr
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Input系统结构解析"><a href="#Input系统结构解析" class="headerlink" title="Input系统结构解析"></a>Input系统结构解析</h1><p>AndroidInput系统——JNI NativeInputManager InputManger InputReader<br><a href="https://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/edit">https://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/edit</a><br><img src="https://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/pub?w=998&amp;h=918" alt="AndroidInput系统——JNI NativeInputManager InputManger InputReader"></p>
+        <h1 id="Input系统结构解析"><a href="#Input系统结构解析" class="headerlink" title="Input系统结构解析"></a>Input系统结构解析</h1><p>AndroidInput系统——JNI NativeInputManager InputManger InputReader<br><img src="https://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/pub?w=998&amp;h=918" alt=""></p>
         
           <p class="article-more-link">
             <a href="/2017/04/12/InputSystem003_AndroidInputSystem/#more">Read More</a>
@@ -721,6 +656,58 @@ EV_KEY:  - 用来描述键盘，按键或者类似键盘设备的状态变化。
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-mk/">Android.mk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Makefile/">Makefile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/build/">build</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Android_APK_tool" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2017/04/12/Android_APK_tool/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/12/Android_APK_tool/">APK 反编译及签名工具</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="反编译-解包-再编译"><a href="#反编译-解包-再编译" class="headerlink" title="反编译/解包/再编译"></a>反编译/解包/再编译</h1><h3 id="1-Apktool——APK反编译及再打包工具"><a href="#1-Apktool——APK反编译及再打包工具" class="headerlink" title="1. Apktool——APK反编译及再打包工具"></a>1. Apktool——APK反编译及再打包工具</h3><p>通过反编译APK中XML文件，直接可以查看<br><a href="https://ibotpeaches.github.io/Apktool/">https://ibotpeaches.github.io/Apktool/</a></p>
+<p>下载安装Apktool （Windows/Linux/Mac）<br><a href="https://ibotpeaches.github.io/Apktool/install/">https://ibotpeaches.github.io/Apktool/install/</a></p>
+<p>Apktool 通常用法<br>反编译APK     <code>apktool d[ecode] test.apk</code><br>再打包成APK   <code>apktool b[uild] test</code></p>
+<h3 id="2-dex2jar"><a href="#2-dex2jar" class="headerlink" title="2. dex2jar"></a>2. dex2jar</h3><p>将apk中的classes.dex转化成Jar文件<br><a href="https://github.com/pxb1988/dex2jar">https://github.com/pxb1988/dex2jar</a></p>
+<h3 id="3-JD-GUI"><a href="#3-JD-GUI" class="headerlink" title="3. JD-GUI"></a>3. JD-GUI</h3><p>反编译工具，可以直接查看Jar包的源代码<br><a href="https://code.google.com/archive/p/innlab/downloads">https://code.google.com/archive/p/innlab/downloads</a><br><a href="https://pan.baidu.com/disk/home#list/vmode=list&amp;path=%2Fapps%2FAPK-Track%E5%B7%A5%E5%85%B7">https://pan.baidu.com/disk/home#list/vmode=list&amp;path=%2Fapps%2FAPK-Track%E5%B7%A5%E5%85%B7</a></p>
+        
+          <p class="article-more-link">
+            <a href="/2017/04/12/Android_APK_tool/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2017/04/12/Android_APK_tool/" data-id="cj1ypru6l0005mxwmv29qyxpg" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APK反编译，APK签名/">APK反编译，APK签名</a></li></ul>
 
     </footer>
   </div>

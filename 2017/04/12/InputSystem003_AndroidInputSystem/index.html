@@ -11,21 +11,21 @@
   
   
   
-  <meta name="description" content="Input系统结构解析AndroidInput系统——JNI NativeInputManager InputManger InputReaderhttps://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/edit">
+  <meta name="description" content="Input系统结构解析AndroidInput系统——JNI NativeInputManager InputManger InputReader">
 <meta name="keywords" content="input,input系统,event">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Input系统——Android Input系统">
 <meta property="og:url" content="jingg.me/2017/04/12/InputSystem003_AndroidInputSystem/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
-<meta property="og:description" content="Input系统结构解析AndroidInput系统——JNI NativeInputManager InputManger InputReaderhttps://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/edit">
+<meta property="og:description" content="Input系统结构解析AndroidInput系统——JNI NativeInputManager InputManger InputReader">
 <meta property="og:image" content="https://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/pub?w=998&h=918">
 <meta property="og:image" content="https://docs.google.com/drawings/d/1A78eIrYTHg2nh-HrWJMpsMu64HitGj7dk_ciSajtex4/pub?w=982&h=726">
 <meta property="og:image" content="https://docs.google.com/drawings/d/19KStX_1m2rNCqjCouwW5DFWOY-e1ZbfDTcYAXrPSzOA/pub?w=960&h=720">
 <meta property="og:image" content="https://docs.google.com/drawings/d/1QAC0GFiARVOJcv6vugVNEiqIMkGZX0XXhiCuIDssvtk/pub?w=960&h=720">
-<meta property="og:updated_time" content="2017-04-26T13:02:03.136Z">
+<meta property="og:updated_time" content="2017-05-02T06:59:19.059Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Input系统——Android Input系统">
-<meta name="twitter:description" content="Input系统结构解析AndroidInput系统——JNI NativeInputManager InputManger InputReaderhttps://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/edit">
+<meta name="twitter:description" content="Input系统结构解析AndroidInput系统——JNI NativeInputManager InputManger InputReader">
 <meta name="twitter:image" content="https://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/pub?w=998&h=918">
   
     <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
@@ -178,11 +178,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Input系统结构解析"><a href="#Input系统结构解析" class="headerlink" title="Input系统结构解析"></a>Input系统结构解析</h1><p>AndroidInput系统——JNI NativeInputManager InputManger InputReader<br><a href="https://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/edit" target="_blank" rel="external">https://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/edit</a><br><img src="https://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/pub?w=998&amp;h=918" alt="AndroidInput系统——JNI NativeInputManager InputManger InputReader"></p>
+        <h1 id="Input系统结构解析"><a href="#Input系统结构解析" class="headerlink" title="Input系统结构解析"></a>Input系统结构解析</h1><p>AndroidInput系统——JNI NativeInputManager InputManger InputReader<br><img src="https://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/pub?w=998&amp;h=918" alt=""></p>
 <a id="more"></a>
-<p>AndroidInput系统——InputReader<br><a href="https://docs.google.com/drawings/d/1A78eIrYTHg2nh-HrWJMpsMu64HitGj7dk_ciSajtex4/edit" target="_blank" rel="external">https://docs.google.com/drawings/d/1A78eIrYTHg2nh-HrWJMpsMu64HitGj7dk_ciSajtex4/edit</a><br><img src="https://docs.google.com/drawings/d/1A78eIrYTHg2nh-HrWJMpsMu64HitGj7dk_ciSajtex4/pub?w=982&amp;h=726" alt="AndroidInput系统——InputReader "></p>
-<p>AndroidInput系统——InputDispatcher<br><a href="https://docs.google.com/drawings/d/19KStX_1m2rNCqjCouwW5DFWOY-e1ZbfDTcYAXrPSzOA/edit" target="_blank" rel="external">https://docs.google.com/drawings/d/19KStX_1m2rNCqjCouwW5DFWOY-e1ZbfDTcYAXrPSzOA/edit</a><br><img src="https://docs.google.com/drawings/d/19KStX_1m2rNCqjCouwW5DFWOY-e1ZbfDTcYAXrPSzOA/pub?w=960&amp;h=720" alt="AndroidInput系统——InputDispatcher "></p>
-<p>AndroidInput系统——EventHub<br><a href="https://docs.google.com/drawings/d/1QAC0GFiARVOJcv6vugVNEiqIMkGZX0XXhiCuIDssvtk/edit" target="_blank" rel="external">https://docs.google.com/drawings/d/1QAC0GFiARVOJcv6vugVNEiqIMkGZX0XXhiCuIDssvtk/edit</a><br><img src="https://docs.google.com/drawings/d/1QAC0GFiARVOJcv6vugVNEiqIMkGZX0XXhiCuIDssvtk/pub?w=960&amp;h=720" alt="AndroidInput系统——EventHub"></p>
+<p>AndroidInput系统——InputReader<br><img src="https://docs.google.com/drawings/d/1A78eIrYTHg2nh-HrWJMpsMu64HitGj7dk_ciSajtex4/pub?w=982&amp;h=726" alt=""></p>
+<p>AndroidInput系统——InputDispatcher<br><img src="https://docs.google.com/drawings/d/19KStX_1m2rNCqjCouwW5DFWOY-e1ZbfDTcYAXrPSzOA/pub?w=960&amp;h=720" alt=""></p>
+<p>AndroidInput系统——EventHub<br><img src="https://docs.google.com/drawings/d/1QAC0GFiARVOJcv6vugVNEiqIMkGZX0XXhiCuIDssvtk/pub?w=960&amp;h=720" alt=""></p>
 <h1 id="Android-Input系统相关结构体"><a href="#Android-Input系统相关结构体" class="headerlink" title="Android Input系统相关结构体"></a>Android Input系统相关结构体</h1><h3 id="1-input-device-id"><a href="#1-input-device-id" class="headerlink" title="1. input_device_id"></a>1. input_device_id</h3><pre><code>struct input_device_id {
  kernel_ulong_t flags;
  __u16 bustype;  // BUS_USB  BUS_BLUETOOTH  
@@ -321,19 +321,19 @@ add device 4: /dev/input/event2
     
 <nav id="article-nav">
   
-    <a href="/2017/04/11/RK_AndroidPartitionInfo/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/12/InputSystem002_LinuxInputSubSystem/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          RK平台分区信息
+          Input系统——Linux 输入子系统
         
       </div>
     </a>
   
   
-    <a href="/2017/04/12/InputSystem002_LinuxInputSubSystem/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/04/12/Android_init_rc/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Input系统——Linux 输入子系统</div>
+      <div class="article-nav-title">Android init.rc</div>
     </a>
   
 </nav>
