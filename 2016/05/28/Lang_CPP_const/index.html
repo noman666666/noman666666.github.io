@@ -3,25 +3,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>android ndk移植杂项 | 进无止境&#39;s 博客</title>
+  <title>c++的const用法 | 进无止境&#39;s 博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="AndroidNDK" />
+  <meta name="keywords" content="const" />
   
   
   
   
-  <meta name="description" content="1android上gcc编译与linux上有点点差别： ndk中gcc不需要需要显式指定-lpthread。Android pthread系列函数libc_bionic.a(即bionic C库)中，所以在默认就会链接。">
-<meta name="keywords" content="Android,NDK">
+  <meta name="description" content="C++ const 允许指定一个语义约束，编译器会强制实施这个约束，允许程序员告诉编译器某值是保持不变的。如果在编程中确实有某个值保持不变，就应该明确使用const，这样可以获得编译器的帮助。const 有几种用法。下面将详细讲解。  const 全局变量 用法： const int a;           //     const data       const int *p;">
+<meta name="keywords" content="const">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android NDK移植杂项">
-<meta property="og:url" content="jingg.me/2015/11/30/Android_NDKPorting_Za/index.html">
+<meta property="og:title" content="C++的const用法">
+<meta property="og:url" content="jingg.me/2016/05/28/Lang_CPP_const/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
-<meta property="og:description" content="1android上gcc编译与linux上有点点差别： ndk中gcc不需要需要显式指定-lpthread。Android pthread系列函数libc_bionic.a(即bionic C库)中，所以在默认就会链接。">
-<meta property="og:updated_time" content="2017-04-27T12:45:05.299Z">
+<meta property="og:description" content="C++ const 允许指定一个语义约束，编译器会强制实施这个约束，允许程序员告诉编译器某值是保持不变的。如果在编程中确实有某个值保持不变，就应该明确使用const，这样可以获得编译器的帮助。const 有几种用法。下面将详细讲解。  const 全局变量 用法： const int a;           //     const data       const int *p;">
+<meta property="og:updated_time" content="2017-05-05T07:43:05.016Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android NDK移植杂项">
-<meta name="twitter:description" content="1android上gcc编译与linux上有点点差别： ndk中gcc不需要需要显式指定-lpthread。Android pthread系列函数libc_bionic.a(即bionic C库)中，所以在默认就会链接。">
+<meta name="twitter:title" content="C++的const用法">
+<meta name="twitter:description" content="C++ const 允许指定一个语义约束，编译器会强制实施这个约束，允许程序员告诉编译器某值是保持不变的。如果在编程中确实有某个值保持不变，就应该明确使用const，这样可以获得编译器的帮助。const 有几种用法。下面将详细讲解。  const 全局变量 用法： const int a;           //     const data       const int *p;">
   
     <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
   
@@ -147,15 +147,15 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-Android_NDKPorting_Za" class="article article-type-post" itemscope itemprop="blogPost">
+          <section id="main" style="float:none;"><article id="post-Lang_CPP_const" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
-	<a href="/2015/11/30/Android_NDKPorting_Za/" class="article-date">
-	  <time datetime="2015-11-29T16:00:00.000Z" itemprop="datePublished">2015-11-30</time>
+	<a href="/2016/05/28/Lang_CPP_const/" class="article-date">
+	  <time datetime="2016-05-28T04:22:33.000Z" itemprop="datePublished">2016-05-28</time>
 	</a>
 
     
-    <a class="article-category-link" href="/categories/Android/">Android</a>
+    <a class="article-category-link" href="/categories/C/">C++</a>
 
   </div>
   <div class="article-inner">
@@ -165,7 +165,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      Android NDK移植杂项
+      C++的const用法
     </h1>
   
 
@@ -173,15 +173,39 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p>android上gcc编译与linux上有点点差别：<br> ndk中gcc不需要需要显式指定-lpthread。Android pthread系列函数libc_bionic.a(即bionic C库)中，所以在默认就会链接。</p>
+        <p>C++ const 允许指定一个语义约束，编译器会强制实施这个约束，允许程序员告诉编译器某值是保持不变的。如果在编程中确实有某个值保持不变，就应该明确使用const，这样可以获得编译器的帮助。<br>const 有几种用法。下面将详细讲解。</p>
+<ol>
+<li><p>const 全局变量</p>
+<pre><code>用法： const int a;           //     const data
+      const int *p;          //     const data, non-const pointer
+      int * const p;         // non-const data, const pointer
+      const int * const p;   //     const data, const pointer
+</code></pre></li>
+<li><p>const 函数局部变量 (包括函数参数、返回值等)</p>
+<pre><code>用法：const int a; const int *p;int * const p;const int * const p;
+     const int* function(const int *a);  // 返回值必须传给const data,non-const pointer 的变量
+     void int function(const int&amp; a);
+</code></pre></li>
+<li><p>const 成员变量</p>
+<pre><code>用法：成员常量不能被修改，只能在构造函数初始化列表中赋值
+</code></pre></li>
+<li><p>const 成员方法</p>
+<pre><code>用法： 不能修改任何成员变量（mutable修饰的变量除外），不能调用非const成员函数
+定义格式：void function() const {}
+</code></pre></li>
+<li>const 类对象、类指针、类引用</li>
+</ol>
+<ol>
+<li>将Const类型转化为非Const类型的方法<br>采用const_cast 进行转换。该运算符用来修改类型的const或volatile属性。</li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="jingg.me/2015/11/30/Android_NDKPorting_Za/" data-id="cj270vhow0003zvwm51iytiby" class="article-share-link">分享</a>
+      <a data-url="jingg.me/2016/05/28/Lang_CPP_const/" data-id="cj2fzecyz0000hxwmpr2wo8wi" class="article-share-link">分享</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NDK/">NDK</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/const/">const</a></li></ul>
 
     </footer>
   </div>
@@ -189,10 +213,19 @@
     
 <nav id="article-nav">
   
+    <a href="/2016/05/28/Lang_CPP_static/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          C++的static用法
+        
+      </div>
+    </a>
   
-    <a href="/2015/11/30/Android_SourceCodePathGuide/" id="article-nav-older" class="article-nav-link-wrap">
+  
+    <a href="/2016/05/28/Lang_Java/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Android 源码目录解析</div>
+      <div class="article-nav-title">C++的类型转换——隐式、显式转换(xxx_cast)</div>
     </a>
   
 </nav>
@@ -202,7 +235,7 @@
 
 
 <section id="comments">
-<div id="SOHUCS" sid="Android NDK移植杂项"></div>
+<div id="SOHUCS" sid="C++的const用法"></div>
 <script>
   (function(){
     var appid = 'cysWY506v',

@@ -3,25 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>android ndk移植杂项 | 进无止境&#39;s 博客</title>
+  <title>c++的static用法 | 进无止境&#39;s 博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="AndroidNDK" />
+  <meta name="keywords" content="static" />
   
   
   
   
-  <meta name="description" content="1android上gcc编译与linux上有点点差别： ndk中gcc不需要需要显式指定-lpthread。Android pthread系列函数libc_bionic.a(即bionic C库)中，所以在默认就会链接。">
-<meta name="keywords" content="Android,NDK">
+  <meta name="description" content="C++ 中static 关键字用法可以从两个方面来区分，一个是面向过程，另一个是面向对象。面向过程有三种用法，面向对象有两种用法。下文将详细讲解。 用法详解（从作用域，生命周期角度来解释） 面向过程  文件内全局static变量 （和C一样）    作用域：本文件内    生命周期：程序退出 函数内static变量 （和C一样）    作用域：本函数内    生命周期：程序退出 文件内static">
+<meta name="keywords" content="static">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android NDK移植杂项">
-<meta property="og:url" content="jingg.me/2015/11/30/Android_NDKPorting_Za/index.html">
+<meta property="og:title" content="C++的static用法">
+<meta property="og:url" content="jingg.me/2016/05/28/Lang_CPP_static/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
-<meta property="og:description" content="1android上gcc编译与linux上有点点差别： ndk中gcc不需要需要显式指定-lpthread。Android pthread系列函数libc_bionic.a(即bionic C库)中，所以在默认就会链接。">
-<meta property="og:updated_time" content="2017-04-27T12:45:05.299Z">
+<meta property="og:description" content="C++ 中static 关键字用法可以从两个方面来区分，一个是面向过程，另一个是面向对象。面向过程有三种用法，面向对象有两种用法。下文将详细讲解。 用法详解（从作用域，生命周期角度来解释） 面向过程  文件内全局static变量 （和C一样）    作用域：本文件内    生命周期：程序退出 函数内static变量 （和C一样）    作用域：本函数内    生命周期：程序退出 文件内static">
+<meta property="og:image" content="http://i.imgur.com/9PCgNZt.png">
+<meta property="og:updated_time" content="2017-05-05T07:01:09.271Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android NDK移植杂项">
-<meta name="twitter:description" content="1android上gcc编译与linux上有点点差别： ndk中gcc不需要需要显式指定-lpthread。Android pthread系列函数libc_bionic.a(即bionic C库)中，所以在默认就会链接。">
+<meta name="twitter:title" content="C++的static用法">
+<meta name="twitter:description" content="C++ 中static 关键字用法可以从两个方面来区分，一个是面向过程，另一个是面向对象。面向过程有三种用法，面向对象有两种用法。下文将详细讲解。 用法详解（从作用域，生命周期角度来解释） 面向过程  文件内全局static变量 （和C一样）    作用域：本文件内    生命周期：程序退出 函数内static变量 （和C一样）    作用域：本函数内    生命周期：程序退出 文件内static">
+<meta name="twitter:image" content="http://i.imgur.com/9PCgNZt.png">
   
     <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
   
@@ -147,15 +149,15 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-Android_NDKPorting_Za" class="article article-type-post" itemscope itemprop="blogPost">
+          <section id="main" style="float:none;"><article id="post-Lang_CPP_static" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
-	<a href="/2015/11/30/Android_NDKPorting_Za/" class="article-date">
-	  <time datetime="2015-11-29T16:00:00.000Z" itemprop="datePublished">2015-11-30</time>
+	<a href="/2016/05/28/Lang_CPP_static/" class="article-date">
+	  <time datetime="2016-05-28T04:22:33.000Z" itemprop="datePublished">2016-05-28</time>
 	</a>
 
     
-    <a class="article-category-link" href="/categories/Android/">Android</a>
+    <a class="article-category-link" href="/categories/C/">C++</a>
 
   </div>
   <div class="article-inner">
@@ -165,7 +167,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      Android NDK移植杂项
+      C++的static用法
     </h1>
   
 
@@ -173,15 +175,36 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p>android上gcc编译与linux上有点点差别：<br> ndk中gcc不需要需要显式指定-lpthread。Android pthread系列函数libc_bionic.a(即bionic C库)中，所以在默认就会链接。</p>
+        <p>C++ 中static 关键字用法可以从两个方面来区分，一个是面向过程，另一个是面向对象。面向过程有三种用法，面向对象有两种用法。下文将详细讲解。</p>
+<h1 id="用法详解（从作用域，生命周期角度来解释）"><a href="#用法详解（从作用域，生命周期角度来解释）" class="headerlink" title="用法详解（从作用域，生命周期角度来解释）"></a>用法详解（从作用域，生命周期角度来解释）</h1><blockquote>
+<p>面向过程</p>
+</blockquote>
+<p>文件内全局static变量 （和C一样）<br>    作用域：本文件内<br>    生命周期：程序退出</p>
+<p>函数内static变量 （和C一样）<br>    作用域：本函数内<br>    生命周期：程序退出</p>
+<p>文件内static函数 （和C一样）<br>    作用域：本文件内<br>    生命周期：N/A</p>
+<blockquote>
+<p>面向对象</p>
+</blockquote>
+<p>类中static成员变量<br>    用法：使用时不用实例化，与类实例无关。（静态数据成员存储在全局数据区，静态数据成员定义时要分配空间，所以不能在类声明中定义。应该在类外定义。此外，在类体外定义时不能指定static关键字）。<br>    初始化格式：&lt;数据类型&gt;&lt;类名&gt;::&lt;静态数据成员&gt; = &lt;值&gt;<br>    作用域：遵从类的public、private、protected访问规则<br>    生命周期：程序退出</p>
+<p>类中static成员方法<br>    用法：可以引用static成员变量。无法访问属于类对象的非静态数据成员变量/函数。此外，类体外定义时不能指定static关键字<br>         调用static成员方法方式： XClass::xxx_static_fun()、XClassInstant.xxx_static_fun()、XClassInstantP-&gt;xxx_static_fun()<br>    作用域：遵从类的public、private、protected访问规则<br>    生命周期：N/A</p>
+<h1 id="附1（可执行文件内存布局）"><a href="#附1（可执行文件内存布局）" class="headerlink" title="附1（可执行文件内存布局）"></a>附1（可执行文件内存布局）</h1><p><img src="http://i.imgur.com/9PCgNZt.png" alt="">   </p>
+<ol>
+<li>.text 代码段存放可执行指令</li>
+<li>.data 初始化后数据 {<br> a. 只读数据区(const全局变量 字符串)<br> b. 已初始化可读数据区——全局区(全局变量)<br> c. 已初始化可读数据区——全局静态区(static全局变量) </li>
+<li>.bss 未初始化数据（只记录数据需要多少空间，不为其真正分配内存）<br> a. 未初始化静态和全局变量</li>
+<li>.heap 运行时malloc动态分配的数据占用空间<br> a. 动态内存分配</li>
+<li>.stack 函数运行时分配的自动变量占用空间<br> a. 局部变量、函数参数</li>
+<li>从可执行文件a.out的角度来讲，如果一个数据未被初始化那就不需要为其分配空间，所以.data和.bss一个重要的区别就是.bss并不占用可执行文件的大小，它只是记载需要多少空间来存储这些未初始化数据，而不分配实际的空间</li>
+</ol>
+<h1 id="附2（参考）"><a href="#附2（参考）" class="headerlink" title="附2（参考）"></a>附2（参考）</h1><p><a href="http://blog.csdn.net/kerry0071/article/details/25741425/" target="_blank" rel="external">http://blog.csdn.net/kerry0071/article/details/25741425/</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="jingg.me/2015/11/30/Android_NDKPorting_Za/" data-id="cj270vhow0003zvwm51iytiby" class="article-share-link">分享</a>
+      <a data-url="jingg.me/2016/05/28/Lang_CPP_static/" data-id="cj2fzecz90001hxwmer6jxyuc" class="article-share-link">分享</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NDK/">NDK</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/static/">static</a></li></ul>
 
     </footer>
   </div>
@@ -189,10 +212,19 @@
     
 <nav id="article-nav">
   
+    <a href="/2015/11/30/Linux_FileOperationAPI/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Linux 文件操作API
+        
+      </div>
+    </a>
   
-    <a href="/2015/11/30/Android_SourceCodePathGuide/" id="article-nav-older" class="article-nav-link-wrap">
+  
+    <a href="/2016/05/28/Lang_CPP_const/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Android 源码目录解析</div>
+      <div class="article-nav-title">C++的const用法</div>
     </a>
   
 </nav>
@@ -202,7 +234,7 @@
 
 
 <section id="comments">
-<div id="SOHUCS" sid="Android NDK移植杂项"></div>
+<div id="SOHUCS" sid="C++的static用法"></div>
 <script>
   (function(){
     var appid = 'cysWY506v',

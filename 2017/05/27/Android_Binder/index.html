@@ -11,18 +11,22 @@
   
   
   
-  <meta name="description" content="Binder 通信机制概述Binder通信是一种类似于IPC 的机制，基于C/S通信结构，它是给servicemanager及servicemanager管理的server及client之间通信的工具，下面简单介绍具体实现原理：  从表面上来看，是client通过获得一个server的代理接口，对server进行直接调用；实际上，代理接口中定义的方法与server中定义的方法是一一对应的。 cli">
+  <meta name="description" content="Binder 通信机制概述Binder通信是一种类似于IPC 的机制，基于C/S通信结构，它是给servicemanager-server、server-client之间通信的工具，下面简单介绍具体实现原理：  从表面上来看，是client通过获得一个server的代理接口，对server进行直接调用；实际上，代理接口中定义的方法与server中定义的方法是一一对应的。 client调用某个代理接">
 <meta name="keywords" content="Binder,IPC,RPC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android Binder">
 <meta property="og:url" content="jingg.me/2017/05/27/Android_Binder/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
-<meta property="og:description" content="Binder 通信机制概述Binder通信是一种类似于IPC 的机制，基于C/S通信结构，它是给servicemanager及servicemanager管理的server及client之间通信的工具，下面简单介绍具体实现原理：  从表面上来看，是client通过获得一个server的代理接口，对server进行直接调用；实际上，代理接口中定义的方法与server中定义的方法是一一对应的。 cli">
+<meta property="og:description" content="Binder 通信机制概述Binder通信是一种类似于IPC 的机制，基于C/S通信结构，它是给servicemanager-server、server-client之间通信的工具，下面简单介绍具体实现原理：  从表面上来看，是client通过获得一个server的代理接口，对server进行直接调用；实际上，代理接口中定义的方法与server中定义的方法是一一对应的。 client调用某个代理接">
 <meta property="og:image" content="http://i.imgur.com/du2Bpo5.png">
-<meta property="og:updated_time" content="2017-05-02T04:03:58.125Z">
+<meta property="og:image" content="http://i.imgur.com/Jhd2AKx.png">
+<meta property="og:image" content="http://i.imgur.com/XVGyg7I.png">
+<meta property="og:image" content="http://i.imgur.com/a98kXwJ.png">
+<meta property="og:image" content="http://i.imgur.com/dUl9iYd.png">
+<meta property="og:updated_time" content="2017-05-08T10:21:48.810Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Binder">
-<meta name="twitter:description" content="Binder 通信机制概述Binder通信是一种类似于IPC 的机制，基于C/S通信结构，它是给servicemanager及servicemanager管理的server及client之间通信的工具，下面简单介绍具体实现原理：  从表面上来看，是client通过获得一个server的代理接口，对server进行直接调用；实际上，代理接口中定义的方法与server中定义的方法是一一对应的。 cli">
+<meta name="twitter:description" content="Binder 通信机制概述Binder通信是一种类似于IPC 的机制，基于C/S通信结构，它是给servicemanager-server、server-client之间通信的工具，下面简单介绍具体实现原理：  从表面上来看，是client通过获得一个server的代理接口，对server进行直接调用；实际上，代理接口中定义的方法与server中定义的方法是一一对应的。 client调用某个代理接">
 <meta name="twitter:image" content="http://i.imgur.com/du2Bpo5.png">
   
     <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
@@ -175,7 +179,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Binder-通信机制概述"><a href="#Binder-通信机制概述" class="headerlink" title="Binder 通信机制概述"></a>Binder 通信机制概述</h1><p>Binder通信是一种类似于IPC 的机制，基于C/S通信结构，它是给servicemanager及servicemanager管理的server及client之间通信的工具，下面简单介绍具体实现原理：</p>
+        <h1 id="Binder-通信机制概述"><a href="#Binder-通信机制概述" class="headerlink" title="Binder 通信机制概述"></a>Binder 通信机制概述</h1><p>Binder通信是一种类似于IPC 的机制，基于C/S通信结构，它是给servicemanager-server、server-client之间通信的工具，下面简单介绍具体实现原理：</p>
 <ol>
 <li>从表面上来看，是client通过获得一个server的代理接口，对server进行直接调用；<br>实际上，代理接口中定义的方法与server中定义的方法是一一对应的。</li>
 <li>client调用某个代理接口中的方法时，代理接口的方法会将client传递的参数打包成为Parcel对象；<br>代理接口将该Parcel发送给内核中的binder driver。<br>server会读取binder driver中的请求数据，如果是发送给自己的，解包Parcel对象，处理并将结果返回；</li>
@@ -183,14 +187,34 @@
 </ol>
 <p><img src="http://i.imgur.com/du2Bpo5.png" alt=""></p>
 <a id="more"></a>
-<h1 id="Binder-实现"><a href="#Binder-实现" class="headerlink" title="Binder 实现"></a>Binder 实现</h1><p>Binder 在内核层是有驱动层的，我们可以将Binder当成一个块设备看待。</p>
-<p>servicemanager (frameworks\native\cmds\servicemanager\service_manager.c)</p>
+<h1 id="Binder-通信机制实现原理"><a href="#Binder-通信机制实现原理" class="headerlink" title="Binder 通信机制实现原理"></a>Binder 通信机制实现原理</h1><p>Binder 通信机制实现IPC的方式和我们所了解的消息队列、信号量、管道等不同，他是通过Binder设备（一个实现数据交换的虚拟设备）来实现数据交换，<br>一次信息传递过程只发生一次拷贝，数据交换非常高效。Binder通信机制中有三个角色，service manager(简称SM)、service、client，它们在Android<br>系统都是有各自的进程在系统中运行，每个进程都与Binder设备建立了信息通信通道(通过open /dev/binder),通过binder设备实现SM、service、client<br>之间的信息交换。</p>
+<p>底层实现机制：<br>SM          —- handle 0<br>service1    —- handle s1<br>service2    —- handle s2<br>…<br>serviceN    —- handle sN</p>
+<p>client1    —- handle c1<br>client2    —- handle c2<br>…<br>clientN    —- handle cN</p>
+<p>SM      作为service manager，它负责管理service(说白了就是：响应service发送给它的消息)，service添加/service句柄的获取/serviceList<br>service 负责处理client的RPC请求（也就是响应client发送过来的消息）<br>client  就是主动发送请求一方。</p>
+<p>binder机制中交换数据(发送消息)，例如service发送消息给SM，它是将信息通过binder驱动直接挂接到SM 关联的handle下，然后SM直接去读自己handle=0<br>下的消息并进行解析就可以了。从而完成一次数据交换。</p>
+<p>Android系统中有如下几种场景：</p>
+<ol>
+<li><p>进程添加service 到SM中。<br> a. 通过SM handle(默认固定为0)，发送消息给SM；<br> b. SM进程的loop循环获取到发送给自己handle的消息并获取到service注册信息；<br> c. SM将service信息注册到底层binder设备，binder设备给该service分派一个handle sX(关联service name)，功能就算完成。</p>
+</li>
+<li><p>client 使用service服务。（这其中包含两次binder）<br> A. client 获取指定service句柄</p>
+<pre><code>a. client所在进程发送消息给SM(handle固定为0)，即写入parcel信息到binder设备，挂接到SM的handle名下。
+b. SM 进程loop循环读取到发给自己信息，解析后，返回对应service name的service handle信息给client。
+</code></pre><p> B. client 使用service句柄使用service提供的接口</p>
+<pre><code>a. client所在进程发送接口调用信息给（service handle），即写入parcel信息到binder设备，挂接到service的handle下；
+b. service 的IPCProcess joinThreadPool中循环获取到发送给自己的消息，处理并以parcel格式返回给binder设备中对应handle的client；
+c. 然后client调用过程完成。
+</code></pre></li>
+</ol>
+<h1 id="Binder-通信机制在Android中的实现"><a href="#Binder-通信机制在Android中的实现" class="headerlink" title="Binder 通信机制在Android中的实现"></a>Binder 通信机制在Android中的实现</h1><p>场景1实现：<br>servicemanager (frameworks\native\cmds\servicemanager\service_manager.c)</p>
 <ol>
 <li>打开/dev/binder设备，将fd映射到128k的内存</li>
 <li>将servermanger设置为binder设备的context manager(可以理解为ServiceManager可以将自己注册为Binder的管理员)</li>
-<li></li>
+<li>循环读取发送给handle 0 的消息</li>
 </ol>
-<h1 id="Binder-使用"><a href="#Binder-使用" class="headerlink" title="Binder 使用"></a>Binder 使用</h1><p>Android 利用远程过程调用 (RPC) 提供了一种进程间通信 (IPC) 机制，通过这种机制，由 Activity 或其他应用组件调用的方法将（在其他进程中）远程执行，而所有结果将返回给调用方。 这就要求把方法调用及其数据分解至操作系统可以识别的程度，并将其从本地进程和地址空间传输至远程进程和地址空间，然后在远程进程中重新组装并执行该调用。 然后，返回值将沿相反方向传输回来。 Android 提供了执行这些 IPC 事务所需的全部代码，因此您只需集中精力定义和实现 RPC 编程接口即可。</p>
+<p>Bn端循环响应server/client过来的请求<br><img src="http://i.imgur.com/Jhd2AKx.png" alt=""></p>
+<p>C++中的Bp端（跑在使用SM的client或者server 的进程中的）<br><img src="http://i.imgur.com/XVGyg7I.png" alt=""></p>
+<p>Java中的Bp端（跑在使用SM的client或者server 的进程中的）<br><img src="http://i.imgur.com/a98kXwJ.png" alt=""></p>
+<p>场景2实现：（以MediaPlayerService为例）<br><img src="http://i.imgur.com/dUl9iYd.png" alt=""></p>
 
       
     </div>

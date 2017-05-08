@@ -561,6 +561,193 @@ GetStringLength   获取Unicode格式的char*的长度
 
 
   
+    <article id="post-Lang_CPP_xxx_cast" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2016/05/28/Lang_CPP_xxx_cast/" class="article-date">
+	  <time datetime="2016-05-28T04:22:33.000Z" itemprop="datePublished">2016-05-28</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/C/">C++</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/05/28/Lang_CPP_xxx_cast/">C++的类型转换——隐式、显式转换(xxx_cast)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="第一部分-隐式类型转换"><a href="#第一部分-隐式类型转换" class="headerlink" title="第一部分. 隐式类型转换"></a>第一部分. 隐式类型转换</h1><pre><code>算数运算float + int =&gt; float  、  赋值int = float、传参、返回值
+</code></pre><h1 id="第二部分-显式类型转换"><a href="#第二部分-显式类型转换" class="headerlink" title="第二部分.显式类型转换"></a>第二部分.显式类型转换</h1><pre><code>C风格
+    (type) value
+
+C++风格
+    static_cast、dynamic_cast、reinterpret_cast和const_cast 
+</code></pre>
+        
+          <p class="article-more-link">
+            <a href="/2016/05/28/Lang_CPP_xxx_cast/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2016/05/28/Lang_CPP_xxx_cast/" data-id="cj270vhpv000vzvwmp9969xxe" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/const-cast/">const_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dynamic-cast/">dynamic_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reinterpret-cast/">reinterpret_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/static-cast/">static_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/类型转换/">类型转换</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Lang_CPP_static" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2016/05/28/Lang_CPP_static/" class="article-date">
+	  <time datetime="2016-05-28T04:22:33.000Z" itemprop="datePublished">2016-05-28</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/C/">C++</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/05/28/Lang_CPP_static/">C++的static用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>C++ 中static 关键字用法可以从两个方面来区分，一个是面向过程，另一个是面向对象。面向过程有三种用法，面向对象有两种用法。下文将详细讲解。</p>
+<h1 id="用法详解（从作用域，生命周期角度来解释）"><a href="#用法详解（从作用域，生命周期角度来解释）" class="headerlink" title="用法详解（从作用域，生命周期角度来解释）"></a>用法详解（从作用域，生命周期角度来解释）</h1><blockquote>
+<p>面向过程</p>
+</blockquote>
+<p>文件内全局static变量 （和C一样）<br>    作用域：本文件内<br>    生命周期：程序退出</p>
+<p>函数内static变量 （和C一样）<br>    作用域：本函数内<br>    生命周期：程序退出</p>
+<p>文件内static函数 （和C一样）<br>    作用域：本文件内<br>    生命周期：N/A</p>
+<blockquote>
+<p>面向对象</p>
+</blockquote>
+<p>类中static成员变量<br>    用法：使用时不用实例化，与类实例无关。（静态数据成员存储在全局数据区，静态数据成员定义时要分配空间，所以不能在类声明中定义。应该在类外定义。此外，在类体外定义时不能指定static关键字）。<br>    初始化格式：&lt;数据类型&gt;&lt;类名&gt;::&lt;静态数据成员&gt; = &lt;值&gt;<br>    作用域：遵从类的public、private、protected访问规则<br>    生命周期：程序退出</p>
+<p>类中static成员方法<br>    用法：可以引用static成员变量。无法访问属于类对象的非静态数据成员变量/函数。此外，类体外定义时不能指定static关键字<br>         调用static成员方法方式： XClass::xxx_static_fun()、XClassInstant.xxx_static_fun()、XClassInstantP-&gt;xxx_static_fun()<br>    作用域：遵从类的public、private、protected访问规则<br>    生命周期：N/A</p>
+<h1 id="附1（可执行文件内存布局）"><a href="#附1（可执行文件内存布局）" class="headerlink" title="附1（可执行文件内存布局）"></a>附1（可执行文件内存布局）</h1><p><img src="http://i.imgur.com/9PCgNZt.png" alt="">   </p>
+<ol>
+<li>.text 代码段存放可执行指令</li>
+<li>.data 初始化后数据 {<br> a. 只读数据区(const全局变量 字符串)<br> b. 已初始化可读数据区——全局区(全局变量)<br> c. 已初始化可读数据区——全局静态区(static全局变量) </li>
+<li>.bss 未初始化数据（只记录数据需要多少空间，不为其真正分配内存）<br> a. 未初始化静态和全局变量</li>
+<li>.heap 运行时malloc动态分配的数据占用空间<br> a. 动态内存分配</li>
+<li>.stack 函数运行时分配的自动变量占用空间<br> a. 局部变量、函数参数</li>
+<li>从可执行文件a.out的角度来讲，如果一个数据未被初始化那就不需要为其分配空间，所以.data和.bss一个重要的区别就是.bss并不占用可执行文件的大小，它只是记载需要多少空间来存储这些未初始化数据，而不分配实际的空间</li>
+</ol>
+<h1 id="附2（参考）"><a href="#附2（参考）" class="headerlink" title="附2（参考）"></a>附2（参考）</h1><p><a href="http://blog.csdn.net/kerry0071/article/details/25741425/" target="_blank" rel="external">http://blog.csdn.net/kerry0071/article/details/25741425/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2016/05/28/Lang_CPP_static/" data-id="cj2fzecz90001hxwmer6jxyuc" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/static/">static</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Lang_CPP_const" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2016/05/28/Lang_CPP_const/" class="article-date">
+	  <time datetime="2016-05-28T04:22:33.000Z" itemprop="datePublished">2016-05-28</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/C/">C++</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/05/28/Lang_CPP_const/">C++的const用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>C++ const 允许指定一个语义约束，编译器会强制实施这个约束，允许程序员告诉编译器某值是保持不变的。如果在编程中确实有某个值保持不变，就应该明确使用const，这样可以获得编译器的帮助。<br>const 有几种用法。下面将详细讲解。</p>
+<ol>
+<li><p>const 全局变量</p>
+<pre><code>用法： const int a;           //     const data
+      const int *p;          //     const data, non-const pointer
+      int * const p;         // non-const data, const pointer
+      const int * const p;   //     const data, const pointer
+</code></pre></li>
+<li><p>const 函数局部变量 (包括函数参数、返回值等)</p>
+<pre><code>用法：const int a; const int *p;int * const p;const int * const p;
+     const int* function(const int *a);  // 返回值必须传给const data,non-const pointer 的变量
+     void int function(const int&amp; a);
+</code></pre></li>
+<li><p>const 成员变量</p>
+<pre><code>用法：成员常量不能被修改，只能在构造函数初始化列表中赋值
+</code></pre></li>
+<li><p>const 成员方法</p>
+<pre><code>用法： 不能修改任何成员变量（mutable修饰的变量除外），不能调用非const成员函数
+定义格式：void function() const {}
+</code></pre></li>
+<li>const 类对象、类指针、类引用</li>
+</ol>
+<ol>
+<li>将Const类型转化为非Const类型的方法<br>采用const_cast 进行转换。该运算符用来修改类型的const或volatile属性。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2016/05/28/Lang_CPP_const/" data-id="cj2fzecyz0000hxwmpr2wo8wi" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/const/">const</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Lang_Java" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -660,282 +847,6 @@ C++风格
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/const-cast/">const_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dynamic-cast/">dynamic_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reinterpret-cast/">reinterpret_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/static-cast/">static_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/类型转换/">类型转换</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Lang_CPP_xxx_cast" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2016/05/28/Lang_CPP_xxx_cast/" class="article-date">
-	  <time datetime="2016-05-28T04:22:33.000Z" itemprop="datePublished">2016-05-28</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/C/">C++</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2016/05/28/Lang_CPP_xxx_cast/">C++的类型转换——隐式、显式转换(xxx_cast)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="第一部分-隐式类型转换"><a href="#第一部分-隐式类型转换" class="headerlink" title="第一部分. 隐式类型转换"></a>第一部分. 隐式类型转换</h1><pre><code>算数运算float + int =&gt; float  、  赋值int = float、传参、返回值
-</code></pre><h1 id="第二部分-显式类型转换"><a href="#第二部分-显式类型转换" class="headerlink" title="第二部分.显式类型转换"></a>第二部分.显式类型转换</h1><pre><code>C风格
-    (type) value
-
-C++风格
-    static_cast、dynamic_cast、reinterpret_cast和const_cast 
-</code></pre>
-        
-          <p class="article-more-link">
-            <a href="/2016/05/28/Lang_CPP_xxx_cast/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2016/05/28/Lang_CPP_xxx_cast/" data-id="cj270vhpv000vzvwmp9969xxe" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/const-cast/">const_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dynamic-cast/">dynamic_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reinterpret-cast/">reinterpret_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/static-cast/">static_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/类型转换/">类型转换</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Linux_FileOperationAPI" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2015/11/30/Linux_FileOperationAPI/" class="article-date">
-	  <time datetime="2015-11-29T16:00:00.000Z" itemprop="datePublished">2015-11-30</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2015/11/30/Linux_FileOperationAPI/">Linux 文件操作API</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="open"><a href="#open" class="headerlink" title="open"></a>open</h1><pre><code>#include &lt;sys/types.h&gt;
-#include &lt;sys/stat.h&gt;
-#include &lt;fcntl.h&gt;
-
-int open(const char *pathname, int flags); //打开一个现有的文件
-int open(const char *pathname, int flags, mode_t mode);  //打开文件不存在，则先创建
-
-【flags】:----------
-O_RDONLY, O_WRONLY, or O_RDWR.  这三个之一必备
-O_APPEND:  The file is opened in append mode.
-O_ASYNC:   This feature is available only for terminals, pseudoterminals, sockets, pipes and FIFOs 
-O_CLOEXEC: Enable the close-on-exec flag for the new file descriptor.
-    了解这个选项需要明白fork后跟随exec和fork后不跟随exec的区别
-    fork之后若跟随执行exec后，该进程执行的程序完全替换为新程序，而新程序则从其main函数开始执行。因为调用exec并不创建新进程，所以先后的进程ID并未改变。exec只是用一个全新的程序替换了当前进程的正文、数据、堆和栈段。
-    也就是说之前的打开的文件描述符fd会被清理掉，导致打开的文件句柄无法释放，所以有了这个选项，在当前进程执行exec族函数时，会先做一个清理工作，close掉当前进程的文件描述符，再载入要执行的程序到当前进程环境。
-
-O_CREAT:-
-    【mode】: （如果是新建文件，就设置初始访问权限）
-        S_IRWXU  00700 user (file owner) has read, write and execute permission
-        S_IRUSR  00400 user has read permission
-        S_IWUSR  00200 user has write permission
-        S_IXUSR  00100 user has execute permission
-        S_IRWXG  00070 group has read, write and execute permission
-        S_IRGRP  00040 group has read permission
-        S_IWGRP  00020 group has write permission
-        S_IXGRP  00010 group has execute permission
-        S_IRWXO  00007 others have read, write and execute permission
-        S_IROTH  00004 others have read permission
-        S_IWOTH  00002 others have write permission
-        S_IXOTH  00001 others have execute permission
-        多个模式可位或 bitwise-or
-
-O_DIRECT:    Try to minimize cache effects of the I/O to and from this file.
-O_DIRECTORY: If  pathname is not a directory, cause the open to fail.
-O_EXCL:      如果同时指定了O_CREAT，而文件已经存在，则导致调用出错
-O_LARGEFILE: 
-O_NOATIME:   
-O_NOCTTY: 如果pathname指的是终端设备(tty)，则不将此设备分配作为此进程的控制终端
-O_NOFOLLOW
-O_NONBLOCK : When possible, the file is opened in nonblocking mode.
-O_PATH: 
-O_SYNC: The file is opened for synchronous I/O. Any write(2)s on the resulting file descriptor will block  
-        the calling process until the data has been physically written to the underlying hardware.
-        只在数据被写入外存或者其他设备之后操作才返回
-O_TRUNC: If  the  file already exists and is a regular file and the open mode allows writing
-         (i.e., is O_RDWR or O_WRONLY) it will be truncated to length 0.
-        如果文件存在，而且为读写或只写方式打开，则将其长度截断为0
-</code></pre><h1 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h1><pre><code>ls -l
-drwxr-xr-x. 2 anxier anxier 4096 1月 15 00:29 desktop
-第一栏的信息包含10字符。第1个字符，表示文件的类型；第2～4位，代表文件所有者（User）的权限，分别为读、写、执行；第5～7位，代表文件所有者的同组用户（Group）的权限，分别是读、写、执行；第8～10位，代表其他用户（Other）的权限，分别为读、写、执行。
-</code></pre><table>
-<thead>
-<tr>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-<th>6</th>
-<th>7</th>
-<th>8</th>
-<th>9</th>
-<th>10</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-/l/c/s/d/b/p</td>
-<td>r/-</td>
-<td>w/-</td>
-<td>x/-</td>
-<td>r/-</td>
-<td>w/-</td>
-<td>x/-</td>
-<td>r/-</td>
-<td>w/-</td>
-<td>x/-</td>
-</tr>
-</tbody>
-</table>
-<pre><code>- 普通文件
-d 目录文件      文本文件和二进制文件。
-l 链接文件
-b 块设备文件
-c 字符设备文件
-p 管道文件      用于在进程间传递数据
-s 套接口文件
-</code></pre><h1 id="ioctl"><a href="#ioctl" class="headerlink" title="ioctl"></a>ioctl</h1><pre><code>#include &lt;sys/ioctl.h&gt;
-
-int ioctl(int d, int request, ...);
-
-request: ----
-    TIOCSETD int *ldisc change the line discipline:
-    TTYDISC termios interactive line discipline
-    TABLDISC tablet line discipline
-    SLIPDISC serial IP line discipline
-    PPPDISC PPP line discipline
-    TIOCGETD int *ldisc return the current line discipline
-    TIOCSBRK set the terminal into BREAK condition
-    TIOCCBRK clear the terminal BREAK condition
-    TIOCSDTR assert data terminal ready
-    TIOCCDTR clear data terminal ready
-    TIOCGPGRP int *tpgrp return the terminal&apos;s process group
-    TIOCSPGRP int *tpgrp associate the terminal&apos;s process group
-    TIOCGETA struct termios *term get the terminal&apos;s termios attributes
-    TIOCSETA struct termios *term set the terminal&apos;s termios attributes
-    TIOCSETAW struct termios *term set the termios attrs after any output completes
-    TIOCSETAF struct termios *term after any output completes, clear input and set termios attrs
-    TIOCOUTQ int *num current number of characters in the output queue
-    TIOCSTI char *cp manually send a character to the terminal
-    TIOCSTOP stop output (like typing ^S)
-    TIOCSTART start output (like typing ^Q)
-    TIOCSCTTY make this the controlling terminal for the process
-    TIOCDRAIN wait until all output is drained
-    TIOCEXCL set exclusive use on the terminal
-    TIOCNXCL clear exclusive use of the terminal
-    TIOCFLUSH int *what clear input/output if `what&apos; has FREAD/FWRITE set
-    TIOCGWINSZ struct winsize *ws get the winsize information
-    TIOCSWINSZ struct winsize *ws set the winsize information
-    TIOCCONS int *on redirect kernel console messages
-    TIOCMSET int *state set the modem state bit flags according to the following:
-    TIOCM_LE Line Enable
-    TIOCM_DTR Data Terminal Ready
-    TIOCM_RTS Request To Send
-    TIOCM_ST Secondary Transmit
-    TIOCM_SR Secondary Receive
-    TIOCM_CTS Clear To Send
-    TIOCM_CAR Carrier Detect
-    TIOCM_CD Carrier Detect (synonym)
-    TIOCM_RNG Ring Indication
-    TIOCM_RI Ring Indication (synonym)
-    TIOCM_DSR Data Set Ready
-    TIOCMGET int *state get the modem state bit flags
-    TIOCMBIS int *state add modem state bit flags, OR-ing in the new states
-    TIOCMBIC int *state clear modem state bit flags
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2015/11/30/Linux_FileOperationAPI/" data-id="cj270vhpu000szvwmrj5j0tn4" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ioctl/">ioctl</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/open/">open</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Android_NDKPorting_Za" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2015/11/30/Android_NDKPorting_Za/" class="article-date">
-	  <time datetime="2015-11-29T16:00:00.000Z" itemprop="datePublished">2015-11-30</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2015/11/30/Android_NDKPorting_Za/">Android NDK移植杂项</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p>android上gcc编译与linux上有点点差别：<br> ndk中gcc不需要需要显式指定-lpthread。Android pthread系列函数libc_bionic.a(即bionic C库)中，所以在默认就会链接。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2015/11/30/Android_NDKPorting_Za/" data-id="cj270vhow0003zvwm51iytiby" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NDK/">NDK</a></li></ul>
 
     </footer>
   </div>
