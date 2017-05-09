@@ -197,7 +197,7 @@
 <li>client调用某个代理接口中的方法时，代理接口的方法会将client传递的参数打包成为Parcel对象；<br>代理接口将该Parcel发送给内核中的binder driver。<br>server会读取binder driver中的请求数据，如果是发送给自己的，解包Parcel对象，处理并将结果返回；</li>
 <li>整个的调用过程是一个同步过程，在server处理的时候，client会block住。</li>
 </ol>
-<p><img src="http://i.imgur.com/du2Bpo5.png" alt=""></p>
+<p><img src="http://f1.freep.cn/585107/binder/Binder_ProcessCall.png" alt="Binder_ProcessCall"></p>
         
           <p class="article-more-link">
             <a href="/2017/05/27/Android_Binder/#more">Read More</a>

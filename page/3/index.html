@@ -653,7 +653,7 @@ C++风格
 </blockquote>
 <p>类中static成员变量<br>    用法：使用时不用实例化，与类实例无关。（静态数据成员存储在全局数据区，静态数据成员定义时要分配空间，所以不能在类声明中定义。应该在类外定义。此外，在类体外定义时不能指定static关键字）。<br>    初始化格式：&lt;数据类型&gt;&lt;类名&gt;::&lt;静态数据成员&gt; = &lt;值&gt;<br>    作用域：遵从类的public、private、protected访问规则<br>    生命周期：程序退出</p>
 <p>类中static成员方法<br>    用法：可以引用static成员变量。无法访问属于类对象的非静态数据成员变量/函数。此外，类体外定义时不能指定static关键字<br>         调用static成员方法方式： XClass::xxx_static_fun()、XClassInstant.xxx_static_fun()、XClassInstantP-&gt;xxx_static_fun()<br>    作用域：遵从类的public、private、protected访问规则<br>    生命周期：N/A</p>
-<h1 id="附1（可执行文件内存布局）"><a href="#附1（可执行文件内存布局）" class="headerlink" title="附1（可执行文件内存布局）"></a>附1（可执行文件内存布局）</h1><p><img src="http://i.imgur.com/9PCgNZt.png" alt="">   </p>
+<h1 id="附1（可执行文件内存布局）"><a href="#附1（可执行文件内存布局）" class="headerlink" title="附1（可执行文件内存布局）"></a>附1（可执行文件内存布局）</h1><p><img src="http://f1.freep.cn/585107/exec_view.bmp" alt="exec_view">   </p>
 <ol>
 <li>.text 代码段存放可执行指令</li>
 <li>.data 初始化后数据 {<br> a. 只读数据区(const全局变量 字符串)<br> b. 已初始化可读数据区——全局区(全局变量)<br> c. 已初始化可读数据区——全局静态区(static全局变量) </li>
