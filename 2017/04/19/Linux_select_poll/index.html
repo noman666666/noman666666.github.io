@@ -18,7 +18,7 @@
 <meta property="og:url" content="jingg.me/2017/04/19/Linux_select_poll/index.html">
 <meta property="og:site_name" content="进无止境's 博客">
 <meta property="og:description" content="select &amp;amp; pselect#include &amp;lt;sys/select.h&amp;gt; #include &amp;lt;sys/time.h&amp;gt; #include &amp;lt;sys/types.h&amp;gt; #include &amp;lt;unistd.h&amp;gt;  void FD_CLR(int fd, fd_set *set); int  FD_ISSET(int fd, fd_set *se">
-<meta property="og:updated_time" content="2017-04-26T13:01:14.369Z">
+<meta property="og:updated_time" content="2017-05-10T10:30:53.253Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux select pselect poll epoll用法">
 <meta name="twitter:description" content="select &amp;amp; pselect#include &amp;lt;sys/select.h&amp;gt; #include &amp;lt;sys/time.h&amp;gt; #include &amp;lt;sys/types.h&amp;gt; #include &amp;lt;unistd.h&amp;gt;  void FD_CLR(int fd, fd_set *set); int  FD_ISSET(int fd, fd_set *se">
@@ -211,8 +211,8 @@ int ppoll(struct pollfd *fds, nfds_t nfds, const struct timespec *timeout_ts, co
 </code></pre><p>performs a similar task to select(2): it waits for one of a set of file descriptors to become ready to perform I/O.</p>
 <h3 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h3><pre><code>struct pollfd {
    int   fd;         /* in,  file descriptor */
-   short events;     /* in,  requested events */
-   short revents;    /* out, returned events */
+   short events;     /* in,  requested events 请求需要监测的事件类型 */
+   short revents;    /* out, returned events 发生的事件类型 */
 };
 
 The bits that may be set/returned in events and revents are defined in &lt;poll.h&gt;:
@@ -448,19 +448,19 @@ int main(int argc, char* argv[])
     
 <nav id="article-nav">
   
-    <a href="/2017/04/13/Other_MarkdownGuide/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/19/Linux_inotify/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Markdown&amp;MarkdownPad编辑器
+          Linux inotify机制
         
       </div>
     </a>
   
   
-    <a href="/2017/04/19/Linux_inotify/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/04/27/Android_Binder/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Linux inotify机制</div>
+      <div class="article-nav-title">Android Binder</div>
     </a>
   
 </nav>
