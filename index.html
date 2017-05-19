@@ -165,6 +165,341 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Lang_Java_create_class" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2017/09/30/Lang_Java_create_class/" class="article-date">
+	  <time datetime="2017-09-30T04:22:33.000Z" itemprop="datePublished">2017-09-30</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/09/30/Lang_Java_create_class/">Java中创建（实例化）对象的五种方式 及 基本数据类型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先，Java中创建（实例化）对象的五种方式，如下<br>1、用new语句创建对象，这是最常见的创建对象的方法。<br>2、通过工厂方法返回对象，如：String str = String.valueOf(23);<br>3、运用反射手段,调用java.lang.Class或者java.lang.reflect.Constructor类的newInstance()实例方法。如：Object obj = Class.forName(“java.lang.Object”).newInstance();<br>4、调用对象的clone()方法。<br>5、通过I/O流（包括反序列化），如运用反序列化手段，调用java.io.ObjectInputStream对象的 readObject()方法。</p>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><pre><code>package org.whb.test.demo724;
+/*
+ * 测试Cloneable接口的使用
+ * 包含第一种和第三种方法clone()
+ * 不过要注意在clone()中深复制和潜复制的理解
+ * 实例化对象 
+ */
+class Person implements Cloneable{
+    private String name;
+    private int age;
+
+  public Person( String name,int age) {
+    this.name = name; 
+    this.age = age;
+  }
+
+  public int getAge() {
+   return age;
+  }
+
+  public void setAge(int age) {
+   this.age = age;
+  }
+
+ public String getName() {
+  return name;
+ }
+
+ public void setName(String name){
+      this.name =name;
+    }
+
+@Override
+ public Object clone() throws CloneNotSupportedException {
+  // TODO Auto-generated method stub
+  return super.clone();
+ }
+  @Override
+ public String toString() {
+  // TODO Auto-generated method stub
+  return &quot;姓名是：&quot;+name+&quot;; 年龄是：&quot;+age;
+ }
+
+}
+
+public class TestClone{
+ public static void main(String[] args){
+   Person p1 = new Person(&quot;王豪博&quot;,25);
+   System.out.println(p1);
+   Person p2 =null;
+   try {
+     p2 = (Person)p1.clone();
+   } catch (CloneNotSupportedException e) {
+    // TODO Auto-generated catch block
+     e.printStackTrace();
+   }
+   p2.setName(&quot;春香&quot;);
+   p2.setAge(24);
+   System.out.println(p2);
+  }
+}
+
+/*
+ * 通过反射对对象进行初始化
+ * 注意必须有无参数的Constructor
+ * 实例化Class类然后调用newInstance()方法
+ */
+package org.whb.test.demo715;
+class Person{
+    private int age;
+    private String name;
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String toString(){
+        return &quot;年龄是：&quot;+this.age+&quot;  姓名是：&quot;+this.name;
+    } 
+
+}
+
+public class TestClass {
+    public static void main(String[] args){
+        Class&lt; ?&gt; c1 = null;
+        try{
+            c1 = Class.forName(&quot;org.whb.test.demo715.Person&quot;);
+        }catch(ClassNotFoundException e){
+            e.printStackTrace();
+        }   
+        Person p1 = null;
+        try {
+            p1 =(Person)c1.newInstance();
+        } catch (InstantiationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        p1.setAge(12);
+        p1.setName(&quot;haobo&quot;);
+        System.out.println(p1);
+    }
+}
+
+
+/*
+ * 对象的序列化和反序列化测试类.
+
+    *1、序列化是干什么的？
+    简单说就是为了保存在内存中的各种对象的状态（也就是实例变量，不是方法），并且可以把保存的对象状态再读出来。虽然你可以用你自 己的各种各样的方法来保存object states，但是Java给你提供一种应该比你自己好的保存对象状态的机制，那就是序列化。
+    *2、什么情况下需要序列化 
+    a）当你想把的内存中的对象状态保存到一个文件中或者数据库中时候；
+    b）当你想用套接字在网络上传送对象的时候；
+    c）当你想通过RMI传输对象的时候；
+    *
+    *3、相关注意事项
+    a）序列化时，只对对象的状态进行保存，而不管对象的方法；
+    b）当一个父类实现序列化，子类自动实现序列化，不需要显式实现Serializable接口；
+    c）当一个对象的实例变量引用其他对象，序列化该对象时也把引用对象进行序列化；
+    d）并非所有的对象都可以序列化，,至于为什么不可以，有很多原因了,比如：
+    1.安全方面的原因，比如一个对象拥有private，public等field，对于一个要传输的对象，比如写到文件，或者进行rmi传输 等等，在序列化进行传输的过程中，这个对象的private等域是不受保护的。
+    2.资源分配方面的原因，比如socket，thread类，如果可以序列化，进行传输或者保存，也无法对他们进行重新的资源分 配，而且，也是没有必要这样实现。
+
+*/
+
+package org.whb.test.demo724;
+import java.io.*; 
+import java.util.Date;
+
+public class ObjectSaver { 
+    public static void main(String[] args) throws Exception { 
+        ObjectOutputStream out = new ObjectOutputStream (new FileOutputStream(&quot;D:/objectFile.swf&quot;));
+
+        //序列化对象 
+        Customer customer = new Customer(&quot;haobo&quot;, 24); 
+        out.writeObject(&quot;你好!&quot;); 
+        out.writeObject(new Date()); 
+        out.writeObject(customer); 
+        out.writeInt(123); //写入基本类型数据 
+        out.close(); 
+
+        //反序列化对象 
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(&quot;D:/objectFile.swf&quot;)); 
+        System.out.println(&quot;obj1=&quot; + (String) in.readObject()); 
+        System.out.println(&quot;obj2=&quot; + (Date) in.readObject()); 
+        Customer obj3 = (Customer) in.readObject(); 
+        System.out.println(&quot;obj3=&quot; + obj3); 
+        int obj4 = in.readInt(); 
+        System.out.println(&quot;obj4=&quot; + obj4); 
+        in.close(); 
+    } 
+} 
+
+class Customer implements Serializable { 
+    private static final long serialVersionUID = -88175599799432325L; 
+    private String name; 
+    private int age; 
+    public Customer(String name, int age) { 
+        this.name = name; 
+        this.age = age; 
+    }
+    public String toString() { 
+        return &quot;name=&quot; + name + &quot;, age=&quot; + age; 
+    } 
+}
+
+/* 打印输出
+ * obj1=你好!
+ * obj2=Sat Jul 24 21:18:19 CST 2010
+ * obj3=name=haobo, age=24
+ * obj4=123
+ */
+</code></pre><p><img src="http://f1.freep.cn/585107/basic_type.png" alt="basic_type"></p>
+<h1 id="附（C-中实例化对象）"><a href="#附（C-中实例化对象）" class="headerlink" title="附（C++中实例化对象）"></a>附（C++中实例化对象）</h1><p>A <em>a = new A; 和 A </em>a=new A(); （推荐使用这个）都是调用A类的默认构造函数，指针a在函数栈中，指向内容在堆中。<br>但是如果单独声明一个A 类变量，如：A a；则调用的是默认构造函数，对象a整个在函数栈中。<br>但是不能写成 A a(); 来调用默认构造函数！！因为这种形式会被识别成一个：名称为a的不接受任何参数，返回值为A类型的函数！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2017/09/30/Lang_Java_create_class/" data-id="cj2vheo9g000xt4wmptnk7rds" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/class/">class</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/instance/">instance</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reflect/">reflect</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Android_vector_list" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2017/09/19/Android_vector_list/" class="article-date">
+	  <time datetime="2017-09-19T04:22:33.000Z" itemprop="datePublished">2017-09-19</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/09/19/Android_vector_list/">Android中Vector、ArrayList、LinkedList和HashMap</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="先说：Iterator、Iterable、Collection-接口"><a href="#先说：Iterator、Iterable、Collection-接口" class="headerlink" title="先说：Iterator、Iterable、Collection 接口"></a>先说：Iterator、Iterable、Collection 接口</h1><p>public interface Iterator<e>接口：     包含hasNext next remove三个方法<br>public interface Iterable<t> 迭代接口：   包含一个iterator() 方法<br>public interface Collection<e> extends Iterable<e>：继承Iterable接口(Iterable是接口，使用的关键字是extends，因为Collection也是接口),并包含add remove clear等操作方法；contains equals isEmpty 等检测方法；size iterator toArray工具方法。</e></e></t></e></p>
+<p>AbstractCollection  集合的类化，抽象类：   有添加删除特性的抽象类<br>                    public abstract class AbstractCollection<e> implements Collection<e> {}<br>                    需要实现：<br>                        public boolean add(E object) {throw}<br>                        迭代接口iterator(); （实例化一个实现接口Iterator<e>的类，并作为返回值即可）<br>                        public abstract int size();</e></e></e></p>
+<h1 id="再来看接口-List-和-ListIterator"><a href="#再来看接口-List-和-ListIterator" class="headerlink" title="再来看接口 List 和 ListIterator"></a>再来看接口 List 和 ListIterator</h1><p>public interface List<e> extends Collection<e> {}             List在Collection的基础上添加了index的特性。<br>        接口重写：add、clear<br>        public void add(int location, E object);<br>        public E get(int location);<br>        public int indexOf(Object object);<br>        public int lastIndexOf(Object object);  //最后一次出现的index<br>        public ListIterator<e> listIterator(); //见ListIterator<br>        public ListIterator<e> listIterator(int location);  //从指定位置开始迭代<br>        public E set(int location, E object);<br>        public List<e> subList(int start, int end); </e></e></e></e></e></p>
+<p>public interface ListIterator<e> extends Iterator<e> {} 在Iterator基础上添加了连贯性的特点<br>        除了add hasNext remove 添加了hasPrevious  nextIndex();   previous   previousIndex(); set(E object); 等操作</e></e></p>
+<h1 id="看看List的类化——AbstractList"><a href="#看看List的类化——AbstractList" class="headerlink" title="看看List的类化——AbstractList"></a>看看List的类化——AbstractList</h1><p>public abstract class AbstractList<e> extends AbstractCollection<e> implements List<e> {}<br>            集Collection和List于一身的抽象List类</e></e></e></p>
+<h1 id="ArrayList类"><a href="#ArrayList类" class="headerlink" title="ArrayList类"></a>ArrayList类</h1><p>public class ArrayList<e> extends AbstractList<e> implements Cloneable, Serializable, RandomAccess {}<br>    Object[] array;    数组进行存储元素</e></e></p>
+<h1 id="Vector类-（带同步功能的List）"><a href="#Vector类-（带同步功能的List）" class="headerlink" title="Vector类 （带同步功能的List）"></a>Vector类 （带同步功能的List）</h1><p>public class Vector<e> extends AbstractList<e> implements List<e>,<br>        RandomAccess, Cloneable, Serializable {</e></e></e></p>
+<p>………………………………..</p>
+<h1 id="LinkedList类-（双链表，队列特性）"><a href="#LinkedList类-（双链表，队列特性）" class="headerlink" title="LinkedList类 （双链表，队列特性）"></a>LinkedList类 （双链表，队列特性）</h1><p>public class LinkedList<e> extends AbstractSequentialList<e> implements<br>        List<e>, Deque<e>, Queue<e>, Cloneable, Serializable {</e></e></e></e></e></p>
+<p>…………………………………</p>
+<h1 id="HashMap类"><a href="#HashMap类" class="headerlink" title="HashMap类"></a>HashMap类</h1><p>Map接口 public interface Map<k,v>  包含k-v 对的集合</k,v></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2017/09/19/Android_vector_list/" data-id="cj2vheo9c000st4wm5i20au9r" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ArrayList/">ArrayList</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HashMap/">HashMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LinkedList/">LinkedList</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vector/">Vector</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Lang_Java_sameInterface" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2017/09/19/Lang_Java_sameInterface/" class="article-date">
+	  <time datetime="2017-09-19T04:22:33.000Z" itemprop="datePublished">2017-09-19</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/09/19/Lang_Java_sameInterface/">Java中父类和子类可以同时实现一个接口，有什么作用？</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>看下面的代码片段，父类和子类都实现了接口A</p>
+<pre><code>Class Base `implements  A`
+Class Sub extends Base  `implements  A`
+</code></pre><p>就是说子类Sub实现A有什么用？</p>
+<p>我原来认为是多余的。实际上， 子类再次实现父类实现的接口是为了强制子类(SUB)重写父类(BASE)中实现的所有接口中的方法。</p>
+<p>现实中的例子：<br>父类：public abstract class AbstractList<e> extends AbstractCollection<e> implements List<e> {}</e></e></e></p>
+<p>子类：public class Vector<e> extends AbstractList<e> implements List<e>, RandomAccess, Cloneable, Serializable {}</e></e></e></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2017/09/19/Lang_Java_sameInterface/" data-id="cj2vheo9n0016t4wm2pzex4mg" class="article-share-link">分享</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Android_Binder" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -210,55 +545,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binder/">Binder</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IPC/">IPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RPC/">RPC</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Linux_inotify" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2017/04/19/Linux_inotify/" class="article-date">
-	  <time datetime="2017-04-18T16:00:00.000Z" itemprop="datePublished">2017-04-19</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/linux/">linux</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/19/Linux_inotify/">Linux inotify机制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Inotify 是一个 Linux 内核特性，它监控文件系统，并且及时向专门的应用程序发出相关的事件警告，比如删除、读、写和卸载操作等。您还可以跟踪活动的源头和目标等细节。<br>使用 inotify 很简单：创建一个文件描述符fd，附加一个或多个监视器（一个监视器 是一个路径和一组事件，对应一个描述符wd），然后使用 read() 方法从描述符fd获取事件信息。</p>
-<p>inotify，linux内核版本 &gt;= 2.6.13</p>
-        
-          <p class="article-more-link">
-            <a href="/2017/04/19/Linux_inotify/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2017/04/19/Linux_inotify/" data-id="cj1ypru7g001fmxwm65ht9ikj" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/inotify/">inotify</a></li></ul>
 
     </footer>
   </div>
@@ -323,6 +609,102 @@ int pselect(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, cons
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poll/">poll</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/select/">select</a></li></ul>
 
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Linux_inotify" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2017/04/19/Linux_inotify/" class="article-date">
+	  <time datetime="2017-04-18T16:00:00.000Z" itemprop="datePublished">2017-04-19</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/19/Linux_inotify/">Linux inotify机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Inotify 是一个 Linux 内核特性，它监控文件系统，并且及时向专门的应用程序发出相关的事件警告，比如删除、读、写和卸载操作等。您还可以跟踪活动的源头和目标等细节。<br>使用 inotify 很简单：创建一个文件描述符fd，附加一个或多个监视器（一个监视器 是一个路径和一组事件，对应一个描述符wd），然后使用 read() 方法从描述符fd获取事件信息。</p>
+<p>inotify，linux内核版本 &gt;= 2.6.13</p>
+        
+          <p class="article-more-link">
+            <a href="/2017/04/19/Linux_inotify/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2017/04/19/Linux_inotify/" data-id="cj1ypru7g001fmxwm65ht9ikj" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/inotify/">inotify</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Other_undefined" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2017/04/13/Other_undefined/" class="article-date">
+	  <time datetime="2017-04-13T11:55:33.000Z" itemprop="datePublished">2017-04-13</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/杂项/">杂项</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/13/Other_undefined/">杂项</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Google-Host文件"><a href="#Google-Host文件" class="headerlink" title="Google Host文件"></a>Google Host文件</h1><p><a href="https://raw.githubusercontent.com/racaljk/hosts/master/hosts" target="_blank" rel="external">https://raw.githubusercontent.com/racaljk/hosts/master/hosts</a> </p>
+<h1 id="Ubuntu-x64系统安装32位系统兼容库"><a href="#Ubuntu-x64系统安装32位系统兼容库" class="headerlink" title="Ubuntu x64系统安装32位系统兼容库"></a>Ubuntu x64系统安装32位系统兼容库</h1><p>sudo apt-get install lib32z1 lib32ncurses5 lib32bz2-1.0</p>
+<p>sudo apt-get install gawk<br>sudo apt-get install libstdc++6<br>sudo apt-get install lib32stdc++6</p>
+<p>or  sudo apt-get install libc6-i386</p>
+<h1 id="利用已有的Doxyfile来生成文档"><a href="#利用已有的Doxyfile来生成文档" class="headerlink" title="利用已有的Doxyfile来生成文档"></a>利用已有的Doxyfile来生成文档</h1><p>doxygen Doxyfile</p>
+<h1 id="护眼色"><a href="#护眼色" class="headerlink" title="护眼色"></a>护眼色</h1><p>R/B/G:CBE7CE  203 231 206<br>色调84 饱和度88 亮度204</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2017/04/13/Other_undefined/" data-id="cj2vheo9p0019t4wmd2dpcfvz" class="article-share-link">分享</a>
+      
+      
     </footer>
   </div>
   
@@ -405,6 +787,100 @@ Cx20sV1ClOTZtAGngSOJtIOFXK599sBr5aIEFyH0K7H4BoNMiiDMnxt1rD8Vb/ikJdhGMMQr
 
 
   
+    <article id="post-Android_porting_opensourcesoft" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2017/04/13/Android_porting_opensourcesoft/" class="article-date">
+	  <time datetime="2017-04-13T04:22:33.000Z" itemprop="datePublished">2017-04-13</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/13/Android_porting_opensourcesoft/">移植开源程序到Android中</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p>安装独立的交叉编译链：<br> 下载ndk 包， 解压<br> cd build/tools<br> ./make-standalone-toolchain.sh –install-dir=/opt/ndk-standalone-10-arm –platform=android-22 –toolchain=arm-linux-androideabi-4.8</p>
+<p> 注1  老的ndk才需要使用–ndk-dir=../../，    ndk10使用  –platform=android-L，    ndk13使用  –platform=android-22<br> 注2：需要将/opt/ndk-standalone-10-arm/bin 添加到PATH 路径中</p>
+</li>
+<li><p>编译libusb-1.0.so库<br> 需要略微添加下timeval 等结构体 等</p>
+<p> #define TIMESPEC_TO_TIMEVAL(tv, ts)         \<br> {                                           \</p>
+<pre><code>(tv)-&gt;tv_sec = (ts)-&gt;tv_sec;            \
+(tv)-&gt;tv_usec = (ts)-&gt;tv_nsec / 1000;   \
+</code></pre><p> } while (0)     </p>
+</li>
+</ol>
+<pre><code>方法1 使用原始编译框架，交叉编译
+    ./configure --build=x86_64-linux-gnu  --host=arm-linux-androideabi --target=arm-linux-androideabi --prefix=/opt/libusb-1.0.9/
+    make
+    注：--prefix 编译生成库的路径，也叫安装路径，使用绝对路径
+方法2 使用Android ndk ndk-build进行编译（需要编译Application.mk Android.mk 等文件）    【推荐】
+    ndk-build clean 
+    ndk-build 
+方法3 copy  ti-sdk-am335x-evm-08.00.00.00 中的libusb-1.0.so 库
+</code></pre><ol>
+<li><p>编译libssl.so libcrypto.so 库 （Android集成的openssl）<br> 方式1： 使用Android 中openssl 编译  【推荐】</p>
+<pre><code>需要配置openssl.config和openssl.trusty.config  去掉no-dtls1 宏，否则将不支持DTLS特性  （即通过 arm-linux-androideabi-            
+    nm ../../out/target/product/rk3368_box/obj/SHARED_LIBRARIES/libssl_intermediates/LINKED/libssl.so | grep DTLSv1_server_method 查询不到函数符号）
+./import_openssl.sh import &lt;path-to-openssl-1.0.1j.tar.gz&gt;     //重新按照该openssl.config生成编译配置文件
+mm -B
+</code></pre><p> 方式2： （下载开源openssl源码编译， 参见openssl-1.1.0c/Configurations/10-main.conf 介绍，此方法用户编译原生openssl库）</p>
+<pre><code>export ANDROID_NDK=/opt/android-ndk-r13b
+export CROSS_SYSROOT=/opt/android-ndk-r13b/platforms/android-22/arch-arm
+export CROSS_COMPILE=arm-linux-androideabi-                   //等同于选项--cross-compile-prefix
+
+./Configure android-armeabi  --openssldir=/opt/openssl-1.1.0c/out/config --prefix=/opt/openssl-1.1.0c/out
+make install
+
+make clean &amp;&amp; make distclean
+export ANDROID_NDK=/opt/android-ndk-r10b
+export CROSS_SYSROOT=$ANDROID_NDK/platforms/android-L/arch-arm
+export CROSS_COMPILE=arm-linux-androideabi-
+export OPENSSL_HOME=/work2/mygo/src/bitbucket.org/portus/smartgateway/NodePro/Zwave/lib/openssl
+./Configure android-armeabi no-threads --openssldir=$OPENSSL_HOME/out/config --prefix=$OPENSSL_HOME/out
+make
+make install
+</code></pre></li>
+</ol>
+<ol>
+<li><p>bridge-utils （主要是需要brctl工具）<br> ./configure –build=x86_64-linux-gnu  –host=arm-linux-androideabi –target=arm-linux-androideabi  –prefix=/opt/bridge-utils-1.4/out/<br> make clean<br> make<br> make install</p>
+</li>
+<li><p>编译zipgateway （基于arm Android目标运行环境）<br> ./configure –build=x86_64-linux-gnu  –host=arm-linux-androideabi –target=arm-linux-androideabi<br> make CC=/opt/ndk-standalone-10-arm/bin/arm-linux-androideabi-gcc beaglebone<br> 或者  make CROSS=”arm-linux-androideabi-“ beaglebone   【推荐】</p>
+</li>
+</ol>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>android ndk编译开源linux软件方法<br>NDK=/opt/android-ndk-r10b<br>SYSROOT=$NDK/platforms/android-L/arch-arm<br>CC=”$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-gcc –sysroot=$SYSROOT”<br>$CC –version</p>
+<p>cmake -DOPENSSL_ROOT_DIR=/work/project/geekbox/Lollipop/external/openssl/include -DOPENSSL_LIBRARIES=/work/project/geekbox/Lollipop/out/target/product/rk3368_box/system/lib<br>./configure </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2017/04/13/Android_porting_opensourcesoft/" data-id="cj2vheo92000it4wmneqy6669" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/porting/">porting</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Android_Support.xxx" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -454,291 +930,11 @@ Cx20sV1ClOTZtAGngSOJtIOFXK599sBr5aIEFyH0K7H4BoNMiiDMnxt1rD8Vb/ikJdhGMMQr
 
 
   
-    <article id="post-InputSystem002_LinuxInputSubSystem" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2017/04/12/InputSystem002_LinuxInputSubSystem/" class="article-date">
-	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/12/InputSystem002_LinuxInputSubSystem/">Input系统——Linux 输入子系统</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>待整理完善。。。</p>
-<h3 id="1-struct-input-dev"><a href="#1-struct-input-dev" class="headerlink" title="1. struct input_dev"></a>1. struct input_dev</h3><pre><code>struct input_dev {
-    const char *name; //名字 
-    const char *phys;
-    const char *uniq;
-    struct input_id id;
-
-    unsigned long propbit[BITS_TO_LONGS(INPUT_PROP_CNT)];
-
-    unsigned long evbit[BITS_TO_LONGS(EV_CNT)];    // 设备所支持的事件类型
-
-    unsigned long keybit[BITS_TO_LONGS(KEY_CNT)];  // 按键类型 
-    unsigned long relbit[BITS_TO_LONGS(REL_CNT)];  // 相对值类型
-    unsigned long absbit[BITS_TO_LONGS(ABS_CNT)];  // 绝对值类型
-    unsigned long mscbit[BITS_TO_LONGS(MSC_CNT)];  // 混合类型
-    unsigned long ledbit[BITS_TO_LONGS(LED_CNT)];  // LED类型
-    unsigned long sndbit[BITS_TO_LONGS(SND_CNT)];  // 声音类型
-    unsigned long ffbit[BITS_TO_LONGS(FF_CNT)];    // 力反馈
-    unsigned long swbit[BITS_TO_LONGS(SW_CNT)];    // 开关类型???
-</code></pre>
-        
-          <p class="article-more-link">
-            <a href="/2017/04/12/InputSystem002_LinuxInputSubSystem/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2017/04/12/InputSystem002_LinuxInputSubSystem/" data-id="cj1ypru750010mxwmfiik6g4m" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event/">event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input/">input</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input系统/">input系统</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-InputSystem003_AndroidInputSystem" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2017/04/12/InputSystem003_AndroidInputSystem/" class="article-date">
-	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/12/InputSystem003_AndroidInputSystem/">Input系统——Android Input系统</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Input系统结构解析"><a href="#Input系统结构解析" class="headerlink" title="Input系统结构解析"></a>Input系统结构解析</h1><p>AndroidInput系统——JNI NativeInputManager InputManger InputReader<br><img src="https://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/pub?w=998&amp;h=918" alt=""></p>
-        
-          <p class="article-more-link">
-            <a href="/2017/04/12/InputSystem003_AndroidInputSystem/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2017/04/12/InputSystem003_AndroidInputSystem/" data-id="cj1ypru780013mxwmzta6ittl" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event/">event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input/">input</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input系统/">input系统</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-InputSystem004_type_code" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2017/04/12/InputSystem004_type_code/" class="article-date">
-	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/12/InputSystem004_type_code/">Input系统——TYPE CODE</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Event-Type-amp-Code"><a href="#Event-Type-amp-Code" class="headerlink" title="Event Type&amp;Code"></a>Event Type&amp;Code</h1><pre><code>EV_SYN:  - 用于事件间的分割标志。事件可能按时间或空间进行分割，就像在多点触摸协议中的例子。
-    SYN_REPORT:    - 当多个输入数据在同一时间发生变化时，SYN_REPORT用于把这些数据进行打包和包同步。
-                例如，一次鼠标的移动可以上报   REL_X和REL_Y两个数值，然后发出一个SYN_REPORT。
-                下一次鼠标移动可以再次发出REL_X和REL_Y两个数值，然后经跟这另一个SYN_REPORT。
-
-    SYN_MT_REPORT: - 用于同步和分离触摸事件
-    SYN_DROPPED:   - 用来指出evdev客户的事件队列的的缓冲区溢出。
-
-EV_KEY:  - 用来描述键盘，按键或者类似键盘设备的状态变化。
-    KEY_&lt;name&gt;:    - EV_KEY事件采取KEY_&lt;name&gt; 或BTN_&lt;name&gt;的形式，
-                        比如，KEY_A代表键盘上的A键，当一个按键被按下时，一个带有按键编码和value为1的事件被发出。
-                        当一个按键被释放时，一个value为0的事件被发出。有些硬件当按键重复时会发出事件，这些事件的value值为2。
-                        通常，KEY_&lt;name&gt;用作键盘上的按键，而BTN_&lt;name&gt;则用于开关按钮事件。 
-                   - 普通键盘按键     0x0~0x100     0x160~0x2ff
-                   - 游戏柄的按键     0x100~0x110   0x120~0x140
-                   - 鼠标按键         BTN_MOUSE-BTN_LEFT-0x110-左键；  BTN_RIGHT-0x111-右键；  BTN_MIDDLE-0x112-中键；
-    BTN_&lt;name&gt;:    - see above
-</code></pre>
-        
-          <p class="article-more-link">
-            <a href="/2017/04/12/InputSystem004_type_code/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2017/04/12/InputSystem004_type_code/" data-id="cj1ypru7a0016mxwmxmtuw3ui" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event/">event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input/">input</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input系统/">input系统</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Android_APK_tool" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2017/04/12/Android_APK_tool/" class="article-date">
-	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/12/Android_APK_tool/">APK 反编译及签名工具</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="反编译-解包-再编译"><a href="#反编译-解包-再编译" class="headerlink" title="反编译/解包/再编译"></a>反编译/解包/再编译</h1><h3 id="1-Apktool——APK反编译及再打包工具"><a href="#1-Apktool——APK反编译及再打包工具" class="headerlink" title="1. Apktool——APK反编译及再打包工具"></a>1. Apktool——APK反编译及再打包工具</h3><p>通过反编译APK中XML文件，直接可以查看<br><a href="https://ibotpeaches.github.io/Apktool/">https://ibotpeaches.github.io/Apktool/</a></p>
-<p>下载安装Apktool （Windows/Linux/Mac）<br><a href="https://ibotpeaches.github.io/Apktool/install/">https://ibotpeaches.github.io/Apktool/install/</a></p>
-<p>Apktool 通常用法<br>反编译APK     <code>apktool d[ecode] test.apk</code><br>再打包成APK   <code>apktool b[uild] test</code></p>
-<h3 id="2-dex2jar"><a href="#2-dex2jar" class="headerlink" title="2. dex2jar"></a>2. dex2jar</h3><p>将apk中的classes.dex转化成Jar文件<br><a href="https://github.com/pxb1988/dex2jar">https://github.com/pxb1988/dex2jar</a></p>
-<h3 id="3-JD-GUI"><a href="#3-JD-GUI" class="headerlink" title="3. JD-GUI"></a>3. JD-GUI</h3><p>反编译工具，可以直接查看Jar包的源代码<br><a href="https://code.google.com/archive/p/innlab/downloads">https://code.google.com/archive/p/innlab/downloads</a><br><a href="https://pan.baidu.com/disk/home#list/vmode=list&amp;path=%2Fapps%2FAPK-Track%E5%B7%A5%E5%85%B7">https://pan.baidu.com/disk/home#list/vmode=list&amp;path=%2Fapps%2FAPK-Track%E5%B7%A5%E5%85%B7</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2017/04/12/Android_APK_tool/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2017/04/12/Android_APK_tool/" data-id="cj1ypru6l0005mxwmv29qyxpg" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APK反编译，APK签名/">APK反编译，APK签名</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Android_mk" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2017/04/12/Android_mk/" class="article-date">
-	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/12/Android_mk/">Android.mk</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Android-mk"><a href="#Android-mk" class="headerlink" title="Android.mk"></a>Android.mk</h1><p>待续。。。<br>
-        
-          <p class="article-more-link">
-            <a href="/2017/04/12/Android_mk/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2017/04/12/Android_mk/" data-id="cj1ypru6s000bmxwmg0jojzha" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-mk/">Android.mk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Makefile/">Makefile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/build/">build</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
   </nav>
 
 </section>

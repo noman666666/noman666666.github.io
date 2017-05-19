@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>android init.rc | 进无止境&#39;s 博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="init.rc" />
+  
+  
+  
+  
+  <meta name="description" content="init.rc主要有两大元素:   Actions和Service 一种是定时任务——Actions，由以下构成：    on                         … 一种是固定顺序的任务(初始化启动，可以重启)，即Services    service   [  ]*                        …">
+<meta name="keywords" content="init.rc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android init.rc">
+<meta property="og:url" content="jingg.me/2016/11/25/Android_init_rc/index.html">
+<meta property="og:site_name" content="进无止境's 博客">
+<meta property="og:description" content="init.rc主要有两大元素:   Actions和Service 一种是定时任务——Actions，由以下构成：    on                         … 一种是固定顺序的任务(初始化启动，可以重启)，即Services    service   [  ]*                        …">
+<meta property="og:updated_time" content="2017-05-18T08:01:21.346Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android init.rc">
+<meta name="twitter:description" content="init.rc主要有两大元素:   Actions和Service 一种是定时任务——Actions，由以下构成：    on                         … 一种是固定顺序的任务(初始化启动，可以重启)，即Services    service   [  ]*                        …">
+  
+    <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Android_init_rc" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2016/11/25/Android_init_rc/" class="article-date">
+	  <time datetime="2016-11-25T04:22:33.000Z" itemprop="datePublished">2016-11-25</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Android init.rc
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>init.rc主要有两大元素:   Actions和Service</p>
+<p>一种是定时任务——Actions，由以下构成：<br>    on <trigger><br>        <command><br>        <command><br>        …</trigger></p>
+<p>一种是固定顺序的任务(初始化启动，可以重启)，即Services<br>    service <name> <binaray path="" name=""> [ <argument> ]*<br>        <option><br>        </option><option><br>        …</option></argument></binaray></name></p>
+<a id="more"></a>
+<p>以下是<option>分别详解<br>critical        //标识设备核心服务，如果在四分钟内，退出超过四次，设备进入recovery模式<br>disabled    // 和class 一起使用时，也不会随着class一起启动，必须自己显式的用服务名启动 。在init.rc的条件中触发或者在代码中通过ctl.start来触发<br>                  // 如果该服务选项中没有disabled定义，则在init.rc中解析到这个服务的时候，会马上执行这个服务。而如果在服务的选项中增加了disabled定义，<br>                  // 则该服务不会在init.rc中启动，需要我们在代码中使用以下方法来启动：property_set(“ctl.start”, “wifi_dhcpcd”);上句话的意思是，<br>                  // 我要启动wifi_dhcpd这个服务了。</option></p>
+<p>setenv <name> <value>  //启动该服务时，设置环境变量 name 为value<br>socket   …    //建立socket<br>user <username>  //启动该服务前，切换到username 用户<br>group <groupname> [ <groupname> ]*   //启动该服务前，切换到组<br>seclabel <securitycontext>    //启动前切换到安全上下文<br>oneshot      //服务存在是不重启<br>class <name>   //指定一个class名，所有指定相同class名的服务将可能被一起启动或停止<br>onrestart    //启动时执行一条命令(和Actions中的<commman>可选项一样)，可指定的命令如下：</commman></name></securitycontext></groupname></groupname></username></value></name></p>
+<p>以下是Triggers分别详解</p>
+<p><triggers>   //是一个字符串，被用于匹配不同种类的事件，用于触发一个动作发生<br> 有如下trigger：<br>        boot  //这是第一个在init启动时发生的trigger<br>        <name>=<value>  //这种trigger表示，在name=value时触发。</value></name></triggers></p>
+<pre><code>device-added-&lt;path&gt;
+device-removed-&lt;path&gt;  //这种trigger表示当设备节点被添加或者被移除时触发
+service-exited-&lt;name&gt;   //这种trigger表示当指定服务&lt;name&gt;退出时触发
+</code></pre><p>以下是Command分别详解</p>
+<p>exec <path></path> [ <argument> ]<em>    //fork一个进程，执行program，避免执行内置命令，这可能会导致init卡主<br>export <name> <value>    // 设置一个全局变量， 这个全局变量将会被所有后面启动的进程继承<br>ifup <interface>                  //bringup 网口interface<br>import <filename>              //解析一个类似init.rc的配置文件，作为拓展<br>hostname <name>              //设置hostname<br>chdir <directory>                 //切换工作目录<br>chmod <octal-mode> <path></path>   //改变模式，八进制<br>chown <owner> <group> <path></path><br>chroot <directory>   //改变进程运行的root目录<br>class_start <serviceclass>   如果<serviceclass>没运行的话，运行<serviceclass><br>class_stop <serviceclass>   如果<serviceclass>在运行的话，停止<serviceclass><br>domainname <name>      设置域名<br>enable <servicename>      如果该服务没有被指定禁用的话，启动这个未启动的服务。<br>insmod <path></path>   //加载ko模块<br>mkdir <path></path> [mode] [owner] [group]<br>mount <type> <device> <dir> [ <mountoption> ]</mountoption></dir></device></type></servicename></name></serviceclass></serviceclass></serviceclass></serviceclass></serviceclass></serviceclass></directory></group></owner></octal-mode></directory></name></filename></interface></value></name></em><br>restorecon <path></path> [ <path></path> ]<em><br>restorecon_recursive <path></path> [ <path></path> ]</em><br>setcon <securitycontext><br>setenforce 0|1<br>setprop <name> <value><br>setrlimit <resource> <cur> <max>   //Set the rlimit for a resource.<br>setsebool <name> <value>    //Set SELinux boolean <name> to <value>.       <value> may be 1|true|on or 0|false|off<br>start <service>   //启动一个未启动的服务<br>stop <service>    //停止一个启动的服务<br>symlink <target> <path></path>   //创建一个符号链接<br>sysclktz <mins_west_of_gmt>    //<br>trigger <event>    //触发另外一个时间，用于动作同步。<br>wait <path></path> [ <timeout> ]    //轮训是否该文件存在，如果存在，return，或者timeout时间达到时，也退出，未指定timeout，默认等5s<br>write <path></path> <string>   //写字符串到文件中。不是追加</string></timeout></event></mins_west_of_gmt></target></service></service></value></value></name></value></name></max></cur></resource></value></name></securitycontext></argument></p>
+<p>系统属性<br>init.action //=当前执行的动作的action名，没有action名，即为空<br>init.command    //=当前执行的命令的action名，没有command名，即为空<br>init.svc.<name>   //=服务名为<name>的服务状态，可选值为(“stopped”, “running”, “restarting”)</name></name></p>
+<p>调试notes：<br>默认，被init进程执行的子进程 stdout和stderr都会进入/dev/null中，如果你需要调试你的程序的话，你可以<br>使用Android logwrapper，它将会重定向stdout/stderr 到Android log 系统（你可以通过logcat导出）<br>用法：service zip /system/bin/logwrapper /system/bin/zipgateway</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2016/11/25/Android_init_rc/" data-id="cj1ypru6q0009mxwmt3by8q26" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/init-rc/">init.rc</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/10/21/Android_sync_asyncmd/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Android 中同步和并发实现的几个方式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/12/12/Android_Version-sdk-ndk/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Android版本-sdk-ndk-对应关系表</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+<div id="SOHUCS" sid="Android init.rc"></div>
+<script>
+  (function(){
+    var appid = 'cysWY506v',
+    conf = 'prod_b3fbdae0e52a1e5b116b4b9fe328664b';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>    
+</section>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2012 - 2017 进无止境&#39;s 博客 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				<span id="busuanzi_container_site_uv"> 访客数 : <span id="busuanzi_value_site_uv"></span></span> |  
+				<span id="busuanzi_container_site_pv"> 访问量 : <span id="busuanzi_value_site_pv"></span></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            进无止境&#39;s 博客
+          </div>
+          <div class="panel-body">
+            Copyright © 2017 Jim All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+</body>
+</html>

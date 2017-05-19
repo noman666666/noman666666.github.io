@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>android log | 进无止境&#39;s 博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="logtrace" />
+  
+  
+  
+  
+  <meta name="description" content="Android 各层中日志打印功能的应用1. HAL层头文件： #include Android.mk中： LOCAL_SHARED_LIBRARIES := liblog libcutils 对应的级别 打印方法VERBOSE LOGV()DEBUG LOGD()INFO LOGI()WARN LOGW()ERROR LOGE() 方法：LOGD(“%d, %s”, int, char* ) 2">
+<meta name="keywords" content="log,trace">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Log">
+<meta property="og:url" content="jingg.me/2016/05/26/Android_Log/index.html">
+<meta property="og:site_name" content="进无止境's 博客">
+<meta property="og:description" content="Android 各层中日志打印功能的应用1. HAL层头文件： #include Android.mk中： LOCAL_SHARED_LIBRARIES := liblog libcutils 对应的级别 打印方法VERBOSE LOGV()DEBUG LOGD()INFO LOGI()WARN LOGW()ERROR LOGE() 方法：LOGD(“%d, %s”, int, char* ) 2">
+<meta property="og:updated_time" content="2017-05-18T09:58:24.708Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Log">
+<meta name="twitter:description" content="Android 各层中日志打印功能的应用1. HAL层头文件： #include Android.mk中： LOCAL_SHARED_LIBRARIES := liblog libcutils 对应的级别 打印方法VERBOSE LOGV()DEBUG LOGD()INFO LOGI()WARN LOGW()ERROR LOGE() 方法：LOGD(“%d, %s”, int, char* ) 2">
+  
+    <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Android_Log" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2016/05/26/Android_Log/" class="article-date">
+	  <time datetime="2016-05-26T07:13:00.000Z" itemprop="datePublished">2016-05-26</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Android Log
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Android-各层中日志打印功能的应用"><a href="#Android-各层中日志打印功能的应用" class="headerlink" title="Android 各层中日志打印功能的应用"></a>Android 各层中日志打印功能的应用</h1><h3 id="1-HAL层"><a href="#1-HAL层" class="headerlink" title="1. HAL层"></a>1. HAL层</h3><p>头文件：</p>
+<p>#include <utils log.h=""><br>Android.mk中：</utils></p>
+<p>LOCAL_SHARED_LIBRARIES := liblog libcutils</p>
+<p>对应的级别 打印方法<br>VERBOSE LOGV()<br>DEBUG LOGD()<br>INFO LOGI()<br>WARN LOGW()<br>ERROR LOGE()</p>
+<p>方法：<br>LOGD(“%d, %s”, int, char* )</p>
+<h3 id="2-JNI层"><a href="#2-JNI层" class="headerlink" title="2. JNI层"></a>2. JNI层</h3><p>头文件：</p>
+<p>#include <utils log.h=""></utils></p>
+<p>对应的级别 打印方法<br>VERBOSE LOGV()<br>DEBUG LOGD()<br>INFO LOGI()<br>WARN LOGW()<br>ERROR LOGE()</p>
+<p>方法：<br>LOGD(“%d, %s”, int, char* )</p>
+<h3 id="3-FRAMEWORK层"><a href="#3-FRAMEWORK层" class="headerlink" title="3. FRAMEWORK层"></a>3. FRAMEWORK层</h3><p>import android.util.Slog;</p>
+<p>对应的级别 打印方法<br>VERBOSE Slog.v()<br>DEBUG Slog.d()<br>INFO Slog.i()<br>WARN Slog.w()<br>ERROR Slog.e()</p>
+<p>方法：<br>Slog.d(TAG, “something to say.”);</p>
+<h3 id="4-Java层"><a href="#4-Java层" class="headerlink" title="4. Java层"></a>4. Java层</h3><p>import android.util.Log;</p>
+<p>对应的级别 打印方法<br>VERBOSE Log.v()<br>DEBUG Log.d()<br>INFO Log.i()<br>WARN Log.w()<br>ERROR Log.e()</p>
+<p>方法：<br>Log.d(TAG, “something to say.”);</p>
+<hr>
+<h1 id="一、LOG等级：Verbose-Debug-Info-Warn-Error-Assert-Suppress】"><a href="#一、LOG等级：Verbose-Debug-Info-Warn-Error-Assert-Suppress】" class="headerlink" title="一、LOG等级：Verbose,Debug,Info,Warn,Error, Assert,Suppress】"></a>一、LOG等级：Verbose,Debug,Info,Warn,Error, Assert,Suppress】</h1><pre><code>Verbose最低级别，什么信息都输出；A是最高级别的日志，即assert；S表示Suppress，即停止该日志的输出。
+</code></pre><h1 id="二、选用标准："><a href="#二、选用标准：" class="headerlink" title="二、选用标准："></a>二、选用标准：</h1><p>Verbose：开发调试过程中一些详细信息，Verbose等级的Log，请不要在user版本中出现</p>
+<blockquote>
+<p>Java示例<br>  import android.os.Build;<br>    import android.util.Log<br>    final public Boolean isEng =Build.TYPE.equals(“eng”);<br>    if (isEng)<br>        Log.v(“LOG_TAG”,“LOG_MESSAGE”);</p>
+<p>C/C++示例</p>
+<p>  #include<cutils log.h="">     ———–C/C++示例———-<br>    char value[PROPERTY_VALUE_MAX];   int isEng=0;<br>    property_get(“ro.build.type”,value, “user”);<br>    isEng=strcmp(value, “eng”);<br>    if (isEng)<br>        ALOGV();</cutils></p>
+</blockquote>
+<p>Debug: 用于调试的信息，编译进产品，但可以在运行时关闭，Debug等级的log,默认不开启，通过终端命令开启;</p>
+<blockquote>
+<p>Java示例<br>  import android.util.Log      ———————————<br>    final String TAG=”MyActivity”;<br>    final public Boolean LOG_DEBUG = Log.isLoggable(TAG, Log.DEBUG);<br>    if (LOG_DEBUG)<br>        Log.d(“LOG_TAG”,“LOG_MESSAGE”);</p>
+<p>  运行时开启log: 在终端输入：setprop log.tag.MyActivity DEBUG<br>    运行时关闭log: 在终端输入：setprop log.tag.MyActivity INFO</p>
+<p>C/C++示例</p>
+<p>  #include<cutils log.h="">   —————–</cutils></p>
+<pre><code>#define LOG_CTL &quot;debug.MyActivity.enablelog&quot;
+charvalue[PROPERTY_VALUE_MAX]; 
+int isDebug=0;
+property_get(LOG_CTL, value, &quot;0&quot;);
+isDebug = strcmp(value,&quot;1&quot;);
+if (isDebug)
+    ALOGD();
+</code></pre><p>  运行时开启log: 在终端输入：setprop debug.MyActivity.enablelog 1<br>    运行时关闭log: 在终端输入：setprop debug.MyActivity.enablelog 0</p>
+</blockquote>
+<p>附：Log.isLoggable(TAG, log.DEBUG)   //这个函数表示通过setprop设置的level需要小于DEBUG，值才为True。（默认setprop配置的值是INFO，INFO&gt;DEBUG所以你不配置时，值为false的），通过setprop log.tag.<tag>  <level>  通过设置属性的方式来改变默认level，也可以将这些属性按照log.tag.<tag>=<level>的形式，写入/data/local.prop中；</level></tag></level></tag></p>
+<p>Info:例如一些运行时的状态信息，这些状态信息在出现问题的时候能提供帮助。<br>Warn：警告系统出现了异常，即将出现错误。<br>Error：系统已经出现了错误。</p>
+<p>注：Info、Warn、Error等级的Log禁止作为普通的调试信息使用，这些等级的Log是系统出现问题时候的重要分析线索，如果随意使用，将给Log分析人员带来极大困扰。请参考前面的等级介绍合理使用。</p>
+<p>注2：禁止使用new Exception(“print trace”).printStackTrace()或者Log. getStackTraceString(Exception)方式打印普通调试信息，因为这种方式打印Log非常消耗系统资源。此种方式打印Log一般只出现try..catch某个异常使用。</p>
+<p>注3：Log的tag命名，使用Activity名称或者类、模块的名称，不要出现自己的姓名拼音或其他简称。在c++/c代码中调用ALOGD等宏函数，参数没有传入tag,需要在文件头部#define LOG_TAG”YOUR_TAG_NAME”。</p>
+<p>注4：Log的内容，不要出现公司名称、个人名称或相关简称，Log内容不要出现无意义的内容，如连续的等号或星号或连续的数字等，Log内容要方便其他分析Log的人员查看。</p>
+<p>注5：Log输出的频率需要控制,例如1s打印一次的Log，尽量只在eng版本使用，user版本如需开启，请默认关闭，通过设置setprop命令来开启。</p>
+<h1 id="三、使用方法"><a href="#三、使用方法" class="headerlink" title="三、使用方法"></a>三、使用方法</h1><p>c++、c 层输出log：</p>
+<p>#include <cutils log.h=""><br>ALOGV(),     ALOGD(),    ALOGI(),    ALOGW(),    ALOGE()</cutils></p>
+<p>Java层输出log：<br>import android.util.Log<br>Log.v(String tag, String msg),    Log.d(String tag, String msg),<br>Log.i(String tag, String msg),    Log.w(String tag, String msg), Log.e(String tag, String msg)</p>
+<h1 id="四、log显示格式"><a href="#四、log显示格式" class="headerlink" title="四、log显示格式"></a>四、log显示格式</h1><p>log示例：I/SysInfoService(  488): SysInfoWorkThread running<br>            等级/TAG(PID)       :消息</p>
+<h1 id="五、过滤"><a href="#五、过滤" class="headerlink" title="五、过滤"></a>五、过滤</h1><p>logcat消息过滤<br>    logcat -c 清除log<br>    logcat -s TAG:D -v [process只显示pid] [tag 只显示 priority/Tag] [thread 显示process:thread and priority/tag]<br>                                        [raw只显示message][time显示date-time-priority/Tag PID ][long 将元数据和消息分行]</p>
+<h1 id="六、Java核心库打印"><a href="#六、Java核心库打印" class="headerlink" title="六、Java核心库打印"></a>六、Java核心库打印</h1><p>Java核心库在Android工程的\libcore\luni\src\main\java目录下。<br>在Android的java核心库中是无法使用Logcat打印的，因为Android的java层要使用Java库，即Java库是Android的Java运行的前提，所以。。。</p>
+<p>经过调试，发现其实运用Java的Logger可以很简单的实现(或许Android已经做了处理)，在adb logcat中输出。好了，演示一下。</p>
+<p>引入包<br>import java.util.logging.Logger;<br>static Logger logger = Logger.getLogger(“mytag”);<br>logger.info(“blala”);<br>然后在adb logcat直接输出就行了。标签是mytag</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2016/05/26/Android_Log/" data-id="cj2vheo8s0003t4wmq1tuamdu" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/log/">log</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/trace/">trace</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/26/Protocol_HTTP_MITM/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          HTTP MITM
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/05/26/Android_dumpstack/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Android 打印函数调用栈</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+<div id="SOHUCS" sid="Android Log"></div>
+<script>
+  (function(){
+    var appid = 'cysWY506v',
+    conf = 'prod_b3fbdae0e52a1e5b116b4b9fe328664b';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>    
+</section>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2012 - 2017 进无止境&#39;s 博客 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				<span id="busuanzi_container_site_uv"> 访客数 : <span id="busuanzi_value_site_uv"></span></span> |  
+				<span id="busuanzi_container_site_pv"> 访问量 : <span id="busuanzi_value_site_pv"></span></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            进无止境&#39;s 博客
+          </div>
+          <div class="panel-body">
+            Copyright © 2017 Jim All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+</body>
+</html>

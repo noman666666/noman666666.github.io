@@ -165,11 +165,11 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-Android_update" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Android_sync_asyncmd" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
-	<a href="/2016/04/26/Android_update/" class="article-date">
-	  <time datetime="2016-04-26T02:37:33.000Z" itemprop="datePublished">2016-04-26</time>
+	<a href="/2016/10/21/Android_sync_asyncmd/" class="article-date">
+	  <time datetime="2016-10-21T07:13:00.000Z" itemprop="datePublished">2016-10-21</time>
 	</a>
 
     
@@ -183,7 +183,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2016/04/26/Android_update/">Android 升级</a>
+      <a class="article-title" href="/2016/10/21/Android_sync_asyncmd/">Android 中同步和并发实现的几个方式</a>
     </h1>
   
 
@@ -191,17 +191,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>待定。。。</p>
-<h1 id="升级包-OTA-包-增量包-编译制作过程"><a href="#升级包-OTA-包-增量包-编译制作过程" class="headerlink" title="升级包 OTA 包 增量包 编译制作过程"></a>升级包 OTA 包 增量包 编译制作过程</h1><p>to do</p>
-<h1 id="升级流程"><a href="#升级流程" class="headerlink" title="升级流程"></a>升级流程</h1><p><a href="http://blog.csdn.net/chenyufei1013/article/details/12705719" target="_blank" rel="external">http://blog.csdn.net/chenyufei1013/article/details/12705719</a></p>
+        <h1 id="1-关键字synchronized"><a href="#1-关键字synchronized" class="headerlink" title="1. 关键字synchronized"></a>1. 关键字synchronized</h1><p>实例方法同步/静态方法同步<br>class Demo{<br>    public synchronized void print(){ //实例方法<br>        System.out.println(“print”);<br>    }<br>    public static synchronized void print2(){ //静态方法<br>        System.out.println(“print2”);<br>    }<br>}<br>Demo demo1;    //同一时间段只能有一个线程可以访问demo1.print<br>Demo demo2;    //可以同时访问demo1.print  和 demo2.print<br>                           //同一时间段只能有一个线程可以访问demo1.print2 或者 demo2.print2</p>
+<p>实例方法中同步块    //分为对象锁和全局的Class锁，<br>静态方法中同步块    //只有全局锁</p>
+<p>static synchronized方法也相当于全局锁synchronized(xxx.class)   如果{}范围相同的话<br>synchronized方法也相当于synchronized(this)    如果{}范围相同的话</p>
+<h1 id="2-类java-util-concurrent-locks-ReentrantLock-（比synchronized-功能更全更灵活，-还多了锁投票，定时锁等候和中断锁）"><a href="#2-类java-util-concurrent-locks-ReentrantLock-（比synchronized-功能更全更灵活，-还多了锁投票，定时锁等候和中断锁）" class="headerlink" title="2. 类java.util.concurrent.locks.ReentrantLock  （比synchronized 功能更全更灵活， 还多了锁投票，定时锁等候和中断锁）"></a>2. 类java.util.concurrent.locks.ReentrantLock  （比synchronized 功能更全更灵活， 还多了锁投票，定时锁等候和中断锁）</h1><p>lock()         如果获取了锁立即返回，如果别的线程持有锁，当前线程则一直处于休眠状态，直到获取锁<br>tryLock()    如果获取了锁立即返回true，如果别的线程正持有锁，立即返回false；<br>tryLock(long timeout,TimeUnit unit)<br>                  如果获取了锁定立即返回true，如果别的线程正持有锁，会等待参数给定的时间，在等待的过程中，如果获取了锁定，就返回true，如果等待超时，返回false；<br>lockInterruptibly<br>                  如果获取了锁定立即返回，如果没有获取锁定，当前线程处于休眠状态，直到或者锁定，或者当前线程被别的线程中断</p>
+<p>异同：<br>synchronized是在JVM层面上实现的，不但可以通过一些监控工具监控synchronized的锁定，而且在代码执行时出现异常，JVM会自动释放锁定，但是使用Lock则不行，lock是通过代码实现的，要保证锁定一定会被释放，就必须将unLock()放到finally{}中</p>
+<p>在资源竞争不是很激烈的情况下，Synchronized的性能要优于ReetrantLock，但是在资源竞争很激烈的情况下，Synchronized的性能会下降几十倍，但是ReetrantLock的性能能维持常态；</p>
+<h1 id="3-AtomicBoolean、AtomicInteger、AtomicLong、AtomicReference"><a href="#3-AtomicBoolean、AtomicInteger、AtomicLong、AtomicReference" class="headerlink" title="3. AtomicBoolean、AtomicInteger、AtomicLong、AtomicReference:"></a>3. AtomicBoolean、AtomicInteger、AtomicLong、AtomicReference:</h1><p>在32位操作系统中，64位的long 和 double 变量由于会被JVM当作两个分离的32位来进行操作，所以不具有原子性。而使用AtomicLong能让long的操作保持原子型。<br>区别：<br>和上面的类似，不激烈情况下，性能比synchronized略逊，而激烈的时候，也能维持常态。激烈的时候，Atomic的性能会优于ReentrantLock一倍左右。但是其有一个缺点，就是只能同步一个值，一段代码中只能出现一个Atomic的变量，多于一个同步无效。因为他不能在多个Atomic之间同步。 </p>
+<h1 id="4-特殊域变量-volatile-实现线程同步"><a href="#4-特殊域变量-volatile-实现线程同步" class="headerlink" title="4. 特殊域变量(volatile)实现线程同步"></a>4. 特殊域变量(volatile)实现线程同步</h1><pre><code>a.volatile关键字为域变量的访问提供了一种免锁机制， 
+b.使用volatile修饰域相当于告诉虚拟机该域可能会被其他线程更新， 
+c.因此每次使用该域就要重新计算，而不是使用寄存器中的值 
+d.volatile不会提供任何原子操作，它也不能用来修饰final类型的变量 
+</code></pre><h1 id="5-使用局部变量实现线程同步"><a href="#5-使用局部变量实现线程同步" class="headerlink" title="5. 使用局部变量实现线程同步"></a>5. 使用局部变量实现线程同步</h1><p>如果使用ThreadLocal管理变量，则每一个使用该变量的线程都获得该变量的副本，<br>    副本之间相互独立，这样每一个线程都可以随意修改自己的变量副本，而不会对其他线程产生影响。</p>
+<p>明天看下ThreadLocal</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="jingg.me/2016/04/26/Android_update/" data-id="cj2jo348g00006swmacf2se02" class="article-share-link">分享</a>
+      <a data-url="jingg.me/2016/10/21/Android_sync_asyncmd/" data-id="cj2vheo94000lt4wmd2fw7jfy" class="article-share-link">分享</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OTA/">OTA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recovery/">recovery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/update-img/">update.img</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/升级/">升级</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReentrantLock/">ReentrantLock</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/synchronized/">synchronized</a></li></ul>
 
     </footer>
   </div>
@@ -211,11 +221,11 @@
 
 
   
-    <article id="post-Android_HAL" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Android_SEpolicy" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
-	<a href="/2016/04/26/Android_HAL/" class="article-date">
-	  <time datetime="2016-04-26T02:37:33.000Z" itemprop="datePublished">2016-04-26</time>
+	<a href="/2016/10/12/Android_SEpolicy/" class="article-date">
+	  <time datetime="2016-10-12T10:22:33.000Z" itemprop="datePublished">2016-10-12</time>
 	</a>
 
     
@@ -229,7 +239,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2016/04/26/Android_HAL/">Android HAL 模型</a>
+      <a class="article-title" href="/2016/10/12/Android_SEpolicy/">Android SEpolicy策略规则</a>
     </h1>
   
 
@@ -237,287 +247,468 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>前言暂时省略…</p>
-<h1 id="Android-HAL层模型"><a href="#Android-HAL层模型" class="headerlink" title="Android HAL层模型"></a>Android HAL层模型</h1><p>直接上图:<br><img src="http://f1.freep.cn/585107/Android_HAL.png" alt="Android_HAL"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2016/04/26/Android_HAL/" data-id="cj2jo349p00086swmjxl8m1rm" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hal/">hal</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Linux_FileOperationAPI" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2015/11/30/Linux_FileOperationAPI/" class="article-date">
-	  <time datetime="2015-11-29T16:00:00.000Z" itemprop="datePublished">2015-11-30</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2015/11/30/Linux_FileOperationAPI/">Linux 文件操作API</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="open"><a href="#open" class="headerlink" title="open"></a>open</h1><pre><code>#include &lt;sys/types.h&gt;
-#include &lt;sys/stat.h&gt;
-#include &lt;fcntl.h&gt;
-
-int open(const char *pathname, int flags); //打开一个现有的文件
-int open(const char *pathname, int flags, mode_t mode);  //打开文件不存在，则先创建
-
-【flags】:----------
-O_RDONLY, O_WRONLY, or O_RDWR.  这三个之一必备
-O_APPEND:  The file is opened in append mode.
-O_ASYNC:   This feature is available only for terminals, pseudoterminals, sockets, pipes and FIFOs 
-O_CLOEXEC: Enable the close-on-exec flag for the new file descriptor.
-    了解这个选项需要明白fork后跟随exec和fork后不跟随exec的区别
-    fork之后若跟随执行exec后，该进程执行的程序完全替换为新程序，而新程序则从其main函数开始执行。因为调用exec并不创建新进程，所以先后的进程ID并未改变。exec只是用一个全新的程序替换了当前进程的正文、数据、堆和栈段。
-    也就是说之前的打开的文件描述符fd会被清理掉，导致打开的文件句柄无法释放，所以有了这个选项，在当前进程执行exec族函数时，会先做一个清理工作，close掉当前进程的文件描述符，再载入要执行的程序到当前进程环境。
-
-O_CREAT:-
-    【mode】: （如果是新建文件，就设置初始访问权限）
-        S_IRWXU  00700 user (file owner) has read, write and execute permission
-        S_IRUSR  00400 user has read permission
-        S_IWUSR  00200 user has write permission
-        S_IXUSR  00100 user has execute permission
-        S_IRWXG  00070 group has read, write and execute permission
-        S_IRGRP  00040 group has read permission
-        S_IWGRP  00020 group has write permission
-        S_IXGRP  00010 group has execute permission
-        S_IRWXO  00007 others have read, write and execute permission
-        S_IROTH  00004 others have read permission
-        S_IWOTH  00002 others have write permission
-        S_IXOTH  00001 others have execute permission
-        多个模式可位或 bitwise-or
-
-O_DIRECT:    Try to minimize cache effects of the I/O to and from this file.
-O_DIRECTORY: If  pathname is not a directory, cause the open to fail.
-O_EXCL:      如果同时指定了O_CREAT，而文件已经存在，则导致调用出错
-O_LARGEFILE: 
-O_NOATIME:   
-O_NOCTTY: 如果pathname指的是终端设备(tty)，则不将此设备分配作为此进程的控制终端
-O_NOFOLLOW
-O_NONBLOCK : When possible, the file is opened in nonblocking mode.
-O_PATH: 
-O_SYNC: The file is opened for synchronous I/O. Any write(2)s on the resulting file descriptor will block  
-        the calling process until the data has been physically written to the underlying hardware.
-        只在数据被写入外存或者其他设备之后操作才返回
-O_TRUNC: If  the  file already exists and is a regular file and the open mode allows writing
-         (i.e., is O_RDWR or O_WRONLY) it will be truncated to length 0.
-        如果文件存在，而且为读写或只写方式打开，则将其长度截断为0
-</code></pre><h1 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h1><pre><code>ls -l
-drwxr-xr-x. 2 anxier anxier 4096 1月 15 00:29 desktop
-第一栏的信息包含10字符。第1个字符，表示文件的类型；第2～4位，代表文件所有者（User）的权限，分别为读、写、执行；第5～7位，代表文件所有者的同组用户（Group）的权限，分别是读、写、执行；第8～10位，代表其他用户（Other）的权限，分别为读、写、执行。
-</code></pre><table>
-<thead>
-<tr>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-<th>6</th>
-<th>7</th>
-<th>8</th>
-<th>9</th>
-<th>10</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-/l/c/s/d/b/p</td>
-<td>r/-</td>
-<td>w/-</td>
-<td>x/-</td>
-<td>r/-</td>
-<td>w/-</td>
-<td>x/-</td>
-<td>r/-</td>
-<td>w/-</td>
-<td>x/-</td>
-</tr>
-</tbody>
-</table>
-<pre><code>- 普通文件
-d 目录文件      文本文件和二进制文件。
-l 链接文件
-b 块设备文件
-c 字符设备文件
-p 管道文件      用于在进程间传递数据
-s 套接口文件
-</code></pre><h1 id="ioctl"><a href="#ioctl" class="headerlink" title="ioctl"></a>ioctl</h1><pre><code>#include &lt;sys/ioctl.h&gt;
-
-int ioctl(int d, int request, ...);
-
-request: ----
-    TIOCSETD int *ldisc change the line discipline:
-    TTYDISC termios interactive line discipline
-    TABLDISC tablet line discipline
-    SLIPDISC serial IP line discipline
-    PPPDISC PPP line discipline
-    TIOCGETD int *ldisc return the current line discipline
-    TIOCSBRK set the terminal into BREAK condition
-    TIOCCBRK clear the terminal BREAK condition
-    TIOCSDTR assert data terminal ready
-    TIOCCDTR clear data terminal ready
-    TIOCGPGRP int *tpgrp return the terminal&apos;s process group
-    TIOCSPGRP int *tpgrp associate the terminal&apos;s process group
-    TIOCGETA struct termios *term get the terminal&apos;s termios attributes
-    TIOCSETA struct termios *term set the terminal&apos;s termios attributes
-    TIOCSETAW struct termios *term set the termios attrs after any output completes
-    TIOCSETAF struct termios *term after any output completes, clear input and set termios attrs
-    TIOCOUTQ int *num current number of characters in the output queue
-    TIOCSTI char *cp manually send a character to the terminal
-    TIOCSTOP stop output (like typing ^S)
-    TIOCSTART start output (like typing ^Q)
-    TIOCSCTTY make this the controlling terminal for the process
-    TIOCDRAIN wait until all output is drained
-    TIOCEXCL set exclusive use on the terminal
-    TIOCNXCL clear exclusive use of the terminal
-    TIOCFLUSH int *what clear input/output if `what&apos; has FREAD/FWRITE set
-    TIOCGWINSZ struct winsize *ws get the winsize information
-    TIOCSWINSZ struct winsize *ws set the winsize information
-    TIOCCONS int *on redirect kernel console messages
-    TIOCMSET int *state set the modem state bit flags according to the following:
-    TIOCM_LE Line Enable
-    TIOCM_DTR Data Terminal Ready
-    TIOCM_RTS Request To Send
-    TIOCM_ST Secondary Transmit
-    TIOCM_SR Secondary Receive
-    TIOCM_CTS Clear To Send
-    TIOCM_CAR Carrier Detect
-    TIOCM_CD Carrier Detect (synonym)
-    TIOCM_RNG Ring Indication
-    TIOCM_RI Ring Indication (synonym)
-    TIOCM_DSR Data Set Ready
-    TIOCMGET int *state get the modem state bit flags
-    TIOCMBIS int *state add modem state bit flags, OR-ing in the new states
-    TIOCMBIC int *state clear modem state bit flags
+        <h1 id="SEAndroid中各种实体的SContext-定义"><a href="#SEAndroid中各种实体的SContext-定义" class="headerlink" title="SEAndroid中各种实体的SContext 定义"></a>SEAndroid中各种实体的SContext 定义</h1><p>介绍进程、文件/目录、服务、系统属性等SContext 定义</p>
+<h5 id="进程的SContext（以system-server进程为例）（对应每个进程的te文件）"><a href="#进程的SContext（以system-server进程为例）（对应每个进程的te文件）" class="headerlink" title="进程的SContext（以system_server进程为例）（对应每个进程的te文件）"></a>进程的SContext（以system_server进程为例）（对应每个进程的te文件）</h5><pre><code>u:r:system_server:s0           system    494   186   system_server
+u表示user SELinux用户
+r表示SELinux角色
+system_server表示domain，该域的权限定义在策略文件system_server.te中
+s0表示MLS中的级别，Android中可忽略
+</code></pre><h5 id="file和dir的SContext（以system目录为例）（在file-contexts定义）"><a href="#file和dir的SContext（以system目录为例）（在file-contexts定义）" class="headerlink" title="file和dir的SContext（以system目录为例）（在file_contexts定义）"></a>file和dir的SContext（以system目录为例）（在file_contexts定义）</h5><pre><code>drwxr-xr-x root     root              u:object_r:system_file:s0 system
+object_r表示文件对象
+system_file表示文件类型
+</code></pre><h5 id="fs-use-在fs-use定义"><a href="#fs-use-在fs-use定义" class="headerlink" title="fs_use(在fs_use定义)"></a>fs_use(在fs_use定义)</h5><pre><code>// to do
+</code></pre><h5 id="生成-文件系统的-SContext-（在genfs-contexts定义）"><a href="#生成-文件系统的-SContext-（在genfs-contexts定义）" class="headerlink" title="生成 文件系统的 SContext （在genfs_contexts定义）"></a>生成 文件系统的 SContext （在genfs_contexts定义）</h5><pre><code>genfscon rootfs / u:object_r:rootfs:s0
+genfscon usbfs  / u:object_r:usbfs:s0
+</code></pre><h5 id="property的SContext（在property-contexts定义）"><a href="#property的SContext（在property-contexts定义）" class="headerlink" title="property的SContext（在property_contexts定义）"></a>property的SContext（在property_contexts定义）</h5><pre><code>*                       u:object_r:default_prop:s0    //默认property SContext
+hw.                     u:object_r:system_prop:s0
+</code></pre><h5 id="service的SContext（在service-contexts定义）"><a href="#service的SContext（在service-contexts定义）" class="headerlink" title="service的SContext（在service_contexts定义）"></a>service的SContext（在service_contexts定义）</h5><pre><code>*                       u:object_r:default_android_service:s0   //默认服务SContext
+package                 u:object_r:system_server_service:s0     //package 服务  （在shell中执行service list查看所有服务）
 </code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2015/11/30/Linux_FileOperationAPI/" data-id="cj270vhpu000szvwmrj5j0tn4" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ioctl/">ioctl</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/open/">open</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Android_NDKPorting_Za" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2015/11/30/Android_NDKPorting_Za/" class="article-date">
-	  <time datetime="2015-11-29T16:00:00.000Z" itemprop="datePublished">2015-11-30</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2015/11/30/Android_NDKPorting_Za/">Android NDK移植杂项</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p>android上gcc编译与linux上有点点差别：<br> ndk中gcc不需要需要显式指定-lpthread。Android pthread系列函数libc_bionic.a(即bionic C库)中，所以在默认就会链接。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2015/11/30/Android_NDKPorting_Za/" data-id="cj270vhow0003zvwm51iytiby" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NDK/">NDK</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Android_SourceCodePathGuide" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2015/11/30/Android_SourceCodePathGuide/" class="article-date">
-	  <time datetime="2015-11-29T16:00:00.000Z" itemprop="datePublished">2015-11-30</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2015/11/30/Android_SourceCodePathGuide/">Android 源码目录解析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Android 源码目录繁多，本文旨在更详尽做出说明。<br>.<br>├── abi<br>├── art<br>├── bionic<br>├── bootable<br>├── build<br>├── cts<br>├── dalvik<br>├── developers<br>├── development<br>├── device<br>├── docs<br>├── external<br>├── frameworks<br>├── hardware<br>├── libcore<br>├── libnativehelper<br>├── ndk<br>├── packages<br>├── pdk<br>├── prebuilts<br>├── sdk<br>├── system<br>└── tools</p>
-<p>待续。。。<br>
         
           <p class="article-more-link">
-            <a href="/2015/11/30/Android_SourceCodePathGuide/#more">Read More</a>
+            <a href="/2016/10/12/Android_SEpolicy/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="jingg.me/2015/11/30/Android_SourceCodePathGuide/" data-id="cj270vhoy0006zvwmfvcm7jvy" class="article-share-link">分享</a>
+      <a data-url="jingg.me/2016/10/12/Android_SEpolicy/" data-id="cj270vhos0001zvwmagunxlfz" class="article-share-link">分享</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Code/">Code</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Source/">Source</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SEAndroid/">SEAndroid</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sepolicy/">sepolicy</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Android_JNI_Guide" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2016/10/08/Android_JNI_Guide/" class="article-date">
+	  <time datetime="2016-10-08T04:22:33.000Z" itemprop="datePublished">2016-10-08</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/10/08/Android_JNI_Guide/">Android JNI介绍及使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JNI-介绍"><a href="#JNI-介绍" class="headerlink" title="JNI 介绍"></a>JNI 介绍</h1><p>JNI是Java Native Interface的缩写，它提供了若干的API实现了Java和其他语言的通信（主要是C&amp;C++）。</p>
+<h1 id="JNI-类型"><a href="#JNI-类型" class="headerlink" title="JNI 类型"></a>JNI 类型</h1><p><img src="http://i.imgur.com/EoSp6Hu.png" alt=""></p>
+<p>jni中结构体层次结构</p>
+<p><img src="http://i.imgur.com/GPDJQPc.png" alt=""></p>
+<p>下面是访问String的一些方法：</p>
+<pre><code>GetStringUTFChars 将jstring转换成为UTF-8格式的char*    /  ReleaseStringUTFChars  释放指向UTF-8格式的char*的指针
+GetStringChars    将jstring转换成为Unicode格式的char*  /  ReleaseStringChars     释放指向Unicode格式的char*的指针
+
+NewStringUTF      创建一个UTF-8格式的String对象
+NewString         创建一个Unicode格式的String对象
+GetStringUTFLengt 获取 UTF-8格式的char*的长度　
+GetStringLength   获取Unicode格式的char*的长度
+</code></pre>
+        
+          <p class="article-more-link">
+            <a href="/2016/10/08/Android_JNI_Guide/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2016/10/08/Android_JNI_Guide/" data-id="cj270vhoi0000zvwm4hm0i7b6" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JNI/">JNI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/native调用/">native调用</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Android_uid_pid_appid" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2016/08/31/Android_uid_pid_appid/" class="article-date">
+	  <time datetime="2016-08-31T06:43:33.000Z" itemprop="datePublished">2016-08-31</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/08/31/Android_uid_pid_appid/">Android Pid/Tid/UserId/PackageName/ProcessName/shareUserId/签名</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这篇博文只能算是笔记了，比较杂。</p>
+<p>Pid         : Linux 进程ID<br>Tid         : Linux 线程ID，或者任务ID<br>UID         : Android中的UID不同于Linux中的UID，Linux中UID是针对多用户操作系统中用于区分用户的；而Android中的UID是分配给各个进程使用，用来做权限管理的。<br>userID      : Android自从Android 4.2.2 之后就有支持多用户的拓展，只不过现在只有user 只有一个 = 0，故userID = 0。<br>AppID       : 单用户时和UID值是一样的。<br>shareUserId : 拥有同一个UID的多个APK可以配置成运行在同一个进程中. 所以默认就是可以互相访问任意数据. 也可以配置成运行成不同的进程, 同时可以访问其他APK的数据目录下的数据库和文件. 就像访问本程序的数据一样.<br>              e.g. android:sharedUserId=”android.uid.system” “android.uid.phone” “android.uid.bluetooth”<br>                                        “android.uid.shell” “android.uid.calendar” “android.uid.shared” “android.media” “android.uid.systemui” </p>
+<pre><code>e.g. android:sharedUserId=&quot;com.rainwii.share&quot;
+</code></pre><p>签名 : 1. Android 标准签名为platform  media shared testkey/releasekey； 2. 第三方签名<br>       可以在源码的/build/target/product/security里面看到对应的密钥，其中shared.pk8代表私钥，shared.x509.pem公钥，一定是成对出现的。</p>
+<p>LOCAL_CERTIFICATE : 配置应用使用什么签名 platform  media shared 或者第三方签名 presigned， 默认配置的话使用testkey/releasekey .</p>
+<p>注：<br>shareUserID一样的，签名也必须相同</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/08/31/Android_uid_pid_appid/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2016/08/31/Android_uid_pid_appid/" data-id="cj2vheo95000ot4wmnh05hu33" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APK反编译，APK签名/">APK反编译，APK签名</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Android_Others" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2016/08/08/Android_Others/" class="article-date">
+	  <time datetime="2016-08-08T07:13:00.000Z" itemprop="datePublished">2016-08-08</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/08/08/Android_Others/">Android 杂项</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="命令行启动jar包"><a href="#命令行启动jar包" class="headerlink" title="命令行启动jar包"></a>命令行启动jar包</h1><p>export CLASSPATH=/system/framework/sg.jar<br>trap “” HUP<br>exec app_process /system/bin com.china_liantong.commands.SGCmdToolManager systemtask exec “ping -c 1 192.168.0.1”</p>
+<p>exec app_process /system/bin com.china_liantong.commands.SGCmdToolManager systemtask exec “ping -c 1 192.168.0.1”</p>
+<h1 id="获取包名"><a href="#获取包名" class="headerlink" title="获取包名"></a>获取包名</h1><p>String callingApp = context.getPackageManager().getNameForUid(Binder.getCallingUid());<br>context.getPackageName 区别</p>
+<h1 id="sendBroadcast-amp-BroadcastReceiver"><a href="#sendBroadcast-amp-BroadcastReceiver" class="headerlink" title="sendBroadcast &amp; BroadcastReceiver"></a>sendBroadcast &amp; BroadcastReceiver</h1><p>MainActivity.java<br>public class MainActivity extends Activity {<br>    private static final String MY_ACTION = “com.android.notification.MY_ACTION”;<br>    public void onCreate(Bundle savedInstanceState) {<br>        btn.setOnClickListener(listener);<br>    }<br>    private OnClickListener listener = new OnClickListener() {<br>        @Override<br>        public void onClick(View v) {<br>            // 实例化Intent<br>            Intent intent = new Intent();<br>            // 设置Intent action属性<br>            intent.setAction(MY_ACTION);<br>            // 发起广播<br>            sendBroadcast(intent);<br>        }<br>    }<br>}</p>
+<p>MyReceiver.java<br>public class MyReceiver extends BroadcastReceiver{<br>    @Override<br>    public void onReceive(Context context, Intent intent) {<br>        // 实例化Intent<br>        Intent i = new Intent();<br>        // 在新的任务中启动Activity<br>        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);<br>        // 设置Intent启动的组件名称<br>        i.setClass(context, SecondActivity.class);<br>        // 启动Activity显示通知<br>        context.startActivity(i);<br>    }<br>}</p>
+<p>SecondActivity.java<br>public class SecondActivity extends Activity {<br>    public void onCreate(Bundle savedInstanceState) {</p>
+<pre><code>}
+</code></pre><p>}</p>
+<p>AndroidManifest.xml<br>&lt;?xml version=”1.0” encoding=”utf-8”?&gt; </p>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.android.notification" android:versioncode="1" android:versionname="1.0"><br>    <uses-sdk android:minsdkversion="10"><br>    <application android:icon="@drawable/icon" android:label="@string/app_name"><br>        <activity android:name=".MainActivity" android:label="@string/app_name"><br>            <intent-filter><br>                <action android:name="android.intent.action.MAIN"><br>                <category android:name="android.intent.category.LAUNCHER"><br>            </category></action></intent-filter><br>        </activity><br>        <receiver android:name="MyReceiver"><br>            <intent-filter><br>                <action android:name="com.android.notification.MY_ACTION"><br>            </action></intent-filter><br>        </receiver><br>        <activity android:name="SecondActivity"><br>    </activity></application><br></uses-sdk></manifest> 
+
+
+
+<h1 id="屏幕超时休眠配置："><a href="#屏幕超时休眠配置：" class="headerlink" title="屏幕超时休眠配置："></a>屏幕超时休眠配置：</h1><p>packages/apps/Settings/res/values/arrays.xml       //菜单项配置</p>
+<p>frameworks/base/packages/SettingsProvider/res/values/defaults.xml   // 默认值配置<br>Lollipop/device/rockchip/common/overlay_screenoff/frameworks/base/packages/SettingsProvider/res/values/defaults.xml  //默认值配置</p>
+<h1 id="adb-connect-提示-unable-to-connect-to解决方法"><a href="#adb-connect-提示-unable-to-connect-to解决方法" class="headerlink" title="adb connect 提示 unable to connect to解决方法"></a>adb connect 提示 unable to connect to解决方法</h1><p>使用ADB 连接Android设备时，提示连接失败，在Android设备中执行以下命令，重试</p>
+<p>setprop service.adb.tcp.port 5555<br>stop adbd<br>start adbd</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2016/08/08/Android_Others/" data-id="cj2vheo8u0005t4wmnpnnclm0" class="article-share-link">分享</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Android_Layout" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2016/08/08/Android_Layout/" class="article-date">
+	  <time datetime="2016-08-08T07:00:13.000Z" itemprop="datePublished">2016-08-08</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/08/08/Android_Layout/">Android 布局</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="layout-gravity-和-gravity"><a href="#layout-gravity-和-gravity" class="headerlink" title="layout_gravity 和 gravity"></a>layout_gravity 和 gravity</h1><p>layout_gravity 表示本组件自身在父组件中的位置<br>gravity        表示本组件的子组件在组件中的位置</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2016/08/08/Android_Layout/" data-id="cj2vheo8g0001t4wmbduja8zi" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UI/">UI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/layout/">layout</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Sqlite_operate" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2016/07/28/Sqlite_operate/" class="article-date">
+	  <time datetime="2016-07-28T11:11:33.000Z" itemprop="datePublished">2016-07-28</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/sqlite/">sqlite</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/07/28/Sqlite_operate/">Sqlite</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Sqlite3-在Android-shell中操作"><a href="#Sqlite3-在Android-shell中操作" class="headerlink" title="Sqlite3 在Android shell中操作"></a>Sqlite3 在Android shell中操作</h1><p>adb shell<br>cd /data/data/com.android.providers.securityguard/databases<br>sqlite3 securityguard.db<br>.table<br>select * from SystemTaskPerm;</p>
+<p>INSERT INTO SystemTaskPerm (id, ‘packagename’, ‘cmd’, ‘args’, ‘reserved’, auth) VALUES (4, ‘com.a.b’, ‘ip’ , ‘’, ‘’, 1);</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2016/07/28/Sqlite_operate/" data-id="cj2vheo9t001gt4wmfjdjcekp" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/db/">db</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sqlite/">sqlite</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Lang_CPP_static" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2016/05/28/Lang_CPP_static/" class="article-date">
+	  <time datetime="2016-05-28T04:22:33.000Z" itemprop="datePublished">2016-05-28</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/C/">C++</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/05/28/Lang_CPP_static/">C++的static用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>C++ 中static 关键字用法可以从两个方面来区分，一个是面向过程，另一个是面向对象。面向过程有三种用法，面向对象有两种用法。下文将详细讲解。</p>
+<h1 id="用法详解（从作用域，生命周期角度来解释）"><a href="#用法详解（从作用域，生命周期角度来解释）" class="headerlink" title="用法详解（从作用域，生命周期角度来解释）"></a>用法详解（从作用域，生命周期角度来解释）</h1><blockquote>
+<p>面向过程</p>
+</blockquote>
+<p>文件内全局static变量 （和C一样）<br>    作用域：本文件内<br>    生命周期：程序退出</p>
+<p>函数内static变量 （和C一样）<br>    作用域：本函数内<br>    生命周期：程序退出</p>
+<p>文件内static函数 （和C一样）<br>    作用域：本文件内<br>    生命周期：N/A</p>
+<blockquote>
+<p>面向对象</p>
+</blockquote>
+<p>类中static成员变量<br>    用法：使用时不用实例化，与类实例无关。（静态数据成员存储在全局数据区，静态数据成员定义时要分配空间，所以不能在类声明中定义。应该在类外定义。此外，在类体外定义时不能指定static关键字）。<br>    初始化格式：&lt;数据类型&gt;&lt;类名&gt;::&lt;静态数据成员&gt; = &lt;值&gt;<br>    作用域：遵从类的public、private、protected访问规则<br>    生命周期：程序退出</p>
+<p>类中static成员方法<br>    用法：可以引用static成员变量。无法访问属于类对象的非静态数据成员变量/函数。此外，类体外定义时不能指定static关键字<br>         调用static成员方法方式： XClass::xxx_static_fun()、XClassInstant.xxx_static_fun()、XClassInstantP-&gt;xxx_static_fun()<br>    作用域：遵从类的public、private、protected访问规则<br>    生命周期：N/A</p>
+<h1 id="附1（可执行文件内存布局）"><a href="#附1（可执行文件内存布局）" class="headerlink" title="附1（可执行文件内存布局）"></a>附1（可执行文件内存布局）</h1><p><img src="http://f1.freep.cn/585107/exec_view.bmp" alt="exec_view">   </p>
+<ol>
+<li>.text 代码段存放可执行指令</li>
+<li>.data 初始化后数据 {<br> a. 只读数据区(const全局变量 字符串)<br> b. 已初始化可读数据区——全局区(全局变量)<br> c. 已初始化可读数据区——全局静态区(static全局变量) </li>
+<li>.bss 未初始化数据（只记录数据需要多少空间，不为其真正分配内存）<br> a. 未初始化静态和全局变量</li>
+<li>.heap 运行时malloc动态分配的数据占用空间<br> a. 动态内存分配</li>
+<li>.stack 函数运行时分配的自动变量占用空间<br> a. 局部变量、函数参数</li>
+<li>从可执行文件a.out的角度来讲，如果一个数据未被初始化那就不需要为其分配空间，所以.data和.bss一个重要的区别就是.bss并不占用可执行文件的大小，它只是记载需要多少空间来存储这些未初始化数据，而不分配实际的空间</li>
+</ol>
+<h1 id="附2（参考）"><a href="#附2（参考）" class="headerlink" title="附2（参考）"></a>附2（参考）</h1><p><a href="http://blog.csdn.net/kerry0071/article/details/25741425/" target="_blank" rel="external">http://blog.csdn.net/kerry0071/article/details/25741425/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2016/05/28/Lang_CPP_static/" data-id="cj2fzecz90001hxwmer6jxyuc" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/static/">static</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Lang_CPP_xxx_cast" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2016/05/28/Lang_CPP_xxx_cast/" class="article-date">
+	  <time datetime="2016-05-28T04:22:33.000Z" itemprop="datePublished">2016-05-28</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/C/">C++</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/05/28/Lang_CPP_xxx_cast/">C++的类型转换——隐式、显式转换(xxx_cast)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="第一部分-隐式类型转换"><a href="#第一部分-隐式类型转换" class="headerlink" title="第一部分. 隐式类型转换"></a>第一部分. 隐式类型转换</h1><pre><code>算数运算float + int =&gt; float  、  赋值int = float、传参、返回值
+</code></pre><h1 id="第二部分-显式类型转换"><a href="#第二部分-显式类型转换" class="headerlink" title="第二部分.显式类型转换"></a>第二部分.显式类型转换</h1><pre><code>C风格
+    (type) value
+
+C++风格
+    static_cast、dynamic_cast、reinterpret_cast和const_cast 
+</code></pre>
+        
+          <p class="article-more-link">
+            <a href="/2016/05/28/Lang_CPP_xxx_cast/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2016/05/28/Lang_CPP_xxx_cast/" data-id="cj270vhpv000vzvwmp9969xxe" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/const-cast/">const_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dynamic-cast/">dynamic_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reinterpret-cast/">reinterpret_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/static-cast/">static_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/类型转换/">类型转换</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Lang_C" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2016/05/28/Lang_C/" class="article-date">
+	  <time datetime="2016-05-28T04:22:33.000Z" itemprop="datePublished">2016-05-28</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/C/">C++</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/05/28/Lang_C/">C++的类型转换——隐式、显式转换(xxx_cast)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="第一部分-隐式类型转换"><a href="#第一部分-隐式类型转换" class="headerlink" title="第一部分. 隐式类型转换"></a>第一部分. 隐式类型转换</h1><pre><code>算数运算float + int =&gt; float  、  赋值int = float、传参、返回值
+</code></pre><h1 id="第二部分-显式类型转换"><a href="#第二部分-显式类型转换" class="headerlink" title="第二部分.显式类型转换"></a>第二部分.显式类型转换</h1><pre><code>C风格
+    (type) value
+
+C++风格
+    static_cast、dynamic_cast、reinterpret_cast和const_cast 
+</code></pre>
+        
+          <p class="article-more-link">
+            <a href="/2016/05/28/Lang_C/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2016/05/28/Lang_C/" data-id="cj270vhqi002azvwmyrkf30v3" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/const-cast/">const_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dynamic-cast/">dynamic_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reinterpret-cast/">reinterpret_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/static-cast/">static_cast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/类型转换/">类型转换</a></li></ul>
 
     </footer>
   </div>
@@ -531,7 +722,7 @@ request: ----
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/3/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">下一页 &raquo;</a>
   </nav>
 
 </section>

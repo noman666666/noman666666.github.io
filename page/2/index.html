@@ -165,10 +165,10 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-Android_init_rc" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-InputSystem002_LinuxInputSubSystem" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
-	<a href="/2017/04/12/Android_init_rc/" class="article-date">
+	<a href="/2017/04/12/InputSystem002_LinuxInputSubSystem/" class="article-date">
 	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
 	</a>
 
@@ -183,7 +183,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/12/Android_init_rc/">Android init.rc</a>
+      <a class="article-title" href="/2017/04/12/InputSystem002_LinuxInputSubSystem/">Input系统——Linux 输入子系统</a>
     </h1>
   
 
@@ -191,19 +191,86 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="init-rc"><a href="#init-rc" class="headerlink" title="init.rc"></a>init.rc</h1><p>待续。。。<br>
+        <p>待整理完善。。。</p>
+<h3 id="1-struct-input-dev"><a href="#1-struct-input-dev" class="headerlink" title="1. struct input_dev"></a>1. struct input_dev</h3><pre><code>struct input_dev {
+    const char *name; //名字 
+    const char *phys;
+    const char *uniq;
+    struct input_id id;
+
+    unsigned long propbit[BITS_TO_LONGS(INPUT_PROP_CNT)];
+
+    unsigned long evbit[BITS_TO_LONGS(EV_CNT)];    // 设备所支持的事件类型
+
+    unsigned long keybit[BITS_TO_LONGS(KEY_CNT)];  // 按键类型 
+    unsigned long relbit[BITS_TO_LONGS(REL_CNT)];  // 相对值类型
+    unsigned long absbit[BITS_TO_LONGS(ABS_CNT)];  // 绝对值类型
+    unsigned long mscbit[BITS_TO_LONGS(MSC_CNT)];  // 混合类型
+    unsigned long ledbit[BITS_TO_LONGS(LED_CNT)];  // LED类型
+    unsigned long sndbit[BITS_TO_LONGS(SND_CNT)];  // 声音类型
+    unsigned long ffbit[BITS_TO_LONGS(FF_CNT)];    // 力反馈
+    unsigned long swbit[BITS_TO_LONGS(SW_CNT)];    // 开关类型???
+</code></pre>
         
           <p class="article-more-link">
-            <a href="/2017/04/12/Android_init_rc/#more">Read More</a>
+            <a href="/2017/04/12/InputSystem002_LinuxInputSubSystem/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="jingg.me/2017/04/12/Android_init_rc/" data-id="cj1ypru6q0009mxwmt3by8q26" class="article-share-link">分享</a>
+      <a data-url="jingg.me/2017/04/12/InputSystem002_LinuxInputSubSystem/" data-id="cj1ypru750010mxwmfiik6g4m" class="article-share-link">分享</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/init-rc/">init.rc</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event/">event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input/">input</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input系统/">input系统</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-InputSystem001_LinuxInputDriver" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2017/04/12/InputSystem001_LinuxInputDriver/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/12/InputSystem001_LinuxInputDriver/">Input系统——Linux驱动</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>待续…</p>
+        
+          <p class="article-more-link">
+            <a href="/2017/04/12/InputSystem001_LinuxInputDriver/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2017/04/12/InputSystem001_LinuxInputDriver/" data-id="cj1ypru74000wmxwm6mg6fhhy" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event/">event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input/">input</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input系统/">input系统</a></li></ul>
 
     </footer>
   </div>
@@ -253,6 +320,352 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OTA/">OTA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recovery/">recovery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/update/">update</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-InputSystem004_type_code" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2017/04/12/InputSystem004_type_code/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/12/InputSystem004_type_code/">Input系统——TYPE CODE</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Event-Type-amp-Code"><a href="#Event-Type-amp-Code" class="headerlink" title="Event Type&amp;Code"></a>Event Type&amp;Code</h1><pre><code>EV_SYN:  - 用于事件间的分割标志。事件可能按时间或空间进行分割，就像在多点触摸协议中的例子。
+    SYN_REPORT:    - 当多个输入数据在同一时间发生变化时，SYN_REPORT用于把这些数据进行打包和包同步。
+                例如，一次鼠标的移动可以上报   REL_X和REL_Y两个数值，然后发出一个SYN_REPORT。
+                下一次鼠标移动可以再次发出REL_X和REL_Y两个数值，然后经跟这另一个SYN_REPORT。
+
+    SYN_MT_REPORT: - 用于同步和分离触摸事件
+    SYN_DROPPED:   - 用来指出evdev客户的事件队列的的缓冲区溢出。
+
+EV_KEY:  - 用来描述键盘，按键或者类似键盘设备的状态变化。
+    KEY_&lt;name&gt;:    - EV_KEY事件采取KEY_&lt;name&gt; 或BTN_&lt;name&gt;的形式，
+                        比如，KEY_A代表键盘上的A键，当一个按键被按下时，一个带有按键编码和value为1的事件被发出。
+                        当一个按键被释放时，一个value为0的事件被发出。有些硬件当按键重复时会发出事件，这些事件的value值为2。
+                        通常，KEY_&lt;name&gt;用作键盘上的按键，而BTN_&lt;name&gt;则用于开关按钮事件。 
+                   - 普通键盘按键     0x0~0x100     0x160~0x2ff
+                   - 游戏柄的按键     0x100~0x110   0x120~0x140
+                   - 鼠标按键         BTN_MOUSE-BTN_LEFT-0x110-左键；  BTN_RIGHT-0x111-右键；  BTN_MIDDLE-0x112-中键；
+    BTN_&lt;name&gt;:    - see above
+</code></pre>
+        
+          <p class="article-more-link">
+            <a href="/2017/04/12/InputSystem004_type_code/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2017/04/12/InputSystem004_type_code/" data-id="cj1ypru7a0016mxwmxmtuw3ui" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event/">event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input/">input</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input系统/">input系统</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Android_encryption_signature" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2017/04/12/Android_encryption_signature/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/12/Android_encryption_signature/">Android APP加密和签名</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p>基本概念<br>公钥加密、私钥解密是密送，保证消息即使公开也只有私钥持有者能读懂。<br>私钥加密、公钥解密是签名，保证消息来源是私钥持有者。</p>
+</li>
+<li><p>签名的作用<br>Android系统不会安装没有进行签名的应用程序<br> 给apk签名可以带来以下好处：</p>
+<pre><code>1. 应用程序升级
+2. 应用程序模块化：Android系统可以允许同一个证书签名的多个应用程序在一个进程里运行
+3. 代码或者数据共享：Android提供了基于签名的权限机制，那么一个应用程序就可以为另一个以
+   相同证书签名的应用程序公开自己的功能。
+</code></pre></li>
+<li><p>Android标准签名<br>build/target/product/security目录中有四组默认签名供Android.mk在编译APK使用：<br>1、testkey/releasekey：普通APK，默认情况下使用。<br>2、platform：该APK完成一些系统的核心功能。经过对系统中存在的文件夹的访问测试，这种方式编译出来的APK所在进程的                        UID为system。<br>3、shared：该APK需要和home/contacts进程共享数据。<br>4、media：该APK是media/download系统中的一环。</p>
+</li>
+</ol>
+<p>生成platform media 等签名文件<br>/work/aurora/development/tools/make_key：<br>sh make_key releasekey ‘/C=CN/ST=HuBei/L=WuHan/O=Company/OU=Department/CN=YourName/emailAddress=YourE-mailAddress’</p>
+<ol>
+<li>第三方生成签名<br>使用/work/sign下的工具生成系统签名jks文件：（供AS 或者 eclipse 使用）<br>./keytool-importkeypair -k lt_system_me.jks -p liantong -pk8 platform.pk8 -cert platform.x509.pem -alias lt_system</li>
+</ol>
+<p>单独给APK签名：<br>out/host/linux-x86/framework/signapk.jar<br>build/target/product/security/*<br>也可以从网上下载。使用方法，以platform为例：<br>java -jar ./signapk.jar platform.x509.pem platform.pk8 input.apk output.apk<br> (platform.x509.pem私钥 platform.pk8公钥 在build/target/product/security获取)</p>
+<ol>
+<li>APP中签名后生成文件<br>APP中META-INF/CERT.RSA 文件数字签名以及一个数字证书<br>机构密钥标识符AuthorityKeyIdentifier<br>基本限制BasicConstraints<br>主体密钥标识符SubjectKeyIdentifier</li>
+</ol>
+<p>Owner: CN=ZhaoXin, OU=ZhaoXin, O=ZhaoXin, L=Shanghai, ST=Shanghai, C=CN<br>Issuer: CN=ZhaoXin, OU=ZhaoXin, O=ZhaoXin, L=Shanghai, ST=Shanghai, C=CN<br>Serial number: 8e8825ec8c2efe44<br>Valid from: Tue Apr 22 16:58:39 CST 2014 until: Sat Sep 07 16:58:39 CST 2041<br>Certificate fingerprints:<br>         MD5:  55:16:F4:38:BD:49:BE:38:47:03:9B:B6:CA:AE:33:AD<br>         SHA1: 43:E0:FE:6E:76:BF:53:62:84:15:1B:BD:17:03:67:F1:56:E0:BB:18<br>         SHA256: 0B:6D:62:97:01:A8:5A:63:27:50:D1:EC:AD:47:59:B9:83:3E:0D:92:A5:E8:FE:95:9D:F0:7E:F2:DC:30:75:05<br>         Signature algorithm name: SHA1withRSA<br>         Version: 3</p>
+<p>Extensions: </p>
+<p>#1: ObjectId: 2.5.29.35 Criticality=false<br>AuthorityKeyIdentifier [<br>KeyIdentifier [<br>0000: CF FF A6 88 A3 A8 ED 04   C1 60 2F FD 96 EC BC E9  ………`/…..<br>0010: D3 B4 5F AD                                        .._.<br>]<br>]</p>
+<p>#2: ObjectId: 2.5.29.19 Criticality=false<br>BasicConstraints:[<br>  CA:true<br>  PathLen:2147483647<br>]</p>
+<p>#3: ObjectId: 2.5.29.14 Criticality=false<br>SubjectKeyIdentifier [<br>KeyIdentifier [<br>0000: CF FF A6 88 A3 A8 ED 04   C1 60 2F FD 96 EC BC E9  ………`/…..<br>0010: D3 B4 5F AD                                        .._.<br>]<br>]</p>
+<ol>
+<li>查看签名<br>查看签名<br>keytool -printcert -file META-INF/CERT.RSA</li>
+</ol>
+<p>查看keystone信息：<br>keytool -list -keystore debug.keystore </p>
+<ol>
+<li><p>其他<br>反编译<br>./apktool d[ecode] xxx.apk -o <dir></dir></p>
+</li>
+<li><p>AndroidStudio中签名配置<br>???<br>app 未知源检测原理（不同系统不一样吗，不同应用市场是不是也不一样？）<br>Y:\aurora\development\samples\Home    sample-Launcher<br>系统Launcher启动流程分析</p>
+</li>
+</ol>
+<pre><code>signingConfigs {
+    release {
+        keyAlias &apos;lt_system&apos;
+        keyPassword &apos;liantong&apos;
+        storeFile file(&apos;D:/25264/Android/Project/SGTest/signedAPK/lt_system.jks&apos;)
+        storePassword &apos;liantong&apos;
+    }
+    release2 {
+        keyAlias &apos;lt_system&apos;
+        keyPassword &apos;liantong&apos;
+        storeFile file(&apos;D:/25264/Android/Project/SGTest/signedAPK/lt_system_me.jks&apos;)
+        storePassword &apos;liantong&apos;
+    }
+}
+</code></pre><h3 id="SeeAlso"><a href="#SeeAlso" class="headerlink" title="SeeAlso"></a>SeeAlso</h3><p>《APK 反编译及签名工具》</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2017/04/12/Android_encryption_signature/" data-id="cj2vheo8z000dt4wmi9y0ba0k" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/加密/">加密</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/签名/">签名</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-InputSystem003_AndroidInputSystem" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2017/04/12/InputSystem003_AndroidInputSystem/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/12/InputSystem003_AndroidInputSystem/">Input系统——Android Input系统</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Input系统结构解析"><a href="#Input系统结构解析" class="headerlink" title="Input系统结构解析"></a>Input系统结构解析</h1><p>AndroidInput系统——JNI NativeInputManager InputManger InputReader<br><img src="https://docs.google.com/drawings/d/1DoS3SayZNpAqAMpjQ8h0O1eSb1nb9r9V7c47TjvqO2o/pub?w=998&amp;h=918" alt=""></p>
+        
+          <p class="article-more-link">
+            <a href="/2017/04/12/InputSystem003_AndroidInputSystem/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2017/04/12/InputSystem003_AndroidInputSystem/" data-id="cj1ypru780013mxwmzta6ittl" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event/">event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input/">input</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input系统/">input系统</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Android_device.mk" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2017/04/12/Android_device.mk/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/12/Android_device.mk/">Android device.mk</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="PRODUCT-COPY-FILES"><a href="#PRODUCT-COPY-FILES" class="headerlink" title="PRODUCT_COPY_FILES"></a>PRODUCT_COPY_FILES</h1><p>通过android提供的PRODUCT_COPY_FILES这个变量来自动拷贝，只需要给此变量赋值。   //这里需要注意一点， PRODUCT_COPY_FILES 不能在 Android.mk 中使用 添加新的Copy 项！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2017/04/12/Android_device.mk/" data-id="cj2vheo8v0007t4wmwqbsf6nd" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/device-mk/">device.mk</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Android_mk" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2017/04/12/Android_mk/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/12/Android_mk/">Android.mk</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Android-mk"><a href="#Android-mk" class="headerlink" title="Android.mk"></a>Android.mk</h1><p>待续。。。<br>
+        
+          <p class="article-more-link">
+            <a href="/2017/04/12/Android_mk/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2017/04/12/Android_mk/" data-id="cj1ypru6s000bmxwmg0jojzha" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-mk/">Android.mk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Makefile/">Makefile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/build/">build</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Android_Sensor" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2017/04/12/Android_Sensor/" class="article-date">
+	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/12/Android_Sensor/">Android Framework层 Sensor 框架</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>待续…<br><a href="http://processors.wiki.ti.com/index.php/Android_Sensor_PortingGuide">http://processors.wiki.ti.com/index.php/Android_Sensor_PortingGuide</a></p>
+        
+          <p class="article-more-link">
+            <a href="/2017/04/12/Android_Sensor/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2017/04/12/Android_Sensor/" data-id="cj1ypru6n0006mxwmcbob3vnh" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sensor/">sensor</a></li></ul>
 
     </footer>
   </div>
@@ -312,379 +725,11 @@
 
 
   
-    <article id="post-Android_Sensor" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2017/04/12/Android_Sensor/" class="article-date">
-	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/12/Android_Sensor/">Android Framework层 Sensor 框架</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>待续…<br><a href="http://processors.wiki.ti.com/index.php/Android_Sensor_PortingGuide">http://processors.wiki.ti.com/index.php/Android_Sensor_PortingGuide</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2017/04/12/Android_Sensor/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2017/04/12/Android_Sensor/" data-id="cj1ypru6n0006mxwmcbob3vnh" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sensor/">sensor</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-InputSystem001_LinuxInputDriver" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2017/04/12/InputSystem001_LinuxInputDriver/" class="article-date">
-	  <time datetime="2017-04-12T04:22:33.000Z" itemprop="datePublished">2017-04-12</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/12/InputSystem001_LinuxInputDriver/">Input系统——Linux驱动</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>待续…</p>
-        
-          <p class="article-more-link">
-            <a href="/2017/04/12/InputSystem001_LinuxInputDriver/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2017/04/12/InputSystem001_LinuxInputDriver/" data-id="cj1ypru74000wmxwm6mg6fhhy" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event/">event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input/">input</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/input系统/">input系统</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-RK_AndroidPartitionInfo" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2017/04/11/RK_AndroidPartitionInfo/" class="article-date">
-	  <time datetime="2017-04-11T09:35:57.000Z" itemprop="datePublished">2017-04-11</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/RK/">RK</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/11/RK_AndroidPartitionInfo/">RK平台分区信息</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>RK 分区信息和一般Android 系统分区有些许区别，下面我们来看看</p>
-        
-          <p class="article-more-link">
-            <a href="/2017/04/11/RK_AndroidPartitionInfo/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2017/04/11/RK_AndroidPartitionInfo/" data-id="cj270vhq20019zvwmdh35o6cq" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RK/">RK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分区/">分区</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Android_Build_Img" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2017/04/11/Android_Build_Img/" class="article-date">
-	  <time datetime="2017-04-11T09:35:57.000Z" itemprop="datePublished">2017-04-11</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/11/Android_Build_Img/">Android编译系统——ramdisk.img system.img userdata.img recovery.img目标编译过程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="image-介绍"><a href="#image-介绍" class="headerlink" title="image 介绍"></a>image 介绍</h2><pre><code>boot.img      Android 的初始文件映像，负责初始化并加载 system 分区，一般Android系统这个镜像中包含ramdisk.img根文件系统+kernel（RK平台的boot.img是没包含kernel部分的）
-recovery.img  恢复模式系统启动镜像。内容和boot.img雷同（RK平台recovery.img包含kernel部分），但是其中的ramdisk.img（ramdisk-recovery.img）有些许不同：
-              recovery.fstab文件、sbin下部分工具、build.prop、init.bootmode.emmc.rc、sepolicy等
-
-ramdisk.img   是根文件系统，是root目录打包成的镜像（ramdisk-recovery.img）
-system.img    包括了主要的包、库等文件
-userdata.img  包括了一些用户数据
-</code></pre>
-        
-          <p class="article-more-link">
-            <a href="/2017/04/11/Android_Build_Img/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2017/04/11/Android_Build_Img/" data-id="cj270vhq9001jzvwm2ljimfus" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/image/">image</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译/">编译</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-RK_AndroidPartitionSizeModifyGuide" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2017/04/11/RK_AndroidPartitionSizeModifyGuide/" class="article-date">
-	  <time datetime="2017-04-11T01:01:57.000Z" itemprop="datePublished">2017-04-11</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/11/RK_AndroidPartitionSizeModifyGuide/">RK平台Android分区大小修改说明</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>不同于一般的Android系统（一般Android系统分区信息在BoardConfig.mk BoardConfigCommon.mk中），RK平台的分区信息文件在自带的烧录工具包中的parameter文件中</p>
-        
-          <p class="article-more-link">
-            <a href="/2017/04/11/RK_AndroidPartitionSizeModifyGuide/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2017/04/11/RK_AndroidPartitionSizeModifyGuide/" data-id="cj270vhq6001gzvwm81y0jvj6" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RK/">RK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分区/">分区</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Other_HexoSetUp" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2017/04/07/Other_HexoSetUp/" class="article-date">
-	  <time datetime="2017-04-07T10:01:57.000Z" itemprop="datePublished">2017-04-07</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/杂项/">杂项</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/07/Other_HexoSetUp/">Hexo入手</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="1-安装nodejs"><a href="#1-安装nodejs" class="headerlink" title="1. 安装nodejs"></a>1. 安装nodejs</h4><pre><code>从官网下载对应平台binary 包，安装（linux直接将bin lib目录的文件cp到usr/local对应目录下，Window直接点击安装）
-</code></pre><h4 id="2-安装hexo"><a href="#2-安装hexo" class="headerlink" title="2. 安装hexo"></a>2. 安装hexo</h4><pre><code>npm install hexo-cli -g
-</code></pre>
-        
-          <p class="article-more-link">
-            <a href="/2017/04/07/Other_HexoSetUp/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2017/04/07/Other_HexoSetUp/" data-id="cj270vhq00012zvwmmukji6sr" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网页博客/">网页博客</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Android_fstab" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-	<a href="/2017/04/07/Android_fstab/" class="article-date">
-	  <time datetime="2017-04-07T08:01:57.000Z" itemprop="datePublished">2017-04-07</time>
-	</a>
-
-    
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/07/Android_fstab/">Android fstab介绍</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="ubuntu-fstab文件格式"><a href="#ubuntu-fstab文件格式" class="headerlink" title="ubuntu fstab文件格式"></a>ubuntu fstab文件格式</h2><pre><code>下面是/etc/fatab文件的一个示例行：
-fs_spec     fs_file fs_type     fs_options  fs_dump    fs_pass
-/dev/hda1   /       ext2        defaults    1          1    
-
-fs_spec - 该字段定义希望加载的文件系统所在的设备或远程文件系统，对于一般的本地块设备情况来说：IDE设备一般描述为
-          /dev/hdaXN，X是IDE设备通道 (a, b, or c)，N代表分区号；SCSI设备一描述为/dev/sdaXN。对于NFS情况，格式一般为:
-         例 如：`knuth.aeb.nl:/&apos;。对于procfs，使用`proc&apos;来定义。
-fs_file - 该字段描述希望的文件系统加载的目录点，对于swap设备，该字段为none；对于加载目录名包含空格的情况，用40来
-          表示空格。
-fs_type - 定义了该设备上的文件系统，一般常见的文件类型为ext2 (linux设备的常用文件类型)、vfat(Windows系统的fat32格
-          式)、NTFS、iso9600等。
-fs_options - 指定加载该设备的文件系统是需要使用的特定参数选项，多个参数是由逗号分隔开来。对于大多数系统使用&quot;defaults&quot;
-             就可以满足需要。其他常见的选项包括：
-            选项含义:
-            ro      以只读模式加载该文件系统
-            sync    不对该设备的写操作进行缓冲处理，这可以防止在非正常关机时情况下破坏文件系统，但是却降低了计算机速度
-            user    允许普通用户加载该文件系统
-            quota   强制在该文件系统上进行磁盘定额限制
-            noauto  不再使用mount －a命令（例如系统启动时）加载该文件系统
-
-fs_dump 该选项被&quot;dump&quot;命令使用来检查一个文件系统应该以多快频率进行转储，若不需要转储就设置该字段为0
-fs_pass 该字段被fsck命令用来决定在启动时需要被扫描的文件系统的顺序，根文件系统&quot;/&quot;对应该字段的值应该为1，
-                    其他文件系统应该为2。若该文件系统无需在启动时扫描则设置该字段为0
-</code></pre>
-        
-          <p class="article-more-link">
-            <a href="/2017/04/07/Android_fstab/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="jingg.me/2017/04/07/Android_fstab/" data-id="cj270vhps000pzvwms9gb1jaj" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fstab/">fstab</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
   </nav>
 
 </section>

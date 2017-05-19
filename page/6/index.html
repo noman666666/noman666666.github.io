@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>进无止境&#39;s 博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta property="og:type" content="website">
+<meta property="og:title" content="进无止境's 博客">
+<meta property="og:url" content="jingg.me/page/6/index.html">
+<meta property="og:site_name" content="进无止境's 博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="进无止境's 博客">
+  
+    <link rel="alternate" href="/atom.xml" title="进无止境&#39;s 博客" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/home.css" >
+  
+
+  
+
+  
+
+</head>
+
+
+
+  <body>
+
+
+  
+    <header id="header">
+
+  
+    <div id="intrologo" class="intro-logo">
+  
+
+    <canvas width="100%" height="100%"></canvas>
+    <script>
+      var c = document.getElementsByTagName('canvas')[0],
+          x = c.getContext('2d'),
+          w = window.innerWidth,
+          h = window.innerHeight,
+          pr = window.devicePixelRatio || 1,
+          f = 90,
+          q,
+          m = Math,
+          r = 0,
+          u = m.PI*2,
+          v = m.cos,
+          z = m.random
+      c.width = w*pr
+      c.height = h*pr
+      x.scale(pr, pr)
+      x.globalAlpha = 0.6
+
+      
+        function i(){
+            x.clearRect(0,0,w,h)
+            q=[{x:0,y:h*.7+f},{x:0,y:h*.7-f}]
+            while(q[1].x<w+f) d(q[0], q[1])
+        }
+        function d(i,j){   
+            x.beginPath()
+            x.moveTo(i.x, i.y)
+            x.lineTo(j.x, j.y)
+            var k = j.x + (z()*2-0.25)*f,
+                n = y(j.y)
+            x.lineTo(k, n)
+            x.closePath()
+            r-=u/-50
+            x.fillStyle = '#'+(v(r)*127+128<<16 | v(r+u/3)*127+128<<8 | v(r+u/3*2)*127+128).toString(16)
+            x.fill()
+            q[0] = q[1]
+            q[1] = {x:k,y:n}
+        }
+        function y(p){
+            var t = p + (z()*2-1.1)*f
+            return (t>h||t<0) ? y(p) : t
+        }
+        document.getElementById("intrologo").onclick = i
+        document.getElementById("intrologo").ontouchstart = i
+        i()
+      
+    </script>
+    
+
+    
+      <div id="homelogo" class="homelogo"> 
+    
+
+        
+          <div class="homelogoback" >
+            <h1><a href="#content" id="logo">进无止境&#39;s 博客</a></h1>
+            <h3></h3>
+            <h5>Jim</h5>
+            <!-- <p><a href="https://github.com/iTimeTraveler" target="_blank">Github</a></p> -->
+          </div>
+        
+    
+    </div>
+  </div>
+
+  <!-- 自适应主页背景大图 -->
+  
+
+ <!-- home_logo_image居中 -->
+ 
+    <script>
+        var homelogodiv = document.getElementById("homelogo");
+        if (document.all.homelogo.offsetWidth > document.body.clientWidth) {
+          homelogodiv.style.width = document.body.clientWidth + "px";
+          homelogodiv.style.marginLeft = document.body.clientWidth * -0.5 + "px";
+        } else {
+          homelogodiv.style.width = homelogodiv.clientWidth  + "px";
+          homelogodiv.style.marginLeft = (homelogodiv.clientWidth)  * -0.5 + "px";
+        }
+    </script>
+  
+
+  <div class="intro-navigate">
+      <p class="navigater-list">
+        
+          <a id="beautifont" class="main-nav-link" href="/">首页</a>
+        
+          <a id="beautifont" class="main-nav-link" href="/archives">归档</a>
+        
+          <a id="beautifont" class="main-nav-link" href="/about">关于</a>
+        
+      </p>
+  </div>
+
+</header>
+  
+  <div id="container">
+    <div id="wrap">
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;">
+  
+    <article id="post-Android_HAL" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2016/04/26/Android_HAL/" class="article-date">
+	  <time datetime="2016-04-26T02:37:33.000Z" itemprop="datePublished">2016-04-26</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/04/26/Android_HAL/">Android HAL 模型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前言暂时省略…</p>
+<h1 id="Android-HAL层模型"><a href="#Android-HAL层模型" class="headerlink" title="Android HAL层模型"></a>Android HAL层模型</h1><p>直接上图:<br><img src="http://f1.freep.cn/585107/Android_HAL.png" alt="Android_HAL"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2016/04/26/Android_HAL/" data-id="cj2jo349p00086swmjxl8m1rm" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hal/">hal</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Protocol_HTTP_MITM" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2016/04/26/Protocol_HTTP_MITM/" class="article-date">
+	  <time datetime="2016-04-26T02:37:33.000Z" itemprop="datePublished">2016-04-26</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Network/">Network</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/04/26/Protocol_HTTP_MITM/">HTTP MITM</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先明确一个概念：非对称加密算法</p>
+<blockquote>
+<p>非对称加密算法需要两个密钥：公开密钥（publickey）和私有密钥（privatekey）。公开密钥与私有密钥是一对，如果用公开密钥对数据进行加密，只有用对应的私有密钥才能解密；如果用私有密钥对数据进行加密，那么只有用对应的公开密钥才能解密。<br>HTTPS协议中，前面的握手过程，服务器会将公钥发给客户端，客户端验证后生成一个密钥用公钥加密后发送给服务器，成功后建立通信。<br>通信过程客户端将请求数据用得到的公钥加密后，发给服务器，服务器用私钥解密。服务器用客户端给的密钥加密响应报文，发回给客户端，客户端用自己存的密钥解密。</p>
+</blockquote>
+<p>忽略掉其他例如确定协议和版本号之类的环节，提炼出来的重要环节如下：</p>
+<p><img src="http://f1.freep.cn/585107/http_MITM.jpg" alt="http_MIMA"></p>
+        
+          <p class="article-more-link">
+            <a href="/2016/04/26/Protocol_HTTP_MITM/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2016/04/26/Protocol_HTTP_MITM/" data-id="cj2vheo9r001dt4wm3w1ia5b4" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MITM/">MITM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Linux_FileOperationAPI" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2015/11/30/Linux_FileOperationAPI/" class="article-date">
+	  <time datetime="2015-11-29T16:00:00.000Z" itemprop="datePublished">2015-11-30</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2015/11/30/Linux_FileOperationAPI/">Linux 文件操作API</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="open"><a href="#open" class="headerlink" title="open"></a>open</h1><pre><code>#include &lt;sys/types.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;fcntl.h&gt;
+
+int open(const char *pathname, int flags); //打开一个现有的文件
+int open(const char *pathname, int flags, mode_t mode);  //打开文件不存在，则先创建
+
+【flags】:----------
+O_RDONLY, O_WRONLY, or O_RDWR.  这三个之一必备
+O_APPEND:  The file is opened in append mode.
+O_ASYNC:   This feature is available only for terminals, pseudoterminals, sockets, pipes and FIFOs 
+O_CLOEXEC: Enable the close-on-exec flag for the new file descriptor.
+    了解这个选项需要明白fork后跟随exec和fork后不跟随exec的区别
+    fork之后若跟随执行exec后，该进程执行的程序完全替换为新程序，而新程序则从其main函数开始执行。因为调用exec并不创建新进程，所以先后的进程ID并未改变。exec只是用一个全新的程序替换了当前进程的正文、数据、堆和栈段。
+    也就是说之前的打开的文件描述符fd会被清理掉，导致打开的文件句柄无法释放，所以有了这个选项，在当前进程执行exec族函数时，会先做一个清理工作，close掉当前进程的文件描述符，再载入要执行的程序到当前进程环境。
+
+O_CREAT:-
+    【mode】: （如果是新建文件，就设置初始访问权限）
+        S_IRWXU  00700 user (file owner) has read, write and execute permission
+        S_IRUSR  00400 user has read permission
+        S_IWUSR  00200 user has write permission
+        S_IXUSR  00100 user has execute permission
+        S_IRWXG  00070 group has read, write and execute permission
+        S_IRGRP  00040 group has read permission
+        S_IWGRP  00020 group has write permission
+        S_IXGRP  00010 group has execute permission
+        S_IRWXO  00007 others have read, write and execute permission
+        S_IROTH  00004 others have read permission
+        S_IWOTH  00002 others have write permission
+        S_IXOTH  00001 others have execute permission
+        多个模式可位或 bitwise-or
+
+O_DIRECT:    Try to minimize cache effects of the I/O to and from this file.
+O_DIRECTORY: If  pathname is not a directory, cause the open to fail.
+O_EXCL:      如果同时指定了O_CREAT，而文件已经存在，则导致调用出错
+O_LARGEFILE: 
+O_NOATIME:   
+O_NOCTTY: 如果pathname指的是终端设备(tty)，则不将此设备分配作为此进程的控制终端
+O_NOFOLLOW
+O_NONBLOCK : When possible, the file is opened in nonblocking mode.
+O_PATH: 
+O_SYNC: The file is opened for synchronous I/O. Any write(2)s on the resulting file descriptor will block  
+        the calling process until the data has been physically written to the underlying hardware.
+        只在数据被写入外存或者其他设备之后操作才返回
+O_TRUNC: If  the  file already exists and is a regular file and the open mode allows writing
+         (i.e., is O_RDWR or O_WRONLY) it will be truncated to length 0.
+        如果文件存在，而且为读写或只写方式打开，则将其长度截断为0
+</code></pre><h1 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h1><pre><code>ls -l
+drwxr-xr-x. 2 anxier anxier 4096 1月 15 00:29 desktop
+第一栏的信息包含10字符。第1个字符，表示文件的类型；第2～4位，代表文件所有者（User）的权限，分别为读、写、执行；第5～7位，代表文件所有者的同组用户（Group）的权限，分别是读、写、执行；第8～10位，代表其他用户（Other）的权限，分别为读、写、执行。
+</code></pre><table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-/l/c/s/d/b/p</td>
+<td>r/-</td>
+<td>w/-</td>
+<td>x/-</td>
+<td>r/-</td>
+<td>w/-</td>
+<td>x/-</td>
+<td>r/-</td>
+<td>w/-</td>
+<td>x/-</td>
+</tr>
+</tbody>
+</table>
+<pre><code>- 普通文件
+d 目录文件      文本文件和二进制文件。
+l 链接文件
+b 块设备文件
+c 字符设备文件
+p 管道文件      用于在进程间传递数据
+s 套接口文件
+</code></pre><h1 id="ioctl"><a href="#ioctl" class="headerlink" title="ioctl"></a>ioctl</h1><pre><code>#include &lt;sys/ioctl.h&gt;
+
+int ioctl(int d, int request, ...);
+
+request: ----
+    TIOCSETD int *ldisc change the line discipline:
+    TTYDISC termios interactive line discipline
+    TABLDISC tablet line discipline
+    SLIPDISC serial IP line discipline
+    PPPDISC PPP line discipline
+    TIOCGETD int *ldisc return the current line discipline
+    TIOCSBRK set the terminal into BREAK condition
+    TIOCCBRK clear the terminal BREAK condition
+    TIOCSDTR assert data terminal ready
+    TIOCCDTR clear data terminal ready
+    TIOCGPGRP int *tpgrp return the terminal&apos;s process group
+    TIOCSPGRP int *tpgrp associate the terminal&apos;s process group
+    TIOCGETA struct termios *term get the terminal&apos;s termios attributes
+    TIOCSETA struct termios *term set the terminal&apos;s termios attributes
+    TIOCSETAW struct termios *term set the termios attrs after any output completes
+    TIOCSETAF struct termios *term after any output completes, clear input and set termios attrs
+    TIOCOUTQ int *num current number of characters in the output queue
+    TIOCSTI char *cp manually send a character to the terminal
+    TIOCSTOP stop output (like typing ^S)
+    TIOCSTART start output (like typing ^Q)
+    TIOCSCTTY make this the controlling terminal for the process
+    TIOCDRAIN wait until all output is drained
+    TIOCEXCL set exclusive use on the terminal
+    TIOCNXCL clear exclusive use of the terminal
+    TIOCFLUSH int *what clear input/output if `what&apos; has FREAD/FWRITE set
+    TIOCGWINSZ struct winsize *ws get the winsize information
+    TIOCSWINSZ struct winsize *ws set the winsize information
+    TIOCCONS int *on redirect kernel console messages
+    TIOCMSET int *state set the modem state bit flags according to the following:
+    TIOCM_LE Line Enable
+    TIOCM_DTR Data Terminal Ready
+    TIOCM_RTS Request To Send
+    TIOCM_ST Secondary Transmit
+    TIOCM_SR Secondary Receive
+    TIOCM_CTS Clear To Send
+    TIOCM_CAR Carrier Detect
+    TIOCM_CD Carrier Detect (synonym)
+    TIOCM_RNG Ring Indication
+    TIOCM_RI Ring Indication (synonym)
+    TIOCM_DSR Data Set Ready
+    TIOCMGET int *state get the modem state bit flags
+    TIOCMBIS int *state add modem state bit flags, OR-ing in the new states
+    TIOCMBIC int *state clear modem state bit flags
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2015/11/30/Linux_FileOperationAPI/" data-id="cj270vhpu000szvwmrj5j0tn4" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ioctl/">ioctl</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/open/">open</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Android_NDKPorting_Za" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2015/11/30/Android_NDKPorting_Za/" class="article-date">
+	  <time datetime="2015-11-29T16:00:00.000Z" itemprop="datePublished">2015-11-30</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2015/11/30/Android_NDKPorting_Za/">Android NDK移植杂项</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p>android上gcc编译与linux上有点点差别：<br> ndk中gcc不需要需要显式指定-lpthread。Android pthread系列函数libc_bionic.a(即bionic C库)中，所以在默认就会链接。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2015/11/30/Android_NDKPorting_Za/" data-id="cj270vhow0003zvwm51iytiby" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NDK/">NDK</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Android_SourceCodePathGuide" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+	<a href="/2015/11/30/Android_SourceCodePathGuide/" class="article-date">
+	  <time datetime="2015-11-29T16:00:00.000Z" itemprop="datePublished">2015-11-30</time>
+	</a>
+
+    
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2015/11/30/Android_SourceCodePathGuide/">Android 源码目录解析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Android 源码目录繁多，本文旨在更详尽做出说明。<br>.<br>├── abi<br>├── art<br>├── bionic<br>├── bootable<br>├── build<br>├── cts<br>├── dalvik<br>├── developers<br>├── development<br>├── device<br>├── docs<br>├── external<br>├── frameworks<br>├── hardware<br>├── libcore<br>├── libnativehelper<br>├── ndk<br>├── packages<br>├── pdk<br>├── prebuilts<br>├── sdk<br>├── system<br>└── tools</p>
+<p>待续。。。<br>
+        
+          <p class="article-more-link">
+            <a href="/2015/11/30/Android_SourceCodePathGuide/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="jingg.me/2015/11/30/Android_SourceCodePathGuide/" data-id="cj270vhoy0006zvwmfvcm7jvy" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Code/">Code</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Source/">Source</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/5/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+  </nav>
+
+</section>
+        
+      </div>
+      
+        <div align="center" style="margin-top: 30px;"><hr class="hr" style="margin:0px; height:3px;"></div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2012 - 2017 进无止境&#39;s 博客 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				<span id="busuanzi_container_site_uv"> 访客数 : <span id="busuanzi_value_site_uv"></span></span> |  
+				<span id="busuanzi_container_site_pv"> 访问量 : <span id="busuanzi_value_site_pv"></span></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+
+
+  <script src="/js/home.js"></script>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            进无止境&#39;s 博客
+          </div>
+          <div class="panel-body">
+            Copyright © 2017 Jim All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+</body>
+</html>
